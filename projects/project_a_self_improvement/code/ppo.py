@@ -98,13 +98,17 @@ class PPOAgent:
     in Appendix B if reviewer asks about variance.
     """
 
-    def __init__(self, cfg: PPOConfig, device: str = "cpu"):
+    def __init__(self, cfg: PPOConfig, device: str = "cpu",
+                 policy_net: nn.Module | None = None,
+                 value_net: nn.Module | None = None):
         torch.manual_seed(cfg.seed)
         np.random.seed(cfg.seed)
         self.cfg = cfg
         self.device = device
-        self.policy = Policy(cfg.obs_dim, cfg.n_actions, cfg.hidden).to(device)
-        self.value = ValueNet(cfg.obs_dim, cfg.hidden).to(device)
+        self.policy = (policy_net if policy_net is not None
+                       else Policy(cfg.obs_dim, cfg.n_actions, cfg.hidden)).to(device)
+        self.value = (value_net if value_net is not None
+                      else ValueNet(cfg.obs_dim, cfg.hidden)).to(device)
         self.opt = torch.optim.Adam(
             list(self.policy.parameters()) + list(self.value.parameters()),
             lr=cfg.lr,

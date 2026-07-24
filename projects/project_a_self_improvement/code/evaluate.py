@@ -23,7 +23,8 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from envs import EpisodeLog, is_failure_episode, make_env, rollout_one_episode
+from envs import EpisodeLog, Transition, is_failure_episode, make_env, rollout_one_episode
+from envs import create_procgen_env, PROCGEN_GAME_GROUPS, percentile_failure_threshold
 from monitor import FailureMonitor, MonitorConfig
 from ppo import Policy
 
@@ -36,10 +37,14 @@ def get_args():
     p = argparse.ArgumentParser()
     p.add_argument("--env", default="CartPole-v1")
     p.add_argument("--n-episodes", type=int, default=100)
-    p.add_argument("--seed", type=int, default=1)  # different from training seed!
+    p.add_argument("--seed", type=int, default=1)
     p.add_argument("--history-len", type=int, default=32)
     p.add_argument("--threshold", type=float, default=0.5,
                    help="decision threshold for failure classification")
+    p.add_argument("--procgen", action="store_true",
+                   help="evaluate on a procgen game (set --env to game name)")
+    p.add_argument("--procgen-checkpoint", type=str, default="checkpoints/procgen",
+                   help="directory with procgen policy checkpoints")
     return p.parse_args()
 
 
@@ -75,6 +80,10 @@ def pearson(x: np.ndarray, y: np.ndarray) -> float:
 
 def main():
     args = get_args()
+
+    if args.procgen:
+        return _evaluate_procgen(args)
+
     env = make_env(args.env, seed=args.seed)
     obs_dim = env.observation_space.shape[0]
 
@@ -164,6 +173,81 @@ def main():
     }
     (CKPT_DIR / "eval_log.json").write_text(json.dumps(out, indent=2))
     print(f"\n[saved] {CKPT_DIR / 'eval_log.json'}")
+
+
+def _evaluate_procgen(args):
+    """Evaluate on a procgen game with percentile-based threshold."""
+    from encoders import ProcgenEncoder
+
+    game = args.env
+    assert game in envs.ALL_PROCGEN_GAMES, f"Unknown procgen game: {game}"
+
+    encoder = ProcgenEncoder(target_size=32)
+    ckpt_dir = Path(args.procgen_checkpoint)
+    policy_path = ckpt_dir / f"{game}_policy.pt"
+
+    if not policy_path.exists():
+        print(f"[error] checkpoint not found: {policy_path}")
+        return
+
+    env = create_procgen_env(game, seed=args.seed, obs_encoder=encoder,
+                             num_levels=0, start_level=args.seed * 1000)
+
+    # Load policy
+    pkg = torch.load(policy_path, map_location="cpu", weights_only=False)
+    p = Policy(encoder.obs_dim, 15, hidden=64)
+    p.load_state_dict(pkg["policy"] if "policy" in pkg else pkg)
+    p.eval()
+
+    # Roll out episodes
+    episodes: list[EpisodeLog] = []
+    for i in range(args.n_episodes):
+        ep = EpisodeLog(env_name=game)
+        obs, _ = env.reset(seed=args.seed + i)
+        done = False
+        steps = 0
+        while not done and steps < 1000:
+            a = int(p.act(obs))
+            ep.transitions.append(Transition(obs=obs, action=a, reward=0.0))
+            obs, r, term, trunc, _ = env.step(a)
+            ep.transitions[-1].reward = float(r)
+            ep.total_reward += float(r)
+            done = term or trunc
+            steps += 1
+        episodes.append(ep)
+
+    env.close()
+
+    # Compute adaptive threshold from returns
+    returns = [e.total_reward for e in episodes]
+    threshold = percentile_failure_threshold(returns, percentile=30.0)
+
+    # Re-label with adaptive threshold
+    fail_labels = np.array([1.0 if e.total_reward < threshold else 0.0
+                            for e in episodes])
+    rewards = np.array(returns)
+
+    print(f"\n=== Procgen Eval: {game} ===")
+    print(f"  Game group      : {PROCGEN_GAME_GROUPS.get(game, '?')}")
+    print(f"  Episodes        : {args.n_episodes}")
+    print(f"  Adaptive p30    : {threshold:.2f}")
+    print(f"  Failure rate    : {fail_labels.mean():.3f}")
+    print(f"  Reward μ ± σ    : {rewards.mean():.2f} ± {rewards.std():.2f}")
+    print(f"  Reward median   : {np.median(rewards):.2f}")
+
+    out = {
+        "game": game,
+        "group": PROCGEN_GAME_GROUPS.get(game, "?"),
+        "n_episodes": args.n_episodes,
+        "threshold_p30": float(threshold),
+        "fail_rate": float(fail_labels.mean()),
+        "reward_mean": float(rewards.mean()),
+        "reward_std": float(rewards.std()),
+        "reward_median": float(np.median(rewards)),
+    }
+    eval_path = ckpt_dir / f"eval_{game}.json"
+    eval_path.write_text(json.dumps(out, indent=2))
+    print(f"\n[saved] {eval_path}")
 
 
 if __name__ == "__main__":

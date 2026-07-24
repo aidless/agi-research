@@ -6,12 +6,19 @@ We use three classic-control tasks:
 - Acrobot-v1     (medium, sparse-ish reward)
 - LunarLander-v2 (harder, used as "real" experiment in v1)
 
+Plus Procgen games for the paper environment (multi-task generalisation).
 All CPU-runnable. All gymnasium-registered.
 """
 
 from __future__ import annotations
 import numpy as np
 import gymnasium as gym
+try:
+    # Procgen 0.10.x registers envs only with the legacy ``gym`` package,
+    # not with gymnasium. Import it as an alias so we can use its make().
+    import gym as _legacy_gym  # noqa: F401
+except ImportError:
+    _legacy_gym = None
 from dataclasses import dataclass, field
 from typing import List, Tuple
 
@@ -93,6 +100,146 @@ def make_env(env_name: str, seed: int | None = None) -> gym.Env:
         env.action_space.seed(seed)
         env.observation_space.seed(seed)
     return env
+
+
+# ── Procgen (optional) ──────────────────────────────────────────────────────
+
+PROCGEN_TRAIN_GAMES: tuple[str, ...] = (
+    "bigfish", "bossfight", "caveflyer", "chaser",
+    "coinrun", "dodgeball", "fruitbot", "jumper",
+)
+
+PROCGEN_TEST_GAMES: tuple[str, ...] = (
+    "starpilot", "climber", "ninja", "plunder",
+    "leaper", "maze", "heist", "miner",
+)
+
+ALL_PROCGEN_GAMES: tuple[str, ...] = PROCGEN_TRAIN_GAMES + PROCGEN_TEST_GAMES
+
+PROCGEN_GAME_GROUPS = {
+    "bigfish":    "T1",  "bossfight": "T1",  "caveflyer":  "T1", "chaser":    "T1",
+    "coinrun":    "T1",  "dodgeball": "T1",  "fruitbot":   "T1", "jumper":    "T1",
+    "starpilot":  "T2",  "climber":   "T2",  "ninja":      "T2", "plunder":   "T2",
+    "leaper":     "T3",  "maze":      "T3",  "heist":      "T3", "miner":     "T3",
+}
+
+
+def percentile_failure_threshold(
+    returns: list[float], percentile: float = 30.0
+) -> float:
+    """Adaptive failure threshold — bottom `percentile` of training returns."""
+    if not returns:
+        return 0.0
+    return float(np.percentile(returns, percentile))
+
+
+class ProcgenWrapper(gym.Env):
+    """Lightweight gymnasium-compatible wrapper for a legacy-gym procgen env.
+
+    procgen 0.10 only registers with the legacy `gym` package, so we
+    cannot subclass gymnasium.ObservationWrapper (which would type-check
+    the underlying env). This wrapper mimics the gymnasium Env API
+    we need and applies an obs_encoder to every observation.
+
+    The resulting object supports:
+        .reset() -> (obs, info)
+        .step(a) -> (obs, r, term, trunc, info)
+        .observation_space, .action_space, .close()
+    """
+
+    metadata = {"render_modes": []}
+
+    def __init__(self, env, obs_encoder):
+        self.env = env  # legacy-gym env (e.g. OrderEnforcing wrapper)
+        self._encoder = obs_encoder
+        # Probe one obs to size the observation_space.
+        _reset = self.env.reset()
+        sample_obs = _reset[0] if isinstance(_reset, tuple) else _reset
+        if isinstance(sample_obs, dict):
+            rgb = sample_obs.get('rgb')
+            if rgb is None:
+                rgb = sample_obs[list(sample_obs.keys())[0]]
+            sample_obs = rgb
+        sample_obs = np.asarray(sample_obs)
+        sample_encoded = self._encoder(sample_obs)
+        self.observation_space = gym.spaces.Box(
+            low=0.0, high=1.0,
+            shape=(obs_encoder.obs_dim,),
+            dtype=np.float32,
+        )
+        self.action_space = env.action_space
+        self.spec = getattr(env, 'spec', None)
+
+    def reset(self, *, seed=None, options=None):
+        try:
+            if seed is not None:
+                self.env.action_space.seed(seed)
+        except Exception:
+            pass
+        _reset = self.env.reset()
+        obs = _reset[0] if isinstance(_reset, tuple) else _reset
+        return self._extract_obs(obs), {}
+
+    def step(self, action):
+        result = self.env.step(action)
+        if len(result) == 5:
+            obs, r, term, trunc, info = result
+        else:  # legacy gym 4-tuple
+            obs, r, done, info = result
+            term, trunc = bool(done), False
+        return self._extract_obs(obs), float(r), bool(term), bool(trunc), info
+
+    def _extract_obs(self, obs):
+        if isinstance(obs, dict):
+            rgb = obs.get('rgb')
+            if rgb is None:
+                rgb = obs[list(obs.keys())[0]]
+            obs = rgb
+        return self._encoder(np.asarray(obs))
+
+    def close(self):
+        try:
+            self.env.close()
+        except Exception:
+            pass
+
+    def render(self):
+        try:
+            return self.env.render()
+        except Exception:
+            return None
+
+
+def create_procgen_env(
+    game: str, seed: int, obs_encoder,
+    start_level: int = 0, num_levels: int = 0, distribution_mode: str = "easy",
+) -> gym.Env:
+    """Factory — requires `pip install procgen`.
+
+    Note: procgen 0.10.x only registers with the legacy ``gym`` package,
+    not with ``gymnasium``. We use ``gym.make`` via that legacy module,
+    but the resulting env exposes standard gymnasium-style
+    .observation_space and .action_space, so all downstream code works.
+    """
+    import procgen  # noqa: ensure registered
+    if _legacy_gym is None:
+        raise ImportError(
+            "create_procgen_env needs the legacy `gym` package because procgen"
+            " 0.10.x only registers with it. Try: pip install gym==0.23.0"
+        )
+    env = _legacy_gym.make(
+        f"procgen-{game}-v0",
+        start_level=start_level,
+        num_levels=num_levels,
+        distribution_mode=distribution_mode,
+    )
+    # Seed the spaces from the legacy env (uses gymnasium-compatible API)
+    try:
+        env.action_space.seed(seed if seed is not None else 0)
+        env.observation_space.seed(seed if seed is not None else 0)
+    except Exception:
+        pass  # not all procgen envs support gym.space.seed
+    return ProcgenWrapper(env, obs_encoder=obs_encoder)
 
 
 def rollout_one_episode(env: gym.Env, policy, max_steps: int = 1000) -> EpisodeLog:

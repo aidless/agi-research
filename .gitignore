@@ -1,0 +1,35 @@
+﻿# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Trained checkpoints (reproducible per code, not worth tracking)
+*/checkpoints/
+projects/**/checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Python venv
+venv/
+.venv/
+env/
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# Logs / tmp (we log separately in experiments_log/)
+*.log
+
+# Don't track binary checkpoints but DO track small JSONs we generate
+*.pt
+*.bin
+*.pkl

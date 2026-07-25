@@ -1,6 +1,11 @@
+# AGI Research Workspace - Archimedes Project (AGI-2026-001)
+# Copyright (c) 2026 刘泽文 (Liu Zewen)
+# Licensed under MIT. See LICENSE in workspace root.
+# Author: 刘泽文 (Liu Zewen). Project: https://github.com/[USER]/agi-research
+# AI-assisted (Codex/MiniMax-M3); reviewed by PI.
 """
 
-monitor.py —The failure-prediction Monitor.
+monitor.py 鈥擳he failure-prediction Monitor.
 
 
 
@@ -32,7 +37,7 @@ REVIEW-ME:
 
   will ablate against LSTM / Transformer to show robustness.
 
-- Failure labels are heuristic —see ``envs.is_failure_episode``.
+- Failure labels are heuristic 鈥攕ee ``envs.is_failure_episode``.
 
 - The Monitor class is a normal ``nn.Module`` with BCE loss.
 
@@ -156,6 +161,10 @@ class FailureDataset(Dataset):
 
 
 class FailureMonitor(nn.Module):
+    def __init__(self, cfg, history_dim=None):
+        super().__init__()
+        self.cfg = cfg
+        self.history_dim = cfg.history_dim if history_dim is None else history_dim
 
     """
 
@@ -326,7 +335,7 @@ def train_monitor(
 
 def _quick_auroc(y_true: np.ndarray, y_score: np.ndarray) -> float:
 
-    """Quick AUROC for binary labels —used for sanity, not for paper claims."""
+    """Quick AUROC for binary labels 鈥攗sed for sanity, not for paper claims."""
 
     from itertools import product
 

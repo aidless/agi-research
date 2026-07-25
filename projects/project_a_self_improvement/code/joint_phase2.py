@@ -1,3 +1,6 @@
+# AGI Research Workspace - Archimedes Project (AGI-2026-001)
+# Copyright (c) 2026 刘泽文 (Liu Zewen). MIT License. See LICENSE.
+# Author: 刘泽文 (Liu Zewen). AI-assisted (Codex/MiniMax-M3).
 #!/usr/bin/env python3
 """joint_phase2.py - TRUE JOINT Monitor ablation for Project A.
 

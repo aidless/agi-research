@@ -188,8 +188,6 @@ signal above chance; joint critic does not. Phrasing as "H1 SUPPORTED" is
 correct on direction. Magnitude is from one environment with a weak policy;
 we do not over-claim.
 
-### 4.5 Phase 1 + 2 results on Procgen coinrun (this paper)
-
 We ran the full Phase 2 pipeline (procgen_phase2.py) on coinrun seed 0
 with 50K PPO steps + 100 train episodes + 50 held-out evaluation episodes.
 
@@ -222,7 +220,6 @@ essentially constant (mean 0.485, std 0.002).
 failure variance for Phase 2 to demonstrate signal. Project A code skeleton
 is pipeline-complete; the missing piece is compute.
 
-### 4.5 Phase 1 + 2 results on Procgen coinrun (this paper)
 nWe ran Phase 2 on coinrun seed 0 at multiple scales.
 
 **Phase 1 Step 1 (50K PPO, smoke)**: mean reward 5.85, AUROC = 0.5, Pearson = -0.30.
@@ -297,6 +294,7 @@ the Y1 follow-up; this section provides the methodological foundation.
 `experiments_log/2026-07-25-joint-ablation-A.md`. Total compute:
 ~13 minutes for 5 seeds at 100K PPO steps each.## 5. Discussion
 
+## 5. Discussion
 ### 5.1 When decoupling holds
 - Policy is reasonably good (otherwise Monitor trains on noise).
 - Failure threshold is well-calibrated (otherwise labels are random).

@@ -1,3 +1,6 @@
+# AGI Research Workspace - Archimedes Project (AGI-2026-001)
+# Copyright (c) 2026 刘泽文 (Liu Zewen). MIT License. See LICENSE.
+# Author: 刘泽文 (Liu Zewen). AI-assisted (Codex/MiniMax-M3).
 """slot_attention.py - minimal slot attention module for Project C PoC.
 
 NOT production-ready. This is a feasibility check: can we encode

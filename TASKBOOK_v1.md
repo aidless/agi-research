@@ -1,4 +1,4 @@
-# Archimedes Project Charter v1.0
+﻿# Archimedes Project Charter v1.0
 
 | field | value |
 |---|---|
@@ -388,3 +388,16 @@ Template: 00_daily/YYYY-Qn-review.md
 | DEC-005 | Y1 lab join (default yes) | OPEN | M12 |
 | DEC-006 | grant pitch refresh | OPEN | M2 |
 | DEC-007 | add Project E | OPEN | M2 |
+
+## PI Signature
+
+> **PI**: 刘泽文 (Liu Zewen)
+> **Date**: 2026-07-25
+> **Signature**: ＿＿＿＿＿ (手签 / handwritten)
+>
+> This charter is signed in commitment to the 5-year AGI research
+> program AGI-2026-001. All subsequent decisions reference this
+> document. Revisions go through the ADR process (decisions/).
+
+> **Copyright (c) 2026 刘泽文 (Liu Zewen)**. Released under MIT License
+> with attribution requirement. See LICENSE.

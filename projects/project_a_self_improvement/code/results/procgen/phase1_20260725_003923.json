@@ -1,0 +1,33 @@
+{
+  "config": {
+    "n_seeds": 1,
+    "n_timesteps": 4096
+  },
+  "games": {
+    "coinrun": {
+      "seeds": [
+        {
+          "game": "coinrun",
+          "seed": 0,
+          "n_timesteps": 4096,
+          "updates": 2,
+          "episode_returns": [
+            10.0,
+            0.0,
+            0.0,
+            10.0,
+            0.0,
+            10.0
+          ],
+          "mean_return": 5.0,
+          "median_return": 5.0,
+          "std_return": 5.0,
+          "n_episodes": 6,
+          "elapsed_sec": 9.4
+        }
+      ],
+      "threshold_p30": 0.0,
+      "group": "T1"
+    }
+  }
+}

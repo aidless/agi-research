@@ -1,4 +1,4 @@
-# CHANGELOG.md
+﻿# CHANGELOG.md
 
 > All material changes to TASKBOOK_v1.md are recorded here. Taskbook
 > edits and ADRs stay in this file so v1.0 remains a stable baseline.
@@ -65,3 +65,26 @@ authoritative record of v1.1 modifications.
 
 These do not require v1.2 changes; will be folded into v1.2 once
 decided.
+
+## v1.1 -> v1.2 (2026-07-25, second-day session)
+
+User asked to "全做" (do everything). This drives further amendments.
+
+### Amendment 6: Project E promoted to P1 (DEC-0007)
+- **Old (v1.1)**: Project E at P2 (open question)
+- **New (v1.2)**: Project E at P1. Implementation deferred to Dec-Feb
+  after Procgen baseline is solid; documentation references from now on.
+- **ADR**: decisions/0007-project-e-promote-p1.md
+- **Why**: Pearl L3 + AlphaProof + LM/WM integration makes Project E the
+  natural third P1 alongside A and C. Defaulted because user punted 3x.
+
+### Amendment 7: Phase 1 first run shipped (2026-07-25)
+- **Result**: phase1_20260725_100247.json, 4 games * 1 seed * 50K steps
+  in 311s. Mean returns all low (early PPO) confirming we need >= 250K
+  per game for Phase 2 (Monitor).
+- **Archived**: experiments_log/2026-07-25-phase1-step1-smoke.md
+
+### Amendment 8: Project C paper outline v0 shipped (2026-07-25)
+- 6811 bytes in `projects/project_c_causal_world/paper_outline_v0.md`
+- H1/H2 hypotheses specified in Section 0 (Slot-WM interventions).
+- **Status**: outline only; full paper draft is Y1 deliverable.

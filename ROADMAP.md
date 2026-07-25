@@ -79,6 +79,12 @@ start it until C has at least one open-source CRL baseline.
 | Scholkopf 2021 "Causal Representation Learning" | Theory for C | C |
 | von Kugelgen 2021 "Self-Supervised CRL" | Theory for C | C |
 | Bareinboim 2016/2024 SCM-ID / Causal Transportability | Theory for C, E | C, E |
+| Lightman 2023 "Let`s Verify Step by Step" (arXiv 2305.20050) | PRM canonical, our Monitor is PRM-style | A |
+| Snell 2024 "Scaling LLM Test-Time Compute Optimally" (arXiv 2408.03314) | TTC scaling laws, BoN+Monitor free gain | A |
+| Zelikman 2022 STaR (arXiv 2203.07859) | LLM cousin of decoupled Monitor | A |
+| Alonso 2024 DIAMOND (arXiv 2402.03522) | Diffusion WM alternative to DreamerV3 | C |
+| Shumailov 2023 "Self-bias propagation" | Synthetic data collapse warning | C, B |
+| Burns 2023 "Weak-to-Strong Generalization" (OpenAI) | Monitor policy scaling is OK | A, E |
 
 **Old reading list** (still valid, lower priority):
 World Models 2018, Dreamer V1/V2/V3, MuZero, JEPA papers 2022-2024,

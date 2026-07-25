@@ -29,6 +29,34 @@ rooted there.
 
 ---
 
+## 0.5. Operating mode: AIKR (v1.10 framing, 2026-07-25)
+
+> The 5-year program operates in **AIKR mode** (Assumption of
+> Insufficient Knowledge and Resources, after Pei Wang`s NARS).
+> We accept upfront that:
+> 1. We do not know the full AGI architecture today.
+> 2. Compute, data, and team are bounded.
+> 3. Tasks and resources are open-ended (new problems arrive,
+>    new compute/data can be acquired).
+> 4. Truth is not static (architectures will be revised).
+>
+> This is NOT a weakness. It is the operating mode. Our 5-year
+> plan is a *plan under* AIKR, not in spite of it. Each
+> quarterly review re-rates the plan against the latest
+> frontier evidence.
+
+**v1.10 amendments** (2026-07-25, see CHANGELOG.md):
+
+| ID | change | status |
+|----|--------|--------|
+| 13 | H1 joint ablation shipped (5-seed delta=0.724, 5/5 supported) | done |
+| 14 | TMLR H+I corpus synthesis shipped (14 files, 5 headline updates) | done |
+| 15 | ROADMAP reading list +6 must-read papers (Lightman/Snell/STaR/DIAMOND/Shumailov/Burns) | done |
+| 16 | TTC as Monitor extension proposed (ADR 0011, P3) | queued |
+| 17 | Paper A related work: ReAct/Reflexion/Self-Refine/CRITIC | queued |
+| 18 | Paper C: DIAMOND baseline + collapse-detection methodology | queued |
+| 19 | Paper E: Outer/Inner/Corrigibility three-layer framing | queued |
+
 ## 1. Background
 
 ### 1.1 Academic + engineering coordinate (2025-2026)

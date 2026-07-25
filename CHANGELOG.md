@@ -1,4 +1,4 @@
-# CHANGELOG.md
+﻿# CHANGELOG.md
 
 > All material changes to TASKBOOK_v1.md are recorded here. Taskbook
 > edits and ADRs stay in this file so v1.0 remains a stable baseline.
@@ -68,7 +68,7 @@ decided.
 
 ## v1.1 -> v1.2 (2026-07-25, second-day session)
 
-User asked to "ȫ��" (do everything). This drives further amendments.
+User asked to "全做" (do everything). This drives further amendments.
 
 ### Amendment 6: Project E promoted to P1 (DEC-0007)
 - **Old (v1.1)**: Project E at P2 (open question)
@@ -104,7 +104,7 @@ User requested refocus on the AGI program.
 
 ## v1.4 -> v1.5 (2026-07-25 AGI round 3: tools + multi-agent prompts + deep reads)
 
-User pushed ȫ�� again. This round ships workspace tooling TREND #1/#2/#5.
+User pushed 全做 again. This round ships workspace tooling TREND #1/#2/#5.
 
 ### Amendment 12: 5 deep reads (paper notes 39 -> 44)
 - 2022_yao_react_deep.md: ReAct = Thought/Action/Observation interleaved.
@@ -135,7 +135,7 @@ User pushed ȫ�� again. This round ships workspace tooling TREND #1/#2/#5.
 
 ## v1.5 -> v1.6 (2026-07-25 AGI round 4: PDDL + 4 deep reads + 3 CLIs)
 
-User pushed "ȫ��" again. This round ships more semantic + tools.
+User pushed "全做" again. This round ships more semantic + tools.
 
 ### Amendment 15: 5 deep reads (paper notes 44 -> 49)
 - 1998_mcdermott_pddl_deep.md: PDDL planning language. Direct foundation
@@ -298,3 +298,70 @@ Open questions added to existing list:
 - What is the right safety rule set for AGI in our setting?
 - Are we hitting Chinchilla-optimal compute for our Monitor?
 
+
+## v1.9 -> v1.10 (2026-07-25, AGI round 4: H+I series + joint ablation final)
+
+User pushed 全做. This round ships the last two P0 items: joint ablation
+and the H+I corpus synthesis. Major empirical + methodological milestone.
+
+### Amendment 16: H1 joint ablation shipped (Project A H1 final)
+
+- `code/joint_phase2.py` rewritten (9.5 KB) — TRUE joint training,
+  interleaves PPO and Monitor every K=4 updates on FRESH rollouts.
+- Original file had a critical bug: it ran PPO to completion before
+  Monitor training, making it functionally identical to frozen Monitor
+  with a misleading filename.
+- 5 seeds × 100K PPO steps on LunarLander-v3:
+  | seed | joint AUROC | frozen AUROC | delta |
+  |------|-------------|--------------|-------|
+  | 0    | 0.103       | 0.98         | 0.877 |
+  | 1    | 0.041       | 0.90         | 0.859 |
+  | 2    | 0.044       | 0.21 (anom.) | 0.166 |
+  | 3    | 0.074       | 0.92         | 0.846 |
+  | 4    | 0.099       | 0.97         | 0.871 |
+  | mean | 0.072       | 0.796        | 0.724 |
+- H1 verdict: **5/5 supported** (delta >> 0.05 falsifier).
+- Joint Pearson consistently positive (+0.35 to +0.85) — Monitor
+  has INVERTED its prediction. Classic "policy drag" failure mode.
+- `paper_outline_v1_full.md` Section 4.6 replaced with full table + interpretation.
+- `experiments_log/2026-07-25-joint-ablation-A.md` (4.8 KB).
+- Commit: d377c51.
+
+### Amendment 17: TMLR H+I series synthesis shipped
+
+- Read 14 of 42 new F:\TMLR files: H01-H07 (LLM应用架构) + I01-I07 (前沿研究).
+- Skipped F/G/J/K (28 files) per user instruction.
+- 5 headline updates to the 5-year program:
+  1. Decoupled Monitor = frozen-critic pattern (ReAct/Reflexion/Self-Refine/CRITIC).
+  2. TTC scaling is 2025-2026 meta-trend; our Monitor is PRM in disguise.
+  3. Synthetic data needs collapse detection (NeurIPS 2023 self-bias paper).
+  4. LLM-as-Judge is the right eval tool for Monitor (H05).
+  5. WM in 2025 splits into DreamerV3 / DIAMOND / Video-as-WM.
+- `literature/TMLR_synthesis_H_I_series.md` (29 KB).
+- New ADR 0011 (TTC as Monitor extension, P3, Y1 Q2).
+- Commit: cab3e62.
+
+### Amendment 18: TASKBOOK v1 AIKR framing + v1.10 amendments table
+
+- TASKBOOK_v1.md Section 0.5 inserted with AIKR operating mode
+  (Pei Wang NARS, finite knowledge/resources, open tasks).
+- v1.10 amendments table embedded in TASKBOOK for self-contained
+  reference (no need to open CHANGELOG for current state).
+
+### Amendment 19: Reading list +6 papers (queued)
+
+- Lightman 2023 PRM, Snell 2024 TTC scaling, Zelikman 2022 STaR,
+  Alonso 2024 DIAMOND, Shumailov 2023 self-bias propagation,
+  Burns 2023 weak-to-strong generalization.
+- Y0 Q3 must-read within 30 days (per ADR plan).
+- Deep notes to follow.
+
+## Outstanding amendments queued (v1.11 candidates)
+
+- 4 paper deep notes (Lightman, Snell, STaR, DIAMOND) — queued
+- Paper A related work additions (ReAct/Reflexion/Self-Refine/CRITIC) — queued
+- Paper C outline v2 (DIAMOND + collapse detection) — queued
+- Paper E outline v1 (Outer/Inner/Corrigibility) — queued
+- DEC-001 (PhD vs Independent) — open until 2026-09-30
+
+These do not require v1.11 changes; will be folded once shipped.

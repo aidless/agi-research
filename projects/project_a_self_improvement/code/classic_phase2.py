@@ -14,12 +14,12 @@ from monitor import train_monitor, MonitorConfig, _quick_auroc
 from envs import rollout_one_episode
 
 
-def collect_rollouts(env_factory, agent, n_episodes, history_len, seed_offset):
+def collect_rollouts(env_factory, agent, n_episodes, history_len, seed_offset, env_name="procgen"):
     out = []
     for i in range(n_episodes):
         env = env_factory(seed_offset + i + 7777)
         ep = rollout_one_episode(env, agent.select_action, max_steps=500)
-        ep.env_name = 'lunarlander'
+        ep.env_name = env_name
         if len(ep.transitions) > history_len:
             ep.transitions = ep.transitions[-history_len:]
         out.append(ep)
@@ -55,15 +55,17 @@ def main():
     p.add_argument('--n-eval-episodes', type=int, default=100)
     p.add_argument('--history-len', type=int, default=32)
     p.add_argument('--seed', type=int, default=0)
-    p.add_argument('--percentile', type=float, default=10.0)
+    p.add_argument('--env', default='LunarLander-v3', help='gymnasium env ID')
+    p.add_argument('--percentile', type=float, default=10.0, help='failure percentile threshold')
+    p.add_argument('--threshold-floor', type=float, default=-1e9, help='lower-bound for threshold (e.g. 0 for LunarLander success envs)')
     p.add_argument('--monitor-epochs', type=int, default=10)
     args = p.parse_args()
 
-    sys.stdout.write('\n[Project A Phase 2] LUNARLANDER  seed=' + str(args.seed) + '\n')
+    sys.stdout.write('\n[Project A Phase 2] ' + str(args.env).upper() + '  seed=' + str(args.seed) + '\n')
     sys.stdout.write('  PPO=' + str(args.n_ppo_steps) + '  train=' + str(args.n_train_episodes) + '  eval=' + str(args.n_eval_episodes) + '\n')
     sys.stdout.write('  history=' + str(args.history_len) + '  p=' + str(args.percentile) + '\n\n')
 
-    env = envs.make_env('LunarLander-v3', seed=args.seed + 1)
+    env = envs.make_env(args.env, seed=args.seed + 1)
     obs_dim = env.observation_space.shape[0]
     n_actions = env.action_space.n
     sys.stdout.write('  obs_dim=' + str(obs_dim) + '  n_actions=' + str(n_actions) + '\n\n')
@@ -83,14 +85,14 @@ def main():
             sys.stdout.write('  u=' + str(u + 1) + '/' + str(n_updates) + '  mean_r(last200)=' + str(round(mr, 1)) + '\n')
     env.close()
 
-    threshold = max(0.0, envs.percentile_failure_threshold(all_returns, args.percentile))  # cap at 0 to handle policy-too-good
+    threshold = max(args.threshold_floor, envs.percentile_failure_threshold(all_returns, args.percentile))
     sys.stdout.write('\n  PPO done. mean=' + str(round(np.mean(all_returns), 2)) + '  p10=' + str(round(threshold, 2)) + '  n_eps=' + str(len(all_returns)) + '\n\n')
 
-    def make_lunarlander(seed_offset):
-        return envs.make_env('LunarLander-v3', seed=seed_offset)
+    def make_target(seed_offset):
+        return envs.make_env(args.env, seed=seed_offset)
 
     sys.stdout.write('[Stage 2] Collecting ' + str(args.n_train_episodes) + ' train...\n')
-    train_eps = collect_rollouts(make_lunarlander, agent, args.n_train_episodes, args.history_len, args.seed * 1000)
+    train_eps = collect_rollouts(make_target, agent, args.n_train_episodes, args.history_len, args.seed * 1000, env_name=args.env)
     train_returns = [e.total_reward for e in train_eps]
     fail_n = sum(1 for r in train_returns if r < threshold)
     sys.stdout.write('  collected.  mean=' + str(round(np.mean(train_returns), 2)) + '  fail=' + str(fail_n) + '/' + str(len(train_eps)) + '\n\n')
@@ -106,7 +108,7 @@ def main():
     sys.stdout.write('  saved monitor.pt\n\n')
 
     sys.stdout.write('[Stage 4] Evaluating on ' + str(args.n_eval_episodes) + ' eval...\n')
-    eval_eps = collect_rollouts(make_lunarlander, agent, args.n_eval_episodes, args.history_len, args.seed * 1000 + 999)
+    eval_eps = collect_rollouts(make_target, agent, args.n_eval_episodes, args.history_len, args.seed * 1000 + 999, env_name=args.env)
     eval_returns = [e.total_reward for e in eval_eps]
     eval_probs = per_episode_monitor_probs(monitor, eval_eps, obs_dim, n_actions, args.history_len)
 
@@ -134,7 +136,7 @@ def main():
         sys.stdout.write('  RESULT: AUROC=' + str(auroc) + ' not above 0.55\n')
 
     out = {
-        'env': 'LunarLander-v3',
+        'env': args.env,
         'seed': args.seed,
         'n_ppo_steps': args.n_ppo_steps,
         'threshold_percentile': args.percentile,
@@ -159,4 +161,15 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
 

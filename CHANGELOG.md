@@ -101,3 +101,34 @@ User requested refocus on the AGI program.
 - Honest null result documented: Pipeline works, but Phase 1
   too short for Monitor to detect signal.
 - Submission target: ICLR 2027 Workshop on Self-Improving Systems.
+
+## v1.4 -> v1.5 (2026-07-25 AGI round 3: tools + multi-agent prompts + deep reads)
+
+User pushed È«×ö again. This round ships workspace tooling TREND #1/#2/#5.
+
+### Amendment 12: 5 deep reads (paper notes 39 -> 44)
+- 2022_yao_react_deep.md: ReAct = Thought/Action/Observation interleaved.
+  Cites Project A Monitor reasoning structure, Project D type LM, Trend #2 baseline.
+- 2023_yao_tree_of_thoughts_deep.md: ToT = BFS/DFS over LLM reasoning paths.
+  Future Monitor design; Project E verifier search.
+- 2024_microsoft_autogen_deep.md: Microsoft multi-agent orchestration. Engine
+  for Project F workspace automation and Project G multi-agent verification.
+- 2023_packer_memgpt_deep.md: OS-inspired memory management for LLMs. Direct
+  support for Trend #1 long-horizon autonomy; validates our existing
+  .experience_log/ as the analog.
+- 2023_bubeck_sparks_of_agi_deep.md: GPT-4 emergent capabilities. Caution
+  for Chollet KPI framework; supplementary signal for Sparks of emergent
+  capability.
+
+### Amendment 13: 4 multi-role prompts (Project F.4)
+- prompts/planner.md: sub-agent for goal decomposition
+- prompts/executor.md: sub-agent for file/code execution
+- prompts/reviewer.md: sub-agent for diff/review + # REVIEW-ME markers
+- prompts/safety.md: sub-agent enforcing .policy/agent.yaml before destructive ops
+
+### Amendment 14: bin/ tools now 3 (session_boot, session_debrief, skill_mining)
+- bin/skill_mining.py: extract top 10 lessons from .experience_log/
+- bin/README.md: documents existing and pending tools
+
+44 paper notes. 9 ADRs. 5 projects * 2 versions paper outlines. 3 bin/ tools.
+4 prompts/. 5 experiment logs. Phase 1+2 baseline data.

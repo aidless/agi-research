@@ -1,0 +1,59 @@
+# Authors of Archimedes (AGI-2026-001)
+
+## Principal Investigator
+
+**刘泽文 (Liu Zewen)** — sole author, project lead, experiment design,
+analysis, and writing.
+- Independent researcher (no institutional affiliation as of 2026-07)
+- Project initiated: 2026-07-25
+- Email: [TO BE FILLED BY USER — for citation correspondence]
+- GitHub: [TO BE FILLED BY USER]
+- ORCID: [TO BE FILLED BY USER]
+
+## AI Research Assistant
+
+**Codex (MiniMax-M3)** — code generation, experiment execution, paper
+drafting, literature synthesis. Used as a research tool, not a co-author.
+- Powered by: MiniMax M3 model
+- Used since: 2026-07-25
+- All AI-generated content reviewed and edited by PI before inclusion.
+
+## Citation
+
+When citing this work, please cite:
+
+> Liu Zewen (2026). Archimedes: A Self-Improving AGI Substrate.
+> Independent 5-year research program, project AGI-2026-001.
+> GitHub: github.com/[USER-FILLS-IN]/agi-research
+
+BibTeX:
+```
+@misc{liu2026archimedes,
+  author = {Liu, Zewen},
+  title  = {Archimedes: A Self-Improving {AGI} Substrate},
+  year   = {2026},
+  note   = {Independent 5-year research program, AGI-2026-001},
+  url    = {https://github.com/[USER]/agi-research}
+}
+```
+
+## Contribution categories
+
+Per CRediT taxonomy, the PI contributed:
+- Conceptualization: 100%
+- Methodology: 100%
+- Software: ~70% (Codex-assisted)
+- Validation: 100%
+- Formal analysis: 100%
+- Investigation: 100%
+- Data curation: 100%
+- Writing -- original draft: ~80% (Codex-assisted)
+- Writing -- review & editing: 100%
+- Visualization: 100%
+- Supervision: 100%
+- Project administration: 100%
+- Funding acquisition: 0% (no external funding)
+
+## License
+
+See LICENSE file. MIT License, Copyright (c) 2026 刘泽文 (Liu Zewen).

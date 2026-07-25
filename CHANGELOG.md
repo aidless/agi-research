@@ -471,3 +471,53 @@ prior research, etc.). Codex drafts:
 
 User personalizes templates + handles all submissions. DEC-001
 updated accordingly.
+## v1.13 -> v1.14 (2026-07-26, PUBLICATION HOLD LIFTED + IP protection)
+
+User directive: "完全 lift 我害怕别人盗用我的东西"
+("Fully lift. I'm afraid others will steal my work.")
+
+### Amendment 26: PUBLICATION HOLD LIFTED
+
+The publication hold (Amendment 20, v1.11) is RELEASED. All public-facing
+artifacts (Paper A v2, Twitter drafts, Discord drafts, grants) can now
+be published incrementally, not waiting for the bundled 100+ page thesis.
+
+Reason: IP protection. Open publication with explicit attribution provides
+public timestamp + authorship trace + prior art evidence. This takes
+priority over the impact-amplification strategy of bundled publishing.
+
+### Amendment 27: Author attribution established
+
+**Author**: 刘泽文 (Liu Zewen)
+**Project**: Archimedes (AGI-2026-001)
+**Copyright**: (c) 2026
+**License**: MIT (with attribution requirement)
+
+Files updated with attribution:
+- LICENSE: new file (MIT + attribution clause)
+- AUTHORS: new file (full citation + BibTeX + CRediT contributions)
+- README.md: rewritten with top-level attribution
+- PUBLICATION_HOLD.md: lift rationale documented
+
+Attribution-in-code comments (in progress):
+- monitor.py, joint_phase2.py, lunarlander_phase2.py (Project A)
+- slot_attention.py (Project C)
+- paper_v2_full.md (Paper A)
+- TASKBOOK_v1.md (PI signature block)
+
+### Amendment 28: GitHub repo creation
+
+User will create the empty GitHub repo (Codex cannot — no auth).
+Once URL is provided, Codex will:
+1. Add remote: `git remote add origin <url>`
+2. Configure git author: `git config --global user.name "刘泽文"`
+3. Push: `git push -u origin main`
+
+This is the next action required from the user.
+
+### Outstanding
+
+- [ ] User creates empty GitHub repo, provides URL
+- [ ] User decides: same name on GitHub as "刘泽文" or English "Liu Zewen" (or both)?
+- [ ] User adds email to AUTHORS (currently [TO BE FILLED])
+- [ ] Once pushed: announce on Twitter/Discord with attribution

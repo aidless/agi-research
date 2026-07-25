@@ -1,9 +1,9 @@
-# PUBLICATION HOLD - 2026-07-25 (user directive)
+﻿# PUBLICATION HOLD - 2026-07-25 (user directive)
 
 > **Status**: ACTIVE HOLD on all public-facing publications
 > **Decision date**: 2026-07-25
 > **Decided by**: user
-> **Strategy**: 集束发布 (bundled publication) — wait for a single 100+ page
+> **Strategy**: 闆嗘潫鍙戝竷 (bundled publication) 鈥?wait for a single 100+ page
 > comprehensive thesis-style paper rather than incremental arXiv / Twitter / Discord posts.
 
 ---
@@ -50,7 +50,7 @@ These are PRIVATE workspace artifacts. No external audience.
 
 ## 3. Why the hold (rationale)
 
-User said: "先保留，以后等着发一篇上百页的大论文" (Hold off, wait for a single 100+ page comprehensive paper).
+User said: "鍏堜繚鐣欙紝浠ュ悗绛夌潃鍙戜竴绡囦笂鐧鹃〉鐨勫ぇ璁烘枃" (Hold off, wait for a single 100+ page comprehensive paper).
 
 Benefits of bundling:
 1. **Single impact event**: one large paper > many small posts
@@ -71,7 +71,7 @@ Costs of holding:
 
 ---
 
-## 4. The big paper — target structure
+## 4. The big paper 鈥?target structure
 
 Working title (provisional):
 
@@ -108,7 +108,7 @@ Estimated 100-160 pages, structured as:
 - **2028 Q1-Q2 (Y2)**: scale experiments; multi-seed runs;
   ablation studies; write the comprehensive paper draft.
 - **2028 Q3-Q4**: submit big paper. Target venue: arXiv monograph
-  (preferred), PhD thesis (if DEC-001 → PhD), or Springer book.
+  (preferred), PhD thesis (if DEC-001 鈫?PhD), or Springer book.
 
 Decision deadline: lift hold at Y2 Q3 (~2028-07), unless earlier if
 all projects hit their Y1 milestones.
@@ -139,3 +139,67 @@ all projects hit their Y1 milestones.
 
 *This file is the single source of truth on the publication hold.
 Update it whenever the hold status changes.*
+
+---
+
+## 8. HOLD LIFTED (2026-07-26)
+
+User directive: "完全 lift 我害怕别人盗用我的东西 帮我建一个
+aidless 建不了那就我自己建一个"
+
+### 8.1 Why lifted
+
+User motivation: fear of IP theft. Open publication with explicit
+attribution (LICENSE + AUTHORS + README + code comments) provides:
+1. Public timestamp (GitHub commit history)
+2. Clear authorship trace (LICENSE copyright + AUTHORS file)
+3. Citation requirement (LICENSE attribution clause)
+4. Prior art evidence for any future patent claim
+
+The original "wait for 100+ page thesis" strategy was about impact
+amplification; that strategy is incompatible with IP protection.
+We prioritize IP protection over impact amplification.
+
+### 8.2 What is now allowed
+
+All previous holds are released:
+- Paper A v2 draft can be pushed to GitHub
+- Twitter/Discord drafts can be posted
+- Grants can be submitted
+- Critique partner outreach can proceed
+
+We still aim for the 100+ page comprehensive thesis as the *primary*
+academic output, but incremental public artifacts are now permitted
+to establish authorship priority.
+
+### 8.3 Attribution requirement
+
+Every public artifact MUST carry the attribution:
+- Author: 刘泽文 (Liu Zewen)
+- Project: Archimedes (AGI-2026-001)
+- Copyright (c) 2026
+
+Attribution is embedded in:
+- LICENSE file (MIT, with copyright)
+- AUTHORS file (full citation block)
+- README.md (top-level attribution)
+- Key Python file headers (project code only)
+- TASKBOOK_v1.md signature block
+- Paper v2 draft author block
+
+### 8.4 Push strategy
+
+1. Create empty GitHub repo (user-created, since Codex has no auth)
+2. Codex prepares local repo (LICENSE, AUTHORS, README, attribution comments)
+3. User provides repo URL
+4. Codex adds remote + git push -u origin main
+5. Codex publishes draft posts (Twitter/Discord) with attribution
+
+### 8.5 Status
+
+- LICENSE: shipped
+- AUTHORS: shipped
+- README: updated
+- Code comments: in progress (key files only)
+- TASKBOOK signature: in progress
+- GitHub repo creation: user action required (provide URL when ready)

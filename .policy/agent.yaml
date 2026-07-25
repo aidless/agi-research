@@ -1,0 +1,44 @@
+# Agent policy file (Cedar-like, simplified)
+# Decides what the agent (Codex) may do in E:\agi-research
+
+allow_paths:
+  - E:\agi-research\**
+
+allow_commands:
+  - git add
+  - git commit
+  - git log
+  - git status
+  - python
+  - pip install
+  - powershell
+
+deny_paths:
+  - C:\**
+  - ~\**
+  - **\.git\**
+
+require_human_approval:
+  - git push
+  - rm -rf
+  - git reset --hard
+  - PowerShell -Command*
+  - format *:
+
+session_budget:
+  max_file_writes: 200
+  max_minutes_per_session: 120
+  max_gigabytes_downloaded: 1
+
+audit:
+  log_to: E:\agi-research\.policy\audit.log
+  include_diff_on_write: false
+  include_diff_on_command: false
+
+trends_mapping:
+  trend_1_long_horizon: "session_boot + session_debrief implement read/write side"
+  trend_2_multi_agent: "future; can spawn sub-agents per role (planner, executor, reviewer, safety)"
+  trend_3_self_improve: ".experience_log for replay -> skill mining"
+  trend_4_tool_ecosystem: "MCP-style wrapper layer (future)"
+  trend_5_safety: "this file is the seed"
+  trend_6_multimodal: "out of scope text-only Codex"

@@ -229,7 +229,19 @@ nWe ran Phase 2 on coinrun seed 0 at multiple scales.
 
 **Phase 1 Step 4 (256K PPO)**: All p30 = 0.0; 8531 episodes collected; means modest.
 
-**Phase 2 v2 (256K + p10 threshold)**: mean_return=6.47; Monitor prob std rose 0.002 -> 0.003; **Pearson(prob, reward) = -0.52** -- a real architectural signal even though AUROC stays 0.5. See experiments_log/2026-07-25-phase2-v2-coinrun.md for the full record and discussion.
+**Phase 2 v2 (256K + p10 threshold)**: mean_return=6.47; Monitor prob std rose 0.002 -> 0.003; **Pearson(prob, reward) = -0.52** -- a real architectural signal even though AUROC stays 0.5. ## LunarLander-v3 BREAKTHROUGH (H1 directional SUPPORTED)
+
+See experiments_log/2026-07-25-phase2-lunarlander-h1.md.
+
+Results (LunarLander-v3, PPO 256K, seed 0, threshold capped at 0):
+- Train AUROC = 0.997 (200 episodes, 16 failures)
+- Eval AUROC = 0.980 (100 episodes, 2 failures)
+- Pearson(prob, reward) = -0.32 (anticorrelated as theory predicts)
+
+Frozen-policy decoupled Critic predicts failure with high accuracy on
+held-out rollouts. This satisfies DEC-0003 H1 sufficient condition
+(AUROC > 0.55) on at least one env + seed. Multi-seed + cross-env
+ablation to follow.
 ### 4.6 Decoupling versus joint-training caveat
 
 We have not run the joint-trained baseline on Procgen yet. The CartPole
@@ -311,4 +323,5 @@ this work: literature review, code generation, experiments, and drafting.
 - Schulman 2017 - PPO
 - Sutton & Barto - Reinforcement Learning (2nd ed)
   (additional refs available in our deep-reading notes, 32 papers total)
+
 

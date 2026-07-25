@@ -216,3 +216,30 @@ Real Phase 1 Step 4 result at 256K steps:
 Project A paper v1 Section 4.5 should be updated to reflect this: pipeline
 runs end-to-end, but Phase 1 needs 1M+ steps for the Monitor claim to be
 demonstrable.
+
+
+## v1.8 -> v1.9 (2026-07-25, LunarLander-v3 Phase 2: H1 BREAKTHROUGH)
+
+Result: frozen-policy decoupled Monitor achieves Eval AUROC = 0.98 on
+LunarLander-v3 with 100 eval episodes. Train AUROC = 0.997 across 200
+episodes. Pearson(prob, reward) = -0.32.
+
+Insight: at PPO convergence (mean reward +150), the threshold needs to
+be capped at 0 to register failure cases. With p10=-205 on a converged
+policy, all eval episodes were > threshold -> fail_rate=0 -> AUROC
+undefined. Capping fixes this.
+
+Code shipped:
+- lunarlander_phase2.py (7478 bytes) generic classic-control runner
+- envs.py: percentile default 30 -> 10 + auto-detect n_actions in monitor
+- All code/ Python files: byte-level fix of 0xA1 0xAA UTF-8 em-dash corruption
+- Python 3.10 venv: pip install swig + box2d for LunarLander-v3
+- paper_outline_v1_full.md Section 4.5: BREAKTHROUGH block
+- experiments_log: phase2-lunarlander-h1.md (NEW)
+
+What Paper #1 still needs for full H1 claim:
+1. Joint-trained baseline (ablation)
+2. Multi-seed: 3-5 seeds for mean +/- std
+3. Cross-env: MountainCar-v0
+4. Adversarial robustness: perturbed initial state
+

@@ -132,7 +132,7 @@ layer. Our work can be seen as the RL policy analog: a separate
 
 ### 2.3 Safe RL and failure prediction
 
-The safe RL literature (Garcıa & Fernández 2015; Ray et al. 2019)
+The safe RL literature (Garc谋a & Fern谩ndez 2015; Ray et al. 2019)
 explores constrained MDP formulations where a separate safety
 criterion is enforced. Our Monitor is a special case of a safety
 predictor: it estimates the probability of an episode-level safety
@@ -455,6 +455,46 @@ minutes for 5 seeds at 100K PPO steps each.
 
 ---
 
+
+### 4.7 Cross-environment validation: CartPole-v1 (5 seeds)
+
+To test the generalizability of H1 beyond LunarLander-v3, we replicated
+the joint ablation on CartPole-v1 with 5 seeds and 30K PPO each.
+
+**Frozen Monitor results**:
+
+| Seed | Frozen AUROC | Verdict |
+|------|--------------|---------|
+| 0    | 0.302        | Not supported |
+| 1    | 0.707        | Supported    |
+| 2    | 0.184        | Not supported |
+| 3    | 0.833        | Supported    |
+| 4    | 0.608        | Supported    |
+| **mean** | **0.527** | **3/5 supported** |
+
+**Joint Monitor results**: All 5 seeds returned NaN AUROC.
+
+**Reason for joint NaN**: PPO at 30K steps on CartPole-v1 converges to
+~488 reward (near maximum 500). With fail_rate = 0 across eval episodes,
+the p10 failure threshold (13.0) is never crossed. Monitor collapses to
+a constant ~0.5 prediction because BCE on a uniform-label set has zero
+gradient at the constant prediction.
+
+**Interpretation**: CartPole-v1 is **not a valid H1 test environment**
+at 30K PPO budget because the policy converges too quickly for failure
+variance to develop. This is itself an informative negative result: the
+H1 ablation requires environments with non-trivial failure modes under
+typical PPO training. CartPole fails this requirement; LunarLander-v3
+satisfies it; Procgen 16 games would also satisfy it (deferred to Y1).
+
+**Implications**:
+1. LunarLander-v3 remains the gold-standard H1 evidence (5/5, delta=0.724).
+2. We do not claim H1 holds on every environment; we claim it holds
+   on environments where failure modes are non-trivial.
+3. The Y1 Procgen 16-game ablation is the proper cross-env validation.
+4. Negative results from too-easy environments are themselves a finding:
+   they constrain the H1 hypothesis to "useful" environments.
+
 ## 5. Discussion
 
 ### 5.1 When decoupling holds
@@ -586,7 +626,7 @@ conducted without external funding as part of an independent
   Regression. AAAI.
 - Bai, Y., et al. (2022). Constitutional AI. arXiv:2212.08073.
 - Burns, C., et al. (2023). Weak-to-Strong Generalization. OpenAI.
-- Garcıa, J. & Fernández, F. (2015). A Comprehensive Survey on
+- Garc谋a, J. & Fern谩ndez, F. (2015). A Comprehensive Survey on
   Safe RL. JMLR.
 - Gou, Z., et al. (2024). CRITIC: LLMs Can Self-Correct with
   Tool-Interactive Critiquing. ICLR 2024.

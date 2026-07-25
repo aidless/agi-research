@@ -243,3 +243,19 @@ What Paper #1 still needs for full H1 claim:
 3. Cross-env: MountainCar-v0
 4. Adversarial robustness: perturbed initial state
 
+
+
+## v1.7 -> v1.8 (2026-07-25, B 5-seed final + paper v1 Section 4.6-4.11)
+
+Added Section 4.6 (5-seed LunarLander results, mean 0.796, 4/5 positive)
++ Section 4.7 (adversarial robustness 0.998) + Section 4.8 (Acrobot
+cross-check 0.42 small positive class) + Section 4.9 (honest interpretation
+across all runs) + Section 4.10 (known limitations including joint ablation
+not run) + Section 4.11 (future work). Section 4.5 placeholder updated.
+
+Project A paper v1 now reflects all 5-seed B, 1-seed perturbed D, and
+1-seed Acrobot. Mean across 5 seeds = 0.796, 4/5 positive, 1/5
+anomaly. Paper A v1 is now substantively complete for submission to
+ICLR Workshop on Self-Improving Systems (target April 2026 deadline,
+need to add joint ablation result before final).
+

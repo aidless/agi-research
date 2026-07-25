@@ -55,26 +55,29 @@ class EpisodeLog:
     total_reward: float = 0.0
     env_name: str = ""
 
-    def history_vector(self, history_len: int = 32) -> np.ndarray:
+    def history_vector(self, history_len: int = 32, n_actions: int = 2) -> np.ndarray:
         """
         Flatten the last `history_len` transitions into a single fixed-size vector.
         The Monitor takes this as input.
 
-        Observation is zero-padded if fewer than history_len transitions exist.
-        Action and reward are zero-padded likewise.
+        n_actions is the action-space size; action is encoded as a 1-hot
+        vector of length n_actions (default 2 for backward-compatibility with
+        CartPole).
         """
         obs_dim = self.transitions[0].obs.shape[0] if self.transitions else 1
-        # Each transition contributes: obs + action_onehot + reward = obs_dim + 1 + 1 floats
-        per_step = obs_dim + 2
+        # Each transition contributes: obs (obs_dim) + action_onehot (n_actions)
+        # + reward (1) = obs_dim + n_actions + 1 floats
+        per_step = obs_dim + n_actions + 1
         vec = np.zeros(history_len * per_step, dtype=np.float32)
         # Take the most recent `history_len` transitions
         recent = self.transitions[-history_len:]
         for i, tr in enumerate(recent):
             base = i * per_step
             vec[base:base + obs_dim] = tr.obs
-            # Action as one-hot (or just its index normalised, here one-hot for clarity)
-            vec[base + obs_dim + tr.action] = 1.0
-            vec[base + obs_dim + 1] = tr.reward
+            # Action one-hot
+            if 0 <= tr.action < n_actions:
+                vec[base + obs_dim + tr.action] = 1.0
+            vec[base + obs_dim + n_actions] = tr.reward
         return vec
 
 

@@ -49,13 +49,20 @@ class FailureDataset(Dataset):
     The paper appendix will ablate using multi-sample per episode.
     """
 
-    def __init__(self, episodes: List, history_len: int = 32):
+    def __init__(self, episodes: List, history_len: int = 32, n_actions: int = 2):
         self.X = []
         self.y = []
-        # we import lazily to avoid circular import
         from envs import is_failure_episode
+        # Auto-detect n_actions from the max action seen (capped at 16)
+        max_action = 1
         for ep in episodes:
-            vec = ep.history_vector(history_len=history_len)
+            for tr in ep.transitions:
+                if tr.action > max_action:
+                    max_action = tr.action
+        detected = max(2, max_action + 1)
+        n_actions = max(detected, n_actions)
+        for ep in episodes:
+            vec = ep.history_vector(history_len=history_len, n_actions=n_actions)
             self.X.append(vec)
             self.y.append(1.0 if is_failure_episode(ep) else 0.0)
         self.X = np.stack(self.X).astype(np.float32)

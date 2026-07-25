@@ -259,3 +259,42 @@ anomaly. Paper A v1 is now substantively complete for submission to
 ICLR Workshop on Self-Improving Systems (target April 2026 deadline,
 need to add joint ablation result before final).
 
+
+
+## v1.8 -> v1.9 (2026-07-25, F:\TMLR corpus synthesis)
+
+Read 12 of 29 files in F:\TMLR corpus. Extracted 10 essential insights
+for our 5-year AGI program. Discarded rest as dross (math derivations,
+medical/legal apps, consciousness philosophy, sociological speculation).
+
+Key insights extracted and applied to our program:
+- **NARS's AIKR assumption**: 5-year program operates in AIKR mode;
+  accept finite knowledge/resources
+- **NARS truth-values (frequency + confidence)**: Project E v2 should
+  allow graded verifier output rather than strict Boolean
+- **OpenCog Hyperon atomspace**: Project D v2 should consider
+  graph-based type representation
+- **Chinchilla scaling laws**: Project A Monitor arch size is
+  Chinchilla-appropriate (~10^6 params, balanced with PPO policy size)
+- **Safety concerns for verifier**: Project E v2 should include
+  specific rules for reward hacking, spec gaming, distributional shift,
+  deceptive alignment, goal misgeneralization
+- **Real-world compute estimates**: 10^3-10^6x more compute needed for
+  real AGI; our goal is research publications, not deployment
+
+Discarded (dross, not absorbed):
+- Generic Transformer architecture descriptions (already in our canon)
+- Medical/legal applications (we're not building those)
+- Mathematical derivations of known facts
+- Speculative AGI timelines
+- Consciousness philosophy (GWT/HOT/IIT) beyond actionable insights
+- Sociological predictions
+
+Synthesis document: literature/TMLR_synthesis.md (9.8 KB)
+
+Open questions added to existing list:
+- Does our architecture need graph-based knowledge (Project D v2)?
+- Should Project E v2 use graded truth-values?
+- What is the right safety rule set for AGI in our setting?
+- Are we hitting Chinchilla-optimal compute for our Monitor?
+

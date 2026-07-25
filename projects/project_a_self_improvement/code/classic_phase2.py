@@ -100,7 +100,7 @@ def main():
     sys.stdout.write('[Stage 3] Training Monitor...\n')
     history_dim = args.history_len * (obs_dim + n_actions + 1)
     mcfg = MonitorConfig(history_dim=history_dim, seed=args.seed, epochs=args.monitor_epochs)
-    monitor, mmetrics = train_monitor(mcfg, train_eps, history_len=args.history_len, verbose=True)
+    monitor, mmetrics = train_monitor(mcfg, train_eps, history_len=args.history_len, verbose=True, threshold=threshold)
 
     ckpt_dir = HERE / 'checkpoints' / ('lunarlander_seed' + str(args.seed))
     ckpt_dir.mkdir(parents=True, exist_ok=True)
@@ -161,6 +161,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 

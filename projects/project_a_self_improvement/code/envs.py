@@ -1,4 +1,4 @@
-ï»¿"""
+"""
 envs.py â€” Environment wrappers for Project A.
 
 We use three classic-control tasks:
@@ -105,7 +105,7 @@ def make_env(env_name: str, seed: int | None = None) -> gym.Env:
     return env
 
 
-# â”€â”€ Procgen (optional) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ©¤©¤ Procgen (optional) ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
 PROCGEN_TRAIN_GAMES: tuple[str, ...] = (
     "bigfish", "bossfight", "caveflyer", "chaser",
@@ -128,7 +128,7 @@ PROCGEN_GAME_GROUPS = {
 
 
 def percentile_failure_threshold(
-    returns: list[float], percentile: float = 30.0
+    returns: list[float], percentile: float = 10.0  # lowered for more failure cases
 ) -> float:
     """Adaptive failure threshold â€” bottom `percentile` of training returns."""
     if not returns:
@@ -260,3 +260,5 @@ def rollout_one_episode(env: gym.Env, policy, max_steps: int = 1000) -> EpisodeL
         done = terminated or truncated
         steps += 1
     return log
+
+

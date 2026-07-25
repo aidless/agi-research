@@ -66,6 +66,8 @@ def main():
     parser.add_argument("--history-len", type=int, default=16)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--monitor-epochs", type=int, default=5)
+    parser.add_argument("--percentile", type=float, default=10.0,
+                        help="failure percentile; lower = more failure cases")
     args = parser.parse_args()
 
     print(f"\n[Project A Phase 2] game={args.game}  seed={args.seed}")

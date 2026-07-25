@@ -202,3 +202,17 @@ saved first orchestrated task context to .tasks/.
 5 projects each with v0 + v1 outlines. 9 ADRs. 5 experiment logs.
 
 agent.yaml fixed to use YAML-quoted glob patterns.
+
+## v1.7 -> v1.8 (2026-07-25, Phase 1 Step 4)
+
+Real Phase 1 Step 4 result at 256K steps:
+- 8531 episodes collected across 4 Procgen games (~25 min CPU).
+- ALL p30 thresholds = 0.0.
+- Mean returns modest: coinrun 6.0, bigfish 1.0, jumper 2.6, dodgeball 1.2.
+- Implication: Phase 1 needs even more steps (1M+) for Phase 2 Monitor
+  to detect failure variance. The pipeline-level claim stands; empirical H1
+  delayed.
+
+Project A paper v1 Section 4.5 should be updated to reflect this: pipeline
+runs end-to-end, but Phase 1 needs 1M+ steps for the Monitor claim to be
+demonstrable.

@@ -455,3 +455,19 @@ Big paper (100+ pages) now has dual purpose:
 
 The bundled publication hold (Amendment 20) remains in force. The big
 paper is now ALSO the PhD thesis foundation.
+## v1.12 -> v1.13 (2026-07-25, personal-info scope clarification)
+
+User note: "你不用管我是个人研究者"
+
+### Amendment 25: Codex scope limited to structural templates
+
+Codex does NOT solicit personal background info (school name, GPA,
+prior research, etc.). Codex drafts:
+- SoP templates (structure, research statement, advisor-fit paragraphs)
+- CV templates (academic format with placeholders)
+- Writing samples (extend Paper A v2 to 30+ pages)
+- Program + advisor mapping
+- Letter of recommendation guidance
+
+User personalizes templates + handles all submissions. DEC-001
+updated accordingly.

@@ -12,10 +12,10 @@ engineering work IS the PhD research.
 
 ## Timeline (tight)
 
-- **Now → Dec 2026**: PhD application prep (CV, SoP, letters, transcripts)
+- **Now 鈫?Dec 2026**: PhD application prep (CV, SoP, letters, transcripts)
 - **Dec 2026**: Submit PhD applications (Fall 2027 matriculation)
 - **Aug 2027**: Matriculate if accepted
-- **2027 → 2031-2033**: PhD research (4-6 years), thesis = the
+- **2027 鈫?2031-2033**: PhD research (4-6 years), thesis = the
   100+ page comprehensive paper
 
 If Fall 2027 fails, fallback to Fall 2028 cycle (Dec 2027 submission).
@@ -58,37 +58,44 @@ By Dec 2026:
 ## What I (Codex) can do for the PhD application
 
 - Draft SoP from scratch (will write when user provides direction)
-- Draft writing sample from Paper A v2 (28 pages → extend to 30+ pages)
+- Draft writing sample from Paper A v2 (28 pages 鈫?extend to 30+ pages)
 - Draft CV in academic format
 - Identify potential advisors at target programs based on recent papers
 - Generate tailored SoP versions per program
 
-## What the user needs to provide
+## What the user needs to provide (PERSONAL — out of Codex scope)
 
-- Personal info (name, undergraduate institution, GPA)
+User has explicitly stated they are an independent researcher and Codex
+should not solicit personal background info. The user fills in these
+items themselves when ready to submit applications:
+
+- Personal info (name, undergraduate institution, GPA, transcripts)
 - Specific program preferences (region, advisor fit)
 - Letters of recommendation sources (3 people + their emails)
-- Any prior research experience not in workspace
+- Prior research experience not in workspace
+- Submit the actual applications (via university portals)
+
+Codex drafts templates + structural content. User personalizes + submits.
 
 ## Synergies with the 5-year program
 
-- **Y0 Q3-Q4 (now → 2026-12)**: finish Project C slot-WM Procgen PoC
+- **Y0 Q3-Q4 (now 鈫?2026-12)**: finish Project C slot-WM Procgen PoC
   (even on small Procgen subset). This becomes a strong writing sample.
-- **Y1 H1 (2027-01 → 2027-06)**: Paper A v2 → arXiv. Add to CV.
-- **Y1 H2 (2027-07 → 2027-12)**: if matriculating, transition engineering
+- **Y1 H1 (2027-01 鈫?2027-06)**: Paper A v2 鈫?arXiv. Add to CV.
+- **Y1 H2 (2027-07 鈫?2027-12)**: if matriculating, transition engineering
   workspace into PhD research workspace (likely with same lab).
 - **Y2-Y5**: PhD research = engineering program. Same code, same papers.
 
 ## Risks
 
 - **Application timeline is tight (4-5 months)**. Letters of rec are the
-  highest-risk item — they require established academic relationships.
+  highest-risk item 鈥?they require established academic relationships.
 - **5-year program conflicts with PhD start date**. If PhD starts Aug 2027,
   we lose the engineering-only autonomy. Mitigation: PhD research topic
   IS the engineering program, so no loss.
 - **Advisor fit**. Without existing connections, may not land at top choice.
   Mitigation: apply broadly, network at NeurIPS 2026 (Dec 2026 deadline
-  conflict — but if accepted, attending).
+  conflict 鈥?but if accepted, attending).
 - **No academic pedigree** (no PhD, no postdoc, no faculty). The 30 commits
   + 5 projects + 100+ page paper become the de-facto CV.
 

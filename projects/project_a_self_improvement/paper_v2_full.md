@@ -1,4 +1,4 @@
-> **Copyright (c) 2026 刘泽文 (Liu Zewen). Licensed under MIT. See LICENSE.**
+> **Copyright (c) 2026 鍒樻辰鏂?(Liu Zewen). Licensed under MIT. See LICENSE.**
 > **Citation**: Liu Zewen (2026). "Decoupled Failure Monitors: An Architectural
 > Recipe for Self-Aware RL Agents." Independent 5-year research program, AGI-2026-001.
 # Decoupled Failure Monitors: An Architectural Recipe for Self-Aware RL Agents
@@ -135,7 +135,7 @@ layer. Our work can be seen as the RL policy analog: a separate
 
 ### 2.3 Safe RL and failure prediction
 
-The safe RL literature (Garc璋媋 & Fern璋﹏dez 2015; Ray et al. 2019)
+The safe RL literature (Garc鐠嬪獘 & Fern鐠嬶箯dez 2015; Ray et al. 2019)
 explores constrained MDP formulations where a separate safety
 criterion is enforced. Our Monitor is a special case of a safety
 predictor: it estimates the probability of an episode-level safety
@@ -629,7 +629,7 @@ conducted without external funding as part of an independent
   Regression. AAAI.
 - Bai, Y., et al. (2022). Constitutional AI. arXiv:2212.08073.
 - Burns, C., et al. (2023). Weak-to-Strong Generalization. OpenAI.
-- Garc璋媋, J. & Fern璋﹏dez, F. (2015). A Comprehensive Survey on
+- Garc鐠嬪獘, J. & Fern鐠嬶箯dez, F. (2015). A Comprehensive Survey on
   Safe RL. JMLR.
 - Gou, Z., et al. (2024). CRITIC: LLMs Can Self-Correct with
   Tool-Interactive Critiquing. ICLR 2024.

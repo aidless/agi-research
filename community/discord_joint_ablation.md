@@ -1,7 +1,6 @@
-# Discord / Reddit 公告 — Joint Ablation Result
+# Discord / Reddit 鍏憡 鈥?Joint Ablation Result
 
-> 2026-07-25. 适合 ml-agents / reinforcement-learning / artificial 子版。
-
+> 2026-07-25. 閫傚悎 ml-agents / reinforcement-learning / artificial 瀛愮増銆?
 ---
 
 ## Discord announcement (ml-agents channel)
@@ -37,7 +36,7 @@ The failure mode is "policy drag": PPO updates change the policy,
 which changes what "failure" looks like, and the Monitor gets pulled
 along.
 
-Code + 5-seed logs: github.com/<user>/agi-research
+Code + 5-seed logs: github.com/aidless/agi-research
 Paper: v2 draft at projects/project_a_self_improvement/paper_v2_full.md
 
 Looking for critique partners to evaluate the joint-ablation claim
@@ -74,7 +73,7 @@ test-time-compute extension (Best-of-N over PPO actions) is the next
 step.
 
 Code, logs, and full paper draft are public:
-- Code: github.com/<user>/agi-research
+- Code: github.com/aidless/agi-research
 - Paper v2: projects/project_a_self_improvement/paper_v2_full.md
 - Experiment log: experiments_log/2026-07-25-joint-ablation-A.md
 
@@ -90,7 +89,7 @@ Compute: 13 minutes total for 5 seeds at 100K PPO each, on CPU.
 
 ---
 
-## 投递 checklist
+## 鎶曢€?checklist
 
 - [ ] Twitter: post Version 2 (story) on personal account, link to GitHub
 - [ ] Discord #ml-agents: post announcement, ask for critique

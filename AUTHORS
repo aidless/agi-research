@@ -2,17 +2,17 @@
 
 ## Principal Investigator
 
-**刘泽文 (Liu Zewen)** — sole author, project lead, experiment design,
+**鍒樻辰鏂?(Liu Zewen)** 鈥?sole author, project lead, experiment design,
 analysis, and writing.
 - Independent researcher (no institutional affiliation as of 2026-07)
 - Project initiated: 2026-07-25
-- Email: [TO BE FILLED BY USER — for citation correspondence]
-- GitHub: [TO BE FILLED BY USER]
-- ORCID: [TO BE FILLED BY USER]
+- Email: [TO BE FILLED BY USER 鈥?for citation correspondence]
+- GitHub: aidless
+- ORCID: aidless
 
 ## AI Research Assistant
 
-**Codex (MiniMax-M3)** — code generation, experiment execution, paper
+**Codex (MiniMax-M3)** 鈥?code generation, experiment execution, paper
 drafting, literature synthesis. Used as a research tool, not a co-author.
 - Powered by: MiniMax M3 model
 - Used since: 2026-07-25
@@ -24,7 +24,7 @@ When citing this work, please cite:
 
 > Liu Zewen (2026). Archimedes: A Self-Improving AGI Substrate.
 > Independent 5-year research program, project AGI-2026-001.
-> GitHub: github.com/[USER-FILLS-IN]/agi-research
+> GitHub: github.com/aidless/agi-research
 
 BibTeX:
 ```
@@ -33,7 +33,7 @@ BibTeX:
   title  = {Archimedes: A Self-Improving {AGI} Substrate},
   year   = {2026},
   note   = {Independent 5-year research program, AGI-2026-001},
-  url    = {https://github.com/[USER]/agi-research}
+  url    = {https://github.com/aidless/agi-research}
 }
 ```
 
@@ -56,4 +56,4 @@ Per CRediT taxonomy, the PI contributed:
 
 ## License
 
-See LICENSE file. MIT License, Copyright (c) 2026 刘泽文 (Liu Zewen).
+See LICENSE file. MIT License, Copyright (c) 2026 鍒樻辰鏂?(Liu Zewen).

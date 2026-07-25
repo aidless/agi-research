@@ -3,7 +3,7 @@
 > **A Self-Improving AGI Substrate: Decoupled Monitors, Causal World Models,
 > and Typed Language Interfaces**
 
-**Copyright (c) 2026 刘泽文 (Liu Zewen)** — see [LICENSE](./LICENSE) and [AUTHORS](./AUTHORS).
+**Copyright (c) 2026 鍒樻辰鏂?(Liu Zewen)** 鈥?see [LICENSE](./LICENSE) and [AUTHORS](./AUTHORS).
 
 Independent 5-year research program toward a self-improving, cross-domain,
 causally-grounded, language-queryable AGI substrate.
@@ -39,7 +39,7 @@ self-monitoring success.
 
 ```
 # Clone
-git clone https://github.com/[USER]/agi-research.git
+git clone https://github.com/aidless/agi-research.git
 cd agi-research
 
 # Install deps (Python 3.11+)
@@ -93,7 +93,7 @@ See [AUTHORS](./AUTHORS). Cite as:
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). Copyright (c) 2026 刘泽文 (Liu Zewen).
+MIT 鈥?see [LICENSE](./LICENSE). Copyright (c) 2026 鍒樻辰鏂?(Liu Zewen).
 
 ---
 

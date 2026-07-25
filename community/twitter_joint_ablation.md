@@ -1,10 +1,9 @@
-# Twitter / X 公告 — Joint Ablation Result
+# Twitter / X 鍏憡 鈥?Joint Ablation Result
 
-> 2026-07-25. 4 个版本，按场景用。配 5-seed joint ablation result。
-
+> 2026-07-25. 4 涓増鏈紝鎸夊満鏅敤銆傞厤 5-seed joint ablation result銆?
 ---
 
-## Version 1: 数据聚焦（技术读者）
+## Version 1: 鏁版嵁鑱氱劍锛堟妧鏈鑰咃級
 
 ```
 New result from my decoupled-Monitor project (5 seeds, LunarLander-v3):
@@ -18,7 +17,7 @@ Delta = 0.724. H1 falsifier (delta<0.05) not triggered.
 Joint Monitor Pearson is consistently POSITIVE (+0.35 to +0.85)
 --- meaning it learned the OPPOSITE of what we want.
 
-Code + logs: github.com/<user>/agi-research
+Code + logs: github.com/aidless/agi-research
 Paper: arXiv (forthcoming)
 
 #RL #AGI #SelfImprovement
@@ -26,7 +25,7 @@ Paper: arXiv (forthcoming)
 
 ---
 
-## Version 2: 故事化（普通读者）
+## Version 2: 鏁呬簨鍖栵紙鏅€氳鑰咃級
 
 ```
 A small story from my 5-year AGI program:
@@ -50,8 +49,7 @@ This is decoupling. It works. 5/5 seeds.
 
 ---
 
-## Version 3: AGI 大图景（研究者圈）
-
+## Version 3: AGI 澶у浘鏅紙鐮旂┒鑰呭湀锛?
 ```
 New in my 5-year AGI program: H1 falsifier defeated.
 
@@ -75,7 +73,7 @@ Next: test-time-compute extension (Best-of-N + Monitor as PRM).
 
 ---
 
-## Version 4: 简洁 announcement（最小信息）
+## Version 4: 绠€娲?announcement锛堟渶灏忎俊鎭級
 
 ```
 Joint ablation: 0.072 AUROC.
@@ -83,14 +81,14 @@ Frozen Monitor:  0.796 AUROC.
 
 Decoupling works. 5/5 seeds. LunarLander-v3, 100K PPO each.
 
-Full paper + code: github.com/<user>/agi-research
+Full paper + code: github.com/aidless/agi-research
 ```
 
 ---
 
-## 配图建议
+## 閰嶅浘寤鸿
 
-1. **Bar chart**: 5 seeds × 2 bars (joint vs frozen), y-axis AUROC.
+1. **Bar chart**: 5 seeds 脳 2 bars (joint vs frozen), y-axis AUROC.
    Horizontal red line at 0.5 (random).
 2. **Scatter plot**: Monitor probability vs episode reward for one seed.
    Joint Monitor: positive slope (inverted). Frozen Monitor: negative slope.

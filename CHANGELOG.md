@@ -1,4 +1,4 @@
-﻿# CHANGELOG.md
+# CHANGELOG.md
 
 > All material changes to TASKBOOK_v1.md are recorded here. Taskbook
 > edits and ADRs stay in this file so v1.0 remains a stable baseline.
@@ -68,7 +68,7 @@ decided.
 
 ## v1.1 -> v1.2 (2026-07-25, second-day session)
 
-User asked to "全做" (do everything). This drives further amendments.
+User asked to "ȫ��" (do everything). This drives further amendments.
 
 ### Amendment 6: Project E promoted to P1 (DEC-0007)
 - **Old (v1.1)**: Project E at P2 (open question)
@@ -88,3 +88,16 @@ User asked to "全做" (do everything). This drives further amendments.
 - 6811 bytes in `projects/project_c_causal_world/paper_outline_v0.md`
 - H1/H2 hypotheses specified in Section 0 (Slot-WM interventions).
 - **Status**: outline only; full paper draft is Y1 deliverable.
+
+## v1.2 -> v1.3 (2026-07-25, AGI continuation turn)
+
+User requested refocus on the AGI program.
+
+### Amendment 9: Project A paper v1_full body shipped
+- 11700+ bytes in projects/project_a_self_improvement/paper_outline_v1_full.md
+- Title + Abstract + 7-section body + Acknowledgements + References
+- Section 4.5 now contains real Phase 1+2 numerical results on
+  Procgen coinrun seed 0 (50K PPO steps + 100 train + 50 eval episodes).
+- Honest null result documented: Pipeline works, but Phase 1
+  too short for Monitor to detect signal.
+- Submission target: ICLR 2027 Workshop on Self-Improving Systems.

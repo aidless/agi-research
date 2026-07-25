@@ -365,3 +365,51 @@ and the H+I corpus synthesis. Major empirical + methodological milestone.
 - DEC-001 (PhD vs Independent) — open until 2026-09-30
 
 These do not require v1.11 changes; will be folded once shipped.
+## v1.10 -> v1.11 (2026-07-25, AGI round 5: PUBLICATION HOLD)
+
+User directive: "先保留，以后等着发一篇上百页的大论文"
+
+### Amendment 20: PUBLICATION HOLD established
+
+All public-facing publications are on hold until a single 100+ page
+comprehensive thesis-style paper can be assembled from Projects A-E.
+
+**On hold**:
+- Paper A v2 draft (`projects/project_a_self_improvement/paper_v2_full.md`)
+- Twitter drafts (`community/twitter_*.md`)
+- Discord/Reddit drafts (`community/discord_*.md`)
+- Email drafts
+- Grant applications (`grant_applications/*`)
+- Critique partner outreach (`community/finding_critique_partners.md`)
+
+**Not on hold** (private workspace artifacts):
+- Code commits (local git only, no remote push)
+- Paper deep notes (`literature/papers/*`)
+- Experiment logs (`experiments_log/*`)
+- Decision records (`decisions/*`)
+- Internal syntheses (`literature/TMLR_*.md`)
+- ROADMAP / TASKBOOK / PROGRESS / CHANGELOG
+
+See `PUBLICATION_HOLD.md` for full rationale, big-paper structure,
+timeline, and lift criteria.
+
+### Amendment 21: Big paper working title (provisional)
+
+"A Self-Improving AGI Substrate: Decoupled Monitors, Causal World Models,
+and Typed Language Interfaces"
+
+Target: 100-160 pages. Estimated submission: Y2 Q3 (~2028-07).
+
+Sections: Foundations (15pp), Project A (25pp), B (15pp), C (20pp),
+D (10pp), E (15pp), Integration (10pp), Discussion (10pp), References
+(10pp), Appendices (15pp). Total ~145 pages.
+
+Lift criteria:
+1. All Y1 H2 milestones hit (Monitor Procgen > 0.85, slot-WM
+   transfer > 0.6, type system 80% consistency, LTL verifier 95%
+   symbolic agreement)
+2. External trigger (competing paper publishes similar findings)
+3. User explicit lift
+4. Risk of obsolescence (field moves on)
+
+Scheduled review: Y1 Q4 (2027-09). Default lift: Y2 Q3 (2028-07).

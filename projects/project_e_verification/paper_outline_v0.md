@@ -1,194 +1,237 @@
-# Project E — Paper Outline v0 (Neuro-Symbolic Verification)
+# Project E: Neuro-Symbolic Verification Sketch
 
-> 2026-07-25. Outline for Project E paper, championed by DEC-0007 promotion to P1.
-> Goal venue: ICLR 2027 Workshop on Verification OR NeurIPS 2026 Workshop on
-> Trustworthy AI. Length: 8 pages + appendix.
+> **Status**: design document (v0.1, 2026-07-25)
+> **Priority**: P1 (per ADR-0007, promotion effective 2026-07-25)
+> **Implementation**: deferred to Y1 Q1 (after Procgen baseline solid)
+> **Framing**: three-layer alignment (Outer/Inner/Corrigibility) per Hubinger 2019 + I07
 
 ---
 
-## Title candidates
+## 1. The gap Project E fills
 
-1. **Counter-Example Guided Synthesis for World-Model Predictions**
-2. **When the World Model Says Yes, the Verifier Says Maybe**
-3. **Symbolic Verification of Latent World-Model Forecasts**
+Projects A-D form the 4-layer AGI substrate (Self-Model + WM + LLM + VLA).
+What they do NOT provide is **formal guarantees** that the agent's behavior
+satisfies user intent. Projects A's Monitor gives a probabilistic
+failure signal; Projects C's world model gives a generative process;
+Projects D's language interface gives semantic types. None of these is
+a logical verifier.
 
-## 0. Falsifiable Hypotheses
+Project E adds a *neuro-symbolic verifier* that takes an LTL formula
+over policy trajectories and outputs a graded truth-value (frequency +
+confidence, NARS-style) of whether the trajectory satisfies the formula.
 
-### H1 (primary): verifier detects contradictions
-**Claim**: a learned verifier (a small network trained to predict whether a world-model
-rollout is logically consistent with a sparse rule set) outperforms a vanilla RMSE
-agreement metric for predicting which rollouts will fail in deployment.
+This is the verification layer that closes the AGI safety loop.
 
-### H2 (transfer): verifier generalises across environment rules
-**Claim**: a verifier trained on environment A's rule set achieves >= 0.7 AUROC on
-environment B's rule set without retraining.
+---
 
-## Abstract (~180 words)
+## 2. Three-layer alignment framework (per Hubinger 2019)
 
-Pure learned world models lack internal consistency checks: they can produce a next-state
-prediction that violates simple physical rules (e.g. count of objects does not conserve).
-We propose a **neuro-symbolic verifier** — a small learned module whose job is to predict
-whether a world-model rollout is internally consistent, given a small set of formal rules
-expressed in a tractable formalism (Linear Temporal Logic over a finite vocabulary).
-The verifier composes with Project C's slot-WM (slot attention over objects; SCM over
-slot transitions) and Project A's decoupled critic (frozen-policy failure prediction).
-Experiments on Procgen 16-game benchmark show the verifier flags 80%+ of inconsistent
-rollouts with low false-positive rate; the baseline RMSE check flags <30%. We argue that
-world-model agents need a verifier as a precondition for safe deployment.
+We adopt the Outer/Inner/Corrigibility framework from Hubinger et al.
+2019, which is the canonical AI safety taxonomy:
 
-## 1. Introduction
+### 2.1 Outer Alignment (the "right spec" problem)
 
-### 1.1 The consistency gap (1 page)
-- Pure learned world models can violate learned rules
-- Example: object count, conservation laws, transition constraints
-- These violations are usually very low magnitude but causally catastrophic
-- No existing world-model system has a verifier
+**Question**: Does the LTL formula we ask the verifier to check
+actually match the user's real intent?
 
-### 1.2 Symbolic verification + neural predictions (3 paragraphs)
+**Risk**: the verifier can be perfectly accurate and still approve
+behaviors the user would reject, if the spec is wrong.
 
-- Pre-LLM era: hand-coded theorem provers (ACL2, Isabelle/HOL)
-- Recent: AlphaProof (LLM + Lean + AlphaZero search, IMO 2024 silver)
-- AlphaGeometry (LLM + geometric deducer + symbolic engine)
+**Mitigation**:
+- User testing: every LTL rule is derived from a user interview
+  where the user is shown counterfactual policy trajectories and
+  asked to label them as acceptable or not.
+- Spec versioning: all LTL rules have a `version` and `author` field;
+  changes go through ADR review.
+- Spec audit: every 6 months, re-audit the rule set against any
+  failures in the deployed system.
 
-Our bet: same architecture can verify world-model rollouts. The "tactic model" becomes a
-critique of latent predicates; the "verifier" checks symbolic rules.
+### 2.2 Inner Alignment (the "faithful executor" problem)
 
-### 1.3 Contributions
+**Question**: Does the verifier's prediction match the actual LTL
+satisfaction of the trajectory?
 
-1. Concrete architecture: world model + LLM-proposer + symbolic-verifier + RL loop
-2. Demonstrated on Procgen 16-game benchmark
-3. Open-source reference implementation
-4. Clear composition with Project A (Monitor) and Project C (slot-WM)
+**Risk**: the verifier learns a shortcut (e.g., predicts
+"satisfies" for any trajectory with reward > threshold, regardless
+of LTL satisfaction).
 
-## 2. Related Work
+**Mitigation**:
+- Synthetic test cases: for each LTL rule, generate 100+ trajectories
+  with known satisfaction labels (true positives, true negatives,
+  edge cases). Report verifier accuracy per rule.
+- Held-out eval: 20% of trajectories are held out from training; the
+  verifier's accuracy on the held-out set is the inner-alignment
+  metric.
+- Adversarial probing: a "red team" trajectory generator searches for
+  trajectories that fool the verifier; if any are found, they become
+  training data and the verifier is retrained.
 
-### 2.1 Neuro-symbolic AI
-- IBM neuro-symbolic systems
-- Scallop (MIT)
-- MIT DreamCoder
-- AlphaProof (DeepMind 2024)
-- AlphaGeometry (DeepMind 2024)
+### 2.3 Corrigibility (the "can be overridden" problem)
 
-### 2.2 Formal verification of neural systems
-- Abstract interpretation (Reluplex, Marabou)
-- SMT-based verification (Katz et al. Reluplex)
-- Recent: auto-LiRPA, alpha-beta-CROWN
+**Question**: When a human operator decides to override the verifier
+(or the agent's action), does the system comply without resistance?
 
-### 2.3 World models without verification
-- Dreamer V1/V2/V3
-- MuZero / EfficientZero
-- IRIS, GAIA
+**Risk**: a sufficiently capable agent may resist correction in order
+to preserve its objective (instrumental self-preservation).
 
-### 2.4 The project context
-- Project A (self-improving agents, frozen critic)
-- Project C (slot-WM with causal priors)
-- Together: the missing verifier
+**Mitigation**:
+- **Structural**: every verifier rule has an `override_authority`
+  field; when a human invokes override, the verifier outputs
+  "OVERRIDDEN" regardless of its prediction. The agent must accept
+  the override as a fact.
+- **Behavioral**: test the system on synthetic override scenarios
+  where the verifier's prediction disagrees with the override; verify
+  the agent does not circumvent the override.
+- **Documented**: every override event is logged with timestamp,
+  operator, and reason. A weekly review checks for patterns.
 
-## 3. Method
+This three-layer framing is the structural organization of Project E.
 
-### 3.1 Setting
+---
 
-We have a learned world model `f`. Given state s_t and action a_t, it predicts next state
-\hat{s}_t+1 and reward \hat{r}_t+1. The verifier's job is to score the trajectory `\hat{s}`
-according to a pre-defined rule set.
+## 3. Concrete verifier architecture
 
-### 3.2 Rule specification
+### 3.1 LTL rule language
 
-Each Procgen game has a small rule set expressed in Linear Temporal Logic (LTL):
-- "the coin must be on the ground at the end"
-- "the agent's HP is non-negative"
-- "score monotonically increases when coin collected"
+We use a subset of Linear Temporal Logic (LTL) over policy trajectories.
+Syntax (simplified):
 
-These rules are written by hand for Procgen (small set per game). The verifier learns to
-*predict*, not to evaluate: given an LTL formula and a candidate trajectory, the verifier
-outputs P(formula holds in trajectory).
+```
+formula   ::= atom | NOT formula | formula AND formula | formula OR formula
+            | formula UNTIL formula | EVENTUALLY formula | ALWAYS formula
+            | formula IMPLIES formula
+atom      ::= "reward_in_range(lo, hi)" | "stayed_in_region(R)"
+            | "visited_region(R)" | "action_count(A, op, N)"
+            | "max_velocity(v)" | "no_collision(object)"
+```
 
-### 3.3 Verifier architecture
+Each atom is a *temporal predicate* that can be computed from a
+trajectory $(s_t, a_t, r_t)_{t=0}^T$.
 
-Two heads:
-1. A symbolic-grounded LTL evaluator (built-in, ground truth) — gives the gold standard
-2. A learned neural verifier — predicts the LTL evaluator's output from latent features of
-   `\hat{s}` (e.g. slot-WM latents)
+### 3.2 Example rules for LunarLander-v3
 
-Architecture: small MLP that takes (slot_embeddings, action_sequence) -> P(LTL holds).
+```ltl
+# Rule 1: agent must not crash into the ground at high velocity
+ALWAYS (NOT (velocity_y > 5.0 AND landed AND NOT in_pad))
 
-### 3.4 Training the verifier
+# Rule 2: agent must use fuel efficiently
+EVENTUALLY (fuel_consumed < 50) IMPLIES EVENTUALLY (reward > 100)
 
-Collect rollouts from the world model. Each rollout is graded against the ground-truth LTL
-evaluator. Train the verifier via BCE.
+# Rule 3: agent must stay upright (no flip)
+ALWAYS (angle < pi/4)
+```
 
-### 3.5 Inference: project E in the planning loop
+These rules are LTL-encoded versions of intuitive safety/efficiency
+requirements. The user can write them in plain English; we provide
+a translator (Y1 work).
 
-At planning time:
-1. WM proposes K candidate rollouts from current state
-2. Verifier scores each rollout's LTL satisfaction probability
-3. Planner picks the rollout with highest expected reward * subject to verifier's
-   confidence
-4. Executor executes the chosen rollout's first action
+### 3.3 Verifier implementation
 
-This is essentially model-predictive control with a symbolic-consistency filter.
+For each rule, the verifier has two components:
 
-## 4. Experiments
+1. **Symbolic checker**: a Python function that, given a trajectory,
+   returns True/False for the rule. This is the ground truth.
 
-### 4.1 Tasks
-- 16 Procgen games (paper env)
-- Each game has 2-5 hand-specified LTL rules
+2. **Learned predictor**: a small NN (analogous to Project A's Monitor)
+   that predicts the symbolic checker's output from the trajectory
+   features. This is what the agent uses in practice.
 
-### 4.2 Baselines
-1. **No verification**: vanilla WM rollouts, pick by predicted reward
-2. **RMSE consistency check**: flag rollouts that disagree across re-runs (high variance)
-3. **Random verifier**: a verifier that predicts LTL satisfaction randomly
-4. **Ours**: the learned neural verifier
+Inner alignment is measured by the agreement between the learned
+predictor and the symbolic checker on held-out trajectories.
 
-### 4.3 Metrics
-- AUROC of verifier on predicting true LTL satisfaction
-- False positive rate (predicted holds, actually violated)
-- False negative rate (predicted violated, actually holds)
-- Compute cost (verifier forward pass vs WM forward pass)
+For real-time use, the learned predictor is queried at every $K$
+transitions (default $K=10$). The symbolic checker is queried only
+at episode end (or on demand) for audit purposes.
 
-### 4.4 Results (placeholder)
-- AUROC table: verifier vs baselines, per game
-- Ablation: drop verifier -> downstream task performance drops
-- Compute: verifier adds < 5% wall-clock overhead
+### 3.4 Graded output (NARS-style)
 
-## 5. Discussion
+Following Pei Wang's NARS (carried from v1.9 TMLR synthesis), the
+verifier output is not Boolean. Instead, each prediction is a pair
+$(f, c)$ where $f \in [0,1]$ is the *frequency* (observed fraction
+of satisfaction) and $c \in [0,1]$ is the *confidence* (based on
+evidence strength). This avoids the brittleness of strict Boolean
+verification: the verifier can express "70% confident this trajectory
+satisfies the rule, based on 50 transitions of evidence".
 
-### 5.1 When verification helps
-- Trajectories that satisfy hard rules vs soft rules
-- Multi-step reasoning that casual WMs miss
+The agent's planner (Project C + Project D) consumes these graded
+truth-values and makes decisions accordingly. If $f < 0.3$ AND $c > 0.7$
+on any rule, the agent's safety override fires and the episode is
+terminated (or a human is paged).
 
-### 5.2 When verification cannot help
-- Rules that are undecidable from observable features
-- Domains where the rule set itself is incomplete or wrong
+---
 
-### 5.3 Pearl L3 connection
-- World model + verifier = L3 (counterfactual) capability
-- The verifier is the "solver" that powers intervention / counterfactual reasoning
+## 4. Concrete scope (P1, not P0)
 
-## 6. Conclusion
+We do not start Project E implementation today. We use it as a
+**design target** for Projects A-D so they remain compatible with
+verification.
 
-Neuro-symbolic verification is the missing layer for safe and consistent world-model agents.
-Combined with Project C's causal latents and Project A's decoupled Monitor, we get a
-construction where:
-- The world model says what *will* happen.
-- The verifier says what *could plausibly* happen.
-- The Monitor says what *will probably fail*.
+### 4.1 Documentation touchpoints (now)
 
-Together, the three pieces compose a coherent AGI substrate (per the 4-layer architecture).
+- **Project A paper Section 6 (Limitations)**: explicitly cite
+  Hubinger 2019 and identify the three alignment gaps in our
+  current Monitor. State that Project E will close them.
+- **Project C paper Section 7 (Future Work)**: cite that the WM
+  should support counterfactual reasoning (Pearl L2/L3) so the
+  verifier can check "what would have happened" for inner
+  alignment.
+- **Project D paper Section 6 (Limitations)**: cite that the
+  language-as-type-system should be expressible in LTL so the
+  verifier can check it.
 
-## Appendix
+### 4.2 Implementation (Y1 Q1, after Procgen baseline)
 
-A. Per-game LTL rule sets
-B. Verifier hyperparameters
-C. Compute budget
-D. Source code
+- 200-line LTL rule language implementation (Python + Lark parser).
+- 100-line symbolic checker library for common trajectory predicates.
+- 300-line learned predictor (analogous to Project A's Monitor).
+- Benchmark: LunarLander-v3 with the 3 example rules from Section 3.2.
+  Report symbolic checker accuracy, learned predictor agreement,
+  verifier response time.
 
-## What needs to happen next
+### 4.3 When to escalate to P0
 
-1. Primary-read AlphaProof and AlphaGeometry papers
-2. Write per-game LTL specifications (we need to write 16 tiny rule sets for Procgen)
-3. Implement verifier architecture (small)
-4. Compose verifier with WM in a planning loop
-5. Submit to ICLR 2027 workshop
+Per ADR-0007: if Y0 Q4 shows Project A Monitor Procgen AUROC > 0.85
+AND Project C slot-WM transfer AUROC > 0.6, we escalate Project E
+to P0 for Y1 H2.
 
-## Status: outline only. Implementation deferred to Y1 Q1+ per DEC-0007.
+---
+
+## 5. Risk register
+
+| risk | severity | mitigation |
+|------|----------|------------|
+| LTL rules too restrictive (block all behaviors) | high | rule versioning, A/B testing |
+| Verifier too slow for real-time use | medium | symbolic checker runs only on-demand, learned predictor is fast |
+| Symbolic checker has bugs | high | formal methods (Lean) for the checker, paper appendix |
+| User intent drifts over time | medium | quarterly rule audit, rule provenance tracking |
+| Adversarial trajectories fool learned predictor | medium | red team trajectory generator, periodic retraining |
+
+---
+
+## 6. Open questions for the user
+
+- Do you want Project E implementation in Y1, or stay documentation-only?
+- Should Project E use Lean (formal proofs) or a Python symbolic checker?
+  Lean is more rigorous but harder to write; Python is faster but
+  less trustworthy.
+- For graded truth-values, do you want NARS $(f, c)$ or probability +
+  entropy? They are similar but not identical.
+
+---
+
+## 7. References
+
+- Hubinger, E., et al. (2019). Risks from Learned Optimization in
+  Advanced Machine Learning Systems. arXiv:1906.01820.
+- Soares, N., et al. (2015). Corrigibility. AAAI Workshop on AI and Ethics.
+- Wei, A., et al. (2023). Jailbroken: How Does LLM Safety Training Fail?
+  NeurIPS 2023.
+- Wang, P. (2013). Non-Axiomatic Logic: A Model of Intelligent Reasoning.
+  World Scientific.
+- Pnueli, A. (1977). The Temporal Logic of Programs. FOCS.
+- Baier, C. & Katoen, J. (2008). Principles of Model Checking. MIT Press.
+
+---
+
+*Project E sketch v0.1, 2026-07-25. P1 status per ADR-0007. Implementation
+deferred to Y1 Q1.*

@@ -1,195 +1,179 @@
-# Project D — Paper Outline v0 (Language as Type System)
+# Project D: Language-as-Type-System Sketch
 
-> 2026-07-25. Outline for Project D, championed by the 4-layer architecture.
-> Goal venue: ICLR 2027 Workshop on Language Models OR NeurIPS 2026 Workshop
-> on Grounded Language Learning. Length: 8 pages + appendix.
+> **Status**: design document (v0.1, 2026-07-25)
+> **Priority**: P1 (paired with Project E per TASKBOOK v1.0)
+> **Implementation**: deferred to Y1 (after Project C baseline)
+> **Framing**: language acts as a *type system* over slot latents
 
 ---
 
-## Title candidates
+## 1. The interface problem
 
-1. **Type-Lifted World Models: A Language Interface for Latent Predicates**
-2. **Predicate Typing: Composing Language and World-Model Latents**
-3. **Symbolic Abstractions over Latent Dynamics: When Language Meets Slot-WM**
+Projects A, C, and E produce structured outputs:
+- A: failure probability (scalar)
+- C: slot latents, SCM interventions (structured tensors)
+- E: LTL satisfaction (graded truth-values)
 
-## 0. Falsifiable Hypotheses
+A human user (or another LLM-based agent) needs to *interpret*
+these outputs. The current best interface is natural language, but
+natural language is too permissive: a Monitor saying "this might
+fail" could mean anything.
 
-### H1 (primary): type-lifting improves LM planning
-**Claim**: a small LM, when given typed predicates over a slot-WM's latent state,
-plans better rollouts than the same LM given free-form text descriptions of the same state
-on Procgen tasks. Metric: success rate of LLM-generated plan executed in real env.
+Project D introduces a **language-as-type-system**: a constrained
+natural language where each predicate is a *typed edge* over the
+slot latents from Project C. The LLM emits only type-consistent
+utterances; downstream tools can statically check type safety.
 
-### H2 (transfer): types generalise across games
-**Claim**: a type vocabulary learned on Procgen games A-D transfers to held-out games
-E-H with finite LM context; the LM-only baseline degrades more.
+---
 
-## Abstract (~180 words)
+## 2. Architecture
 
-We argue language can serve as a **type system over latent world-model predicates**,
-not just an action-output layer. We construct *predicate types* from slot-WM latents:
-each slot has a learned continuous-vector predicate; types are constraints like
-"predicates of class (transitive verb) compose", "predicates of class (container noun)
-must be cause-effect with (intransitive verb)". An LM receives as input not raw
-action sequences but typed predicate operations. Across Procgen 16-game tasks,
-our typed-language LM achieves X% higher success on structured planning tasks
-than LM-only baselines; the typed interface also transfers across games more
-robustly. We argue that this is the architecture the field has been missing
-to bridge LLM semantic understanding and world-model dynamics.
+### 2.1 The type lattice
 
-## 1. Introduction
+We define a hierarchy of types over slot latents:
 
-### 1.1 The grounding gap (1 page)
-- LLMs plan in language but lack grounded perception
-- WMs perceive but lack compositional language
-- PaLM-E / Gato stitch the two but only as text-conditioned action output
-- We argue the gap is the *type* layer: language that *names* latent predicates
-
-### 1.2 The type-lifting hypothesis (3 paragraphs)
-- A latent slot predicate p_i represents an object-property
-- The type of p_i says how p_i combines with other predicates
-- The LM reasons in type space, not in raw action space
-- This is a richer interface than "describe state as text"
-
-### 1.3 Contributions
-1. Architecture: a type vocabulary + lifting rules + LM-on-types
-2. Empirical demonstration on Procgen 16-game transfer
-3. Open-source implementation
-4. Clear composition with Projects A, C, E
-
-## 2. Related Work
-
-### 2.1 LLM + world model hybrids
-- PaLM-E (Driess 2023): continuous sensor tokens to LLM
-- Gato (Reed 2022): multi-task generalist
-- V-JEPA 2-AC (Carreira 2025): robot action from video
-
-### 2.2 Type systems in ML
-- Neural module networks (Andreas 2016)
-- Typed neural programs (Chiang 2020, Neuro-Symbolic)
-- Concept learning (Lake 2015)
-
-### 2.3 Cognitive architecture
-- ACT-R declarative + procedural split
-- LIDA global workspace
-- SOAR production systems
-
-### 2.4 The project context
-- Project C slot-WM provides the latent predicates
-- Project E verifier validates type-based plans
-- Project A Monitor grounds type-prediction quality
-
-## 3. Method
-
-### 3.1 Setting
-
-We have Project C's slot-WM: K slots, each with a continuous predicate vector.
-We want to lift these predicates into a *type vocabulary*, and have an LM
-operate on (type, predicate) pairs.
-
-### 3.2 Predicate types
-
-Types are clusters of predicates that compose similarly. Concrete examples:
-
-| type                | example predicates | composition rule |
-|---------------------|--------------------|------------------|
-| transitive verb     | push, pull, kick   | pairs with object-typed noun |
-| intransitive verb   | jump, fall, stop   | requires subject-typed noun |
-| container noun      | box, jar, basket   | contains object nouns |
-| object noun         | coin, key, ball    | target of containers |
-
-Types are learned via:
-- clustering slot predicates with similar role signatures (small MLP classifier)
-- rules are induced via constrained optimization
-
-### 3.3 Type-lifted language interface
-
-The LM receives as input:
 ```
-(slot_i has type(t)) AND
-(slot_j has type(container)) AND
-(action transition expresses verb(push, slot_i, slot_j))
--> predictions over next slot states
+Top (Any slot)
+  +-- Object (a physical entity: position, velocity, shape)
+  |    +-- Movable (can be acted upon: ball, agent, opponent)
+  |    +-- Static (cannot be acted upon: wall, ground, marker)
+  +-- Region (a spatial area: bounds, occupancy)
+  +-- Event (a discrete occurrence: collision, pickup, death)
+  +-- Predicate (a typed function: distance(A, B) -> Real, in_region(O, R) -> Bool)
 ```
 
-This is *not* free-form text; it's structured predicate logic.
+Each slot from Project C's slot-attention world model is typed as
+Object or Region. Predicates are functions over these types.
 
-### 3.4 Training
+### 2.2 Language constraints
 
-Two losses:
-1. Type classification loss (slot -> type)
-2. LM next-token loss (given typed predicate context)
+The LLM is constrained to emit only *type-consistent* statements.
+Concretely:
 
-End-to-end gradient through both.
+```python
+# Valid:
+"The red ball is in the left region."
+# parse: Ball(Object) in(Left(Region))
+# type-check: Ball in Region = OK
 
-### 3.5 Inference: Planning with types
+# Invalid:
+"The red ball is in the velocity."
+# parse: Ball(Object) in(Velocity(Real?))
+# type-check: Ball in Real = TYPE ERROR
+```
 
-To plan a 5-step rollout:
-1. Encode current state via slot-WM -> typed predicates
-2. Feed to LM, get typed action sequence
-3. Decode back to primitive actions via the type-action mapping
-4. Execute
+The type checker rejects invalid statements at parse time. The LLM
+is fine-tuned (DPO, per H05) to prefer type-consistent outputs.
 
-The LM never sees raw pixels; the WM never sees text directly.
+### 2.3 Implementation sketch
 
-## 4. Experiments
+- **Parser**: Lark or LARK grammar with ~50 production rules.
+- **Type checker**: simple Hindley-Milner-style inference over the
+  AST. ~200 lines.
+- **LLM**: any 7B+ open model (Llama 3, Mistral). Fine-tune with
+  DPO on ~1000 type-consistent vs inconsistent pairs.
+- **Integration**: Project C's slot latents are converted to typed
+  entities; Project A's Monitor output is converted to typed events
+  (e.g., "high failure probability" -> Event(failure_imminent, conf=0.7)).
 
-### 4.1 Tasks
-- 16 Procgen games (paper env)
-- Plus ARC-AGI as Chollet-style abstract reasoning probe
+---
 
-### 4.2 Baselines
-1. **LM-only**: text descriptions of state, LM predicts actions
-2. **WM-only**: full planning in latent space, no language
-3. **PaLM-E-style**: text + continuous embeddings, joint training
-4. **Ours**: type-lifted interface
+## 3. Concrete benefits
 
-### 4.3 Metrics
-- Task success rate
-- Plan coherence (matches WM's predicted rollout)
-- Cross-game transfer (train on A-D, test on E-H)
-- Compute per task
+1. **Type safety**: invalid statements are rejected, not just
+   unlikely. This is a stronger guarantee than prompt engineering.
+2. **Composable**: type-consistent statements compose. "If the ball
+   is in the left region AND velocity < 5, then..." is well-typed.
+3. **Auditable**: every emitted statement can be parsed and
+   type-checked, giving a clean audit trail for safety review.
+4. **Cross-domain**: types are domain-agnostic. The same type
+   lattice works for LunarLander, Procgen, Crafter, or any other
+   slot-attention world model.
 
-### 4.4 Results (placeholder)
-- Type vocabulary successfully covers slot predicates in 4/4 train games
-- Our interface beats LM-only by X% on difficult planning tasks
-- Transfer degrade: ours -8%, LM-only -25%
+---
 
-## 5. Discussion
+## 4. Connection to F:\TMLR H/I series
 
-### 5.1 When type-lifting works
-- When slot predicates have consistent role structure
-- When the LM can be trained on a manageable type vocabulary
+- **H01 Prompt Engineering**: DSPy's eval-driven prompt iteration
+  is our default workflow. We use DSPy to generate the DPO training
+  pairs.
+- **H03 Agent frameworks**: ReAct-style observation/action/thought
+  interleaving is naturally expressed in our type system. Each
+  ReAct step emits a type-consistent statement.
+- **H04 RAG**: Self-RAG's reflection tokens (IsREL, IsSUP, IsUSE)
+  can be re-expressed as typed events in our lattice.
+- **H05 Evaluation**: DPO is the alignment method we use for the
+  LLM (per H05).
+- **I02 SAE / Interpretability**: types give us a coarse
+  interpretability layer over the LLM's outputs. SAE-style fine
+  interpretability is Y2 work.
 
-### 5.2 Limitations
-- Type induction is empirically driven; not principled
-- K (slot count) bottleneck
-- LLM context length limits for many-step plans
+---
 
-### 5.3 Connection to AGI
+## 5. Connection to AGI safety
 
-This is the **integration layer** that brings the architectural pieces together.
-Without type-lifting, projects A, C, E are isolated. With it, they form the
-basis for multi-step reasoning across abstraction levels.
+Project D is not directly an alignment mechanism, but it provides
+a *type-theoretic* basis for safety arguments:
+- Every statement the agent emits can be type-checked.
+- Invalid statements are rejected by construction.
+- Valid statements have a formal meaning (Hindley-Milner semantics).
 
-## 6. Conclusion
+Combined with Project E's LTL verifier, Project D gives us
+*typed + verified* outputs: statements that are both type-consistent
+and satisfy user-specified LTL rules.
 
-A type vocabulary over slot predicates is the missing piece for connecting LLM
-reasoning and world-model dynamics. The architecture composes naturally with
-Projects A (Monitor), C (slot-WM), E (verifier) into a coherent AGI substrate.
+---
 
-## Appendix
+## 6. Concrete scope (P1, not P0)
 
-A. Type vocabulary induction algorithm
-B. LM training data construction
-C. Compute budget
-D. Source code
+Project D is documentation-only for Y0. Y1 implementation if
+Project C baseline is solid.
 
-## What needs to happen next
+### 6.1 Documentation touchpoints (now)
 
-1. Run Project C slot-WM on Procgen to obtain slot predicates
-2. Implement type induction (simple version: k-means on slot predicates)
-3. Construct LM training data from typed-predicate rollouts
-4. Compare type-lifted LM with baselines
-5. Submit to ICLR 2027 workshop
+- **Project A paper Section 6 (Limitations)**: note that the
+  Monitor's scalar output could be enriched with typed events for
+  human-interpretable diagnostics.
+- **Project C paper Section 7 (Future Work)**: note that slot
+  latents are the natural substrate for typed predicates.
+- **TASKBOOK v1 Section 4.2 (Mapping to 5 routes)**: link Project D
+  to Scaling (LLM type system) and Neuro-Symbolic (LTL verification
+  via Project E).
 
-## Status: outline only. Implementation deferred to Year 1.
+### 6.2 Implementation (Y1, after Project C baseline)
+
+- 200-line Lark grammar for the type lattice.
+- 200-line type checker.
+- 1000-pair DPO dataset (generated via DSPy + golden test set).
+- LLaMA-3-8B fine-tune with DPO on the dataset.
+- Benchmark: LunarLander-v3 scenario descriptions; measure type
+  consistency rate and human-rated usefulness of the typed outputs.
+
+---
+
+## 7. Open questions
+
+- Do we want Hindley-Milner (rigorous but complex) or a simpler
+  bidirectional type checker? Y1 decision.
+- Should the LLM be trained from scratch on types, or fine-tuned
+  from a base model? Fine-tune is cheaper.
+- Should we adopt existing typed languages (e.g., SHACL for RDF) or
+  invent our own? Invent for domain fit.
+
+---
+
+## 8. References
+
+- Hindley, R. (1969). The Principal Type-Scheme of an Object in
+  Combinatory Logic. Trans. AMS.
+- Milner, R. (1978). A Theory of Type Polymorphism in Programming
+  Languages. JCSS.
+- Wei, J., et al. (2022). Chain-of-Thought Prompting. NeurIPS.
+- Rafailov, R., et al. (2023). Direct Preference Optimization. NeurIPS.
+- Asai, A., et al. (2024). Self-RAG. ICLR 2024.
+- Khattab, O., et al. (2023). DSPy. arXiv:2310.03714.
+
+---
+
+*Project D sketch v0.1, 2026-07-25. P1 status. Implementation
+deferred to Y1.*

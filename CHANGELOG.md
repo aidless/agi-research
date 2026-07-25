@@ -166,3 +166,39 @@ skill_mining, multi_orchestrator, bibtex_build, paper_draft).
 
 Tested all 3 CLIs - they run cleanly. multi_orchestrator
 saved first orchestrated task context to .tasks/.
+
+## v1.6 -> v1.7 (2026-07-25 AGI round 5: policy gate + Project F + 5 deep reads)
+
+### Amendment 17: bin/policy_check.py (Cedar-like policy enforcement - TREND #5)
+- Loads .policy/agent.yaml, globs paths with **, applies cascade.
+- Decision priority:
+  1. DENY if path in deny_paths
+  2. DEFER if op in require_human_approval prefix
+  3. ALLOW if path in allow_paths (file ops)
+  4. ALLOW if op in allow_commands (command ops)
+  5. DEFER if op unrecognised
+- All decisions append-only audit log at .policy/.audit.log.
+- Tested: ALLOW/DENY/DEFER all work end-to-end.
+- YAML parse bug in agent.yaml fixed (quoted ** glob patterns).
+
+### Amendment 18: literature/project_F_comprehensive.md
+- Synthesises F.1-F.7 deliverables shipped today.
+- Maps each of the 6 agent-futures trends to F components.
+- Documents "Project F IS the 4-layer AGI arch" (sensors / WM / planner /
+  executor / self-model = bootstrap / decor / AGENTS.md / Codex / ADRs).
+
+### Amendment 19: 5 deep reads (paper notes 49 -> 54)
+- 2023_wayve_gaia_1_deep.md: driving generative world model. Cite in
+  Project B (cross-env) and Project C (cause vs appearance).
+- 2024_valmeekam_planbench_deep.md: LLM planning eval; LLM-as-planner fails
+  exactly the tasks Project E should verify. Strong connect for Project A.
+- 2023_zhao_act_deep.md: Action chunking transformer, precursor to
+  Diffusion Policy. Cite in Project B as baseline.
+- 2019_mao_nscl_deep.md: Neuro-Symbolic Concept Learner. Cite in Project D
+  (predicate extraction) and Project A (Monitor as concept learner).
+- 2024_hafner_dreamer_v3_implementation_deep.md: implementation-level DreamerV3.
+
+54 paper notes total (5.4% of 1000). 7 bin/ tools. 4 prompts.
+5 projects each with v0 + v1 outlines. 9 ADRs. 5 experiment logs.
+
+agent.yaml fixed to use YAML-quoted glob patterns.

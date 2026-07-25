@@ -1,52 +1,103 @@
-﻿# Decision Record 0001 — PhD / 实验室 vs 纯独立路线
+# DEC-001 Resolution: HYBRID Path (Engineering + PhD)
 
-> Date: 2026-07-24
-> Status: OPEN
-> Owner: you
-> Decision needed by: 2026-09-30 (60 天内)
+> **Date resolved**: 2026-07-25
+> **Resolution**: BOTH engineering path AND PhD application in parallel
+> **Effective immediately**
 
-## 上下文
-你开始了一个 5 年独立研究纲领。这个决策是关于"是否在 12 个月内加入某个机构
-(PhD / 实验室 / 大公司研究院)"。
+## Decision
 
-## 选项
-A. **继续纯独立路线** — 不入学 / 不加入任何机构，靠 freelance 工作 + GPU credits 维持。
-B. **申请 PhD** — 找一个跟目标契合的导师（DeepMind Anthropic External、MIT CSAIL、CMU等）。
-C. **申请 remote research engineer** — 加入 Eleuther / BigScience / AI2 / HuggingFace 的远程岗。
-D. **创业 / 实验室路线** — 募集最低 50 万美元 6 个月预算，组建 3-5 人小团队。
+The 5-year engineering program (Archimedes Project, AGI-2026-001) is
+now also the PhD research agenda. They are not separate tracks; the
+engineering work IS the PhD research.
 
-## 推荐
-**默认走 B**。原因：
-1. 一旦有 ≥$200/月 GPU 算力 + 1 个 senior 导师 + 1 个机构邮箱，你在社区的可见度立即提升
-2. 你的 research problem 完美匹配 PhD 项目结构
-3. PhD 期间可以并行做 Project A/B/C/D 中的 2 个
+## Timeline (tight)
 
-但走 B 的代价：
-- 4-5 年时间锁定
-- 平均年薪 ~$30-40K（depends on program）
-- 必须接受研究方向被导师影响
+- **Now → Dec 2026**: PhD application prep (CV, SoP, letters, transcripts)
+- **Dec 2026**: Submit PhD applications (Fall 2027 matriculation)
+- **Aug 2027**: Matriculate if accepted
+- **2027 → 2031-2033**: PhD research (4-6 years), thesis = the
+  100+ page comprehensive paper
 
-## 风险
-- 走 A 失败：1-2 年后 GPU credits 用完，无收入停摆
-- 走 B 失败：申请被拒 → 浪费 3-6 个月
-- 走 C 失败：岗位竞争激烈
-- 走 D 失败：找不齐团队 / 找不到钱
+If Fall 2027 fails, fallback to Fall 2028 cycle (Dec 2027 submission).
 
-## Checklist for decision
-- [ ] 我现在年龄 + 收入储备状况允许 (A) 还是不允许
-- [ ] 我对自己的问题是否真的 deep interested (B 的前提)
-- [ ] 我是否真的能在 4-5 年里持续工作 (B 的代价)
-- [ ] 是否有 ≥3 个 PhD program 列表对应导师 (B 的可执行性)
-- [ ] 我的简历能否匹配 ≥2 个 Remote RE 岗位 (C 的可执行性)
-- [ ] 朋友圈里能否凑齐 3-5 个互补背景 (D 的可执行性)
+## Target PhD programs (preliminary list)
 
-## 你需要 review 的问题
-1. 你的收入预期下限是多少？(这个影响能否走 A)
-2. 你能承受 PhD 4-5 年的时间投入吗？
-3. 你首选哪个 program / 实验室 / 公司？
+| Program | Region | Advisors of interest | Why |
+|---------|--------|----------------------|-----|
+| **DeepMind / UCL** | UK | Shane Legg, Murray Shanahan, Tim Rocktaschel | WM + AGI safety |
+| **ETH Zurich** | EU | Thomas Hofmann, Andreas Krause, Martin Vechev | Neuro-symbolic, formal methods |
+| **MILA** | CA | Yoshua Bengio, Doina Precup, Aaron Courville | World models, RL |
+| **NYU** | US | Yann LeCun, Rob Fergus, Kyunghyun Cho | JEPA family, world models |
+| **Stanford** | US | Percy Liang, Chelsea Finn, Dorsa Sadigh | RL + LLM agents |
+| **MIT CSAIL** | US | Joshua Tenenbaum, Tomaso Poggio, Leslie Kaelbling | Cognitive architectures |
+| **CMU** | US | Ruslan Salakhutdinov, Zico Kolter | RL, world models |
+| **Berkeley** | US | Pieter Abbeel, Sergey Levine, Dawn Chen | RL + robotics + safety |
 
-## 触发这个决策复盘的信号
-- 6 个月后没有任何 GPU access 进展
-- 12 个月后仍无 main-conference 投稿
-- 资金储备见底
+**8 target programs, 3-4 US + 1-2 EU/UK/CA**. Apply to 5-8.
 
+## What the PhD application needs
+
+By Dec 2026:
+
+1. **CV / resume** (1-2 pages)
+   - Currently: ~30 commits, 43 paper notes, 5 projects
+   - Need: list projects A/B/C/D/E explicitly; emphasize H1 ablation result
+2. **Statement of Purpose** (2-3 pages)
+   - Research statement: 4-layer self-improving AGI substrate
+   - Connection to specific advisor's work
+   - Career goals
+3. **Transcripts** (undergraduate + any graduate)
+4. **3 letters of recommendation**
+   - From professors/research mentors who can speak to research ability
+   - If no academic contacts yet, cultivate in next 4-5 months
+5. **Writing sample** (10-30 pages)
+   - Likely candidate: Paper A v2 full draft (~28 pages)
+   - Or a comprehensive survey from 43 paper notes
+6. **GRE** (some programs, optional at most top programs)
+
+## What I (Codex) can do for the PhD application
+
+- Draft SoP from scratch (will write when user provides direction)
+- Draft writing sample from Paper A v2 (28 pages → extend to 30+ pages)
+- Draft CV in academic format
+- Identify potential advisors at target programs based on recent papers
+- Generate tailored SoP versions per program
+
+## What the user needs to provide
+
+- Personal info (name, undergraduate institution, GPA)
+- Specific program preferences (region, advisor fit)
+- Letters of recommendation sources (3 people + their emails)
+- Any prior research experience not in workspace
+
+## Synergies with the 5-year program
+
+- **Y0 Q3-Q4 (now → 2026-12)**: finish Project C slot-WM Procgen PoC
+  (even on small Procgen subset). This becomes a strong writing sample.
+- **Y1 H1 (2027-01 → 2027-06)**: Paper A v2 → arXiv. Add to CV.
+- **Y1 H2 (2027-07 → 2027-12)**: if matriculating, transition engineering
+  workspace into PhD research workspace (likely with same lab).
+- **Y2-Y5**: PhD research = engineering program. Same code, same papers.
+
+## Risks
+
+- **Application timeline is tight (4-5 months)**. Letters of rec are the
+  highest-risk item — they require established academic relationships.
+- **5-year program conflicts with PhD start date**. If PhD starts Aug 2027,
+  we lose the engineering-only autonomy. Mitigation: PhD research topic
+  IS the engineering program, so no loss.
+- **Advisor fit**. Without existing connections, may not land at top choice.
+  Mitigation: apply broadly, network at NeurIPS 2026 (Dec 2026 deadline
+  conflict — but if accepted, attending).
+- **No academic pedigree** (no PhD, no postdoc, no faculty). The 30 commits
+  + 5 projects + 100+ page paper become the de-facto CV.
+
+## Action items (next 30 days)
+
+1. User: identify 3 letter writers + send intro emails
+2. User: request undergraduate transcripts
+3. User: register for GRE if needed (some programs)
+4. Codex: draft SoP v0 (once user provides research direction)
+5. Codex: extend Paper A v2 to 30 pages (writing sample)
+6. Codex: generate CV in academic format
+7. User: research 5-8 target programs + advisors

@@ -413,3 +413,45 @@ Lift criteria:
 4. Risk of obsolescence (field moves on)
 
 Scheduled review: Y1 Q4 (2027-09). Default lift: Y2 Q3 (2028-07).
+## v1.11 -> v1.12 (2026-07-25, DEC-001 resolved: HYBRID engineering+PhD)
+
+User directive: "工程和PHD一起走"
+
+### Amendment 22: DEC-001 RESOLVED as HYBRID
+
+Both engineering path (5-year program) AND PhD application in parallel.
+The 5-year engineering program is now the PhD research agenda; they
+are the same work, not separate tracks.
+
+**Timeline**:
+- Now → Dec 2026: PhD application prep
+- Dec 2026: submit applications (Fall 2027 matriculation)
+- 2027 → 2031-2033: PhD research = engineering program
+
+**8 target programs**: UCL, ETH, MILA, NYU, Stanford, MIT, CMU, Berkeley.
+3-4 US + 1-2 EU/UK/CA. Apply to 5-8.
+
+**Application components by Dec 2026**:
+- CV (1-2 pages, academic format)
+- SoP (2-3 pages)
+- 3 letters of recommendation
+- Transcripts
+- Writing sample (10-30 pages, likely Paper A v2)
+- Optional GRE
+
+**Updated `decisions/0001-phd_vs_independent.md`**: full details on
+timeline, programs, advisor list, synergies, risks, action items.
+
+### Amendment 23: CHANGELOG.md previously said DEC-001 "open until 2026-09-30"
+
+That deadline is now moot — DEC-001 resolved 2026-07-25. The 2026-09-30
+deadline was the original internal target; we resolved 2 months early.
+
+### Amendment 24: Publishing timeline revised
+
+Big paper (100+ pages) now has dual purpose:
+1. **Standalone arXiv monograph** (Dec 2028 target)
+2. **PhD thesis** (4-6 years after matriculation, ~2031-2033)
+
+The bundled publication hold (Amendment 20) remains in force. The big
+paper is now ALSO the PhD thesis foundation.

@@ -54,6 +54,7 @@ def main():
     p.add_argument('--n-train-episodes', type=int, default=200)
     p.add_argument('--n-eval-episodes', type=int, default=100)
     p.add_argument('--history-len', type=int, default=32)
+    p.add_argument('--perturb-eval', type=float, default=0.0, help='gaussian noise std on eval obs')
     p.add_argument('--seed', type=int, default=0)
     p.add_argument('--env', default='LunarLander-v3', help='gymnasium env ID')
     p.add_argument('--percentile', type=float, default=10.0, help='failure percentile threshold')
@@ -110,6 +111,12 @@ def main():
     sys.stdout.write('[Stage 4] Evaluating on ' + str(args.n_eval_episodes) + ' eval...\n')
     eval_eps = collect_rollouts(make_target, agent, args.n_eval_episodes, args.history_len, args.seed * 1000 + 999, env_name=args.env)
     eval_returns = [e.total_reward for e in eval_eps]
+    if args.perturb_eval > 0:
+        # Apply noise to ALL eval obs before Monitor sees them
+        rng = np.random.default_rng(args.seed + 99999)
+        for ep in eval_eps:
+            for tr in ep.transitions:
+                tr.obs = tr.obs + rng.normal(0, args.perturb_eval, size=tr.obs.shape).astype('float32')
     eval_probs = per_episode_monitor_probs(monitor, eval_eps, obs_dim, n_actions, args.history_len)
 
     fail_labels = np.array([1.0 if r < threshold else 0.0 for r in eval_returns])
@@ -161,6 +168,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 

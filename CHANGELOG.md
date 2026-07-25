@@ -132,3 +132,37 @@ User pushed 全做 again. This round ships workspace tooling TREND #1/#2/#5.
 
 44 paper notes. 9 ADRs. 5 projects * 2 versions paper outlines. 3 bin/ tools.
 4 prompts/. 5 experiment logs. Phase 1+2 baseline data.
+
+## v1.5 -> v1.6 (2026-07-25 AGI round 4: PDDL + 4 deep reads + 3 CLIs)
+
+User pushed "全做" again. This round ships more semantic + tools.
+
+### Amendment 15: 5 deep reads (paper notes 44 -> 49)
+- 1998_mcdermott_pddl_deep.md: PDDL planning language. Direct foundation
+  for Project E verifier v2 planning-language alternative.
+- 2009_nau_hierarchical_pddl_deep.md: HTN extension. Bridge to Project A
+  Options Framework and Project E verifier task decomposition.
+- 2023_chi_diffusion_policy_deep.md: Diffusion action chunking, visuomotor
+  policy SOTA. Cite in Project B Related Work as alternative cross-domain
+  approach; integrate with Monitor in future Project A.
+- 2024_decision_mamba_deep.md: Mamba state-space model for offline RL long
+  context. Cite in Project A (history encoder option), Project C
+  (dynamics model option).
+- 2024_deepmind_genie2_deep.md: Interactive environment generator. Cite in
+  Project B Related Work (env generation alternative to Procgen) and
+  Project C Related Work (alternative world model).
+
+### Amendment 16: 3 bin/ CLI tools
+- bin/multi_orchestrator.py: 4-stage pipeline concatenator. Reads
+  prompts/{planner,executor,reviewer,safety}.md and emits a single
+  orchestration context file to .tasks/task-YYYYMMDD-HHMMSS.md.
+- bin/bibtex_build.py: regex-extracts title/year/arxiv-id from each
+  paper note; emits a BibTeX file. 49 entries currently supported.
+- bin/paper_draft.py: assembles a paper draft from outline + bibliography,
+  with proper UTF-8 stdout handling for Windows cp936/GBK.
+
+49 paper notes total. 4 bin/ tools (session_boot, session_debrief,
+skill_mining, multi_orchestrator, bibtex_build, paper_draft).
+
+Tested all 3 CLIs - they run cleanly. multi_orchestrator
+saved first orchestrated task context to .tasks/.

@@ -1,4 +1,4 @@
-> **Copyright (c) 2026 鍒樻辰鏂?(Liu Zewen). Licensed under MIT. See LICENSE.**
+> **Copyright (c) 2026 閸掓ɑ杈伴弬?(Liu Zewen). Licensed under MIT. See LICENSE.**
 > **Citation**: Liu Zewen (2026). "Decoupled Failure Monitors: An Architectural
 > Recipe for Self-Aware RL Agents." Independent 5-year research program, AGI-2026-001.
 # Decoupled Failure Monitors: An Architectural Recipe for Self-Aware RL Agents
@@ -135,7 +135,7 @@ layer. Our work can be seen as the RL policy analog: a separate
 
 ### 2.3 Safe RL and failure prediction
 
-The safe RL literature (Garc鐠嬪獘 & Fern鐠嬶箯dez 2015; Ray et al. 2019)
+The safe RL literature (Garc閻犲鐛?& Fern閻犲绠痙ez 2015; Ray et al. 2019)
 explores constrained MDP formulations where a separate safety
 criterion is enforced. Our Monitor is a special case of a safety
 predictor: it estimates the probability of an episode-level safety
@@ -498,6 +498,38 @@ satisfies it; Procgen 16 games would also satisfy it (deferred to Y1).
 4. Negative results from too-easy environments are themselves a finding:
    they constrain the H1 hypothesis to "useful" environments.
 
+
+### 4.8 Cross-environment validation: MountainCar-v0 (5 seeds)
+
+To further test H1 generalizability, we ran the joint ablation on
+MountainCar-v0 (sparse-reward classic control) with 5 seeds and 50K
+PPO each.
+
+**Joint Monitor results**: All 5 seeds returned NaN AUROC.
+
+**Reason**: PPO at 50K steps on MountainCar-v0 has not learned to
+climb the hill. All 100 eval episodes returned reward = -200 (worst
+possible), with reward_std = 0.0. fail_rate = 1.0 across all seeds.
+Same degenerate uniform-label distribution as CartPole, but for the
+opposite reason (PPO too WEAK rather than too strong).
+
+**Three-env comparison**:
+
+| env | PPO needed for convergence | failure variance | H1 status |
+|-----|------------------------------|------------------|-----------|
+| LunarLander-v3 | ~50-100K | yes (0.21) | **5/5 supported (delta=0.724)** |
+| CartPole-v1 | ~30K (too fast) | none | frozen 3/5, joint NaN |
+| MountainCar-v0 | ~200K+ (too slow) | none | both NaN |
+
+**Implications**:
+1. H1 requires environments in the "PPO partial-success sweet spot"
+   (~50-150K PPO budget with non-trivial failure variance).
+2. LunarLander-v3 is the gold-standard H1 evidence.
+3. Y1 Procgen 16-game ablation (designed for 50-250K PPO range)
+   is the proper cross-env validation.
+4. Both CartPole (too easy) and MountainCar (too hard) are
+   informative negative results that constrain the H1 hypothesis.
+
 ## 5. Discussion
 
 ### 5.1 When decoupling holds
@@ -629,7 +661,7 @@ conducted without external funding as part of an independent
   Regression. AAAI.
 - Bai, Y., et al. (2022). Constitutional AI. arXiv:2212.08073.
 - Burns, C., et al. (2023). Weak-to-Strong Generalization. OpenAI.
-- Garc鐠嬪獘, J. & Fern鐠嬶箯dez, F. (2015). A Comprehensive Survey on
+- Garc閻犲鐛? J. & Fern閻犲绠痙ez, F. (2015). A Comprehensive Survey on
   Safe RL. JMLR.
 - Gou, Z., et al. (2024). CRITIC: LLMs Can Self-Correct with
   Tool-Interactive Critiquing. ICLR 2024.

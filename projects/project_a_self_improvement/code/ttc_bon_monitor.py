@@ -29,6 +29,7 @@ import envs
 from ppo import PPOAgent, PPOConfig
 from monitor import FailureMonitor, MonitorConfig, _quick_auroc
 from envs import rollout_one_episode, EpisodeLog, Transition
+from env_state_cloner import EnvStateCloner
 
 
 def build_history_vector(transitions, history_len, obs_dim, n_actions):
@@ -42,11 +43,19 @@ def build_history_vector(transitions, history_len, obs_dim, n_actions):
     return vec
 
 
-def bon_monitor_action(args, env_id, agent, monitor, obs, history_len, obs_dim,
-                       n_actions, n_candidates, rollout_steps, rng):
-    """Sample N candidate actions. For each, rollout K future steps.
-    Score each rollout with Monitor. Pick action with lowest score.
+def bon_monitor_action(args, env_id, agent, monitor, cloner, env, obs,
+                       history_len, obs_dim, n_actions, n_candidates,
+                       rollout_steps, rng):
+    """Sample N candidate actions. For each, USE STATE CLONING to
+    rollout K future steps. Score each rollout with Monitor. Pick
+    action with lowest failure probability.
     """
+    # Save current state
+    saved_state = cloner.save_state()
+    if saved_state is None:
+        # Fallback to direct env step without cloning
+        saved_state = None
+
     candidates = []
     for _ in range(n_candidates):
         a = agent.select_action(obs)
@@ -54,25 +63,42 @@ def bon_monitor_action(args, env_id, agent, monitor, obs, history_len, obs_dim,
 
     candidate_scores = []
     for a in candidates:
-        sim_env = envs.make_env(env_id, seed=int(rng.integers(0, 2**31)))
-        sim_obs, _ = sim_env.reset()
-        future_transitions = [Transition(
-            obs=sim_obs.copy(), action=a, reward=0.0
-        )]
-        cur_obs = sim_obs
-        for _ in range(rollout_steps - 1):
-            sim_obs, _, term, trunc, _ = sim_env.step(a)
+        future_transitions = []
+        try:
+            # Restore to current state (if cloning supported)
+            if saved_state is not None:
+                cloner.restore_state(saved_state)
+                cur_obs, _, term, trunc, _ = cloner.env.step(a)
+                future_transitions.append(Transition(
+                    obs=cur_obs.copy(), action=a, reward=0.0
+                ))
+                # Continue rolling out for K-1 more steps with same action
+                for _ in range(rollout_steps - 1):
+                    if term or trunc:
+                        break
+                    cur_obs, _, term, trunc, _ = cloner.env.step(a)
+                    future_transitions.append(Transition(
+                        obs=cur_obs.copy(), action=a, reward=0.0
+                    ))
+            else:
+                # Fallback: skip (no future info)
+                future_transitions.append(Transition(
+                    obs=obs.copy(), action=a, reward=0.0
+                ))
+        except Exception as e:
+            # Fallback on any error
             future_transitions.append(Transition(
-                obs=cur_obs.copy(), action=a, reward=0.0
+                obs=obs.copy(), action=a, reward=0.0
             ))
-            cur_obs = sim_obs
-            if term or trunc:
-                break
+
         v = build_history_vector(future_transitions, history_len, obs_dim, n_actions)
         with torch.no_grad():
             score = float(monitor.predict(v))
         candidate_scores.append(score)
-        sim_env.close()
+
+    # Restore to original state after rollouts
+    if saved_state is not None:
+        cloner.restore_state(saved_state)
 
     best_idx = int(np.argmin(candidate_scores))
     return candidates[best_idx], candidate_scores
@@ -174,11 +200,13 @@ def main():
     for i in range(args.n_eval_episodes):
         e = envs.make_env(args.env, seed=args.seed * 1000 + 9999 + i + 50000)
         obs, _ = e.reset()
+        cloner = EnvStateCloner(e)
         ep_reward = 0.0
         for t in range(500):
             chosen, scores = bon_monitor_action(
-                args, args.env, agent, monitor, obs, args.history_len, obs_dim,
-                n_actions, args.bon_n, args.bon_rollout, rng
+                args, args.env, agent, monitor, cloner, e, obs,
+                args.history_len, obs_dim, n_actions, args.bon_n,
+                args.bon_rollout, rng
             )
             bon_action_counts[chosen] += 1
             obs, reward, term, trunc, _ = e.step(chosen)

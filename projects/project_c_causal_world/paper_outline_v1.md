@@ -167,6 +167,23 @@ Combining slot-attention object-centric representation with structural causal
 model priors yields world models that can answer Pearl L2 intervention queries.
 This is necessary (but not sufficient) for AGI-class agents.
 
+
+
+## Update 2026-07-26: Slot attention PoC on real LunarLander
+
+Implementation: `projects/project_c_causal_world/code/slot_attention_lunarlander.py`
+
+- 100 trajectories from frozen PPO, padded to length 48
+- Slot attention (4 slots, dim=32) + SlotDynamicsModel trained 25 epochs
+- Reconstruction loss: 0.036 (good — slot+attention captures dynamics)
+- Diversity loss: 0.356 (slots have weak specialization)
+- Per-slot top features: slot 0 = horizontal, slot 1 = rotation,
+  slot 2 = vertical, slot 3 = overlap
+
+Conclusion: slot attention finds weak kinematic specialization on a
+single rigid body. Project C requires multi-object environments
+(Procgen 16 games) to demonstrate true object binding. Y1 work.
+
 ## Appendix
 A. Slot-attention hyperparameters
 B. SCM loss coefficients

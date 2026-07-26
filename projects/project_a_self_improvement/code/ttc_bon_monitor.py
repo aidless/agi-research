@@ -171,6 +171,23 @@ def main():
         y_list.append(1.0 if ep.total_reward < threshold else 0.0)
     X = torch.from_numpy(np.stack(X_list))
     y = torch.from_numpy(np.array(y_list, dtype=np.float32))
+
+    # BALANCED SUBSAMPLING
+    np.random.seed(args.seed)
+    pos_mask = (y == 1).numpy()
+    neg_mask = (y == 0).numpy()
+    n_pos = int(pos_mask.sum())
+    n_neg = int(neg_mask.sum())
+    out.append(f"  Class balance: pos={n_pos}, neg={n_neg} ({100*n_pos/len(y):.1f}% pos)")
+    if n_pos > 0 and n_neg > n_pos * 2:
+        neg_idx = np.where(neg_mask)[0]
+        chosen = np.random.choice(neg_idx, size=min(n_neg, n_pos * 4), replace=False)
+        keep = np.concatenate([np.where(pos_mask)[0], chosen])
+        np.random.shuffle(keep)
+        X = X[keep]
+        y = y[keep]
+        out.append(f"  After balancing: {len(y)} samples")
+
     for ep in range(args.monitor_epochs):
         optimizer.zero_grad()
         preds = monitor(X)
@@ -178,6 +195,12 @@ def main():
         loss.backward()
         optimizer.step()
     out.append(f"  Monitor trained. final loss={float(loss):.4f}")
+
+    with torch.no_grad():
+        sample_X = X[:min(64, len(X))]
+        sample_preds = monitor(sample_X).numpy()
+    out.append(f"  Monitor stats: min={sample_preds.min():.3f} max={sample_preds.max():.3f} mean={sample_preds.mean():.3f} std={sample_preds.std():.3f}")
+
 
     # 4. Evaluate vanilla PPO (baseline)
     out.append("[Stage 4] Vanilla PPO eval (baseline)...")

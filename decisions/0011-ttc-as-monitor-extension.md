@@ -86,3 +86,22 @@ make TTC robust:
 
 **Recommendation**: P3 → P2 once Y1 follow-up work is done. Do NOT
 promote based on current PoC alone.
+
+## Update 2026-07-26 (v4): DEFERRED to Y1
+
+After 4 attempts (v1-v4), TTC BoN+Monitor does NOT reliably improve
+over vanilla PPO on LunarLander-v3. The latest v4 (hidden=256,
+epochs=20) successfully recovered Monitor discriminative signal
+(std=0.186, range 0.095-0.812) but BoN delta is even worse (-362.9).
+
+**Root cause**: "Lowest failure probability" is NOT the right reward
+signal for TTC. BoN should use EXPECTED RETURN, not failure probability.
+
+**Decision**: Defer ADR 0011 to Y1. Y1 plan:
+1. Train Q-function on frozen rollouts (via FQE or simple TD)
+2. Replace Monitor-BoN with Q-BoN (pick action maximizing Q)
+3. Compare Q-BoN vs Monitor-BoN vs vanilla PPO at matched FLOPs
+4. Cross-env validation
+
+This is essentially the standard model-based RL insight: you need a
+value function or reward model, not just a failure classifier.

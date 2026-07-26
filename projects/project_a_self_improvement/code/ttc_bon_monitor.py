@@ -114,6 +114,12 @@ def main():
     p.add_argument("--monitor-epochs", type=int, default=5)
     p.add_argument("--bon-n", type=int, default=4, help="BoN: number of candidate actions per step")
     p.add_argument("--bon-rollout", type=int, default=10, help="Number of future steps to rollout per candidate")
+    p.add_argument("--monitor-hidden", type=int, default=256,
+                   help="Monitor hidden size (default 256, vs 64 baseline)")
+    p.add_argument("--monitor-epochs-train", type=int, default=20,
+                   help="Monitor training epochs (default 20)")
+    p.add_argument("--monitor-balanced", type=int, default=1,
+                   help="Balance training data 0=no 1=yes (default 1)")
     args = p.parse_args()
 
     out = []
@@ -154,7 +160,15 @@ def main():
     out.append(f"  threshold={threshold:.1f} train mean={np.mean(train_returns):.1f} fail={sum(1 for r in train_returns if r < threshold)}/{len(train_eps)}")
 
     history_dim = args.history_len * (obs_dim + n_actions + 1)
-    mcfg = MonitorConfig(history_dim=history_dim, seed=args.seed, epochs=args.monitor_epochs)
+    n_pos_check = sum(1 for r in train_returns if r < threshold)
+    n_neg_check = len(train_returns) - n_pos_check
+    use_balanced = bool(args.monitor_balanced) and n_pos_check > 0 and n_neg_check > n_pos_check * 2
+    if use_balanced:
+        out.append(f"  Using balanced Monitor training (4:1 neg:pos)")
+    else:
+        out.append(f"  Using natural Monitor training (no balancing)")
+    mcfg = MonitorConfig(history_dim=history_dim, seed=args.seed,
+                          epochs=args.monitor_epochs_train, hidden=args.monitor_hidden)
     monitor = FailureMonitor(mcfg)
 
     # Train Monitor
@@ -172,8 +186,9 @@ def main():
     X = torch.from_numpy(np.stack(X_list))
     y = torch.from_numpy(np.array(y_list, dtype=np.float32))
 
-    # BALANCED SUBSAMPLING
-    np.random.seed(args.seed)
+    if use_balanced:
+        # BALANCED SUBSAMPLING
+        np.random.seed(args.seed)
     pos_mask = (y == 1).numpy()
     neg_mask = (y == 0).numpy()
     n_pos = int(pos_mask.sum())
@@ -187,6 +202,8 @@ def main():
         X = X[keep]
         y = y[keep]
         out.append(f"  After balancing: {len(y)} samples")
+    # end if use_balanced
+    # end if use_balanced
 
     for ep in range(args.monitor_epochs):
         optimizer.zero_grad()

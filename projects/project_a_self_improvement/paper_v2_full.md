@@ -1,4 +1,4 @@
-> **Copyright (c) 2026 閸掓ɑ杈伴弬?(Liu Zewen). Licensed under MIT. See LICENSE.**
+> **Copyright (c) 2026 闁告帗蓱鏉堜即寮?(Liu Zewen). Licensed under MIT. See LICENSE.**
 > **Citation**: Liu Zewen (2026). "Decoupled Failure Monitors: An Architectural
 > Recipe for Self-Aware RL Agents." Independent 5-year research program, AGI-2026-001.
 # Decoupled Failure Monitors: An Architectural Recipe for Self-Aware RL Agents
@@ -135,7 +135,7 @@ layer. Our work can be seen as the RL policy analog: a separate
 
 ### 2.3 Safe RL and failure prediction
 
-The safe RL literature (Garc閻犲鐛?& Fern閻犲绠痙ez 2015; Ray et al. 2019)
+The safe RL literature (Garc闁荤姴顑呴悰?& Fern闁荤姴顑戠粻鐥檈z 2015; Ray et al. 2019)
 explores constrained MDP formulations where a separate safety
 criterion is enforced. Our Monitor is a special case of a safety
 predictor: it estimates the probability of an episode-level safety
@@ -530,6 +530,46 @@ opposite reason (PPO too WEAK rather than too strong).
 4. Both CartPole (too easy) and MountainCar (too hard) are
    informative negative results that constrain the H1 hypothesis.
 
+
+### 4.9 TTC BoN+Monitor PoC (LunarLander-v3, 2 seeds)
+
+As an early-stage proof-of-concept for the ADR 0011 test-time-compute
+extension, we implemented `ttc_bon_monitor.py` and ran 2 seeds on
+LunarLander-v3 (100K PPO each).
+
+**Method**: At each step, sample N=4 candidate actions from PPO.
+For each candidate, "roll out" K=10 future steps using a fresh-env
+proxy (reset to a random seed and take the candidate action for K
+steps). Score each rollout with Monitor. Take the action whose
+rollout got the lowest failure probability.
+
+**Results**:
+
+| Seed | Vanilla PPO mean | BoN+Monitor mean | Delta |
+|------|-------------------|-------------------|-------|
+| 0    | 40.2              | **50.3**          | **+10.1** |
+| 1    | 31.2              | -1.6              | -32.8 |
+| mean | 35.7              | 24.4              | -11.4 |
+
+**Interpretation**: Mixed result. Seed 0 shows the Monitor CAN
+provide useful TTC signal (+10.1 points). Seed 1 fails badly
+(-32.8), likely because the fresh-env future-rollout proxy does
+not reflect the true future from the current state. The action
+distribution at seed 1 was concentrated on actions 0 and 2 (85%
+of choices), suggesting the Monitor's ranking is biased in some
+seeds.
+
+**Y1 work to make TTC robust**:
+1. Better future-rollout proxy (env state cloning or learned dynamics)
+2. Per-step PRM-style scoring aggregation
+3. 5-10 seeds with confidence intervals
+4. Cross-env validation
+5. N/K ablation to find optimal compute-quality trade-off
+
+**Artifacts**: `code/ttc_bon_monitor.py` (9.9 KB);
+`experiments_log/2026-07-26-ttc-bon-monitor.md`. Total runtime:
+~7 minutes for 2 seeds.
+
 ## 5. Discussion
 
 ### 5.1 When decoupling holds
@@ -661,7 +701,7 @@ conducted without external funding as part of an independent
   Regression. AAAI.
 - Bai, Y., et al. (2022). Constitutional AI. arXiv:2212.08073.
 - Burns, C., et al. (2023). Weak-to-Strong Generalization. OpenAI.
-- Garc閻犲鐛? J. & Fern閻犲绠痙ez, F. (2015). A Comprehensive Survey on
+- Garc闁荤姴顑呴悰? J. & Fern闁荤姴顑戠粻鐥檈z, F. (2015). A Comprehensive Survey on
   Safe RL. JMLR.
 - Gou, Z., et al. (2024). CRITIC: LLMs Can Self-Correct with
   Tool-Interactive Critiquing. ICLR 2024.

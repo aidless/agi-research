@@ -60,3 +60,29 @@ sooner than expected.
 - F:\TMLR\LLM应用架构_03_Agent框架与自主决策.md (ReAct/Reflexion cousins)
 - Lightman 2023 "Let'"'"'s Verify Step by Step" (PRM)
 - Snell 2024 "Scaling LLM Test-Time Compute Optimally"
+
+
+## Update 2026-07-26: PoC results
+
+Implemented `code/ttc_bon_monitor.py` (9889 bytes), ran 2-seed
+LunarLander-v3 test:
+
+| Seed | Vanilla PPO | BoN+Monitor | Delta |
+|------|-------------|-------------|-------|
+| 0    | 40.2        | 50.3        | +10.1 ✓ |
+| 1    | 31.2        | -1.6        | -32.8 ✗ |
+| mean | 35.7        | 24.4        | -11.4 |
+
+**Conclusion**: Mixed result. Seed 0 shows Monitor can provide useful
+TTC signal (+10.1). Seed 1 fails (-32.8). Mean is negative.
+
+**Status**: ADR stays PROPOSED but with caveats. Y1 work required to
+make TTC robust:
+1. Better future-rollout proxy (gym state cloning or learned dynamics)
+2. Per-step PRM-style scoring aggregation
+3. More seeds (5-10) for confidence intervals
+4. Cross-env validation
+5. Different N/K values to find optimal compute-quality trade-off
+
+**Recommendation**: P3 → P2 once Y1 follow-up work is done. Do NOT
+promote based on current PoC alone.

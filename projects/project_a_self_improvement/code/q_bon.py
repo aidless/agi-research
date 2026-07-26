@@ -74,8 +74,13 @@ def collect_q_training_data(episodes):
     return transitions
 
 
-def train_q_network(q_net, transitions, n_epochs=20, lr=3e-4, gamma=0.99, batch_size=32):
-    """Train Q via TD(0): target = r + gamma * max_a' Q(s', a')."""
+def train_q_network(q_net, transitions, n_epochs=20, lr=3e-4, gamma=0.99,
+                       batch_size=32, cql_alpha=0.0):
+    """Train Q via TD(0) + optional CQL regularization.
+
+    CQL: L = TD_loss + alpha * (logsumexp_a Q(s, a) - Q(s, a_data))
+    This penalizes Q-values for OOD actions, keeping Q conservative.
+    """
     opt = torch.optim.Adam(q_net.parameters(), lr=lr)
     n = len(transitions)
     s_all = np.stack([t['s'] for t in transitions])
@@ -108,7 +113,22 @@ def train_q_network(q_net, transitions, n_epochs=20, lr=3e-4, gamma=0.99, batch_
                 q_next_max = q_next_all_actions.max(dim=-1).values
                 target = r + gamma * q_next_max * (1.0 - done)
 
-            loss = F.mse_loss(q_pred, target)
+            td_loss = F.mse_loss(q_pred, target)
+
+            if cql_alpha > 0:
+                # CQL: penalize Q for all actions vs data actions
+                q_all_actions = torch.stack([
+                    q_net(s, torch.full((s.size(0),), a_idx, dtype=torch.long))
+                    for a_idx in range(q_net.n_actions)
+                ], dim=-1)
+                # logsumexp - mean Q on data = CQL penalty
+                cql_logsumexp = torch.logsumexp(q_all_actions, dim=-1)
+                cql_data_q = q_pred  # Q on data actions (already computed)
+                cql_loss = (cql_logsumexp - cql_data_q).mean()
+                loss = td_loss + cql_alpha * cql_loss
+            else:
+                loss = td_loss
+
             opt.zero_grad()
             loss.backward()
             opt.step()
@@ -131,6 +151,8 @@ def main():
     p.add_argument("--q-hidden", type=int, default=64)
     p.add_argument("--q-epochs", type=int, default=20)
     p.add_argument("--gamma", type=float, default=0.99)
+    p.add_argument("--cql-alpha", type=float, default=1.0,
+                   help="CQL regularization weight (0 = vanilla TD, 1 = standard CQL)")
     args = p.parse_args()
 
     out = []
@@ -164,12 +186,12 @@ def main():
     out.append(f"  collected {len(train_eps)} episodes, mean reward={np.mean(train_returns):.1f}")
 
     # 3. Train Q-network
-    out.append("[Stage 3] Training Q-network via TD(0)...")
+    out.append(f"[Stage 3] Training Q-network via TD(0) + CQL(alpha={args.cql_alpha})...")
     q_net = QNetwork(obs_dim, n_actions, hidden=args.q_hidden)
     transitions = collect_q_training_data(train_eps)
     out.append(f"  {len(transitions)} (s, a, r, s') tuples")
     final_loss = train_q_network(q_net, transitions, n_epochs=args.q_epochs,
-                                   gamma=args.gamma)
+                                   gamma=args.gamma, cql_alpha=args.cql_alpha)
 
     # Sanity: compare Q values across actions for some sample states
     sample_states = torch.from_numpy(np.stack([t['s'] for t in transitions[:8]])).float()

@@ -1,4 +1,4 @@
-# PROGRESS.md - Current Status
+﻿# PROGRESS.md - Current Status
 
 > **Codex has no cross-session memory**. Every new session should start with:
 > 1. Open this file
@@ -147,3 +147,24 @@ Then evaluate:
 ---
 
 Open new conversation with: "Open E:\agi-research\PROGRESS.md, continue from there."
+
+## Last session state (2026-07-26)
+
+**Major progress**:
+- [x] **GitHub repo public**: github.com/aidless/agi-research (46 commits pushed 2026-07-26)
+- [x] **Zhihu announcement posted**: https://www.zhihu.com/pin/2064649194275714554
+- [x] **PUBLICATION HOLD LIFTED** (Amendment 26): incremental public artifacts now permitted
+- [x] **Author attribution established**: 刘泽文 (Liu Zewen) in LICENSE + AUTHORS + README + key files
+
+**Pending**:
+- [ ] Cross-post to CSDN + OSCHINA
+- [ ] Continue engineering (MountainCar joint ablation, slot-WM, TTC)
+- [ ] PhD application templates (SoP, CV, writing sample)
+- [ ] Y1 Procgen baseline (requires cmake + VS build tools)
+
+**Work Board additions** (Y0 Q3 round 5):
+  Community (Path 3-5)
+  - [x] Zhihu 想法 posted (one platform hit)
+  - [ ] CSDN cross-post
+  - [ ] OSCHINA cross-post
+  - [ ] GitHub repo traffic tracked

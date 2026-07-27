@@ -83,3 +83,27 @@ This narrows our hypothesis:
 - H1 may not hold in **fully observable, suddenly-failing** environments
 
 This is a *meaningful* distinction that the field should know about.
+
+
+## H1 v2 CartPole result (30K PPO, 200 episodes, 15 epochs)
+
+| metric | value |
+|--------|-------|
+| Frozen Monitor val AUROC | **0.999** |
+| Frozen Monitor positives | 40 / 55,459 (0.1%) |
+| Joint Monitor val AUROC | **NaN** |
+| Joint Monitor positives | 183 / 57,446 (0.3%) |
+| H1 supported | False (NaN comparison) |
+
+**Interpretation**: CartPole after PPO converges is **too saturated** for
+failure prediction. With 0.1-0.3% positive rate, the Monitor datasets are
+severely imbalanced, leading to:
+- Frozen Monitor: likely overfit on 40 rare positives (0.999 AUROC suspicious)
+- Joint Monitor: AUROC undefined because predictions are constant
+
+**Conclusion**: CartPole is not a useful environment for H1 testing. PPO is
+too strong (converges to perfect pole balancing) and failures are too rare.
+
+**Action**: Move H1 cross-env testing to environments with:
+- Higher failure rate (MountainCar, Acrobot have sparse rewards)
+- Or partially observable (LunarLander where H1 already worked)

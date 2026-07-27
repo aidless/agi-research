@@ -1,0 +1,29 @@
+{
+  "v0_1": {
+    "n": 5,
+    "delta_avg": 21.54,
+    "delta_std": 67.08,
+    "gated_avg": 76.57,
+    "ungated_avg": 55.03,
+    "pos": 3,
+    "t_stat": 0.718
+  },
+  "v0_2": {
+    "n": 5,
+    "delta_avg": -158.06,
+    "delta_std": 208.59,
+    "gated_avg": -45.58,
+    "ungated_avg": 112.48,
+    "pos": 0,
+    "t_stat": -1.694
+  },
+  "v0_3": {
+    "n": 5,
+    "delta_avg": -717.58,
+    "delta_std": 432.24,
+    "gated_avg": -685.06,
+    "ungated_avg": 32.52,
+    "pos": 0,
+    "t_stat": -3.712
+  }
+}

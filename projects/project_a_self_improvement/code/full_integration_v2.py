@@ -211,7 +211,10 @@ def main():
                    help="Fraction of train_eps to hold out for calibration")
     p.add_argument("--log-every", type=int, default=50)
     p.add_argument("--out-tag", default="v2",
-                   help="Subdirectory tag for checkpoints to keep v0.1 vs v0.2 separate")
+                   help="Subdirectory tag for checkpoints to keep versions separate")
+    p.add_argument("--safe-action", type=int, default=-1,
+                   help="v0.3: replace Q-BoN with a fixed action when Monitor fires." +
+                        " -1 = use Q-BoN (v0.1/v0.2 behavior); 0..n_actions-1 = use that fixed action")
     args = p.parse_args()
 
     out = []
@@ -331,13 +334,16 @@ def main():
 
             use_q = (monitor_prob_cal >= cal_threshold) and q_coverage_ok
             if use_q:
-                with torch.no_grad():
-                    obs_t = torch.from_numpy(obs).float().unsqueeze(0)
-                    q_vals = torch.stack([
-                        q_net(obs_t, torch.tensor([a], dtype=torch.long))
-                        for a in range(n_actions)
-                    ]).squeeze(-1)
-                    chosen = int(torch.argmax(q_vals).item())
+                if args.safe_action >= 0:
+                    chosen = args.safe_action
+                else:
+                    with torch.no_grad():
+                        obs_t = torch.from_numpy(obs).float().unsqueeze(0)
+                        q_vals = torch.stack([
+                            q_net(obs_t, torch.tensor([a], dtype=torch.long))
+                            for a in range(n_actions)
+                        ]).squeeze(-1)
+                        chosen = int(torch.argmax(q_vals).item())
                 ep_gate_count += 1
             else:
                 if monitor_prob_cal >= cal_threshold and not q_coverage_ok:
@@ -432,6 +438,7 @@ def main():
         "cal_threshold": float(cal_threshold),
         "q_coverage": int(q_coverage),
         "q_coverage_ok": bool(q_coverage_ok),
+        "safe_action": int(args.safe_action),
         "ungated_mean": float(np.mean(returns_ungated)),
         "ungated_std":  float(np.std(returns_ungated)),
         "gated_mean":   float(np.mean(returns_gated)),
@@ -447,3 +454,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+

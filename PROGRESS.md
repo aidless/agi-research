@@ -357,3 +357,37 @@ CSDN + OSCHINA v3 drafts ready for human posting.*
 
 *Session state at 2026-07-27 late evening: 79 commits, thesis v1.0,
 AIE + DLR full training runs, all honest negatives logged.*
+
+## DEC-0011 v0.3 negative (2026-07-27)
+
+- [x] **v0.3 implementation**: full_integration_v2.py 加 --safe-action 旗标
+  - safe_action>=0 取代 Q-BoN, 选一个固定 action 代替
+  - 5 seed 并行后 sweep (safe_action=2, n_eval=50, ~17 min)
+- [x] **Result: 统计显著负向 - t=-3.71** (第一个显著的负面结果)
+  - delta_avg = -717.6 +/- 432.2, 0/5 pos seeds
+  - main engine 启发式在 Monitor 触发时大幅度伤害 policy
+
+### 三路总成 (v0.1 vs v0.2 vs v0.3)
+
+| 版本 | Gated | Delta | t | Pos |
+|------|-------|-------|---|-----|
+| v0.1 (Q-BoN) | 76.6 +/- 34.0 | +21.5 +/- 67.1 | 0.72 | 3/5 |
+| v0.2 (cal. Q) | -45.6 +/- 230.7 | -158.1 +/- 208.6 | -1.69 | 0/5 |
+| v0.3 (safe=2) | -685.1 +/- 416.3 | -717.6 +/- 432.2 | -3.71 (sig.) | 0/5 |
+
+**每个后续干预都让事情变差。**
+
+### H1 最终状态 (DEC-0011 v0.4 closeout)
+
+- **Monitor prediction 层级**: SUPPORTED (Sections 4.6-4.8, AUROC delta=0.793)
+- **Policy action 层级**: UNRESOLVED (v0.1 mixed, v0.2/v0.3 negative)
+- **原因**: 200 PPO rollouts 不够训练 action-selection 层
+- **下一步**: 1000+ rollouts / 新 env / 模仿学习 / 或停手
+
+### Artifacts
+- paper Section 4.10.4-4.10.6 (NEW), header v2.4 -> v2.5
+- experiments_log/2026-07-27-phase15-v0p3-safe-action.md (formal log)
+- experiments_log/phase15_v0p1_v0p2_v0p3_summary.json (3-way summary)
+
+---
+

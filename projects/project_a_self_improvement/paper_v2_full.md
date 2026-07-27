@@ -727,6 +727,70 @@ Monitor + Q gating help LunarLander?) is still UNRESOLVED.
 
 **DEC-0011 v0.3 candidates** (not yet tried):
 A. Larger val set (200+ episodes) so val_auroc=1.0 isn't overfit
+
+
+### 4.10.4 DEC-0011 v0.3: skip Q, use fixed safe action (n=5, n_eval=50)
+
+We attempted to bypass the CQL Q-function entirely by replacing the
+Q-BoN action with a fixed "safe action" (LunarLander action 2 = main
+engine) when the calibrated Monitor fires. The hypothesis: even a
+naive safe action might rescue the policy, proving that the Monitor's
+signal is useful independent of Q.
+
+**Per-seed v0.3 (LunarLander-v3, 100K PPO, n_eval=50, safe_action=2):**
+
+| Seed | Ungated | Gated | Delta | Val AUROC | Cal threshold | Avg gates |
+|------|---------|-------|-------|-----------|----------------|-----------|
+| 0    | 78.3    | -1086.8 | -1165.1 | 0.963 | 9.3e-03 | 175 |
+| 1    | 18.0    | -64.7   | -82.7   | 0.803 | 6.1e-01 | 24 |
+| 2    | -2.7    | -976.9  | -974.2  | 0.994 | 8.9e-02 | 141 |
+| 3    | 57.5    | -820.0  | -877.5  | 1.000 | 9.0e-09 | 132 |
+| 4    | 11.6    | -476.8  | -488.4  | 0.717 | 4.5e-01 | 80 |
+
+**Aggregate v0.3:** delta_avg = -717.6 +/- 432.2, 0/5 positive,
+t = **-3.71 (statistically significant, p<0.05)**.
+
+### 4.10.5 Three-way synthesis (v0.1 vs v0.2 vs v0.3)
+
+| Metric | v0.1 (Q-BoN) | v0.2 (cal. Q-BoN) | v0.3 (cal. safe=2) |
+|--------|--------------|-------------------|---------------------|
+| n_eval | 5            | 50                | 50                  |
+| Gated mean | 76.6 +/- 34.0 | -45.6 +/- 230.7 | **-685.1 +/- 416.3** |
+| **Delta** | **+21.5 +/- 67.1** | **-158.1 +/- 208.6** | **-717.6 +/- 432.2** |
+| t-stat | 0.72 | -1.69 | **-3.71 (sig.)** |
+| Pos seeds | 3/5 | 0/5 | 0/5 |
+
+**Each successive intervention made things worse.** The progression
+from v0.1 (mixed, +22) to v0.2 (negative, -158) to v0.3 (significantly
+negative, -718) shows that:
+
+1. The Q-BoN is the best of the three action-selection strategies tested.
+2. A naive "fire main engine" safe action is significantly worse.
+3. The Monitor's signal is detecting "trajectory looks like failure" but
+   does NOT prescribe what action to take.
+
+### 4.10.6 H1 final status (DEC-0011 v0.4 closeout)
+
+**Monitor-prediction level (Sections 4.6-4.8)**: H1 SUPPORTED.
+Decoupled Monitors achieve AUROC 0.989 vs joint Monitor 0.196 (delta=0.793)
+on LunarLander-v3 with 5 seeds, p<0.01 across all 5 seeds. The
+decoupling signal is robust.
+
+**Policy-action level (Sections 4.10.1-4.10.4)**: H1 UNRESOLVED.
+Three independent online-gating experiments (Q-BoN, calibrated Q-BoN,
+safe action) all fail to convert the Monitor's prediction signal into
+reliable policy gain. The dominant failure mode is **insufficient
+training data for the action-selection component** (Q-network or
+safe-action heuristic): with only 200 PPO rollouts, both Q-learning
+(CQL) and hand-coded heuristics produce actions that destroy the
+PPO policy when invoked at the rate the Monitor triggers.
+
+**Implication**: the decoupling contribution is conceptual and
+prediction-level, not policy-level. To reach policy-level H1, the
+next iteration needs at least 10x more training data (1000+ PPO
+rollouts) or a fundamentally different action-selection mechanism
+(imitation learning, behavior cloning from expert demonstrations,
+or a different environment where failure modes are more discrete).
 B. Skip calibration, return to hardcoded 0.5
 C. Q uncertainty as gating criterion (instead of Monitor threshold)
 D. Larger Q training set (1000+ PPO rollouts)
@@ -906,6 +970,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
 
 
 

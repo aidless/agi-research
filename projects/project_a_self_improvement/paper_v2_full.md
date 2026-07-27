@@ -689,6 +689,52 @@ Their conclusion: "Single-seed finding of thresh=0.6 sweet spot was
 seed-luck artifact. STRONG NEGATIVE for H1 follow-up."
 
 **Synthesis with 4.10.1**: my fixed-threshold 5-seed sweep and their
+
+
+### 4.10.3 DEC-0011 v0.2: calibration + Q coverage guard (n=5, n_eval=50)
+
+We attempted to address the v0.1 high variance with three interventions:
+(1) train/val split 80/20, (2) Platt scaling of the Monitor to choose a
+threshold matching a target FPR=10%, (3) Q coverage guard (refuse to
+gate if Q has seen <50 unique (s,a) pairs in training). We also raised
+n_eval from 5 to 50 to shrink per-seed variance by sqrt(10).
+
+**Per-seed v0.2 (LunarLander-v3, 100K PPO, n_eval=50):**
+
+| Seed | Ungated | Gated | Delta | Val AUROC | Cal threshold | Avg gates |
+|------|---------|-------|-------|-----------|----------------|-----------|
+| 0    | 107.9   | -152.0 | -259.9 | 1.000 | 4.1e-14 | 231 |
+| 1    | 204.6   | 199.8  | -4.8   | 0.974 | 0.108   | 18 |
+| 2    | 86.4    | 73.9   | -12.4  | 1.000 | 1.3e-08 | 30 |
+| 3    | 88.6    | -391.1 | -479.7 | 0.987 | 7.2e-06 | 137 |
+| 4    | 74.9    | 41.4   | -33.5  | 1.000 | 3.2e-07 | 308 |
+
+**Aggregate v0.2:** delta_avg = -158.1 +/- 208.6, 0/5 positive, t=-1.69.
+**vs v0.1:** delta went from +21.5 to -158.1 (-180 points), 3/5 -> 0/5.
+
+**Failure mode**: with only 40 val episodes (4 positives), the Monitor
+overfits the val set to AUROC=1.000. The Platt fit then collapses
+cal_threshold to ~0 (4 of 5 seeds have cal_threshold < 1e-6). The
+Monitor fires on 30%+ of all steps, and the CQL-trained Q-function
+(only 200 train episodes) picks bad actions that destroy the PPO
+policy. The Q coverage guard (50 unique (s,a) pairs) does not help
+because Q has 50K+ pairs (way above threshold) but is still bad.
+
+**Decision record DEC-0011 v0.2 status: REJECTED.** v0.1 (fixed
+thresh=0.5, n_eval=5) remains the canonical Phase 1.5 result: delta
++21.5 +/- 67.1, 3/5 positive, not significant. H1 (does decoupled
+Monitor + Q gating help LunarLander?) is still UNRESOLVED.
+
+**DEC-0011 v0.3 candidates** (not yet tried):
+A. Larger val set (200+ episodes) so val_auroc=1.0 isn't overfit
+B. Skip calibration, return to hardcoded 0.5
+C. Q uncertainty as gating criterion (instead of Monitor threshold)
+D. Larger Q training set (1000+ PPO rollouts)
+E. Skip Q entirely when Monitor fires; use a fixed safe action
+F. Move to a different env where Monitor can be evaluated standalone
+
+Companion log: \experiments_log/2026-07-27-phase15-v0p2-calibrated.md\.
+Code: \code/full_integration_v2.py\, \code/calibration.py\ (NEW).
 threshold-sweep 75-eval study agree on direction. Gating does not
 reliably improve LunarLander performance with the current
 architecture. The SlotMonitor is strong (AUROC 0.989) but the
@@ -860,6 +906,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
 
 
 

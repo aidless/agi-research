@@ -279,3 +279,27 @@ Next: Y1 work - better Q (more data), better Monitor calibration (Platt), action
 
 *Session state at 2026-07-27 evening: 74 commits, 5-seed DEC-0011 logged,
 CSDN + OSCHINA v3 drafts ready for human posting.*
+
+## DEC-0011 v0.2 negative result (2026-07-27)
+
+- [x] **v0.2 implementation complete**: calibration.py + full_integration_v2.py
+  - Train/val 80/20 split, Platt scaling, target FPR=10% threshold, Q coverage guard
+  - n_eval raised 5 -> 50
+- [x] **5-seed sweep**: all 5 seeds ran in parallel (~14 min)
+- [x] **Result: STRONG NEGATIVE - 0/5 positive delta**
+  - v0.2 delta = -158.1 +/- 208.6 (vs v0.1 +21.5 +/- 67.1)
+  - 3 of 5 seeds had val_auroc=1.000 on 4 positives -> overfit -> cal_threshold ~= 0
+  - Q coverage guard didn't help (Q had data, just bad)
+- [x] **Decision: REJECT v0.2, keep v0.1 as canonical**
+- [x] **DEC-0011 v0.3 candidates logged**: larger val set / skip cal / Q uncertainty / larger Q / safe-action fallback / new env
+
+### Artifacts
+- code/calibration.py (NEW, 110 lines)
+- code/full_integration_v2.py (NEW, 450 lines)
+- experiments_log/2026-07-27-phase15-v0p2-calibrated.md (formal log)
+- experiments_log/phase15_v0p2_vs_v0p1_summary.json (aggregated)
+- Paper Section 4.10.3 (NEW), header v2.3 -> v2.4
+
+---
+
+

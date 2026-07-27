@@ -1,0 +1,111 @@
+{
+  "v0_1": {
+    "n": 5,
+    "seeds": [
+      {
+        "seed": 0,
+        "tag": "v0.1",
+        "ungated_mean": 67.63660670072345,
+        "gated_mean": 122.08753864194253,
+        "delta": 54.45093194121908,
+        "avg_gates": 0.4
+      },
+      {
+        "seed": 1,
+        "tag": "v0.1",
+        "ungated_mean": 112.43917827433339,
+        "gated_mean": 57.298419400651824,
+        "delta": -55.14075887368156,
+        "avg_gates": 10.2
+      },
+      {
+        "seed": 2,
+        "tag": "v0.1",
+        "ungated_mean": 11.408514582450628,
+        "gated_mean": 102.98822140252355,
+        "delta": 91.57970682007291,
+        "avg_gates": 22.0
+      },
+      {
+        "seed": 3,
+        "tag": "v0.1",
+        "ungated_mean": 88.78902337390328,
+        "gated_mean": 43.4109706256523,
+        "delta": -45.37805274825098,
+        "avg_gates": 287.2
+      },
+      {
+        "seed": 4,
+        "tag": "v0.1",
+        "ungated_mean": -5.117835892130313,
+        "gated_mean": 57.07950309589537,
+        "delta": 62.197338988025685,
+        "avg_gates": 57.6
+      }
+    ],
+    "delta_avg": 21.54,
+    "delta_std": 67.08,
+    "ungated_avg": 55.03,
+    "gated_avg": 76.57
+  },
+  "v0_2": {
+    "n": 5,
+    "seeds": [
+      {
+        "seed": 0,
+        "tag": "v0.2",
+        "ungated_mean": 107.94237745526061,
+        "gated_mean": -151.95932487997766,
+        "delta": -259.90170233523827,
+        "avg_gates": 230.66,
+        "val_auroc": 1.0,
+        "cal_threshold": 4.1192556628051773e-14
+      },
+      {
+        "seed": 1,
+        "tag": "v0.2",
+        "ungated_mean": 204.63439442147808,
+        "gated_mean": 199.83606802565498,
+        "delta": -4.798326395823096,
+        "avg_gates": 17.86,
+        "val_auroc": 0.9736842105263158,
+        "cal_threshold": 0.10754758534783362
+      },
+      {
+        "seed": 2,
+        "tag": "v0.2",
+        "ungated_mean": 86.37538948466351,
+        "gated_mean": 73.93443716681884,
+        "delta": -12.440952317844676,
+        "avg_gates": 29.94,
+        "val_auroc": 1.0,
+        "cal_threshold": 1.2832790891568614e-08
+      },
+      {
+        "seed": 3,
+        "tag": "v0.2",
+        "ungated_mean": 88.56104474805757,
+        "gated_mean": -391.1310051334443,
+        "delta": -479.6920498815019,
+        "avg_gates": 137.22,
+        "val_auroc": 0.987012987012987,
+        "cal_threshold": 7.153661803357918e-06
+      },
+      {
+        "seed": 4,
+        "tag": "v0.2",
+        "ungated_mean": 74.89961374521332,
+        "gated_mean": 41.42320782953369,
+        "delta": -33.47640591567963,
+        "avg_gates": 307.52,
+        "val_auroc": 1.0,
+        "cal_threshold": 3.217390728612731e-07
+      }
+    ],
+    "delta_avg": -158.06,
+    "delta_std": 208.59,
+    "ungated_avg": 112.48,
+    "gated_avg": -45.58
+  },
+  "delta_v0_2_minus_v0_1": -179.6
+}

@@ -551,3 +551,94 @@ Y1.3 wins 3/5 seeds: seed 3 (+105), seed 2 (+85), seed 0 (+64), seed 4 (+54), se
 
 ---
 
+
+
+---
+
+## 2026-07-27 night — Full Plan Execution (P1.3 → P2.9)
+
+**Major progress** (6 commits this round):
+
+- [x] **P1.3 DLR verifier-aware gating** (b2f1016) — NEGATIVE on LunarLander
+  - All 3 thresholds (0.3, 0.4, 0.5) produce delta < -120
+  - 4th inference-time intervention to fail
+  - DLR predicates are accurate but gating is wrong on LunarLander
+
+- [x] **P1.4 Model-Based Planning** (8c71eed) — NEGATIVE
+  - Slot WM + DLR safety score, pick action with max predicted safety
+  - Result: delta = -273 (UNgated 114.5 vs MBP -158.6)
+  - WM reconstruction error + replacing good PPO = bad outcome
+
+- [x] **P1.5 PDF + HTML render** (2ff600d) — DONE
+  - thesis_draft_v1.0.pdf (188 KB, 229 blocks, Unicode font)
+  - thesis_draft_v1.0.html (132 KB, browser-friendly)
+  - First visual rendering of thesis
+
+- [x] **P2.7 AIE recurrent** (3314d17) — STRONG NEGATIVE
+  - GRU + value baseline + higher reward weight (0.5)
+  - Result: eval -345.7 (vs vanilla AIE -127.7)
+  - 3rd AIE variant, all NEGATIVE
+  - Y1 direction shifts away from AIE
+
+- [x] **P2.9 PhD application templates** (43b22eb) — DONE
+  - phd_applications/statement_of_purpose.md (~600 words)
+  - phd_applications/academic_cv.md (template)
+  - phd_applications/writing_sample_outline.md (paper outline)
+  - phd_applications/README.md (timeline + target programs)
+
+- [x] **Thesis addenda H** (8c71eed): Y1.3 BREAKTHROUGH documented
+  - Monitor as TRAINING-TIME regularizer: +50 over baseline
+  - 3/5 seeds win (+64, -58, +84, +105, +53)
+  - Decoupling signal works as constraint during learning, not as intervention
+
+**Total commits**: 91 (+5 tonight)
+
+**Cumulative Y0 Q3 result**:
+- 1 STRONG POSITIVE (DLR attention fix)
+- 1 BREAKTHROUGH (Y1.3 training-time regularizer)
+- 8 NEGATIVE (DEC-0011 v0.1-v0.4C, DLR gating, MBP, AIE 3 variants)
+- 1 NEUTRAL (DEC-0011 v0.3)
+- 1 MIXED (ENWI P2 2000ep)
+
+**Pattern**: inference-time interventions (4 attempts) all fail on
+LunarLander. Training-time regularization (Y1.3) is the publishable path.
+
+**Pending (user action)**:
+- [ ] Push 25+ commits ahead to GitHub
+- [ ] Post CSDN + OSCHINA + Twitter/Discord drafts
+- [ ] Customize PhD SoP/CV for each target program
+
+**Work Board (Y0 Q3 → Y0 Q4 transition)**:
+  Thesis
+  - [x] v1.0 + 8 addenda + 8 appendices + 45 refs (~103 KB)
+  - [x] PDF (188 KB) + HTML (132 KB)
+  - [ ] Add figures (slot attention visualization)
+
+  DLR (Project E)
+  - [x] dlr_attention.py: 95.5% mean accuracy
+  - [x] dlr_verifier_gating.py: end-to-end NEGATIVE
+  - [ ] Use DLR as policy baseline (variance reduction, Y1)
+
+  DEC-0011 + Y1.3 (Project A)
+  - [x] Inference-time gating: 6/6 NEGATIVE (HALTed)
+  - [x] Y1.3 training-time regularizer: POSITIVE (+50)
+  - [ ] Y1.4 (Monitor as PPO value baseline)
+  - [ ] Y1.5 (synthetic data via WM + DLR)
+
+  AIE (Project A active inference)
+  - [x] aie_train_full.py + aie_recurrent.py: both NEGATIVE
+  - [ ] Defer to Y2+ (needs 500K+ env steps)
+
+  MBP (Project A)
+  - [x] mbp_slot_dlr.py: NEGATIVE (WM error + wrong action)
+  - [ ] Try with better WM (slot_dynamics.py 0.000007 err)
+
+  PhD (Y0 Q4)
+  - [x] phd_applications/ templates ready
+  - [ ] Submit to 5-8 target programs (Sep 2026 - Jan 2027)
+
+---
+
+*Session state at 2026-07-27 night: 91 commits, full plan executed,
+thesis v1.0 + PDF + HTML rendered, PhD templates ready. Y0 Q3 closing
+synthesis shows the path forward: training-time use of auxiliary signals.*

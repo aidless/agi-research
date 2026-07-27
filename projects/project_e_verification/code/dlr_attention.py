@@ -117,8 +117,9 @@ class AttnSlotPredicateNet(nn.Module):
         # Attention: dot product of slots with learned query
         attn_logits = (slots * self.attn_query.view(1, 1, -1)).sum(dim=-1)  # (B, n_slots)
         attn = F.softmax(attn_logits, dim=-1)
-        # Weighted aggregation
+        # Weighted aggregation, normalize to [0,1]
         out = (per_slot * attn).sum(dim=-1)
+        out = torch.clamp(out, min=0.0, max=1.0)
         return out
 
 

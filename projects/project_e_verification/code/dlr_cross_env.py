@@ -62,6 +62,16 @@ def get_predicates(env_name):
             "low_velocity": lambda obs: float(np.sqrt(obs[2]**2 + obs[3]**2) < 0.3),
             "safe_approach": lambda obs: float(0.0 < obs[1] < 1.5 and abs(obs[0]) < 0.5),
         }, obs_dim, n_actions
+    elif env_name == "Acrobot-v1":
+        obs_dim = 6
+        n_actions = 3
+        return {
+            "joint1_up": lambda obs: float(obs[0] > 0),  # cos(theta1) > 0
+            "joint2_up": lambda obs: float(obs[2] > 0),  # cos(theta2) > 0
+            "low_ang_vel1": lambda obs: float(abs(obs[4]) < 1.0),
+            "low_ang_vel2": lambda obs: float(abs(obs[5]) < 1.0),
+            "near_goal": lambda obs: float(obs[0] > -0.5 and obs[2] > 0),
+        }, obs_dim, n_actions
     else:
         raise ValueError(f"Unknown env: {env_name}")
 

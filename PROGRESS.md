@@ -167,4 +167,34 @@ Open new conversation with: "Open E:\agi-research\PROGRESS.md, continue from the
   - [x] Zhihu 想法 posted (one platform hit)
   - [ ] CSDN cross-post
   - [ ] OSCHINA cross-post
-  - [ ] GitHub repo traffic tracked
+  - [ ] GitHub repo traffic tracked## Last session state (2026-07-27)
+
+**Major progress**:
+- [x] **Phase 1.5 full 4-layer AGI integration** committed (df0ef81): A + C + D + E + Q all active in one orchestrator
+- [x] **Slot World Model** (Phase 1.2): slot-attention with dynamics head, next-step error = 0.000007
+- [x] **A+C integration** (8d89ca0): SlotMonitor AUROC 0.989 vs raw 0.796 (+0.193 breakthrough)
+
+**Pending**:
+- [ ] Run full 100K PPO for honest Phase 1.5 numbers (in progress, background PID 28024, started 10:45)
+- [ ] Update Paper A v2 with 100K integration results
+- [ ] Push v0.2.0 to GitHub (requires human approval per policy)
+- [ ] Cross-post to CSDN + OSCHINA
+- [ ] Continue engineering (slot-WM transfer ablation, TTC multi-seed)
+- [ ] Y1 Procgen baseline (still blocked on cmake + VS build tools)
+
+**Work Board additions** (Y0 Q3 round 6):
+  Engineering
+  - [x] Phase 1.2 Slot World Model (perception + dynamics)
+  - [x] Phase 1.3 Language interface (project_d)
+  - [x] Phase 1.4 LTL verifier (project_e)
+  - [x] Phase 1.5 Full 4-layer orchestrator (full_integration.py)
+  - [ ] 100K PPO integration run (in progress)
+  - [ ] Update Paper A v2 with integration numbers
+
+  Infrastructure
+  - [x] Identified root cause of Codex task interruption: 3 duplicate full_integration.py runs were competing for CPU; killed 2 old runs, kept the new one
+- [ ] Long-running experiments must go to background process (not synchronous shell_command)
+
+---
+
+

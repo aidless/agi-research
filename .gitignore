@@ -33,3 +33,9 @@ dist/
 *.pt
 *.bin
 *.pkl
+
+# Temporary scratch files from background runs
+_*.bat
+_*.pid
+_*.txt
+

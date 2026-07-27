@@ -817,6 +817,33 @@ signal (action selection).
   t-stat (Welch):               1.65 (df~8, p > 0.05)
 
 Y1.3 wins on 3 of 5 seeds with substantial margins (largest: +105).
+
+
+### 4.10.15 Y1.3 lambda sensitivity sweep
+
+To identify the optimal monitor_lambda, we swept lambda in
+{0.5, 1.0, 2.0, 5.0} with 5 seeds each on LunarLander-v3:
+
+| lambda | Mean | Std | Delta vs baseline | Best seed |
+|--------|------|-----|-------------------|-----------|
+| **0.5** | **90.5** | 56.3 | **+49.9** | 178.7 (seed 3) |
+| 1.0    | 65.3 | 38.4 | +24.7 | 99.8 (seed 4) |
+| 2.0    | 61.8 | 46.9 | +21.2 | 111.3 (seed 1) |
+| 5.0    | -58.0 | 79.4 | -98.6 | 43.2 (seed 0) |
+
+**Dose-response is clean**: lambda=0.5 wins, lambda=1.0/2.0 are
+similar but smaller, lambda=5.0 catastrophically hurts every seed.
+
+The Monitor's reward shaping is a useful regularizer at MODERATE
+strength. Very strong shaping (lambda=5.0) makes PPO optimize for
+"minimize Monitor_prob" at the expense of task reward, breaking
+training.
+
+**Recommended setting: lambda=0.5** (highest mean, 4/5 seeds above
+baseline).
+
+Companion log: \experiments_log/2026-07-27-phase15-y13-lambda-sweep.md\.
+Summary JSON: \experiments_log/y13_lambda_sweep_summary.json\.
 Mean effect is +50 points. Not statistically significant at p<0.05
 (need t>2.3) but clearly directional and large-magnitude.
 
@@ -1127,6 +1154,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
 
 
 

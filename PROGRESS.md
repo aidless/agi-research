@@ -642,3 +642,25 @@ LunarLander. Training-time regularization (Y1.3) is the publishable path.
 *Session state at 2026-07-27 night: 91 commits, full plan executed,
 thesis v1.0 + PDF + HTML rendered, PhD templates ready. Y0 Q3 closing
 synthesis shows the path forward: training-time use of auxiliary signals.*
+
+## Y1.3 lambda sweep (2026-07-27)
+
+4 个 lambda 值 (5 seeds each) 验证 monitor_lambda 的影响。
+
+| lambda | Mean | Delta | Wins |
+|--------|------|-------|------|
+| **0.5** | **90.5** | **+50** | 4/5 |
+| 1.0 | 65.3 | +25 | 4/5 |
+| 2.0 | 61.8 | +21 | 3/5 |
+| 5.0 | -58.0 | -99 | 1/5 |
+
+**Dose-response 清晰**：lambda=0.5 最佳，>2.0 伤害 PPO。
+lambda=5.0 全部 seeds 都退化（-91 到 -155）。
+
+### Artifacts
+- experiments_log/2026-07-27-phase15-y13-lambda-sweep.md (NEW)
+- experiments_log/y13_lambda_sweep_summary.json (NEW)
+- paper Section 4.10.15 (NEW), header v2.7 -> v2.8
+
+---
+

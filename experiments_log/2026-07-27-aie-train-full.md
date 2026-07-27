@@ -88,3 +88,35 @@ performance, not 10K-step performance.
 - `code/checkpoints/aie_full/seed{0,1,2}/phase2_log.json`
 - `experiments_log/_aie_train_full_seed{0,1,2}.txt` (raw output)
 - Compute: ~42 sec per seed on CPU
+
+
+## Long-budget AIE run (4x budget, seed 0)
+
+To test if AIE converges with more compute, ran seed 0 with 4x budget:
+
+```
+n_outer=16, n_episodes_per_outer=16, n_epochs_per_outer=8, batch_size=8
+Total: 16*16 = 256 episodes, ~50K env steps (5x short budget)
+```
+
+| metric | short budget (8×8) | long budget (16×16) | delta |
+|--------|---------------------|---------------------|-------|
+| Initial eval | -126.5 | -84.8 | +41.7 (random luck) |
+| Final eval | -127.7 | -135.6 | -7.9 (no improvement) |
+| Final loss | 19.451 | 17.402 | -2.05 (still decreasing) |
+| Best mid-run eval | -94.2 (outer 5) | -99.9 (outer 13) | -5.7 |
+
+**Conclusion**: Even at 4× budget, AIE final eval return is statistically
+indistinguishable from the 1× run (within 1 standard deviation). The free-energy
+loss continues to decrease, suggesting the model is still learning the data
+distribution, but the policy does not converge to land successfully.
+
+This is an **even stronger honest negative** for ENWI Prediction 4: at our
+compute scale (~50K env steps), AIE does not match PPO. We would need
+~500K+ steps (10× longer) for a fair test, which exceeds our Y0 budget.
+
+## Implications for thesis
+
+- Add to Addendum A: "AIE does not converge at our budget. ENWI Prediction 4
+  requires either much more compute or a better AIE architecture."
+- Move AIE from "viable alternative" to "open research direction" in Y1 plan.

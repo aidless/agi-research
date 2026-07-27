@@ -234,3 +234,48 @@ Next: Y1 work - better Q (more data), better Monitor calibration (Platt), action
 ---
 
 
+
+
+---
+
+## 2026-07-27 evening (continuing) — Cross-post drafts v3 ready
+
+**Major progress**:
+- [x] **CSDN + OSCHINA v3 drafts** (97ec0db): 471 lines added
+  - csdn_announcement_v3.md (224 lines, ~2200 字 CSDN 博客草稿)
+  - oschina_announcement_v3.md (144 lines, ~1500 字 OSCHINA 项目资讯草稿)
+  - CROSSPOST_CHECKLIST.md (跨贴 checklist, v1→v2→v3 历史、平台差异、IP 保护)
+- [x] **v2 → v3 更新内容**:
+  1. ENWI Prediction 2 100-epoch 复验（1.9x 差，比 30-epoch 3.5x 略好但仍负）
+  2. Phase 1.5 5-seed sweep DEC-0011（delta_avg=+21.5±67.1, p>0.05）
+  3. H1 区分 monitor-prediction 层 vs policy-action 层
+  4. 加入诚实负结果区块（同行评议友好）
+- [x] **Total commits**: 73 → 74 (97ec0db)
+
+**Pending (需要用户手动操作)**:
+- [ ] 用户去 CSDN 编辑器发布 csdn_announcement_v3.md
+- [ ] 用户去 OSCHINA 项目页发布 oschina_announcement_v3.md
+- [ ] 发布后回这里记录链接 + 更新 CROSSPOST_CHECKLIST.md
+
+**Drafts 状态**:
+| 平台 | 草稿 | 状态 |
+|------|------|------|
+| CSDN | csdn_announcement_v3.md | ✅ 草稿就绪, 等发布 |
+| OSCHINA | oschina_announcement_v3.md | ✅ 草稿就绪, 等发布 |
+| 知乎 | (v1, 2026-07-26 已发布) | ✅ https://www.zhihu.com/pin/2064649194275714554 |
+
+**Work Board additions (Y0 Q3 round 7)**:
+  Community (Path 3-5)
+  - [x] CSDN + OSCHINA v3 drafts (含 100-epoch + DEC-0011 + 诚实负结果)
+  - [x] CROSSPOST_CHECKLIST.md (跨贴追踪)
+  - [ ] 用户发布 CSDN + OSCHINA 帖子
+  - [ ] 发布后 24h 内回评论 + 记录阅读量
+
+  Other (待办)
+  - [ ] 推送 v0.2.0 到 GitHub (需要用户手动 push, 当前 6 commits ahead)
+  - [ ] Procgen baseline (Y1, 仍需 cmake + VS build tools)
+
+---
+
+*Session state at 2026-07-27 evening: 74 commits, 5-seed DEC-0011 logged,
+CSDN + OSCHINA v3 drafts ready for human posting.*

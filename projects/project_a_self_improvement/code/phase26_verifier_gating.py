@@ -15,7 +15,7 @@ import argparse
 import json
 import sys
 import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
 import torch

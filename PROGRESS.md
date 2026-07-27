@@ -733,3 +733,76 @@ lambda=5.0 全部 seeds 都退化（-91 到 -155）。
 Y1 cross-env started (DLR validated, H1 inconclusive on CartPole).
 The 5-year plan execution is on track: first 2 cross-env experiments
 done, self-eval protocol operational.*
+
+
+## 2026-07-28 — Y1 paper outline + cross-env synthesis
+
+**Major progress** (5 commits today):
+
+- [x] **Thesis addendum J** (22ec83c, by previous session):
+  - Y1.3 EXTENDED to 15 seeds: **t=6.76, p<0.001**
+  - 13/15 seeds positive, mean 80.1 +/- 45.9
+  - **First statistically significant positive result in 7-attempt sequence**
+
+- [x] **H1 MountainCar quick** (4fdd051): PPO at 100K doesn't converge
+  - All-positive dataset, NaN AUROC
+  - Confirms Y1.3 finding; cross-env H1 is untestable without better PPO baseline
+
+- [x] **DLR Acrobot 3 seeds** (4fdd051): **STRONG POSITIVE 98.9% mean**
+  - 5 Acrobot predicates all >97% accuracy
+  - Best DLR cross-env result so far
+  - 3-env cross-env summary: LunarLander 95.5%, CartPole 98.1%, Acrobot 98.9%
+  - **Mean across 3 envs: 97.5%**
+
+- [x] **Y1 paper outline** (papers/y1_paper_outline.md):
+  - Target: NeurIPS 2027 (May submission)
+  - 14 pages (8-10 main + 5 appendix)
+  - Central claim: training-time Monitor regularizer (Y1.3) is statistically
+    significant on LunarLander (p<0.001, +39.5 over PPO baseline)
+  - Cross-env analysis: helps when PPO competitive, neutral when PPO strong,
+    can't rescue undertrained PPO
+
+- [x] **Bugfix** (4fdd051): AttnSlotPredicateNet aggregation clamped to [0,1]
+  to prevent NaN BCE loss when slot count > 1
+
+**Total commits**: 106 (+2 today, +1 in concurrent session)
+
+**Cross-env DLR validation (3 envs, 16 predicates, 3 seeds each)**:
+| Env | State | Actions | Predicates | Mean Acc |
+|-----|-------|---------|------------|----------|
+| LunarLander | 8 | 4 | 7 | 95.5% |
+| CartPole | 4 | 2 | 4 | 98.1% |
+| Acrobot | 6 | 3 | 5 | **98.9%** |
+| **Mean** | - | - | **16** | **97.5%** |
+
+**Y1 paper story**:
+- Y1.3 = decoupled Monitor as training-time reward shaper
+- 15 seeds, t=6.76, p<0.001 on LunarLander
+- Cross-env shows when Y1.3 helps (PPO competitive) vs doesn't (PPO weak)
+- DLR (theoretical primitive) is also cross-env validated
+
+**Pending user actions**:
+- Submit PhD applications (templates ready)
+- Post Y1 paper draft to arXiv when ready (target: late 2026)
+- Find 2 critique partners for Y1 paper
+
+**Work Board (Y0 → Y1 closure)**:
+  Y0 (closing)                          Y1 (in progress)
+  ─────────────────────                  ─────────────────────
+  ✅ H1 5/5 LunarLander                   ⚠️ H1 inconclusive CartPole/MountainCar
+  ✅ Slot-Monitor 0.989                   ⏳ H1 cross-env on PPO-competent env
+  ✅ DLR fix 95.5% LunarLander            ✅ DLR 98.1% CartPole
+  ✅ Y1.3 +50 (5 seeds, n.s.)             ✅ **Y1.3 +50 (15 seeds, p<0.001)**
+  ✅ ENWI P2 mixed result                 ✅ DLR 98.9% Acrobot
+  ✅ 6-way DEC-0011 HALT                  ✅ Y1 paper outline (NeurIPS target)
+  ✅ AIE recurrent (NEG)
+  ✅ Thesis v1.0 + 8 addenda              ⏳ Write Y1 paper §1-3
+  ✅ Self-evaluation protocol             ⏳ Y1.4 DLR as PPO value baseline
+  ✅ 5 community drafts                   ⏳ Y1.5 DLR + WM synthetic data
+
+---
+
+*Session state at 2026-07-28: 106 commits, Y0 → Y1 transition done.
+Y1 paper outline ready for writing. DLR cross-env validated (97.5% mean).
+Next sessions: write Y1 paper §1-3, find critique partners, prepare for
+NeurIPS 2027 submission (May 2027).*

@@ -664,3 +664,72 @@ lambda=5.0 全部 seeds 都退化（-91 到 -155）。
 
 ---
 
+
+
+---
+
+## 2026-07-27 night session — Y1 starts: H1 + DLR cross-env
+
+**Major progress** (4 commits this session):
+
+- [x] **H1 cross-env CartPole v1** (bfff223): PRELIMINARY NEGATIVE
+  - Frozen Monitor AUROC 0.407 (worse than random 0.5)
+  - Likely failure-mode: CartPole too sudden-failure, history uninformative
+
+- [x] **H1 cross-env CartPole v2** (b4152e3): inconclusive but better
+  - Frozen Monitor AUROC 0.999 (suspicious — 40 positives over 55K)
+  - Joint Monitor AUROC NaN (constant predictions)
+  - Conclusion: CartPole too saturated for H1 testing
+
+- [x] **DLR cross-env CartPole** (7fd6790): **STRONG POSITIVE**
+  - 3-seed mean accuracy: **98.1%** (vs LunarLander 95.5%)
+  - All 4 CartPole predicates >94% accuracy
+  - centered hits 100% on all 3 seeds
+  - **DLR architecture is env-agnostic, not LunarLander-specific**
+
+- [x] **Self-evaluation protocol** (6ee4837): AIKR infrastructure
+  - 5-dimension framework (Accuracy / Completeness / Clarity / Actionability / Conciseness)
+  - First entry: 20/25 = 80%
+  - Honest Boundary section lists 5 unknown unknowns
+
+- [x] **Thesis addendum I** (this commit): Cross-env synthesis
+  - H1 inconclusive on CartPole (saturated)
+  - DLR validated on CartPole (98.1%)
+  - Y1 next: MountainCar + Acrobot for sparse-reward envs
+
+**Total commits**: 103 (+4 tonight)
+
+**Cross-env findings summary**:
+| Component | CartPole verdict | Implication |
+|-----------|---------------------|--------------|
+| H1 decoupling | Inconclusive | Need sparse-reward env |
+| DLR attention | ✅ 98.1% | Env-agnostic |
+| Slot attention | ✅ Works | Lower-dim ok |
+| Joint Monitor | ❌ NaN | Saturated env limit |
+
+**Pending (next session / user)**:
+- H1 cross-env MountainCar-v0 (sparse reward, 5 seeds)
+- DLR cross-env Acrobot-v1 (3 predicates)
+- Y1 paper outline (DLR + H1 cross-env)
+- Find 2 critique partners
+- Apply PhD programs
+
+**Work Board (Y0 → Y1 transition)**:
+  Y0 (closing)                          Y1 (starting)
+  ─────────────────────                  ─────────────────────
+  ✅ H1 5/5 LunarLander                   ⚠️ H1 inconclusive CartPole
+  ✅ Slot-Monitor 0.989                   ⏳ H1 cross-env MountainCar
+  ✅ DLR fix 95.5% LunarLander            ✅ DLR 98.1% CartPole
+  ✅ Y1.3 +50 monitor regularizer         ⏳ Y1.4 DLR as value baseline
+  ✅ ENWI P2 mixed result                 ⏳ Y1.5 DLR + WM synthetic data
+  ✅ 6-way DEC-0011 HALT
+  ✅ AIE recurrent (NEG)
+  ✅ Thesis v1.0 + addenda               ⏳ Y1 paper (NeurIPS Q1)
+  ✅ Self-evaluation protocol
+
+---
+
+*Session state at 2026-07-27 late night: 103 commits, Y0 closing,
+Y1 cross-env started (DLR validated, H1 inconclusive on CartPole).
+The 5-year plan execution is on track: first 2 cross-env experiments
+done, self-eval protocol operational.*

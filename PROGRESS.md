@@ -436,3 +436,78 @@ A+B+C 三个子实验完成：
 
 ---
 
+
+
+---
+
+## 2026-07-27 late late — DEC-0011 v0.4 HALT + ENWI P2 2000-epoch + DLR attention fix
+
+**Major progress** (5 commits this round):
+
+- [x] **DLR attention aggregation fix** (525d1ee, projects/project_e/code/dlr_attention.py)
+  - upright predicate: 45% -> **89%** (fixed!)
+  - Mean accuracy across 7 predicates: 86.7% -> **95.5%**
+  - Joint training of projection + predicates with attention over slots
+
+- [x] **DEC-0011 v0.3** (47aeca2, projects/project_a/code/full_integration_v3.py)
+  - Fixed threshold + hysteresis + safe_action=0
+  - Result seed 0: delta = **+0.28** (vs v0.2 -158.1 catastrophic)
+
+- [x] **ENWI P2 2000-epoch** (ae47f82, projects/project_c/code/checkpoints/enwi_prediction2)
+  - Mixed result: composable wins 2/5 (free_fall 1.6x, inertia 4.6x), loses 3/5
+  - Mean still negative (-346%) but per-scene pattern is informative
+  - Both models achieve near-zero MSE on synthetic data
+
+- [x] **Thesis addenda D-G** (c144b63, thesis_draft_v1.0.md)
+  - D: DLR attention fix details
+  - E: DEC-0011 v0.3 result
+  - F: Experimental methodology
+  - G: DEC-0011 v0.4 6-way comprehensive sweep + HALT decision
+  - Total thesis: ~2700 lines, ~103 KB
+
+- [x] **DEC-0011 v0.4 HALT** (concurrent session: edcc34a, 9b26dc9)
+  - Six experiments, 0 significant HELP
+  - v0.4A (5x data) is NEUTRAL (t=-0.25, p>0.05)
+  - HALT online-gating sub-project, move to Y1 model-based planning
+
+**Total commits**: 85 (+5 tonight)
+
+**Pending (user action)**:
+- [ ] Push 18 commits ahead to GitHub (Codex no auth)
+- [ ] Post CSDN (csdn_announcement_v3.md) + OSCHINA (oschina_announcement_v3.md)
+- [ ] Post v0.4 HALT Twitter/Discord (community/twitter_v0p4_halt.md)
+- [ ] PhD application templates (SoP, CV, writing sample) - Y0 Q4
+
+**Work Board (Y0 Q3 final)**:
+  Thesis
+  - [x] v1.0: 8 parts + 7 addenda + 8 appendices + 45 refs (~103 KB)
+  - [ ] Render to PDF for visual check (next session)
+  - [ ] Add figures (currently text-only)
+
+  DLR (Project E)
+  - [x] dlr_attention.py: 95.5% mean accuracy, upright 89%
+  - [ ] Add verifier-aware gating using DLR predicates (Y1)
+
+  DEC-0011 (Project A online-gating)
+  - [x] v0.1 → v0.4 documented (6-way comprehensive sweep)
+  - [x] HALT decision recorded
+  - [ ] Y1: model-based planning with slot WM
+
+  ENWI (Project C composable physics)
+  - [x] 100-epoch: 3.5x worse
+  - [x] 2000-epoch: 1.9x worse, 2/5 scenes positive
+  - [ ] Y1: physics-accurate scene generator + ENWI architecture match
+
+  AIE (Project A active inference)
+  - [x] Smoke test + 3-seed full + 4x long-budget
+  - [x] Honest: does not converge at 50K steps (needs 500K+)
+  - [ ] Y1: recurrence + baseline subtraction
+
+  Other (next session)
+  - [ ] Y1 Procgen baseline (still blocked on cmake + VS build tools)
+  - [ ] PhD application templates (SoP, CV, writing sample)
+
+---
+
+*Session state at 2026-07-27 late late: 85 commits, thesis v1.0 + addendum G,
+DEC-0011 HALT decision logged, DLR attention fix positive, ENWI P2 2000ep done.*

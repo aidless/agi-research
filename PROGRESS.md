@@ -303,3 +303,57 @@ CSDN + OSCHINA v3 drafts ready for human posting.*
 ---
 
 
+
+
+---
+
+## 2026-07-27 late evening — Thesis v1.0 + AIE + DLR (3 engineering outcomes)
+
+**Major progress**:
+- [x] **Thesis v1.0** (ba78b8b): 2227 lines, 84.6 KB Markdown
+  - 8 Parts (I-VIII) + 3 Addendum + 8 Appendices + 45 References
+  - Growth from v0.1 (313 lines, 10.6 KB) → v1.0 (7.1x lines, 8.0x size)
+  - Full theorems (11 ENWI), full predictions (5 ENWI), all 5-seed results
+- [x] **AIE full training** (1be8f93, project_a/code/aie_train_full.py): 3 seeds
+  - Mean eval: -139.3 ± ~44 (random -150 to -200, PPO 100K -100 to +50)
+  - Free energy loss 21.7 → 19.5 (perception learning works)
+  - Honest: ENWI Prediction 4 not testable at 10K steps; needs 100K+
+  - Bugfix: active_inference.py select_action NaN handling
+- [x] **DLR full integration** (1be8f93, project_e/code/dlr_train_full.py): 3 seeds
+  - 6/7 predicates: 94% mean accuracy (landed 99.4%, leg 98%, in_pad 93%)
+  - `upright` fails (45%) due to random slot projection losing angle info
+  - DLR vs LTL: comparable on crisp; DLR advantage is differentiable training
+  - Honest: F(leg_l AND leg_r) DLR Brier 0.582 worse than LTL — learned aggregation needed
+
+**Total commits**: 79 (+4 tonight: ba78b8b, 1be8f93, plus earlier v3 cross-post)
+
+**Pending (need user action)**:
+- [ ] Push 10 commits ahead to GitHub (`git push` when ready; Codex has no auth)
+- [ ] User posts CSDN (csdn_announcement_v3.md) + OSCHINA (oschina_announcement_v3.md)
+- [ ] Reply to comments within 24h of posting
+
+**Work Board additions (Y0 Q3 round 8)**:
+  Thesis
+  - [x] v1.0: 8 parts + 3 addendum + 8 appendices + 45 refs (84.6 KB)
+  - [ ] Render to PDF for visual check
+  - [ ] Add figures (currently text-only)
+
+  AIE (Project A)
+  - [x] aie_train_full.py: 3 seeds, ~10K steps each
+  - [ ] Run 4x longer (40K steps) to test if AIE converges
+  - [ ] Add recurrence to AIE (carry latent state across steps)
+
+  DLR (Project E)
+  - [x] dlr_train_full.py: 3 seeds, 7 predicates
+  - [ ] Try learned aggregation (attention over slots) to fix `upright`
+  - [ ] End-to-end training of projection + predicate jointly
+
+  Other (next session)
+  - [ ] Y1 Procgen baseline (still blocked on cmake + VS build tools)
+  - [ ] PhD application templates (SoP, CV, writing sample)
+  - [ ] 2000-epoch ENWI Prediction 2 replication (Y1 work, 60 min compute)
+
+---
+
+*Session state at 2026-07-27 late evening: 79 commits, thesis v1.0,
+AIE + DLR full training runs, all honest negatives logged.*

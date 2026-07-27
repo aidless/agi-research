@@ -1,4 +1,4 @@
-"""language_interface.py - Phase 1.3: LLM-style language interface for AGI agent.
+﻿"""language_interface.py - Phase 1.3: LLM-style language interface for AGI agent.
 
 Converts (Monitor prob, slot states, current obs) into natural language
 descriptions that humans can read. Implements a simple type-lattice
@@ -21,7 +21,9 @@ def obs_to_typed_entities(obs, feature_names=None):
     if feature_names is None:
         feature_names = ["x_pos", "y_pos", "x_vel", "y_vel",
                          "angle", "ang_vel", "leg_l", "leg_r"]
-    return {name: float(v) for name, v in zip(feature_names, obs)}
+    # Pad obs with zeros so short obs (CartPole 4-dim) still has all 8 fields
+    obs_list = list(obs) + [0.0] * max(0, len(feature_names) - len(obs))
+    return {name: float(v) for name, v in zip(feature_names, obs_list)}
 
 
 def generate_status(obs, monitor_prob, slot_states=None, recent_actions=None):

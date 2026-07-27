@@ -69,6 +69,21 @@ class SlotMonitor(nn.Module):
         return torch.sigmoid(self.head(flat)).squeeze(-1)
 
 
+class ImitationPolicy(nn.Module):
+    """v0.4C: Behavior-cloned policy. Predicts PPO action from state."""
+    def __init__(self, obs_dim, n_actions, hidden=64):
+        super().__init__()
+        self.n_actions = n_actions
+        self.net = nn.Sequential(
+            nn.Linear(obs_dim, hidden), nn.ReLU(),
+            nn.Linear(hidden, hidden), nn.ReLU(),
+            nn.Linear(hidden, n_actions),
+        )
+
+    def forward(self, state):
+        return self.net(state)
+
+
 class QNetwork(nn.Module):
     def __init__(self, obs_dim, n_actions, hidden=64):
         super().__init__()
@@ -145,6 +160,29 @@ def train_slot_monitor(slot_monitor, train_eps, val_eps, threshold,
     return val_auroc, val_labels, val_raw
 
 
+def train_imitation_policy(policy, episodes, n_epochs=20, lr=3e-4):
+    """v0.4C: Train behavior-cloning policy on (state, PPO action) pairs."""
+    states, actions = [], []
+    for ep in episodes:
+        for tr in ep.transitions:
+            states.append(tr.obs.copy())
+            actions.append(tr.action)
+    if not states:
+        return policy
+    X = torch.from_numpy(np.stack(states)).float()
+    y = torch.tensor(actions, dtype=torch.long)
+    opt = torch.optim.Adam(policy.parameters(), lr=lr)
+    for epoch in range(n_epochs):
+        idx = np.random.permutation(len(y))
+        for start in range(0, len(y), 64):
+            bi = idx[start:start + 64]
+            xb = X[bi]; yb = y[bi]
+            logits = policy(xb)
+            loss = F.cross_entropy(logits, yb)
+            opt.zero_grad(); loss.backward(); opt.step()
+    return policy
+
+
 def train_q_cql(q_net, episodes, n_epochs=15, cql_alpha=1.0, gamma=0.99):
     transitions = []
     for ep in episodes:
@@ -215,6 +253,10 @@ def main():
     p.add_argument("--safe-action", type=int, default=-1,
                    help="v0.3: replace Q-BoN with a fixed action when Monitor fires." +
                         " -1 = use Q-BoN (v0.1/v0.2 behavior); 0..n_actions-1 = use that fixed action")
+    p.add_argument("--imitation", action="store_true",
+                   help="v0.4C: replace Q-BoN with behavior-cloned PPO policy when Monitor fires")
+    p.add_argument("--imitation-topk", type=int, default=25,
+                   help="v0.4C: use top K%% of training episodes as expert demos")
     args = p.parse_args()
 
     out = []
@@ -286,8 +328,19 @@ def main():
         tpr = float((gate_mask & (val_labels == 1)).sum() / max(1, n_pos))
         out.append(f"[Cal] val FPR={fpr:.2f}  val TPR={tpr:.2f}  (n_neg={n_neg}, n_pos={n_pos})")
 
-    # 4. Layer Q: Q-function with CQL
+    # 4. Layer Q (or Imitation): Q-function with CQL, or behavior-cloned PPO policy
     q_net = QNetwork(obs_dim, n_actions, hidden=64)
+    if not args.imitation:
+        train_q_cql(q_net, train_eps, n_epochs=15, cql_alpha=1.0)
+    imitation_policy = None
+    if args.imitation:
+        # Use top K% of training episodes as expert demos
+        sorted_eps = sorted(train_eps, key=lambda e: e.total_reward, reverse=True)
+        n_top = max(1, int(round(len(sorted_eps) * args.imitation_topk / 100.0)))
+        expert_eps = sorted_eps[:n_top]
+        imitation_policy = ImitationPolicy(obs_dim, n_actions, hidden=64)
+        train_imitation_policy(imitation_policy, expert_eps, n_epochs=20)
+        out.append(f"[Q] Behavior-cloned policy trained on top {n_top} of {len(train_eps)} episodes (top {args.imitation_topk}%)")
     train_q_cql(q_net, train_eps, n_epochs=15, cql_alpha=1.0)
     q_coverage = count_unique_sa_pairs(train_eps, obs_dim, n_actions)
     q_coverage_ok = q_coverage >= args.min_q_coverage
@@ -334,7 +387,12 @@ def main():
 
             use_q = (monitor_prob_cal >= cal_threshold) and q_coverage_ok
             if use_q:
-                if args.safe_action >= 0:
+                if args.imitation and imitation_policy is not None:
+                    with torch.no_grad():
+                        obs_t = torch.from_numpy(obs).float().unsqueeze(0)
+                        logits = imitation_policy(obs_t)
+                        chosen = int(torch.argmax(logits, dim=-1).item())
+                elif args.safe_action >= 0:
                     chosen = args.safe_action
                 else:
                     with torch.no_grad():
@@ -381,11 +439,12 @@ def main():
         # Verifier
         trace_dicts = []
         for tr in ep_transitions:
+            o = list(tr.obs) + [0.0] * max(0, 8 - len(tr.obs))
             trace_dicts.append({
-                "x_pos": float(tr.obs[0]), "y_pos": float(tr.obs[1]),
-                "x_vel": float(tr.obs[2]), "y_vel": float(tr.obs[3]),
-                "angle": float(tr.obs[4]), "ang_vel": float(tr.obs[5]),
-                "leg_l": float(tr.obs[6]), "leg_r": float(tr.obs[7]),
+                "x_pos": float(o[0]), "y_pos": float(o[1]),
+                "x_vel": float(o[2]), "y_vel": float(o[3]),
+                "angle": float(o[4]), "ang_vel": float(o[5]),
+                "leg_l": float(o[6]), "leg_r": float(o[7]),
             })
         rule_results = []
         for rule in rules:
@@ -439,6 +498,8 @@ def main():
         "q_coverage": int(q_coverage),
         "q_coverage_ok": bool(q_coverage_ok),
         "safe_action": int(args.safe_action),
+        "imitation": bool(args.imitation),
+        "imitation_topk": int(args.imitation_topk),
         "ungated_mean": float(np.mean(returns_ungated)),
         "ungated_std":  float(np.std(returns_ungated)),
         "gated_mean":   float(np.mean(returns_gated)),
@@ -454,6 +515,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
 
 
 

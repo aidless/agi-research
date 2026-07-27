@@ -1,0 +1,50 @@
+{
+  "v01": {
+    "label": "v0.1  Q-BoN, fixed 0.5, n_train=200, n_eval=5",
+    "n": 5,
+    "delta_avg": 21.54,
+    "delta_std": 67.08,
+    "pos": 3,
+    "t": 0.718
+  },
+  "v2": {
+    "label": "v0.2  Q-BoN, calibrated,  n_train=200, n_eval=50",
+    "n": 5,
+    "delta_avg": -158.06,
+    "delta_std": 208.59,
+    "pos": 0,
+    "t": -1.694
+  },
+  "v3": {
+    "label": "v0.3  safe_action=2, cal., n_train=200, n_eval=50",
+    "n": 5,
+    "delta_avg": -717.58,
+    "delta_std": 432.24,
+    "pos": 0,
+    "t": -3.712
+  },
+  "v4a": {
+    "label": "v0.4A Q-BoN, calibrated,  n_train=1000, n_eval=50",
+    "n": 5,
+    "delta_avg": -1.84,
+    "delta_std": 16.46,
+    "pos": 3,
+    "t": -0.25
+  },
+  "v4cart": {
+    "label": "v0.4B Q-BoN, calibrated,  n_train=200, n_eval=50 [CartPole]",
+    "n": 5,
+    "delta_avg": -270.35,
+    "delta_std": 173.85,
+    "pos": 0,
+    "t": -3.477
+  },
+  "v4c": {
+    "label": "v0.4C Imitation, cal.,  n_train=200, n_eval=50",
+    "n": 5,
+    "delta_avg": -33.68,
+    "delta_std": 28.53,
+    "pos": 0,
+    "t": -2.64
+  }
+}

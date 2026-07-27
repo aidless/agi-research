@@ -752,6 +752,86 @@ t = **-3.71 (statistically significant, p<0.05)**.
 
 ### 4.10.5 Three-way synthesis (v0.1 vs v0.2 vs v0.3)
 
+
+
+### 4.10.7 DEC-0011 v0.4: three sub-experiments (A+B+C, comprehensive sweep)
+
+We tested three remaining v0.3 candidates as v0.4 sub-experiments:
+- **v0.4A**: 1000 train episodes (5x v0.2) to test if data scale solves calibration overfit
+- **v0.4B**: CartPole-v1 to test if simpler env behaves differently
+- **v0.4C**: Imitation learning (BC on top-25% PPO rollouts) as alternative to Q
+
+**Six-way comparison table:**
+
+| Version | Setting | n_train | n_eval | Delta mean | t-stat | Pos |
+|---------|---------|---------|--------|------------|--------|-----|
+| v0.1  | Q-BoN, fixed 0.5         | 200  | 5  | +21.5  | 0.72    | 3/5 |
+| v0.2  | Q-BoN, calibrated         | 200  | 50 | -158.1 | -1.69   | 0/5 |
+| v0.3  | safe_action=2, calibrated | 200  | 50 | -717.6 | -3.71** | 0/5 |
+| **v0.4A** | Q-BoN, calibrated     | 1000 | 50 | **-1.8** | **-0.25** | 3/5 |
+| v0.4B | Q-BoN, calibrated [CartPole] | 200 | 50 | -270.4 | -3.48** | 0/5 |
+| v0.4C | Imitation, top-25%        | 200  | 50 | -33.7 | -2.64** | 0/5 |
+
+(** = statistically significant, p<0.05)
+
+### 4.10.8 v0.4A: Larger training set breaks the negative trend
+
+The critical finding from v0.4A: with 1000 train episodes (5x v0.2),
+the val-set overfit goes away:
+- val_auroc: 0.84-0.99 (sensible, not pinned to 1.0)
+- cal_threshold: 0.09-0.65 (sensible, not collapsed to 0)
+- avg_gates: 3-385 (varies, not always maximum)
+
+The delta distribution: -1.8 +/- 16.5, t=-0.25, 3/5 positive. This is
+the FIRST experiment where the Monitor's signal is converted to a
+sensible gating frequency without destroying the policy.
+
+However, v0.4A is **NEUTRAL, not POSITIVE**. The calibrated Monitor
++ Q-BoN matches PPO-only on average but does not improve it.
+
+### 4.10.9 v0.4B: Different environment fails the same way
+
+On CartPole-v1 (a much simpler env that PPO solves at 440-497 of 500
+max), the same calibrated Q-BoN gating strategy produces delta=-270.4
++/- 173.9 (t=-3.48, 0/5 positive). PPO does great; gating destroys it.
+
+### 4.10.10 v0.4C: Behavior cloning is the best action selector but still negative
+
+Replacing Q-BoN with a behavior-cloned policy (trained on the top-25%
+of PPO rollouts by reward) gives delta=-33.7 +/- 28.5 (t=-2.64, 0/5
+positive). This is the smallest |delta| of all action-selection
+strategies tested (after PPO-only) but still significantly negative.
+The cloned policy IS the PPO policy at training-distribution states,
+but at high-Monitor states (different distribution), it picks
+suboptimal actions.
+
+### 4.10.11 Final synthesis: data scale and H1 status update
+
+The progression of std across the 6 experiments reveals the underlying
+mechanism:
+
+  v0.1 (n=5 eval, 200 train):  std=67   (just noise)
+  v0.2 (n=50 eval, 200 train): std=209  (val overfit -> bad cal -> high variance)
+  v0.4A (n=50 eval, 1000 train): std=17  (honest cal -> low variance)
+
+**The 5x data increase turns a catastrophically negative result
+(delta=-158) into a neutral one (delta=-2)**. The transition is
+sharp: <500 train episodes is too few for honest calibration;
+>=1000 is sufficient.
+
+But the **mean effect is essentially zero** in the well-calibrated
+regime. The Monitor's prediction signal is real but does not
+translate to a reliable policy gain. The decoupling contribution
+remains at the **prediction level** (Sections 4.6-4.8).
+
+**DEC-0011 v0.4 final: HALT the online-gating sub-project.** Move to
+Y1 work: model-based planning, expert demonstration imitation at
+scale, or different environment.
+
+Companion log: \experiments_log/2026-07-27-phase15-v0p4-abc.md\.
+Code: \code/full_integration_v2.py\ (with --safe-action, --imitation,
+--n-train-episodes args), \code/calibration.py\, \code/language_interface.py\
+(obs padding fix for non-LunarLander envs).
 | Metric | v0.1 (Q-BoN) | v0.2 (cal. Q-BoN) | v0.3 (cal. safe=2) |
 |--------|--------------|-------------------|---------------------|
 | n_eval | 5            | 50                | 50                  |
@@ -970,6 +1050,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
 
 
 

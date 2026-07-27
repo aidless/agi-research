@@ -391,3 +391,48 @@ AIE + DLR full training runs, all honest negatives logged.*
 
 ---
 
+
+## DEC-0011 v0.4 comprehensive (2026-07-27)
+
+A+B+C 三个子实验完成：
+
+### v0.4A (LunarLander, 1000 train rollouts)
+- delta: -1.8 +/- 16.5, t=-0.25, 3/5 pos (NEUTRAL, NOT significant)
+- 5x 数据让 cal_threshold 合理（0.09-0.65 vs v0.2 的 ~0）
+- val_auroc 0.84-0.99 (不再过拟合到 1.0)
+
+### v0.4B (CartPole-v1, 200 train)
+- delta: -270.4 +/- 173.9, t=-3.48, 0/5 pos (sig. negative)
+- PPO 表现好 (440-500 max), gating 仍然破坏
+
+### v0.4C (LunarLander, imitation, 200 train)
+- delta: -33.7 +/- 28.5, t=-2.64, 0/5 pos (sig. negative)
+- imitation (top-25% PPO) 是最好策略但仍显著负
+
+### 6-way 总成
+
+| Version | n_train | n_eval | Delta | t | Pos |
+|---------|---------|--------|-------|---|-----|
+| v0.1  | 200  | 5  | +21.5  | 0.72  | 3/5 |
+| v0.2  | 200  | 50 | -158.1 | -1.69 | 0/5 |
+| v0.3  | 200  | 50 | -717.6 | -3.71** | 0/5 |
+| v0.4A | 1000 | 50 | -1.8   | -0.25 | 3/5 |
+| v0.4B | 200  | 50 | -270.4 | -3.48** | 0/5 |
+| v0.4C | 200  | 50 | -33.7  | -2.64** | 0/5 |
+
+**0/6 实验显示统计显著 HELP。** v0.4A 是唯一打破负向趋势的，但只是 NEUTRAL。
+
+### DEC-0011 v0.4 最终: HALT online-gating 子项目
+- 1000+ 数据是必要条件（避免 val 过拟合）
+- 5x 数据把 -158 变成 -2 (中性)
+- 但 PPO 已经被 trained 得很好，gating 加不上价值
+- 转向 Y1: model-based planning / 模仿学习 / 新 env
+
+### Artifacts
+- experiments_log/2026-07-27-phase15-v0p4-abc.md (NEW formal log)
+- experiments_log/phase15_6way_summary.json (6-way aggregated)
+- code/language_interface.py (obs padding fix for non-LunarLander)
+- paper Section 4.10.7-4.10.11 (NEW), header v2.5 -> v2.6
+
+---
+

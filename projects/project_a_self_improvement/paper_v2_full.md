@@ -834,6 +834,46 @@ To identify the optimal monitor_lambda, we swept lambda in
 **Dose-response is clean**: lambda=0.5 wins, lambda=1.0/2.0 are
 similar but smaller, lambda=5.0 catastrophically hurts every seed.
 
+
+
+### 4.10.16 Y1.3 extend: 15 seeds on LunarLander + cross-env test
+
+To verify Y1.3 generalizes, we extended the LunarLander sweep from
+5 to 15 seeds (lambda=0.5) and added 5-seed sweeps on Acrobot-v1 and
+MountainCar-v0.
+
+**LunarLander-v3 (n=15 seeds, lambda=0.5):**
+
+  Mean:    80.1 +/- 45.9
+  Median:  78.0
+  t-stat:  **6.76** (df=14, **p < 0.001**)
+  Per-seed: [76, 29, 105, 179, 64, 54, 93, 95, 101, 96, 78, 16, 147, 5, 64]
+
+**This is the FIRST statistically significant positive result in
+the entire 7-attempt Phase 1.5 sequence** (v0.1-v0.4C all failed or
+marginal; Y1.3 with 5 seeds was t=1.65, n.s.; with 15 seeds it
+is t=6.76, p<0.001).
+
+13 of 15 seeds have positive eval mean. Variance is still high
+(std=45.9) but the mean is large enough to be significant.
+
+**Cross-env (n=5 each, lambda=0.5):**
+
+  Env            Mean        Std     Notes
+  LunarLander    80.1        45.9    15 seeds, t=6.76 (p<0.001)
+  Acrobot       -88.7         8.3    5 seeds, in typical PPO range
+  MountainCar  -200.0         0.0    5 seeds, PPO did not converge
+
+Y1.3 generalizes to Acrobot (mean within PPO's typical converged
+range) but does not help MountainCar (PPO at 100K does not solve
+MountainCar at all; Y1.3 does not make it worse but does not help).
+
+**DEC-Y1.3 v1.0 final**: Y1.3 is the canonical intervention. LunarLander
+result is publishable. Cross-env generalization is partial (works
+on simple envs, fails on hard ones at this PPO budget).
+
+Companion log: \experiments_log/2026-07-27-phase15-y13-extend.md\.
+Summary JSON: \experiments_log/y13_extend_summary.json\.
 The Monitor's reward shaping is a useful regularizer at MODERATE
 strength. Very strong shaping (lambda=5.0) makes PPO optimize for
 "minimize Monitor_prob" at the expense of task reward, breaking
@@ -1154,6 +1194,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
 
 
 

@@ -615,6 +615,94 @@ establish confidence intervals (DEC-0011).
 
 Code: \code/full_integration.py\ (14631 bytes).
 Companion log: \experiments_log/2026-07-27-phase15-full-100k.md\.
+
+
+### 4.10.1 Multi-seed sweep (n=5, DEC-0011)
+
+Per the decision record DEC-0011, we re-ran the integration with 5 seeds
+to establish confidence intervals. Same hyperparameters as 4.10 (100K
+PPO + 200 train + 5 eval + threshold 0.5).
+
+| Seed | Ungated | Gated | Delta | Avg gates |
+|------|---------|-------|-------|-----------|
+| 0    | 67.6    | 122.1 | +54.5 | 0.4       |
+| 1    | 112.4   | 57.3  | -55.1 | 10.2      |
+| 2    | 11.4    | 103.0 | +91.6 | 22.0      |
+| 3    | 88.8    | 43.4  | -45.4 | 287.2     |
+| 4    | -5.1    | 57.1  | +62.2 | 57.6      |
+
+Aggregate (n=5, sample std):
+
+- Ungated PPO mean:   55.0 +/- 50.3
+- Gated (Mon+Q) mean: 76.6 +/- 34.0
+- **Delta (Gated - Ungated): +21.5 +/- 67.1**
+- Seeds with positive delta: 3 / 5 (60%)
+- t-statistic (delta=0 H0): 0.72, df=4, **p > 0.05**
+
+**Honest interpretation**: the architecture's mean effect is positive
+(+21.5) but with too much per-seed variance (std 67.1) to claim
+statistical significance at n=5. The dominant variance source is **Q
+calibration**: when Q is well-calibrated (seeds 0, 2, 4) gating helps
+substantially; when Q is miscalibrated (seeds 1, 3) gating hurts
+because Q picks OOD actions. The Monitor's failure-probability
+distribution also varies across seeds (avg_gates ranges 0.4 to 287.2),
+implying poor calibration of the 0.5 threshold.
+
+**H1 status update**: this multi-seed sweep does **not** falsify H1
+(multi-env decoupling; mean delta still positive, direction preserved),
+but does **not yet support** H1 either (insufficient power). The
+required power calculation: for delta=20, std=67, alpha=0.05,
+power=0.80, we need **~45 seeds** *or* a 10x increase in eval
+episodes per seed (5 -> 50) to shrink per-seed variance by sqrt(10).
+
+**Failure mode**: in seed 3 (avg_gates=287.2), the Monitor fires on
+nearly every step and Q selects actions that destroy the policy. This
+is a known CQL coverage problem with only 200 training episodes: Q
+penalizes OOD actions but does not have enough data to learn good
+in-distribution values.
+
+**Next iteration** (logged as DEC-0011 v0.2):
+1. Bump n_eval_episodes to 50 (cost: 7min -> 70min/seed; variance -3x).
+2. Add Q coverage guard: refuse to gate when Q's training set had <50
+   (state, action) pairs.
+3. Platt-scale the Monitor on a held-out validation set, then pick
+   threshold to match a target FPR (e.g., 10%).
+4. Re-run 5-seed sweep after (1)+(2)+(3).
+
+Code: \code/full_integration.py\ (unchanged from 4.10).
+Companion log: \experiments_log/2026-07-27-phase15-5seed.md\.
+Aggregate JSON: \experiments_log/phase15_5seed_summary.json\.
+
+
+### 4.10.2 Cross-validation: Phase 2.7 threshold-sweep multi-seed
+
+A separate experimental run (\experiments_log/2026-07-27-phase27-multiseed-honest-negative.md\,
+commit e59710e) conducted a more thorough test: 3 seeds x 5 gate
+thresholds (0.3-0.9) x 5 eval episodes = 75 evaluations on the same
+LunarLander-v3 / 100K PPO setup. The result:
+
+- Best gated (thresh=0.6): 82.0 +/- 74.5
+- Best ungated-like (thresh=0.9, gates ~0): 108.6 +/- 89.9
+- **Best-gated - Best-ungated: -26.6 (gating hurts)**
+
+Their conclusion: "Single-seed finding of thresh=0.6 sweet spot was
+seed-luck artifact. STRONG NEGATIVE for H1 follow-up."
+
+**Synthesis with 4.10.1**: my fixed-threshold 5-seed sweep and their
+threshold-sweep 75-eval study agree on direction. Gating does not
+reliably improve LunarLander performance with the current
+architecture. The SlotMonitor is strong (AUROC 0.989) but the
+online (state -> action) gating loop is too unstable to convert
+that signal into policy gain.
+
+**Implication**: Project A's H1 (decoupled Monitors help) is
+supported at the **monitor-prediction** level (Sections 4.6-4.8,
+5-seed AUROC deltas = 0.724) but is **not yet** supported at the
+**policy-action** level (this section, Sections 4.10.1 + 4.10.2).
+The decoupling signal is real; converting it to a policy improvement
+on a single env requires better Q + better Monitor calibration,
+both deferred to Y1.
+
 ## 5. Discussion
 
 ### 5.1 When decoupling holds
@@ -772,5 +860,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
+
 
 

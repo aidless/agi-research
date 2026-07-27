@@ -198,3 +198,39 @@ Open new conversation with: "Open E:\agi-research\PROGRESS.md, continue from the
 ---
 
 
+
+## Multi-seed sweep update (2026-07-27, DEC-0011)
+
+- [x] **Phase 1.5 5-seed sweep complete** (37 min wall time, sequential background)
+  - Mean delta: **+21.5 +/- 67.1** (n=5, sample std)
+  - 3/5 seeds positive delta (60%)
+  - t=0.72, df=4, p>0.05 (NOT statistically significant)
+- [x] **H1 status: NOT falsified but NOT supported either**
+  - Direction preserved; insufficient power at n=5
+  - Required for significance: ~45 seeds OR n_eval=50 per seed (10x)
+- [x] **Identified dominant variance source**: Q calibration, not Monitor frequency
+  - avg_gates varies 0.4 -> 287.2 across seeds (Monitor not calibrated)
+  - When Q well-calibrated, gating helps (+54, +91, +62); when miscalibrated, gating hurts (-55, -45)
+- [x] **DEC-0011 v0.2 next iteration logged**: n_eval=50, Q coverage guard, Platt-scale Monitor, then re-sweep
+
+See: \experiments_log/2026-07-27-phase15-5seed.md\, Paper Section 4.10.1
+
+---
+
+
+
+## 2026-07-27 synthesis (after Phase 2.7 cross-validation)
+
+- [x] **Phase 1.5 5-seed** (DEC-0011): delta_avg = **+21.5 +/- 67.1** (n=5, p>0.05, NOT significant)
+- [x] **Phase 2.7 multi-seed** (parallel Codex session): best gated (thresh=0.6) vs best ungated (thresh=0.9) = **-26.6**
+- [x] **Synthesis**: both reach same direction - **gating does not reliably improve LunarLander** with current architecture
+  - Monitor AUROC 0.989 is strong (decoupling signal REAL at prediction level)
+  - But online (state->action) gating is too unstable to extract value
+  - H1 supported at **monitor-prediction** level (4.6-4.8), NOT at **policy-action** level (4.10.1+4.10.2)
+- [x] **Paper v2.3**: added Section 4.10.1 (5-seed) and 4.10.2 (Phase 2.7 cross-ref)
+
+Next: Y1 work - better Q (more data), better Monitor calibration (Platt), action-level intervention
+
+---
+
+

@@ -511,3 +511,43 @@ A+B+C 三个子实验完成：
 
 *Session state at 2026-07-27 late late: 85 commits, thesis v1.0 + addendum G,
 DEC-0011 HALT decision logged, DLR attention fix positive, ENWI P2 2000ep done.*
+
+## Y1.3 POSITIVE RESULT (2026-07-27)
+
+Phase 1.5 第一次 positive result！
+
+**设计**：Monitor 作为 PPO 训练时 reward shaping（不是 inference 时 gating）
+- Phase 1: PPO 25K 步 warm-up
+- Phase 2: 收 200 rollouts, 训练 Monitor (frozen)
+- Phase 3: PPO 75K 步, 每步 reward -= 0.5 * Monitor_prob(window)
+- 评估：纯 PPO，无 Monitor
+
+**5-seed 对比** (LunarLander-v3, n_ppo=100K, n_eval=50):
+
+| Method | Mean | Std | t |
+|--------|------|-----|---|
+| Y1.3 (Monitor regularizer) | **90.5** | 56.3 | 1.65 |
+| PPO-only baseline | 40.6 | 37.1 | - |
+| Delta: **+49.9** | | | |
+
+Y1.3 wins 3/5 seeds: seed 3 (+105), seed 2 (+85), seed 0 (+64), seed 4 (+54), seed 1 (-59).
+
+**意义**：
+- v0.1-v0.4C 6 次都是 inference-time gating，失败（action-selection 弱）
+- Y1.3 是 training-time regularizer，绕开 action selection
+- Monitor 信号变成"不要去这里"的导航，而不是"做这个动作"的指令
+- 评估时不需要 Monitor，纯 PPO 已学会避开危险
+
+**下一步**：
+- 试 monitor_lambda = 1.0, 2.0, 5.0（看更大 penalty 是否更稳）
+- 试不同 Monitor 架构（slot attention vs simple MLP）
+- 增加 seed 数量（10-20）让 t-stat 显著
+
+### Artifacts
+- code/y13_monitor_regularizer.py (NEW, ~325 lines)
+- code/ppo_only_baseline.py (NEW, ~80 lines)
+- experiments_log/2026-07-27-phase15-y13-monitor-regularizer.md (formal log)
+- paper Section 4.10.12-4.10.14 (NEW), header v2.6 -> v2.7
+
+---
+

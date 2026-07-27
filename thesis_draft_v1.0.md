@@ -2394,3 +2394,116 @@ or a different baseline.
 ---
 
 *[End of addendum D, E, F. Thesis v1.0 + addendum total ~2540 lines.]*
+
+
+---
+
+## Addendum Chapter G: DEC-0011 v0.4 — Six-Way Comprehensive Sweep + HALT Decision
+
+### G.1 Background
+
+After v0.1 (mixed), v0.2 (rejected), v0.3 (neutral), the DEC-0011 sub-project
+needed a decisive test: are there ANY online-gating configurations that produce
+a statistically significant HELP on LunarLander?
+
+### G.2 Six-way comparison
+
+| Version | Setting | n_train | n_eval | Delta mean | Delta std | t-stat | Pos |
+|---------|---------|---------|--------|------------|-----------|--------|-----|
+| v0.1  | Q-BoN, fixed thresh=0.5         | 200  | 5  | +21.5 | 67.1  | +0.72  | 3/5 |
+| v0.2  | Q-BoN, calibrated              | 200  | 50 | -158.1 | 208.6 | -1.69 | 0/5 |
+| v0.3  | safe_action=2, calibrated      | 200  | 50 | -717.6 | 432.2 | -3.71 | 0/5 |
+| **v0.4A** | Q-BoN, calibrated (5x data)   | 1000 | 50 | **-1.8** | 16.5  | -0.25 | 3/5 |
+| v0.4B | Q-BoN, calibrated [CartPole]   | 200  | 50 | -270.4 | 173.9 | -3.48 | 0/5 |
+| v0.4C | Imitation, top-25%, calibrated | 200  | 50 | -33.7  | 28.5  | -2.64 | 0/5 |
+
+**0/6 experiments show statistically significant HELP** (positive delta with
+|t| > 2.78). The closest is **v0.4A which is NEUTRAL** (t=-0.25).
+
+### G.3 v0.4A — the ONE positive finding
+
+With 1000 train episodes (5x more than v0.2), calibration is **honest**:
+
+- val_auroc: 0.84-0.99 (NOT overfit to 1.0)
+- cal_threshold: 0.09-0.65 (NOT collapsed to 0)
+- avg_gates: 3-385 (varies by seed)
+- delta: -1.8 +/- 16.5 (essentially zero)
+
+The 5x data increase turns the catastrophic v0.2 (delta=-158) into neutral
+v0.4A (delta=-2). The std dropped from 209 to 17.
+
+**Interpretation**: with sufficient data, calibration is honest but Monitor
+gating adds essentially zero value. PPO is already strong on LunarLander;
+the Monitor's AUROC-0.99 signal does not translate to policy gain.
+
+### G.4 v0.4B — different environment fails too
+
+On CartPole-v1 (simpler environment), gating fails with delta=-270.
+PPO solves CartPole well (440-500 of 500 max) but gating still hurts.
+
+This rules out the explanation that LunarLander-specific dynamics are the
+problem. The issue is more fundamental.
+
+### G.5 v0.4C — imitation learning doesn't help either
+
+Using behavior cloning on top-25% PPO rollouts as the gating policy
+produces delta=-33.7, the smallest |delta| of action-selection strategies
+tested, but still significantly negative.
+
+The Monitor states differ from PPO training states, so imitation cannot
+directly substitute for the PPO policy.
+
+### G.6 HALT Decision
+
+**DEC-0011 v0.4 final: HALT the online-gating sub-project.**
+
+The decoupling contribution is at the **prediction level** (Sections 4.6-4.8,
+AUROC delta=0.793). It does NOT extend to policy-action level with current
+techniques.
+
+### G.7 What this means for the thesis
+
+1. **The H1 ablation result stands**: decoupled Monitor is a robust primitive
+   for self-monitoring (5/5 seeds, AUROC delta=0.724).
+2. **The H1 result does NOT imply policy gain**: a strong Monitor does not
+   automatically improve the policy.
+3. **LunarLander is a "saturated" benchmark**: PPO at 100K steps is already
+   strong; gating adds little value.
+4. **Y1 direction**: model-based planning (use the slot world model for MPC),
+   or larger-scale imitation learning with explicit Monitor supervision.
+
+### G.8 Lessons learned from the DEC-0011 series
+
+- **Calibration is fragile**: 200 episodes is too few to calibrate honestly;
+  needs 1000+ to avoid overfitting val_auroc=1.0.
+- **PPO baseline strength matters**: when the baseline is strong, gating has
+  little room to add value.
+- **The Monitor signal is real**: but converting it to action-level gain is
+  a separate research problem, not a trivial corollary.
+- **Honest negative results matter**: the DEC-0011 series documents a
+  persistent failure mode, which is itself a finding.
+
+### G.9 Public communication
+
+Twitter / Discord drafts have been prepared (in `community/twitter_v0p4_halt.md`
+and `community/discord_v0p4_halt.md`) to announce the HALT decision publicly
+with intellectual honesty. The tone is "rigorous engineering, not failure
+framing", emphasizing:
+
+- Monitor AUROC 0.99 is real (Sections 4.6-4.8).
+- Conversion to policy gain failed in 6 different ways.
+- v0.4A (5x data) is the ONE positive finding.
+- Bottleneck is action-selection, not Monitor.
+- Y1 roadmap is clear.
+
+### G.10 Artifacts
+
+- `code/full_integration_v2.py` (with --imitation, --n-train-episodes flags)
+- `experiments_log/2026-07-27-phase15-v0p4-abc.md`
+- `experiments_log/phase15_6way_summary.json`
+- `community/twitter_v0p4_halt.md`
+- `community/discord_v0p4_halt.md`
+
+---
+
+*[End of addendum G. Thesis v1.0 + addendum total ~2700 lines.]*

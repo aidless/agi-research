@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """active_inference.py - ENWI Active Inference Engine ported to Project A.
 
 Replaces PPO + Q-function with Friston-style active inference.
@@ -152,7 +152,13 @@ class ActiveInferenceEngine(nn.Module):
         state = mean
         scores = [self.expected_free_energy(state, a) for a in range(self.action_dim)]
         scores = torch.tensor(scores)
+        # FIX: clamp scores to prevent overflow in softmax
+        scores = torch.clamp(scores, min=-50.0, max=50.0)
         probs = F.softmax(-scores, dim=-1)
+        # FIX: replace any nan with uniform
+        probs = torch.nan_to_num(probs, nan=0.0, posinf=0.0, neginf=0.0)
+        if probs.sum() < 1e-6:
+            probs = torch.ones_like(probs) / self.action_dim
         if deterministic:
             return int(torch.argmin(scores).item())
         return int(torch.multinomial(probs, 1).item())
@@ -175,7 +181,7 @@ class ActiveInferenceEngine(nn.Module):
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("ENWI Active Inference Engine — Project A port")
+    print("ENWI Active Inference Engine 鈥?Project A port")
     print("=" * 60)
 
     # Smoke test
@@ -196,4 +202,4 @@ if __name__ == "__main__":
     print(f"  Free energy: {fe.item():.4f}")
 
     print()
-    print("ENWI Active Inference Engine — ported to Project A, smoke test PASSED")
+    print("ENWI Active Inference Engine 鈥?ported to Project A, smoke test PASSED")

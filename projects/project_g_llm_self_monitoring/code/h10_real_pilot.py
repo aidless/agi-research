@@ -42,8 +42,9 @@ import numpy as np
 from llm_monitor import LLMSlotMonitor
 from joint_monitor import train_frozen_monitor, train_joint_monitor
 from real_llm_rollout_collector import (
-    load_frozen_lm, load_gsm8k, collect_real_rollouts,
+    load_frozen_lm, collect_real_rollouts,
 )
+from simple_arithmetic_dataset import generate_dataset
 from h10_smoke import compute_auroc
 
 
@@ -56,7 +57,7 @@ def random_monitor_auroc(eval_features, eval_labels, seed=0):
 
 def main():
     print("=" * 70)
-    print("Project G H10 REAL-LM pilot (Qwen2.5-3B-Instruct + GSM8K)")
+    print("Project G H10 REAL-LM pilot (Qwen2.5-1.5B-Instruct + simple arithmetic)")
     print("=" * 70)
     print("PILOT: n=1 seed, reduced trace count. NOT the full pre-reg H10.")
     print()
@@ -78,9 +79,19 @@ def main():
     print(f"LM load time: {t_lm:.1f}s")
     print()
 
-    # Step 2: Load GSM8K.
+    # Step 2: Load dataset (simple arithmetic for CPU pilot; GSM8K with H10_USE_SIMPLE=0).
     t0 = time.time()
-    problems, ground_truths = load_gsm8k(split="test", n_samples=n_total)
+    use_simple = os.environ.get("H10_USE_SIMPLE", "1") == "1"
+    if use_simple:
+        problems, ground_truths, difficulty_labels = generate_dataset(
+            n_total=n_total, easy_fraction=0.5, seed=seed,
+        )
+        print("Dataset: simple arithmetic (mixed-difficulty, CPU-friendly)")
+    else:
+        from real_lm_rollout_collector import load_gsm8k
+        problems, ground_truths = load_gsm8k(split="test", n_samples=n_total)
+        difficulty_labels = ["unknown"] * len(problems)
+        print("Dataset: GSM8K (test set)")
     t_ds = time.time() - t0
     print(f"Dataset load time: {t_ds:.1f}s")
     print()
@@ -89,7 +100,7 @@ def main():
     t0 = time.time()
     trace_features, labels, metadata = collect_real_rollouts(
         model, tokenizer, problems, ground_truths,
-        max_new_tokens=64, device="cpu", seed=seed,
+        max_new_tokens=int(os.environ.get("H10_MAX_NEW_TOKENS", "64")), device="cpu", seed=seed,
     )
     t_trace = time.time() - t0
     n_total_collected = len(trace_features)

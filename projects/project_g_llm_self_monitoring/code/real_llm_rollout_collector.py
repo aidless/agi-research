@@ -130,10 +130,8 @@ def generate_trace(model, tokenizer, question, max_new_tokens=80, device="cpu"):
         text: the decoded generated text
     """
     # Build the prompt.
-    prompt = (
-        "Solve this math problem step by step. End with 'The answer is <number>'.\n\n"
-        f"Question: {question}\n\nAnswer:"
-    )
+    prompt = f"What is {question}? The answer is"
+
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
     input_ids = inputs.input_ids
     with torch.no_grad():

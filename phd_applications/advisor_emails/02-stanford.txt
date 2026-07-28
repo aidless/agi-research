@@ -1,0 +1,57 @@
+# Cold Email Template -- Stanford
+
+> Date: 2026-07-28
+> Target: Stanford CS / SAIL / HAI faculty
+> Length: 250-350 words (target)
+> PI to: fill [bracketed placeholders], identify 1-2 specific faculty.
+
+---
+
+**Subject**: PhD application -- Archimedes Project (independent, foundation models + AI safety)
+
+Dear Professor [LastName],
+
+I am an independent researcher applying to Stanford CS / SAIL / HAI''s
+PhD program for fall 2027 admission. I would like to ask whether you
+would be open to reviewing my application and, if my profile matches
+your group, whether you would consider me for a PhD position.
+
+**Brief background**: I have spent the past 7 years on independent
+study in machine learning, mathematics, and AGI architecture. For the
+past month, I have run the Archimedes Project, a 5-year research
+program toward a self-improving AGI substrate (github.com/aidless/
+agi-research, MIT-licensed, 110+ commits). The project has yielded a
+validated H1 decoupling result (frozen Monitor > joint Monitor on
+LunarLander-v3, 5/5 seeds, AUROC delta = 0.724) plus a 9-hypothesis
+pre-registered framework (6 validated, 2 refuted, 1 open) and a
+governance substrate (GovBench H1+H2+H3: tamper detection 1.000,
+impersonation intercept 1.000, n=7).
+
+**Why Stanford / your group**: I have followed your work on
+[specific recent paper / research direction]. The Archimedes
+decoupling principle is directly relevant to [specific aspect of
+their work]. Stanford''s depth in foundation models, RLHF, and
+AI safety is the natural context for the next phase of the
+Archimedes project.
+
+**What I would like to do at Stanford**: extend the decoupling
+principle to (1) self-rewarding LLM agents (does H1 decoupling
+transfer from PPO to RLHF?), (2) foundation-model interfaces to
+the slot-attention world model, and (3) governance primitives on
+real LLM-based agents (extending GovBench beyond deterministic
+scripts).
+
+I have attached my Statement of Purpose, CV, and writing sample.
+I would welcome the opportunity to discuss whether my profile is
+a good fit for your group.
+
+Thank you for your time.
+
+Best regards,
+Liu Zewen (刘泽文)
+github.com/aidless | Archimedes Project (AGI-2026-001)
+
+---
+
+*Template prepared 2026-07-28. PI to fill specific faculty names
+and recent papers.*

@@ -1,0 +1,65 @@
+# Cold Email Template -- Anthropic
+
+> Date: 2026-07-28
+> Target: Anthropic research scientist recruiting
+> Length: 250-350 words (target)
+> Note: This is for a research-scientist role, not PhD. Tone should
+> be more "research collaboration" than "graduate application".
+> PI to: fill [bracketed placeholders], identify 1-2 specific teams
+> or research leads.
+
+---
+
+**Subject**: Research scientist application -- Archimedes Project (AI safety + governance substrate)
+
+Dear [Research Lead / Hiring Manager],
+
+I am an independent researcher applying for a research scientist
+position at Anthropic. I would like to ask whether you would be
+open to a conversation about whether my profile matches an open
+role on [specific team / research area].
+
+**Brief background**: I have spent the past 7 years on independent
+study in machine learning, mathematics, and AGI architecture. For
+the past month, I have run the Archimedes Project, a 5-year research
+program toward a self-improving AGI substrate (github.com/aidless/
+agi-research, MIT-licensed, 110+ commits). The most relevant
+contribution for Anthropic is the governance substrate:
+
+- **GovBench H1+H2** (7 seeds, deterministic scripted agents):
+  PEP violation_rate 0.000, tamper_detected 1.000.
+- **GovBench H3** (7 seeds): A2A trust gate intercept_rate 1.000,
+  impersonation blocked.
+- **DLR** (4 envs, 19 predicates): 97.8% mean predicate accuracy.
+- **Y1.3 +50 negative result** (8 pre-reg tests, 0 supported): a
+  safety-relevant finding -- adding auxiliary signals to an RL
+  loop does NOT automatically make the agent safer.
+
+**Why Anthropic**: The Archimedes governance substrate is a natural
+fit for Anthropic''s safety mission. The evidence-chain primitives
+(PEP, A2A trust gate, tamper detection) can be deployed on real
+Claude-family agents with minimal engineering work. The pre-
+registered empirical methodology (hard decision rules, honest null
+reporting) aligns with Anthropic''s null-result tradition.
+
+**What I would like to do at Anthropic**: (1) deploy the evidence-
+chain substrate on real Claude agents (extending GovBench from
+deterministic scripts to LLM-based agents), (2) extend the H1
+decoupling principle to self-rewarding LLM agents (does it help
+or hurt constitutional AI?), and (3) treat the Slot-Monitor
+(AUROC 0.989) as a learned interpretability signal.
+
+I have attached my CV, a research statement, and a writing sample.
+I would welcome the opportunity to discuss whether my profile is
+a good fit for your team.
+
+Thank you for your time.
+
+Best regards,
+Liu Zewen (刘泽文)
+github.com/aidless | Archimedes Project (AGI-2026-001)
+
+---
+
+*Template prepared 2026-07-28. PI to fill specific team names
+and recent papers.*

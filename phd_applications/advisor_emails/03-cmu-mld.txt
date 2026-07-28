@@ -1,0 +1,62 @@
+# Cold Email Template -- CMU MLD
+
+> Date: 2026-07-28
+> Target: CMU Machine Learning Department faculty
+> Length: 250-350 words (target)
+> PI to: fill [bracketed placeholders], identify 1-2 specific faculty.
+
+---
+
+**Subject**: PhD application -- Archimedes Project (independent, RL + multi-agent)
+
+Dear Professor [LastName],
+
+I am an independent researcher applying to CMU''s Machine Learning
+Department PhD program for fall 2027 admission. I would like to ask
+whether you would be open to reviewing my application and, if my
+profile matches your group, whether you would consider me for a PhD
+position.
+
+**Brief background**: I have spent the past 7 years on independent
+study in machine learning, mathematics, and AGI architecture. For
+the past month, I have run the Archimedes Project, a 5-year research
+program toward a self-improving AGI substrate (github.com/aidless/
+agi-research, MIT-licensed, 110+ commits). The project has produced:
+
+- **H1 decoupling** (5/5 seeds, LunarLander-v3): frozen Monitor
+  AUROC 0.796 vs joint 0.072, delta 0.724.
+- **Y1.3** (15 seeds, LunarLander-v3): +50 mean over PPO baseline,
+  p<0.001.
+- **MADDPG v2 baseline** (5 seeds, PettingZoo Simple Spread v3):
+  +7.7 vs random, p<0.001.
+- **9-hypothesis pre-registered framework** (6 validated, 2
+  refuted, 1 open).
+
+**Why CMU / your group**: I have followed your work on [specific
+recent paper / research direction]. CMU''s depth in RL, multi-agent
+RL, and decision-making under uncertainty is the natural context
+for the next phase of the Archimedes project, which has documented
+that decoupled Monitors do NOT transfer to multi-agent by default
+(H5 REFUTED).
+
+**What I would like to do at CMU**: extend the Archimedes work to
+(1) decision-aware RL with the DLR (Differentiable Logic Reasoner)
+as a planner-side verifier, (2) multi-agent Monitor coordination
+with centralised critics (building on MADDPG v2), and (3) honest
+cross-environment replication of Y1.3 with multi-seed statistical
+power.
+
+I have attached my Statement of Purpose, CV, and writing sample.
+I would welcome the opportunity to discuss whether my profile is a
+good fit for your group.
+
+Thank you for your time.
+
+Best regards,
+Liu Zewen (刘泽文)
+github.com/aidless | Archimedes Project (AGI-2026-001)
+
+---
+
+*Template prepared 2026-07-28. PI to fill specific faculty names
+and recent papers.*

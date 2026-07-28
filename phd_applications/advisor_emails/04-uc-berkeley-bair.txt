@@ -1,0 +1,60 @@
+# Cold Email Template -- UC Berkeley BAIR
+
+> Date: 2026-07-28
+> Target: UC Berkeley BAIR faculty
+> Length: 250-350 words (target)
+> PI to: fill [bracketed placeholders], identify 1-2 specific faculty.
+
+---
+
+**Subject**: PhD application -- Archimedes Project (independent, slot attention + world models)
+
+Dear Professor [LastName],
+
+I am an independent researcher applying to UC Berkeley BAIR''s PhD
+program for fall 2027 admission. I would like to ask whether you
+would be open to reviewing my application and, if my profile
+matches your group, whether you would consider me for a PhD
+position.
+
+**Brief background**: I have spent the past 7 years on independent
+study in machine learning, mathematics, and AGI architecture. For
+the past month, I have run the Archimedes Project, a 5-year research
+program toward a self-improving AGI substrate (github.com/aidless/
+agi-research, MIT-licensed, 110+ commits). The project has direct
+lineage to BAIR''s slot-attention work:
+
+- **Slot-Monitor**: extending Locatello et al. (2020) slot attention
+  to 1-D trajectory sequences for failure prediction. AUROC 0.989
+  vs raw-history 0.796 (+0.193).
+- **Slot world model**: 1-D slot dynamics with 0.000007
+  reconstruction error.
+- **DLR attention**: 4 envs, 19 predicates, 97.8% mean accuracy.
+
+**Why Berkeley / your group**: I have followed your work on
+[specific recent paper / research direction]. BAIR''s strength in
+slot attention, world models, and clean theoretical framing is
+exactly the methodological backbone of the Archimedes work. The
+H1 ablation and Y1.3 follow-up both involve world-model-adjacent
+signals; BAIR is the place to push this further.
+
+**What I would like to do at Berkeley**: (1) scale the slot-
+attention world model to harder envs (Atari, Procgen) with learned
+(not hand-coded) predicates, (2) integrate the DLR as a verifier
+inside a world-model planning loop, and (3) honest cross-environment
+replication of Y1.3 with multi-seed statistical power.
+
+I have attached my Statement of Purpose, CV, and writing sample.
+I would welcome the opportunity to discuss whether my profile is
+a good fit for your group.
+
+Thank you for your time.
+
+Best regards,
+Liu Zewen (刘泽文)
+github.com/aidless | Archimedes Project (AGI-2026-001)
+
+---
+
+*Template prepared 2026-07-28. PI to fill specific faculty names
+and recent papers.*

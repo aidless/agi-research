@@ -1,0 +1,56 @@
+# Cold Email Template -- MIT CSAIL
+
+> Date: 2026-07-28
+> Target: MIT CSAIL faculty working on RL / self-improving systems
+> Length: 250-350 words (target)
+> PI to: fill [bracketed placeholders], identify 1-2 specific faculty,
+> attach SoP + CV + writing sample.
+
+---
+
+**Subject**: PhD application -- Archimedes Project (independent, RL + self-monitoring)
+
+Dear Professor [LastName],
+
+I am an independent researcher applying to MIT CSAIL''s PhD program for
+fall 2027 admission. I would like to ask whether you would be open to
+reviewing my application and, if my profile matches your group, whether
+you would consider me for a PhD position.
+
+**Brief background**: I have spent the past 7 years on independent study
+in machine learning, mathematics, and AGI architecture. For the past
+month, I have run the Archimedes Project, a 5-year research program
+toward a self-improving AGI substrate. The project has produced 110+
+commits in a public, MIT-licensed repository
+(github.com/aidless/agi-research) and has yielded both a validated
+positive result (the H1 decoupling ablation: frozen Monitor > joint
+Monitor on LunarLander-v3, 5/5 seeds, AUROC delta = 0.724) and an
+honest null synthesis (8 pre-registered H tests, 0 supported at the
+strict t>2.0 rule).
+
+**Why your group**: I have followed your work on [specific recent
+paper / research direction]. The Archimedes decoupling principle is
+directly relevant to [specific aspect of their work]. I believe my
+empirical methodology (pre-registered H tests, hard decision rules,
+honest null-result reporting) would complement the theoretical and
+systems work in your group.
+
+**What I would like to do at MIT**: extend the Archimedes decoupling
+principle to (1) cross-environment replication with multi-seed
+statistical power, (2) multi-agent Monitor coordination, and (3) the
+LLM self-rewarding domain (Project G, pre-registered 2026-07-28).
+
+I have attached my Statement of Purpose, CV, and a writing sample
+(based on the H1 ablation). I would welcome the opportunity to
+discuss whether my profile is a good fit for your group.
+
+Thank you for your time.
+
+Best regards,
+Liu Zewen (刘泽文)
+github.com/aidless | Archimedes Project (AGI-2026-001)
+
+---
+
+*Template prepared 2026-07-28. PI to fill specific faculty names
+and recent papers.*

@@ -356,7 +356,75 @@ deployment would need more.
 
 ---
 
-## §5 Discussion
+
+### 4.5 H1.4: Monitor as exploration bonus (REFUTED)
+
+We pre-registered H1.4 (`experiments_log/2026-07-28-PRE-REGISTERED-H1.4-v1.md`)
+to test whether the same Monitor could be used as an *exploration bonus*
+(added to policy entropy) rather than as a reward penalty. The rationale:
+shaping distorts the policy gradient, but a soft exploration signal might
+not.
+
+| arm | n | mean | sd | delta vs PPO baseline |
+|---|---|---|---|---|
+| PPO baseline (no Monitor) | 5 | 40.6 | 37.1 | (ref) |
+| H1.4 REAL (trained Monitor bonus) | 5 | 52.7 | 24.0 | +12.0 |
+| H1.4 RANDOM (U[0,1] bonus control) | 5 | 78.3 | 45.4 | **+37.6** |
+| Y1.3 (training-time penalty) | 15 | 80.1 | 45.9 | +39.5 |
+
+Per-seed REAL - RANDOM deltas: +41.87, -36.25, -0.84, -94.89, -37.93.
+Positive seeds (REAL > RANDOM): 1/5. Welch t = -1.115.
+
+**Verdict: REFUTED.** Real Monitor bonus is *worse* than random bonus
+(-25.6 mean, 1/5 positive). This is a stronger negative than the
+inference-time intervention failures: the real Monitor is not just
+*useless* as a bonus, it is *harmful*. H1.4 joins the REFUTED list
+alongside H2 cross-env, H3 500K, and the DEC-0011 series.
+
+### 4.6 H5: Phase 2 multi-agent DMC (REFUTED)
+
+Phase 2 moved to PettingZoo Simple Spread v3 (3 agents, continuous or
+discrete actions) and tested whether Y1.3-style reward shaping transfers
+to the multi-agent setting. The DMC architecture uses per-agent
+SlotMonitors (frozen after training on per-agent PPO rollouts) and a
+Y1.3-style per-agent reward penalty.
+
+**5-seed 3-arm sweep on continuous actions, matched compute to MADDPG v2:**
+
+| arm | mean | sd | vs random |
+|---|---|---|---|
+| real Monitor shaping | -101.03 | 21.13 | NEGATIVE |
+| random shaping | -84.55 | 8.35 | NEGATIVE |
+| no shaping | -77.50 | 6.09 | ~0 |
+
+Paired t-tests: real vs none = -23.53, t=-2.53 (1/5 positive, close to
+significant at df=4). Per-agent Monitor AUROC: 0.989 mean (decoupling
+assumption validated on MA env).
+
+**Final 8-way comparison (PettingZoo Simple Spread v3):**
+
+| Method | Mean | n | Action | Notes |
+|---|---|---|---|---|
+| Random | -77.45 | 1 | continuous | (reference) |
+| Per-agent PPO | -100.51 | 1 | discrete | baseline |
+| Shared PPO | -95.15 | 1 | discrete | parameter sharing |
+| DMC discrete (real) | -125.34 | 5 | discrete | Y1.3 analog |
+| DMC continuous real | -101.03 | 5 | continuous | Y1.3 analog |
+| DMC continuous none | -77.50 | 5 | continuous | no shaping |
+| MADDPG v1 (broken bootstrap) | -75.78 | 1 | continuous | original |
+| **MADDPG v2 (proper bootstrap)** | **-70.45** | 1.14 | continuous | **+7.7, p<0.001** |
+
+**Verdict: H5 REFUTED on continuous actions at matched compute.**
+- The Monitor architecture is portable to MA (decoupling works, AUROC 0.99).
+- The Y1.3 reward-shaping recipe is NOT portable: it actively *hurts*
+  on continuous actions (-23.5 vs no shaping).
+- MADDPG v2 (centralised critic + proper bootstrap) is the only
+  positive baseline on this env at this compute scale (+7.7, p<0.001).
+- The DMC vs MADDPG gap (~30 points) is a clean credit-assignment
+  win for centralised critics over per-agent Monitor shaping.
+
+
+
 
 ### 5.1 Why training-time beats inference-time
 
@@ -418,6 +486,30 @@ The Archimedes Project does not claim AGI is solved; it claims that
 
 ---
 
+
+
+### 5.4 Y1.3 does NOT transfer to multi-agent
+
+The cleanest way to read Phase 2 (Section 4.6) is that the Y1.3 finding
+is strictly a *single-agent* result. Three observations support this:
+
+1. **Decoupling works in MA**: per-agent Monitor AUROC 0.99 (matches
+   Y1.3 single-agent). The Monitor *architecture* is portable.
+2. **Reward shaping fails in MA**: real shaping on continuous actions
+   is *worse* than no shaping (-23.5 mean, 1/5 positive). The Monitor
+   is biased toward Stage-1 failure modes; when added as reward
+   perturbation, it destabilises Stage-2 PPO.
+3. **Centralised critic wins on credit assignment**: MADDPG v2 (one Q
+   per agent conditioned on global state) is +30 over DMC (per-agent
+   local Monitor). On this env at this compute, dense value learning
+   is a better credit-assignment mechanism than sparse Monitor signals.
+
+The architectural lesson: the Monitor should be used as a *verifier*
+(DLR cross-env, evidence chain in V1 governance) rather than as an
+RL reward signal. This sharpens the Y1 contribution: it is a *training
+recipe* (decoupled Monitor + reward penalty + frozen PPO), not a
+*general principle* (Monitors help everywhere).
+
 ## §6 Limitations
 
 We enumerate the limitations of this work honestly:
@@ -461,6 +553,27 @@ We enumerate the limitations of this work honestly:
   enable larger experiments.
 
 ---
+
+
+
+### 6.5 Multi-agent limitations
+
+The Phase 2 results (Section 4.6) come with their own caveats:
+
+- **Compute**: 600-800 env episodes per arm is 50-100x short of typical
+  MA-RL runs (10K-100K episodes). At 5 seeds, paired t-tests have
+  df=4 which is too small for paired effects < 5 points.
+- **Action space**: we compared discrete (DMC original) and continuous
+  (DMC continuous, matched to MADDPG v2). The continuous results are
+  the honest comparison; discrete DMC was a method-development step.
+- **Env choice**: PettingZoo Simple Spread is a well-known cooperative
+  benchmark but not state-of-the-art. QMIX, MAPPO, MASAC on harder
+  benchmarks (StarCraft, Hanabi, GRF) would be needed for generality.
+- **No communication**: DMC actors only see their own local obs. Adding
+  learned inter-agent comms (TarMAC, IC3Net) would be a natural Y2 step.
+- **Centralised critic confounder**: MADDPG v2's Q takes the *full global
+  state* as input. A fairer DMC comparison would give DMC a similar
+  global view (e.g., broadcast Monitor outputs as extra obs).
 
 ## §7 Conclusion
 

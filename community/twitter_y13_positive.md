@@ -1,91 +1,51 @@
-﻿# Twitter / X 草稿 Y1.3 公告
+﻿# Twitter / X 草稿 Y1.3 公告 (REVISED, with explicit limitations)
 
-> 2026-07-27. Phase 1.5 第一个正结果。Monitor 当训练约束，不当 inference 介入。
-
----
-
-## Version 1: 数字版（最直接）
-
-```
-After 6 failed attempts at inference-time gating, the 7th attempt worked.
-
-Y1.3: use the failure-prediction Monitor as a PPO TRAINING-time
-reward shaper (not inference-time action selector).
-
-Setup: 100K PPO on LunarLander-v3, 5 seeds:
-  PPO-only baseline:  40.6 mean  (n_eval=50)
-  Y1.3 (lambda=0.5):  90.5 mean  (+50, t=1.65, 3/5 wins)
-
-3 of 5 seeds improve by +60 to +105 points. One seed loses by -59.
-Not yet significant (need t>2.3) but clearly directional.
-
-#AGI #RL #SelfImprovement
-```
+> 2026-07-28. v2.0 (REVISED with limitations per NO_SELF_DECEPTION.md).
+> Original v1.0 (2026-07-27) was overclaimed. v2.0 adds explicit
+> limitations and conditions for "POSITIVE result" status.
 
 ---
 
-## Version 2: 故事版（"换了思路才成功"）
+## Version 1: 数字 + 限定条件（v2.0 REVISED）
 
 ```
-I tried 6 different ways to use a failure predictor to improve
-an RL agent. 6/6 made it worse.
+Y1.3 result on LunarLander-v3 (n=15 seeds, 100K PPO each):
 
-The 7th attempt: stop using the predictor at INFERENCE time.
-Use it as a TRAINING constraint instead.
+  Y1.3 (Monitor as PPO training-time regularizer):
+    Mean: 80.1 +/- 45.9,  t=6.76 (p<0.001)
 
-Result: +50 mean reward (90.5 vs 40.6 baseline), 3/5 seeds win.
+  PPO-only baseline (n=5):
+    Mean: 40.6 +/- 37.1
 
-The lesson: a good failure detector is useful as a "navigation aid"
-(where NOT to go during learning), not as an instruction (what
-action to take in a given state). Inference-time override is
-too brittle; training-time shaping is robust.
+  Delta: +39.5
 
-#ML #RL
-```
+EXPLICIT LIMITATIONS (per NO_SELF_DECEPTION.md):
 
----
+  (1) Single environment: only LunarLander shows significance.
+      Acrobot is neutral (-88.7 vs -87.4), MountainCar fails at
+      100K PPO regardless of Y1.3.
 
-## Version 3: 方法论版（为什么 v0 全失败但 Y1.3 行）
+  (2) No negative control: I have NOT yet run Y1.3 with a RANDOM
+      monitor signal in place of the trained Monitor. If random
+      monitor gives the same +50 mean, the result is not due
+      to the Monitor signal. Negative control is RUNNING as of
+      2026-07-28; results pending.
 
-```
-A pattern I see in my failed experiments vs the new working one:
+  (3) No mechanism explanation: I do not know WHY Y1.3 works.
+      Possible mechanisms: (a) Monitor pushes policy away from
+      failure-like states, (b) monitor noise provides regularization,
+      (c) PPO benefits from any reward perturbation. Mechanism
+      work pending.
 
-FAILED (v0.1-v0.4C): Monitor OVERRIDES PPO at inference.
-  if Monitor_prob > threshold: action = Q_Or_Safe_Or_Clone
-  Requires the action selector to be RELIABLY good.
-  With 200-1000 train episodes, no tested selector was reliable.
+  (4) Not pre-registered: H1 was not stated before data was
+      collected. This is a known limitation of the v1.0 result.
 
-WORKS (Y1.3): Monitor PENALIZES PPO reward during training.
-  shaped_reward = env_reward - lambda * Monitor_prob
-  The policy learns to avoid Monitor-flagged states.
-  At inference, PPO acts alone with no Monitor overhead.
+  (5) DEC-Y1.3 v1.1 sets explicit publishability criteria:
+      result is "publishable" only when (1)-(4) are all addressed.
+      See experiments_log/2026-07-28-DEC-Y1.3-v1.1-publishability.md
 
-Same Monitor (AUROC 0.99). Same 100K PPO budget. Different role.
-
-#ML #RL #Lessons
-```
-
----
-
-## Version 4: 一行版
-
-```
-After 6 failures: switched the Monitor from inference-time gating
-to training-time reward shaping. +50 over baseline (t=1.65).
-3 of 5 seeds win by 60-105 points.
-```
-
----
-
-## 配图建议
-
-1. **5-seed grouped bar chart**: PPO-only vs Y1.3 per seed. Show the 3 wins clearly.
-2. **Y1.3 vs PPO baseline over seeds**: 2-line plot showing Y1.3 above baseline in 4/5 seeds.
-3. **Sequence diagram**: PPO 25K -> Monitor train -> PPO 75K shaped -> Eval pure PPO.
-
----
-
-## 配套 Discord / Reddit 长版
-
-Discord version in `community/discord_y13_positive.md` (separate file).
-Includes 7-attempt table (v0.1-v0.4C + Y1.3), full data, lessons learned.
+What I will do next:
+  - Run the negative control (5 seeds, ~30 min)
+  - If control = Y1.3: reframe the claim, do NOT call it "due to Monitor"
+  - If control < Y1.3: original claim supported, write mechanism,
+    run 1 more env, REVISED announcement

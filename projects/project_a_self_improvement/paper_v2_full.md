@@ -849,6 +849,66 @@ MountainCar-v0.
   t-stat:  **6.76** (df=14, **p < 0.001**)
   Per-seed: [76, 29, 105, 179, 64, 54, 93, 95, 101, 96, 78, 16, 147, 5, 64]
 
+
+### 4.10.17 Y1.3 v1.1 REVISED — negative and inverse controls
+
+The original Y1.3 v1.0 claim (ef90c2c) was:
+  "Y1.3 (Monitor as PPO training-time regularizer) is the FIRST
+   positive result. +50 over PPO baseline, t=6.76 (p<0.001)."
+
+This claim was self-deceptive. The proper comparison is not
+"real Monitor vs PPO" but "real Monitor vs random-shaping-signal"
+(negative control). The P0 negative control (y13_negative_control.py,
+n=5 seeds) gives:
+
+| Method | n | Mean | Std | Delta vs PPO baseline |
+|--------|---|------|-----|------------------------|
+| PPO baseline (no shaping) | 5 | 40.6 | 37.1 | - |
+| Y1.3 with **RANDOM** monitor (negative control) | 5 | 58.2 | 51.7 | **+17.6** |
+| Y1.3 with **REAL** Monitor | 15 | 80.1 | 45.9 | +39.5 |
+
+The real-vs-random delta is only +21.9 (n=5 vs n=15, NOT
+statistically significant). The dominant +50 effect over PPO
+baseline is from **the reward shaping procedure itself**, not
+from the **Monitor signal being informative**.
+
+**REVISED v1.1 claim (honest):**
+  "Reward shaping during PPO training (regardless of signal source)
+   helps LunarLander PPO by roughly +18 to +40 mean reward. The
+   specific Monitor signal adds only marginal extra value (+22)
+   that is not distinguishable from chance at the current sample
+   size."
+
+**Mechanism (post-hoc, 3 sentences):** The Monitor signal + reward
+shaping acts as a regularizer that smooths the PPO loss landscape.
+PPO with any per-step reward perturbation (including random) gets
+~+18 mean; the trained Monitor adds another ~+22 by providing a
+weakly informative direction. This is consistent with prior work
+on reward shaping as exploration perturbation (e.g., Pathak et
+al. 2017 curiosity-driven exploration) but does not specifically
+validate the Monitor architecture.
+
+**Inverse control** (1 - real_monitor_prob as penalty, 5 seeds):
+running, see DEC-Y1.3 v1.1 for verdict.
+
+**Limitations of v1.1:**
+  - Real-vs-random delta (+22) is NOT statistically significant
+    with current sample size
+  - Single env (LunarLander-v3) only
+  - Single intervention variant (lambda=0.5, slot attention Monitor)
+  - Mechanism is post-hoc, not pre-registered
+  - Acrobot and MountainCar showed no help (DEC-Y1.3 v1.0)
+
+**Decision record DEC-Y1.3 v1.1 status:** REVISED. Original v1.0
+claim retracted. v1.1 is honest about the contribution (reward
+shaping regularizer) and the limitations (Monitor signal adds only
+marginal value).
+
+**Anti-self-deception protocol:** docs/NO_SELF_DECEPTION.md
+created to prevent future overclaims. Mandatory P0 checklist before
+any "POSITIVE" announcement.
+
+
 **This is the FIRST statistically significant positive result in
 the entire 7-attempt Phase 1.5 sequence** (v0.1-v0.4C all failed or
 marginal; Y1.3 with 5 seeds was t=1.65, n.s.; with 15 seeds it
@@ -1194,6 +1254,7 @@ conducted without external funding as part of an independent
 `projects/project_a_self_improvement/code/`. Artifacts at
 `code/checkpoints/joint_LunarLander-v3_seed{0..4}/`. Companion
 experiment log at `experiments_log/2026-07-25-joint-ablation-A.md`.*
+
 
 
 

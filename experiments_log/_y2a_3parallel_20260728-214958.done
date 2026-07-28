@@ -1,0 +1,12 @@
+﻿
+=== Y2-a: 3-parallel sweep, 24 missing jobs, 20260728-214958 ===
+y2a arm=no_verifier seed=10 pid=17432
+y2a arm=no_verifier seed=11 pid=12864
+y2a arm=no_verifier seed=15 pid=19372
+y2a arm=no_verifier seed=16 pid=20444
+y2a arm=no_verifier seed=17 pid=18760
+y2a arm=no_verifier seed=18 pid=15892
+y2a arm=no_verifier seed=19 pid=2064
+y2a arm=no_verifier seed=20 pid=21864
+y2a arm=no_verifier seed=21 pid=8516
+y2a arm=no_verifier seed=22 pid=20816

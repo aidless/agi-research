@@ -1,0 +1,10 @@
+﻿
+=== Y2-a retry: 2-parallel, missing seeds only ===
+y2a-r1 nv s=23 pid=21648
+y2a-r1 nv s=24 pid=21312
+y2a-r1 nv s=25 pid=9992
+y2a-r1 nv s=26 pid=20668
+y2a-r1 nv s=27 pid=7696
+y2a-r1 nv s=28 pid=18664
+y2a-r1 nv s=29 pid=18328
+=== 7 no_verifier retry jobs launched (2+2+2+1) ===

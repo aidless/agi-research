@@ -65,7 +65,7 @@ def main():
     # Pilot parameters (small for CPU).
     n_total = int(os.environ.get("H10_N_TOTAL", "16"))  # total rollouts
     n_train_frac = 0.75
-    seed = 0
+    seed = int(os.environ.get("H10_SEED", "0"))
 
     # Step 1: Load LM.
     t0 = time.time()

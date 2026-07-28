@@ -1,0 +1,64 @@
+============================================================
+MADDPG v3 - arm=with_aux - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=4, n_updates=80, monitor_alpha=0.5
+
+Phase 1: Random baseline = -78.56 +/- 28.1
+
+  Stage 1: 10 warmup updates starting...
+  Stage 1 update 1/10 done, buffer=750
+  Stage 1 update 3/10 done, buffer=2250
+  Stage 1 update 5/10 done, buffer=3750
+  Stage 1 update 7/10 done, buffer=5250
+  Stage 1 update 9/10 done, buffer=6750
+  Stage 1 done. Training Monitors...
+    collect_monitor_data: n_eps=80 starting
+    collect_monitor_data: 0/80
+    collect_monitor_data: 10/80
+    collect_monitor_data: 20/80
+    collect_monitor_data: 30/80
+    collect_monitor_data: 40/80
+    collect_monitor_data: 50/80
+    collect_monitor_data: 60/80
+    collect_monitor_data: 70/80
+    collect_monitor_data: collected 240 obs_by_agent, 80 returns; returns=[-83.60525070095372, -84.49526949816727, -128.06528897936937, -73.77771470762946, -68.65946874547778]
+    train_per_agent_monitors: len(obs_list)=240, median_ret=-69.09
+    training Monitor agent 0
+      agent 0 epoch 0 done, loss=0.7069
+      agent 0 epoch 1 done, loss=0.6845
+      agent 0 epoch 2 done, loss=0.6721
+      agent 0 epoch 19 done, loss=0.3754
+      agent 0 training done, computing AUROC
+      agent 0 p_all stats: min=0.033 max=0.999 mean=0.533
+      agent 0 AUROC=0.799
+    training Monitor agent 1
+      agent 1 epoch 0 done, loss=0.703
+      agent 1 epoch 1 done, loss=0.6808
+      agent 1 epoch 2 done, loss=0.6536
+      agent 1 epoch 19 done, loss=0.3393
+      agent 1 training done, computing AUROC
+      agent 1 p_all stats: min=0.042 max=0.99 mean=0.523
+      agent 1 AUROC=0.766
+    training Monitor agent 2
+      agent 2 epoch 0 done, loss=0.6734
+      agent 2 epoch 1 done, loss=0.6807
+      agent 2 epoch 2 done, loss=0.6666
+      agent 2 epoch 19 done, loss=0.3308
+      agent 2 training done, computing AUROC
+      agent 2 p_all stats: min=0.038 max=0.992 mean=0.519
+      agent 2 AUROC=0.751
+  Monitors trained, AUROC=[0.7992154359817505, 0.7657163739204407, 0.7513329386711121]
+    update 1/80: mean_episode_return=-81.37, buffer=8250, noise=0.5
+    update 10/80: mean_episode_return=-98.09, buffer=15000, noise=0.399
+    update 20/80: mean_episode_return=-62.19, buffer=20000, noise=0.286
+    update 30/80: mean_episode_return=-79.83, buffer=20000, noise=0.174
+    update 40/80: mean_episode_return=-86.91, buffer=20000, noise=0.061
+    update 50/80: mean_episode_return=-69.45, buffer=20000, noise=0.05
+    update 60/80: mean_episode_return=-80.53, buffer=20000, noise=0.05
+    update 70/80: mean_episode_return=-74.27, buffer=20000, noise=0.05
+    update 80/80: mean_episode_return=-77.62, buffer=20000, noise=0.05
+
+Phase 3: Final eval...
+  MADDPG v3 (with_aux) eval: -69.53 +/- 18.8  (delta vs random: 9.03)
+  Monitor AUROC per agent: [0.7992154359817505, 0.7657163739204407, 0.7513329386711121]
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v3\seed4_with_aux\phase2_log.json

@@ -1,0 +1,645 @@
+[Phase 1.5 v0.2: Calibrated 4-Layer Integration] env=LunarLander-v3 seed=3
+  target_fpr=0.1  min_q_coverage=50  val_fraction=0.2  n_eval=50
+======================================================================
+[A] PPO trained.
+[Data] 200 rollouts, threshold=0.0  (train=160, val=40)
+[A] SlotMonitor trained (val AUROC = 1.000)
+[Cal] Platt fit: a=5.057 b=2.857  -> target FPR=0.10, threshold=0.000
+[Cal] val FPR=0.09  val TPR=1.00  (n_neg=32, n_pos=8)
+[Q] Q-function trained. coverage=68749 (need>=50) -> gate_enabled=True
+[E] Verifier ready with 3 rules
+[D] Language interface ready (template-based)
+
+======================================================================
+FULL INTEGRATION EPISODES (v0.2)
+======================================================================
+  ep0 t=  0 action=2 reward_so_far=1 | Position (0.00, 1.41); velocity (0.45, -0.20); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep0 t= 50 action=2 reward_so_far=-25 | Position (0.24, 1.39); velocity (0.44, 0.30); angle 0.08 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep0 t=100 action=2 reward_so_far=-216 | Position (0.33, 2.25); velocity (-0.09, 1.22); angle 0.23 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep0 t=150 action=2 reward_so_far=-560 | Position (0.02, 4.15); velocity (-1.20, 2.14); angle 0.40 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep0 t=200 action=2 reward_so_far=-1019 | Position (-0.93, 6.88); velocity (-2.70, 2.71); angle 0.61 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep0 FINAL: gated=-1127 ungated=81 gates=191 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep1 t=  0 action=0 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.02, 0.28); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep1 t= 50 action=2 reward_so_far=-138 | Position (-0.10, 1.76); velocity (-0.54, 0.67); angle 0.27 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep1 t=100 action=2 reward_so_far=-455 | Position (-0.64, 2.98); velocity (-1.73, 1.52); angle 0.54 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep1 FINAL: gated=-697 ungated=-28 gates=108 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.211864406779661 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep2 t=  0 action=3 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.37, 0.04); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep2 t= 50 action=2 reward_so_far=-181 | Position (-0.21, 1.93); velocity (-0.63, 1.04); angle 0.23 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep2 t=100 action=2 reward_so_far=-537 | Position (-0.80, 3.57); velocity (-1.81, 1.81); angle 0.57 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep2 FINAL: gated=-719 ungated=106 gates=105 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep3 t=  0 action=1 reward_so_far=2 | Position (0.00, 1.41); velocity (0.15, 0.04); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep3 t= 50 action=2 reward_so_far=-133 | Position (-0.05, 1.65); velocity (-0.48, 0.69); angle 0.25 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep3 t=100 action=2 reward_so_far=-460 | Position (-0.57, 2.96); velocity (-1.75, 1.68); angle 0.40 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep3 FINAL: gated=-714 ungated=31 gates=109 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.2644628099173554 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep4 t=  0 action=3 reward_so_far=0 | Position (-0.01, 1.42); velocity (-0.71, 0.22); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep4 t= 50 action=2 reward_so_far=-68 | Position (-0.25, 1.63); velocity (-0.04, 0.58); angle -0.47 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep4 t=100 action=2 reward_so_far=-477 | Position (0.33, 2.60); velocity (2.62, 0.91); angle -1.16 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep4 FINAL: gated=-767 ungated=138 gates=105 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep5 t=  0 action=2 reward_so_far=1 | Position (-0.01, 1.41); velocity (-0.80, -0.22); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep5 t= 50 action=2 reward_so_far=-116 | Position (-0.47, 1.56); velocity (-1.23, 0.56); angle 0.23 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep5 FINAL: gated=-393 ungated=113 gates=77 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=0.84
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=0.84
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=0.84
+
+  ep6 t=  0 action=2 reward_so_far=-0 | Position (-0.00, 1.41); velocity (-0.16, -0.24); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep6 t= 50 action=2 reward_so_far=-10 | Position (-0.08, 1.37); velocity (-0.14, 0.17); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep6 t=100 action=2 reward_so_far=-235 | Position (-0.05, 2.09); velocity (0.46, 1.08); angle -0.45 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep6 t=150 action=2 reward_so_far=-666 | Position (0.67, 3.59); velocity (2.75, 1.45); angle -1.08 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep6 FINAL: gated=-857 ungated=83 gates=140 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.3416149068322981 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep7 t=  0 action=2 reward_so_far=0 | Position (0.01, 1.40); velocity (0.65, -0.55); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep7 t= 50 action=0 reward_so_far=9 | Position (0.37, 1.09); velocity (0.59, -0.04); angle 0.28 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep7 t=100 action=2 reward_so_far=73 | Position (0.48, 1.02); velocity (-0.02, -0.13); angle 0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep7 t=150 action=2 reward_so_far=-9 | Position (0.51, 1.00); velocity (0.40, 0.39); angle -0.32 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep7 FINAL: gated=-371 ungated=90 gates=105 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.7121212121212122 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep8 t=  0 action=0 reward_so_far=1 | Position (0.00, 1.42); velocity (0.28, 0.37); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep8 t= 50 action=2 reward_so_far=13 | Position (0.09, 1.45); velocity (-0.01, 0.00); angle 0.20 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep8 t=100 action=2 reward_so_far=-19 | Position (0.08, 1.45); velocity (0.06, 0.25); angle -0.15 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep8 t=150 action=2 reward_so_far=-236 | Position (0.28, 2.27); velocity (0.72, 1.15); angle -0.23 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep8 t=200 action=2 reward_so_far=-576 | Position (0.89, 4.15); velocity (1.63, 2.14); angle -0.15 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep8 FINAL: gated=-709 ungated=-80 gates=142 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.4927536231884058 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep9 t=  0 action=0 reward_so_far=1 | Position (0.00, 1.42); velocity (0.23, 0.19); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep9 t= 50 action=2 reward_so_far=-36 | Position (0.06, 1.45); velocity (-0.13, 0.28); angle 0.20 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep9 t=100 action=2 reward_so_far=-274 | Position (-0.20, 2.31); velocity (-0.99, 1.15); angle 0.28 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep9 t=150 action=2 reward_so_far=-567 | Position (-0.92, 4.08); velocity (-1.70, 1.96); angle 0.15 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep9 FINAL: gated=-690 ungated=-31 gates=134 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.3225806451612903 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep10 t=  0 action=2 reward_so_far=-1 | Position (-0.01, 1.41); velocity (-0.64, -0.26); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep10 t= 50 action=2 reward_so_far=-111 | Position (-0.41, 1.60); velocity (-1.03, 0.60); angle 0.17 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep10 FINAL: gated=-444 ungated=136 gates=88 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=0.94
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=0.94
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=0.94
+
+  ep11 t=  0 action=2 reward_so_far=1 | Position (-0.01, 1.40); velocity (-0.54, -0.51); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep11 t= 50 action=2 reward_so_far=-42 | Position (-0.37, 1.30); velocity (-0.86, 0.40); angle 0.09 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep11 t=100 action=2 reward_so_far=-291 | Position (-0.91, 2.31); velocity (-1.43, 1.37); angle 0.25 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep11 FINAL: gated=-415 ungated=190 gates=99 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep12 t=  0 action=0 reward_so_far=-0 | Position (0.01, 1.42); velocity (0.73, 0.43); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep12 t= 50 action=3 reward_so_far=-9 | Position (0.25, 1.51); velocity (0.02, 0.06); angle 0.70 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep12 t=100 action=2 reward_so_far=-397 | Position (-0.39, 1.64); velocity (-2.88, -0.08); angle 1.37 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep12 FINAL: gated=-641 ungated=89 gates=87 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.4915254237288136 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep13 t=  0 action=3 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.09, 0.30); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep13 t= 50 action=2 reward_so_far=10 | Position (-0.05, 1.37); velocity (-0.05, -0.00); angle -0.11 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep13 t=100 action=2 reward_so_far=-198 | Position (0.11, 1.94); velocity (0.80, 0.94); angle -0.25 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep13 t=150 action=2 reward_so_far=-507 | Position (0.72, 3.61); velocity (1.48, 2.05); angle -0.14 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep13 FINAL: gated=-735 ungated=69 gates=134 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.38095238095238093 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep14 t=  0 action=1 reward_so_far=0 | Position (0.01, 1.41); velocity (0.64, -0.24); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep14 t= 50 action=2 reward_so_far=11 | Position (0.28, 1.20); velocity (0.45, -0.11); angle 0.17 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep14 t=100 action=2 reward_so_far=41 | Position (0.45, 1.12); velocity (0.17, -0.09); angle 0.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep14 t=150 action=2 reward_so_far=2 | Position (0.46, 1.10); velocity (-0.20, 0.34); angle 0.15 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep14 t=200 action=2 reward_so_far=-193 | Position (0.29, 1.98); velocity (-0.48, 1.23); angle 0.17 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep14 t=250 action=2 reward_so_far=-524 | Position (-0.15, 3.85); velocity (-1.33, 2.04); angle 0.36 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep14 FINAL: gated=-1044 ungated=52 gates=193 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.5016949152542373 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep15 t=  0 action=2 reward_so_far=5 | Position (-0.00, 1.40); velocity (-0.22, -0.54); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep15 t= 50 action=0 reward_so_far=41 | Position (-0.11, 1.12); velocity (-0.15, -0.13); angle -0.12 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep15 t=100 action=2 reward_so_far=46 | Position (-0.12, 1.06); velocity (0.15, 0.13); angle -0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep15 t=150 action=2 reward_so_far=-177 | Position (-0.22, 1.72); velocity (-0.66, 1.00); angle 0.37 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep15 t=200 action=2 reward_so_far=-555 | Position (-0.92, 3.19); velocity (-2.32, 1.63); angle 0.72 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep15 FINAL: gated=-674 ungated=3 gates=155 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.5441176470588235 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep16 t=  0 action=2 reward_so_far=4 | Position (0.00, 1.41); velocity (0.17, -0.24); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep16 t= 50 action=2 reward_so_far=-66 | Position (0.08, 1.48); velocity (0.01, 0.49); angle 0.20 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep16 t=100 action=2 reward_so_far=-382 | Position (-0.21, 2.58); velocity (-1.40, 1.33); angle 0.63 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep16 FINAL: gated=-809 ungated=115 gates=126 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.2867647058823529 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep17 t=  0 action=1 reward_so_far=0 | Position (0.01, 1.41); velocity (0.73, 0.15); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep17 t= 50 action=2 reward_so_far=-88 | Position (0.29, 1.75); velocity (0.18, 0.64); angle 0.46 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep17 t=100 action=2 reward_so_far=-451 | Position (-0.15, 2.70); velocity (-2.25, 0.85); angle 1.18 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep17 FINAL: gated=-801 ungated=59 gates=118 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep18 t=  0 action=1 reward_so_far=-2 | Position (-0.00, 1.41); velocity (-0.06, -0.22); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep18 t= 50 action=2 reward_so_far=10 | Position (-0.04, 1.33); velocity (-0.06, 0.04); angle -0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep18 t=100 action=2 reward_so_far=-195 | Position (-0.10, 1.95); velocity (-0.35, 0.99); angle 0.24 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep18 t=150 action=2 reward_so_far=-534 | Position (-0.57, 3.59); velocity (-1.58, 1.80); angle 0.46 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep18 FINAL: gated=-823 ungated=-26 gates=146 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.36627906976744184 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep19 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.41); velocity (0.26, -0.01); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep19 t= 50 action=2 reward_so_far=-103 | Position (0.06, 1.61); velocity (-0.21, 0.67); angle 0.23 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep19 t=100 action=2 reward_so_far=-370 | Position (-0.27, 2.85); velocity (-1.09, 1.52); angle 0.30 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep19 FINAL: gated=-825 ungated=104 gates=134 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.23972602739726026 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep20 t=  0 action=3 reward_so_far=0 | Position (-0.00, 1.41); velocity (-0.49, 0.04); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep20 t= 50 action=2 reward_so_far=-82 | Position (-0.20, 1.72); velocity (-0.15, 0.69); angle -0.14 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep20 t=100 action=2 reward_so_far=-348 | Position (-0.16, 3.18); velocity (0.18, 1.84); angle -0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep20 t=150 action=2 reward_so_far=-745 | Position (-0.08, 5.85); velocity (0.16, 2.86); angle -0.12 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep20 t=200 action=2 reward_so_far=-1265 | Position (0.18, 9.55); velocity (1.18, 3.64); angle -0.52 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep20 FINAL: gated=-1868 ungated=54 gates=233 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep21 t=  0 action=0 reward_so_far=1 | Position (-0.00, 1.42); velocity (-0.16, 0.37); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep21 t= 50 action=2 reward_so_far=-103 | Position (-0.12, 1.77); velocity (-0.34, 0.67); angle 0.16 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep21 t=100 action=2 reward_so_far=-426 | Position (-0.48, 3.02); velocity (-1.42, 1.48); angle 0.66 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep21 FINAL: gated=-768 ungated=100 gates=111 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.2222222222222222 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep22 t=  0 action=3 reward_so_far=0 | Position (-0.01, 1.41); velocity (-0.75, 0.04); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep22 t= 50 action=2 reward_so_far=-84 | Position (-0.37, 1.71); velocity (-0.65, 0.68); angle -0.16 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep22 t=100 action=2 reward_so_far=-318 | Position (-0.49, 2.86); velocity (0.51, 1.32); angle -0.68 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep22 t=150 action=2 reward_so_far=-738 | Position (0.41, 4.40); velocity (3.16, 1.27); angle -1.18 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep22 FINAL: gated=-986 ungated=90 gates=158 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep23 t=  0 action=3 reward_so_far=0 | Position (-0.01, 1.41); velocity (-0.70, 0.05); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep23 t= 50 action=2 reward_so_far=-35 | Position (-0.31, 1.53); velocity (-0.40, 0.44); angle -0.18 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep23 t=100 action=2 reward_so_far=-263 | Position (-0.28, 2.52); velocity (0.62, 1.24); angle -0.51 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep23 t=150 action=2 reward_so_far=-665 | Position (0.57, 4.16); velocity (2.88, 1.59); angle -0.79 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep23 FINAL: gated=-883 ungated=-76 gates=152 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep24 t=  0 action=1 reward_so_far=1 | Position (0.01, 1.42); velocity (0.59, 0.29); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep24 t= 50 action=2 reward_so_far=-133 | Position (0.21, 1.99); velocity (0.12, 0.94); angle 0.29 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep24 t=100 action=2 reward_so_far=-489 | Position (-0.09, 3.55); velocity (-1.52, 1.68); angle 0.80 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep24 FINAL: gated=-939 ungated=43 gates=130 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep25 t=  0 action=1 reward_so_far=0 | Position (0.01, 1.40); velocity (0.52, -0.28); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep25 t= 50 action=2 reward_so_far=-5 | Position (0.23, 1.34); velocity (0.24, 0.13); angle 0.30 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep25 t=100 action=0 reward_so_far=17 | Position (0.25, 1.38); velocity (-0.05, -0.12); angle -0.09 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep25 t=150 action=2 reward_so_far=-31 | Position (0.25, 1.45); velocity (0.06, 0.41); angle 0.09 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep25 t=200 action=2 reward_so_far=-302 | Position (0.08, 2.36); velocity (-1.03, 1.10); angle 0.61 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep25 FINAL: gated=-811 ungated=-98 gates=173 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.576 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep26 t=  0 action=2 reward_so_far=-1 | Position (-0.01, 1.41); velocity (-0.77, -0.14); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep26 t= 50 action=2 reward_so_far=-170 | Position (-0.50, 1.80); velocity (-1.36, 0.74); angle 0.30 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep26 FINAL: gated=-451 ungated=45 gates=75 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=0.8
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=0.8
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=0.8
+
+  ep27 t=  0 action=2 reward_so_far=0 | Position (0.01, 1.40); velocity (0.71, -0.49); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep27 t= 50 action=2 reward_so_far=-8 | Position (0.39, 1.15); velocity (0.92, 0.08); angle -0.05 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep27 t=100 action=2 reward_so_far=-86 | Position (0.73, 1.56); velocity (0.22, 0.70); angle 0.36 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: intervene. Monitor says 0.61 > 8.990531273640443e-09. Consider gated action.
+  ep27 t=150 action=2 reward_so_far=-404 | Position (0.44, 2.84); velocity (-1.60, 1.51); angle 0.74 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep27 FINAL: gated=-980 ungated=58 gates=180 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep28 t=  0 action=0 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.12, 0.23); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep28 t= 50 action=2 reward_so_far=-33 | Position (-0.07, 1.51); velocity (-0.19, 0.32); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep28 t=100 action=2 reward_so_far=-248 | Position (-0.13, 2.46); velocity (-0.11, 1.37); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep28 t=150 action=2 reward_so_far=-579 | Position (-0.13, 4.56); velocity (0.17, 2.31); angle -0.11 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep28 t=200 action=2 reward_so_far=-1017 | Position (0.07, 7.70); velocity (0.63, 3.31); angle -0.13 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep28 t=250 action=2 reward_so_far=-1556 | Position (0.49, 11.96); velocity (1.05, 4.18); angle -0.12 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep28 FINAL: gated=-2153 ungated=145 gates=266 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.15807560137457044 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep29 t=  0 action=3 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.49, 0.07); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep29 t= 50 action=2 reward_so_far=-85 | Position (-0.18, 1.63); velocity (-0.00, 0.63); angle -0.34 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep29 t=100 action=2 reward_so_far=-398 | Position (0.20, 2.69); velocity (1.71, 1.20); angle -0.75 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep29 FINAL: gated=-789 ungated=75 gates=123 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep30 t=  0 action=2 reward_so_far=5 | Position (-0.00, 1.40); velocity (-0.36, -0.50); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep30 t= 50 action=2 reward_so_far=-25 | Position (-0.24, 1.35); velocity (-0.55, 0.36); angle -0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep30 t=100 action=2 reward_so_far=-256 | Position (-0.36, 2.34); velocity (0.30, 1.29); angle -0.54 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep30 t=150 action=2 reward_so_far=-689 | Position (0.37, 4.00); velocity (2.83, 1.47); angle -1.14 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep30 FINAL: gated=-976 ungated=-13 gates=155 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep31 t=  0 action=2 reward_so_far=-2 | Position (0.00, 1.41); velocity (0.18, 0.11); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep31 t= 50 action=2 reward_so_far=-150 | Position (0.06, 1.89); velocity (-0.07, 0.91); angle 0.15 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep31 t=100 action=2 reward_so_far=-437 | Position (-0.14, 3.36); velocity (-0.87, 1.76); angle 0.29 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep31 t=150 action=2 reward_so_far=-812 | Position (-0.82, 5.79); velocity (-1.83, 2.47); angle 0.29 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep31 FINAL: gated=-986 ungated=-54 gates=154 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.1125 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep32 t=  0 action=1 reward_so_far=1 | Position (-0.00, 1.42); velocity (-0.10, 0.41); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep32 t= 50 action=2 reward_so_far=4 | Position (-0.05, 1.47); velocity (-0.17, 0.05); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep32 t=100 action=2 reward_so_far=-191 | Position (-0.14, 2.17); velocity (-0.02, 1.16); angle -0.16 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep32 t=150 action=2 reward_so_far=-491 | Position (0.04, 3.86); velocity (0.91, 1.82); angle -0.39 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep32 t=200 action=2 reward_so_far=-942 | Position (0.89, 6.38); velocity (2.58, 2.58); angle -0.56 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep32 FINAL: gated=-1078 ungated=113 gates=167 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.2731707317073171 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep33 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.42); velocity (0.01, 0.48); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep33 t= 50 action=2 reward_so_far=-214 | Position (-0.05, 2.29); velocity (-0.28, 1.32); angle 0.20 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep33 t=100 action=2 reward_so_far=-584 | Position (-0.47, 4.37); velocity (-1.39, 2.34); angle 0.29 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep33 FINAL: gated=-940 ungated=-33 gates=124 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep34 t=  0 action=2 reward_so_far=-1 | Position (0.00, 1.41); velocity (0.43, -0.20); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep34 t= 50 action=2 reward_so_far=-45 | Position (0.18, 1.46); velocity (0.05, 0.34); angle 0.35 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep34 t=100 action=2 reward_so_far=-408 | Position (-0.30, 2.27); velocity (-2.21, 0.85); angle 0.96 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep34 FINAL: gated=-720 ungated=40 gates=110 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.384 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep35 t=  0 action=1 reward_so_far=-2 | Position (-0.01, 1.41); velocity (-0.78, 0.12); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep35 t= 50 action=2 reward_so_far=-50 | Position (-0.34, 1.54); velocity (-0.37, 0.47); angle -0.39 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep35 t=100 action=2 reward_so_far=-361 | Position (-0.04, 2.40); velocity (1.76, 0.83); angle -1.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep35 FINAL: gated=-793 ungated=-72 gates=119 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep36 t=  0 action=2 reward_so_far=0 | Position (0.01, 1.40); velocity (0.58, -0.36); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep36 t= 50 action=2 reward_so_far=15 | Position (0.27, 1.18); velocity (0.36, -0.03); angle 0.25 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep36 t=100 action=3 reward_so_far=48 | Position (0.34, 1.08); velocity (-0.14, -0.05); angle 0.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep36 t=150 action=2 reward_so_far=-134 | Position (0.41, 1.02); velocity (0.96, 0.14); angle -0.91 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep36 FINAL: gated=-539 ungated=132 gates=83 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.7513812154696132 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep37 t=  0 action=1 reward_so_far=0 | Position (0.01, 1.41); velocity (0.63, 0.06); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep37 t= 50 action=3 reward_so_far=3 | Position (0.22, 1.32); velocity (0.19, -0.09); angle 0.36 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep37 t=100 action=2 reward_so_far=35 | Position (0.24, 1.18); velocity (-0.01, -0.21); angle -0.12 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep37 t=150 action=2 reward_so_far=-128 | Position (0.36, 1.52); velocity (0.63, 0.93); angle -0.28 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep37 t=200 action=2 reward_so_far=-451 | Position (0.97, 3.04); velocity (1.80, 1.72); angle -0.33 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep37 FINAL: gated=-551 ungated=75 gates=118 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.6188118811881188 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep38 t=  0 action=1 reward_so_far=2 | Position (0.00, 1.42); velocity (0.08, 0.36); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep38 t= 50 action=2 reward_so_far=-221 | Position (-0.08, 2.03); velocity (-0.68, 0.97); angle 0.55 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep38 FINAL: gated=-731 ungated=162 gates=93 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.16 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep39 t=  0 action=2 reward_so_far=3 | Position (-0.01, 1.40); velocity (-0.57, -0.37); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep39 t= 50 action=2 reward_so_far=-109 | Position (-0.36, 1.54); velocity (-0.97, 0.62); angle 0.25 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep39 FINAL: gated=-482 ungated=-32 gates=85 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=0.93
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=0.93
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=0.93
+
+  ep40 t=  0 action=2 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.23, -0.22); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep40 t= 50 action=2 reward_so_far=-102 | Position (-0.10, 1.68); velocity (-0.08, 0.72); angle -0.16 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep40 t=100 action=2 reward_so_far=-409 | Position (0.09, 3.00); velocity (1.12, 1.54); angle -0.56 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep40 FINAL: gated=-904 ungated=103 gates=134 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.18181818181818182 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep41 t=  0 action=3 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.20, 0.36); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep41 t= 50 action=2 reward_so_far=-118 | Position (-0.11, 1.89); velocity (-0.33, 0.76); angle 0.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep41 t=100 action=2 reward_so_far=-416 | Position (-0.44, 3.25); velocity (-1.13, 1.57); angle 0.43 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep41 FINAL: gated=-783 ungated=144 gates=123 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.1417910447761194 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep42 t=  0 action=2 reward_so_far=5 | Position (-0.00, 1.40); velocity (-0.04, -0.56); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep42 t= 50 action=2 reward_so_far=35 | Position (-0.00, 1.22); velocity (-0.07, 0.09); angle 0.13 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep42 t=100 action=2 reward_so_far=-196 | Position (-0.21, 1.87); velocity (-0.86, 1.02); angle 0.37 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep42 t=150 action=2 reward_so_far=-647 | Position (-1.00, 3.37); velocity (-2.38, 1.59); angle 0.63 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep42 FINAL: gated=-647 ungated=-75 gates=112 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.39072847682119205 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep43 t=  0 action=2 reward_so_far=2 | Position (0.01, 1.40); velocity (0.73, -0.47); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep43 t= 50 action=2 reward_so_far=5 | Position (0.39, 1.08); velocity (0.76, -0.17); angle 0.19 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep43 t=100 action=3 reward_so_far=37 | Position (0.63, 0.98); velocity (0.32, -0.29); angle 0.12 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep43 t=150 action=2 reward_so_far=-48 | Position (0.84, 0.73); velocity (0.92, 0.10); angle -0.37 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep43 FINAL: gated=-198 ungated=100 gates=78 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep44 t=  0 action=2 reward_so_far=3 | Position (-0.00, 1.40); velocity (-0.39, -0.44); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep44 t= 50 action=2 reward_so_far=-89 | Position (-0.26, 1.35); velocity (-0.85, 0.32); angle 0.41 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep44 FINAL: gated=-496 ungated=134 gates=85 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=0.95
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.0 conf=0.95
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=0.95
+
+  ep45 t=  0 action=1 reward_so_far=2 | Position (0.00, 1.42); velocity (0.14, 0.32); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep45 t= 50 action=2 reward_so_far=-150 | Position (-0.03, 1.87); velocity (-0.46, 0.76); angle 0.35 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep45 t=100 action=2 reward_so_far=-528 | Position (-0.66, 3.17); velocity (-2.27, 1.50); angle 0.73 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep45 FINAL: gated=-750 ungated=176 gates=105 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.19298245614035087 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep46 t=  0 action=3 reward_so_far=2 | Position (0.00, 1.42); velocity (0.01, 0.23); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep46 t= 50 action=2 reward_so_far=-175 | Position (-0.01, 2.03); velocity (-0.09, 1.09); angle 0.11 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep46 t=100 action=2 reward_so_far=-516 | Position (-0.24, 3.86); velocity (-0.86, 2.16); angle 0.28 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep46 t=150 action=2 reward_so_far=-972 | Position (-0.96, 6.66); velocity (-2.19, 2.83); angle 0.55 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep46 FINAL: gated=-1072 ungated=83 gates=143 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.11842105263157894 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep47 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.41); velocity (0.32, -0.04); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep47 t= 50 action=2 reward_so_far=-89 | Position (0.12, 1.69); velocity (0.14, 0.63); angle 0.12 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep47 t=100 action=2 reward_so_far=-351 | Position (0.03, 2.89); velocity (-0.70, 1.49); angle 0.36 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep47 t=150 action=2 reward_so_far=-717 | Position (-0.65, 4.94); velocity (-2.02, 2.17); angle 0.44 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep47 FINAL: gated=-947 ungated=-6 gates=160 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.10843373493975904 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep48 t=  0 action=2 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.28, 0.01); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep48 t= 50 action=2 reward_so_far=-101 | Position (-0.12, 1.73); velocity (-0.12, 0.74); angle -0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep48 t=100 action=2 reward_so_far=-357 | Position (-0.14, 3.12); velocity (-0.04, 1.74); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep48 t=150 action=2 reward_so_far=-739 | Position (-0.25, 5.71); velocity (-0.34, 2.77); angle 0.07 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep48 t=200 action=2 reward_so_far=-1224 | Position (-0.49, 9.39); velocity (-0.56, 3.69); angle 0.09 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep48 t=250 action=2 reward_so_far=-1827 | Position (-0.88, 14.08); velocity (-1.10, 4.50); angle 0.35 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep48 FINAL: gated=-2034 ungated=109 gates=253 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.06538461538461539 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep49 t=  0 action=1 reward_so_far=1 | Position (0.01, 1.41); velocity (0.70, 0.13); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep49 t= 50 action=3 reward_so_far=-0 | Position (0.26, 1.40); velocity (0.17, -0.04); angle 0.43 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep49 t=100 action=2 reward_so_far=12 | Position (0.29, 1.20); velocity (0.16, -0.16); angle -0.34 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep49 t=150 action=2 reward_so_far=-336 | Position (0.84, 1.36); velocity (2.34, 0.26); angle -1.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 1.00 > 8.990531273640443e-09. Consider gated action.
+  ep49 FINAL: gated=-490 ungated=56 gates=84 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=0.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.6815286624203821 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+======================================================================
+PHASE 1.5 v0.2 FULL INTEGRATION SUMMARY
+======================================================================
+  Episodes:                50
+  Ungated PPO mean:        57.5 +/- 73.3
+  Gated (Monitor+Q) mean:  -820.0 +/- 365.1
+  Delta:                   -877.47
+  Avg gates per episode:   131.64
+  Gates skipped (q_cov):   0
+  SlotMonitor val AUROC:   1.000
+  Platt:                   a=5.057, b=2.857
+  Calibrated threshold:    0.000  (target FPR=0.1)
+  Q coverage:              68749  (min=50)
+

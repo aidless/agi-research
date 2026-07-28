@@ -1,0 +1,44 @@
+============================================================
+MADDPG v3 - arm=with_aux - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=299, n_updates=5, monitor_alpha=0.5
+
+Phase 1: Random baseline = -81.02 +/- 29.37
+
+  Stage 1: 10 warmup updates starting...
+  Stage 1 update 1/10 done, buffer=225
+  Stage 1 update 3/10 done, buffer=675
+  Stage 1 update 5/10 done, buffer=1125
+  Stage 1 update 7/10 done, buffer=1575
+  Stage 1 update 9/10 done, buffer=2025
+  Stage 1 done. Training Monitors...
+    collect_monitor_data: n_eps=20 starting
+    collect_monitor_data: 0/20
+    collect_monitor_data: 10/20
+    collect_monitor_data: collected 60 obs_by_agent, 20 returns; returns=[-82.10218442784998, -89.52668626142338, -61.09092246300748, -104.90903762690905, -52.84898183069792]
+    train_per_agent_monitors: len(obs_list)=60, median_ret=-69.06
+    training Monitor agent 0
+      agent 0 epoch 0 done, loss=0.6931
+      agent 0 epoch 1 done, loss=0.658
+      agent 0 epoch 2 done, loss=0.6321
+      agent 0 epoch 19 done, loss=0.266
+      agent 0 training done, computing AUROC
+      agent 0 p_all stats: min=0.088 max=0.945 mean=0.505
+      agent 0 AUROC=0.775
+    training Monitor agent 1
+      agent 1 epoch 0 done, loss=0.7157
+      agent 1 epoch 1 done, loss=0.6756
+      agent 1 epoch 2 done, loss=0.6405
+      agent 1 epoch 19 done, loss=0.3259
+      agent 1 training done, computing AUROC
+      agent 1 p_all stats: min=0.129 max=0.913 mean=0.524
+      agent 1 AUROC=0.766
+    training Monitor agent 2
+      agent 2 epoch 0 done, loss=0.6719
+      agent 2 epoch 1 done, loss=0.6599
+      agent 2 epoch 2 done, loss=0.6587
+      agent 2 epoch 19 done, loss=0.2911
+      agent 2 training done, computing AUROC
+      agent 2 p_all stats: min=0.043 max=0.885 mean=0.515
+      agent 2 AUROC=0.762
+  Monitors trained, AUROC=[0.7754085063934326, 0.766035795211792, 0.7618265151977539]

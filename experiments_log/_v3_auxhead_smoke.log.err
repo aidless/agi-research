@@ -1,0 +1,9 @@
+usage: pz_maddpg_v3.py [-h] [--seed SEED] [--n-updates N_UPDATES]
+                       [--n-episodes-per-update N_EPISODES_PER_UPDATE]
+                       [--n-eval-episodes N_EVAL_EPISODES]
+                       [--max-cycles MAX_CYCLES] [--batch-size BATCH_SIZE]
+                       [--buffer-size BUFFER_SIZE]
+                       [--monitor-alpha MONITOR_ALPHA]
+                       [--n-monitor-eps N_MONITOR_EPS]
+                       [--arm {with_aux,no_aux,ablated}]
+pz_maddpg_v3.py: error: unrecognized arguments: --use-aux-head

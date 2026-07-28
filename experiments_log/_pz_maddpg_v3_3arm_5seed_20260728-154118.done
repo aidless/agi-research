@@ -1,0 +1,18 @@
+﻿
+=== MADDPG v3 3-arm 5-seed sweep start 20260728-154118 ===
+v3 arm=with_aux seed=0 pid=3348
+v3 arm=with_aux seed=1 pid=5964
+v3 arm=with_aux seed=2 pid=16688
+v3 arm=with_aux seed=3 pid=2200
+v3 arm=with_aux seed=4 pid=8012
+v3 arm=no_aux seed=0 pid=8516
+v3 arm=no_aux seed=1 pid=10564
+v3 arm=no_aux seed=2 pid=20852
+v3 arm=no_aux seed=3 pid=21172
+v3 arm=no_aux seed=4 pid=13716
+v3 arm=ablated seed=0 pid=12656
+v3 arm=ablated seed=1 pid=11312
+v3 arm=ablated seed=2 pid=10644
+v3 arm=ablated seed=3 pid=17272
+v3 arm=ablated seed=4 pid=9684
+=== 15 launched ===

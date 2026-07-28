@@ -1,0 +1,18 @@
+﻿
+=== MADDPG v3 grad-flow 3-arm 5-seed start 20260728-155356 ===
+v3-grad arm=with_aux seed=0 pid=15804
+v3-grad arm=with_aux seed=1 pid=4620
+v3-grad arm=with_aux seed=2 pid=9020
+v3-grad arm=with_aux seed=3 pid=8764
+v3-grad arm=with_aux seed=4 pid=13512
+v3-grad arm=no_aux seed=0 pid=2616
+v3-grad arm=no_aux seed=1 pid=6484
+v3-grad arm=no_aux seed=2 pid=8564
+v3-grad arm=no_aux seed=3 pid=17960
+v3-grad arm=no_aux seed=4 pid=15644
+v3-grad arm=ablated seed=0 pid=9876
+v3-grad arm=ablated seed=1 pid=6120
+v3-grad arm=ablated seed=2 pid=8584
+v3-grad arm=ablated seed=3 pid=20672
+v3-grad arm=ablated seed=4 pid=15696
+=== 15 launched ===

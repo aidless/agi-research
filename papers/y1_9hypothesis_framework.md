@@ -173,10 +173,23 @@ The Monitor architecture is portable to MA (decoupling works) but the
 Y1.3 reward-shaping recipe is not. The DMC vs MADDPG gap (~30 points)
 is a clean credit-assignment win for centralised critics.
 
-**Y2 follow-up**: revisit H5 only after (a) honest scaling to 10K+
-MADDPG steps (so MADDPG stops being an easy win), (b) deeper Monitor
-that conditions on inter-agent comms, (c) end-to-end MADDPG with
-trained Monitor as auxiliary loss (not shaping).
+**Y2 follow-up (executed 2026-07-28)**: option (c) tested with
+`pz_maddpg_v3.py`. 3-arm 5-seed sweep (with_aux / no_aux / ablated)
+at 80 updates x 10 episodes (matched compute to v2):
+- with_aux: -70.50 +/- 1.13 (5 seeds)
+- no_aux:   -70.50 +/- 1.13 (5 seeds)
+- ablated:  -70.50 +/- 1.13 (5 seeds)
+
+All three arms produced IDENTICAL results: the frozen-Monitor aux
+loss has zero effect at this compute scale. A trainable AuxHead
+alternative was structurally fragile (memory blowup).
+Verdict: Monitor aux loss is a dead end for MA credit assignment.
+Full log: `experiments_log/2026-07-28-pz-maddpg-v3-3arm-5seed.md`.
+
+**Y2 next directions**: (a) learned inter-agent comms (TarMAC, IC3Net),
+(b) longer MADDPG training (10K+ episodes) where Monitor signal might
+matter, (c) end-to-end Monitor as MA verifier (cross-agent evidence
+chain, not RL signal).
 
 
 ## H6: Joint Monitor failure is monotonic with PPO updates

@@ -1,0 +1,1255 @@
+[Phase 1.5 v0.2: Calibrated 4-Layer Integration] env=LunarLander-v3 seed=1
+  target_fpr=0.1  min_q_coverage=50  val_fraction=0.2  n_eval=50
+======================================================================
+[A] PPO trained.
+[Data] 200 rollouts, threshold=0.0  (train=160, val=40)
+[A] SlotMonitor trained (val AUROC = 0.803)
+[Cal] Platt fit: a=2.229 b=1.280  -> target FPR=0.10, threshold=0.609
+[Cal] val FPR=0.07  val TPR=0.36  (n_neg=29, n_pos=11)
+[Q] Q-function trained. coverage=78429 (need>=50) -> gate_enabled=True
+[E] Verifier ready with 3 rules
+[D] Language interface ready (template-based)
+
+======================================================================
+FULL INTEGRATION EPISODES (v0.2)
+======================================================================
+  ep0 t=  0 action=2 reward_so_far=-1 | Position (0.00, 1.41); velocity (0.24, -0.09); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep0 t= 50 action=3 reward_so_far=-9 | Position (0.09, 1.34); velocity (0.14, -0.10); angle 0.13 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep0 t=100 action=2 reward_so_far=3 | Position (0.14, 1.29); velocity (0.07, -0.00); angle 0.08 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep0 t=150 action=2 reward_so_far=-7 | Position (0.18, 1.23); velocity (0.09, -0.08); angle -0.09 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep0 t=200 action=1 reward_so_far=-8 | Position (0.24, 1.16); velocity (0.12, -0.02); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep0 t=250 action=2 reward_so_far=-10 | Position (0.29, 1.08); velocity (0.16, -0.08); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep0 t=300 action=3 reward_so_far=-7 | Position (0.34, 1.01); velocity (0.06, -0.06); angle 0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep0 t=350 action=2 reward_so_far=-27 | Position (0.37, 0.91); velocity (-0.01, -0.24); angle 0.09 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep0 t=400 action=1 reward_so_far=-15 | Position (0.31, 0.73); velocity (-0.15, -0.10); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep0 t=450 action=2 reward_so_far=4 | Position (0.29, 0.58); velocity (0.04, -0.09); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep0 FINAL: gated=12 ungated=11 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep1 t=  0 action=2 reward_so_far=-1 | Position (0.01, 1.41); velocity (0.61, -0.13); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep1 t= 50 action=2 reward_so_far=-8 | Position (0.26, 1.29); velocity (0.40, -0.12); angle 0.32 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.39, near threshold. Continue observing.
+  ep1 t=100 action=2 reward_so_far=42 | Position (0.36, 1.19); velocity (0.10, -0.08); angle -0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep1 t=150 action=2 reward_so_far=48 | Position (0.39, 1.06); velocity (-0.05, -0.13); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep1 t=200 action=2 reward_so_far=56 | Position (0.36, 0.93); velocity (-0.06, -0.05); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep1 t=250 action=0 reward_so_far=43 | Position (0.36, 0.81); velocity (0.10, -0.14); angle -0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep1 t=300 action=2 reward_so_far=56 | Position (0.39, 0.64); velocity (0.03, -0.11); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep1 t=350 action=0 reward_so_far=40 | Position (0.41, 0.49); velocity (0.11, -0.12); angle -0.20 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep1 t=400 action=2 reward_so_far=37 | Position (0.52, 0.35); velocity (0.20, -0.06); angle 0.13 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep1 t=450 action=1 reward_so_far=26 | Position (0.58, 0.19); velocity (0.11, -0.18); angle -0.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep1 FINAL: gated=23 ungated=-100 gates=1 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep2 t=  0 action=1 reward_so_far=2 | Position (0.00, 1.42); velocity (0.31, 0.30); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep2 t= 50 action=2 reward_so_far=5 | Position (0.11, 1.47); velocity (0.20, -0.08); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep2 t=100 action=2 reward_so_far=1 | Position (0.20, 1.39); velocity (0.16, 0.06); angle 0.07 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep2 t=150 action=2 reward_so_far=12 | Position (0.25, 1.34); velocity (0.06, -0.10); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep2 t=200 action=3 reward_so_far=5 | Position (0.27, 1.29); velocity (0.03, -0.06); angle 0.05 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep2 t=250 action=2 reward_so_far=13 | Position (0.28, 1.16); velocity (-0.02, -0.12); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep2 t=300 action=2 reward_so_far=-0 | Position (0.26, 1.07); velocity (-0.06, -0.17); angle -0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.28); PPO action is likely safe.
+  ep2 t=350 action=1 reward_so_far=19 | Position (0.25, 0.92); velocity (0.01, -0.05); angle -0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep2 t=400 action=2 reward_so_far=15 | Position (0.24, 0.80); velocity (-0.10, -0.09); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep2 t=450 action=2 reward_so_far=19 | Position (0.19, 0.64); velocity (-0.03, -0.18); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep2 FINAL: gated=22 ungated=-15 gates=1 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep3 t=  0 action=3 reward_so_far=1 | Position (-0.01, 1.42); velocity (-0.54, 0.48); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep3 t= 50 action=2 reward_so_far=4 | Position (-0.22, 1.52); velocity (-0.29, -0.04); angle -0.23 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.48, near threshold. Continue observing.
+  ep3 t=100 action=3 reward_so_far=33 | Position (-0.31, 1.44); velocity (-0.15, -0.06); angle 0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep3 t=150 action=2 reward_so_far=30 | Position (-0.39, 1.33); velocity (-0.08, -0.08); angle -0.10 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep3 t=200 action=2 reward_so_far=27 | Position (-0.41, 1.32); velocity (0.02, -0.08); angle 0.10 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep3 t=250 action=1 reward_so_far=11 | Position (-0.44, 1.29); velocity (-0.09, -0.01); angle -0.14 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.55, near threshold. Continue observing.
+  ep3 t=300 action=2 reward_so_far=10 | Position (-0.45, 1.25); velocity (0.00, -0.07); angle 0.15 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.80 > 0.6085784965324185. Consider gated action.
+  ep3 t=350 action=2 reward_so_far=-141 | Position (-0.56, 1.62); velocity (-0.51, 0.80); angle 0.19 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.88 > 0.6085784965324185. Consider gated action.
+  ep3 t=400 action=2 reward_so_far=-514 | Position (-0.99, 3.04); velocity (-1.23, 1.70); angle 0.18 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.89 > 0.6085784965324185. Consider gated action.
+  ep3 FINAL: gated=-514 ungated=59 gates=140 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.8029925187032418 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep4 t=  0 action=2 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.21, -0.12); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep4 t= 50 action=3 reward_so_far=1 | Position (-0.08, 1.36); velocity (-0.09, -0.07); angle -0.08 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep4 t=100 action=0 reward_so_far=5 | Position (-0.12, 1.25); velocity (-0.13, -0.06); angle 0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.30, near threshold. Continue observing.
+  ep4 t=150 action=1 reward_so_far=11 | Position (-0.17, 1.17); velocity (-0.00, -0.06); angle -0.01 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep4 t=200 action=3 reward_so_far=-1 | Position (-0.15, 1.16); velocity (0.04, -0.06); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep4 t=250 action=2 reward_so_far=-12 | Position (-0.15, 1.09); velocity (-0.04, -0.04); angle 0.16 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.44, near threshold. Continue observing.
+  ep4 t=300 action=2 reward_so_far=-15 | Position (-0.19, 1.05); velocity (-0.09, -0.12); angle -0.08 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.42, near threshold. Continue observing.
+  ep4 t=350 action=2 reward_so_far=-6 | Position (-0.21, 0.94); velocity (0.01, -0.07); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep4 t=400 action=3 reward_so_far=-15 | Position (-0.18, 0.86); velocity (0.06, -0.07); angle 0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep4 t=450 action=3 reward_so_far=3 | Position (-0.15, 0.74); velocity (0.01, -0.01); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep4 FINAL: gated=-1 ungated=-92 gates=7 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep5 t=  0 action=2 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.07, -0.07); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep5 t= 50 action=2 reward_so_far=-16 | Position (-0.03, 1.37); velocity (-0.07, -0.15); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep5 t=100 action=1 reward_so_far=-6 | Position (-0.06, 1.29); velocity (-0.07, -0.01); angle -0.02 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.44, near threshold. Continue observing.
+  ep5 t=150 action=0 reward_so_far=-7 | Position (-0.09, 1.15); velocity (0.01, -0.13); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep5 t=200 action=1 reward_so_far=-2 | Position (-0.08, 1.04); velocity (-0.01, -0.07); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep5 t=250 action=2 reward_so_far=-8 | Position (-0.07, 0.89); velocity (-0.03, -0.20); angle 0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.30); PPO action is likely safe.
+  ep5 t=300 action=2 reward_so_far=-6 | Position (-0.13, 0.78); velocity (-0.11, -0.02); angle -0.13 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep5 t=350 action=2 reward_so_far=-12 | Position (-0.16, 0.68); velocity (-0.11, -0.15); angle 0.14 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep5 t=400 action=3 reward_so_far=-19 | Position (-0.25, 0.55); velocity (-0.12, -0.14); angle -0.17 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.30, near threshold. Continue observing.
+  ep5 t=450 action=3 reward_so_far=7 | Position (-0.27, 0.45); velocity (-0.02, -0.01); angle 0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep5 FINAL: gated=4 ungated=70 gates=4 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep6 t=  0 action=3 reward_so_far=1 | Position (-0.01, 1.42); velocity (-0.64, 0.26); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep6 t= 50 action=1 reward_so_far=-7 | Position (-0.26, 1.41); velocity (-0.33, -0.06); angle -0.33 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep6 t=100 action=2 reward_so_far=37 | Position (-0.31, 1.36); velocity (-0.07, -0.08); angle 0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep6 t=150 action=2 reward_so_far=25 | Position (-0.34, 1.31); velocity (-0.12, -0.05); angle -0.12 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: intervene. Monitor says 0.64 > 0.6085784965324185. Consider gated action.
+  ep6 t=200 action=2 reward_so_far=32 | Position (-0.38, 1.22); velocity (-0.13, -0.10); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.38, near threshold. Continue observing.
+  ep6 t=250 action=0 reward_so_far=30 | Position (-0.42, 1.16); velocity (-0.09, -0.07); angle -0.00 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.37, near threshold. Continue observing.
+  ep6 t=300 action=2 reward_so_far=33 | Position (-0.44, 1.10); velocity (-0.01, -0.01); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: intervene. Monitor says 0.63 > 0.6085784965324185. Consider gated action.
+  ep6 t=350 action=1 reward_so_far=22 | Position (-0.44, 1.10); velocity (0.01, -0.03); angle 0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep6 t=400 action=2 reward_so_far=9 | Position (-0.46, 1.07); velocity (-0.04, 0.03); angle -0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep6 t=450 action=1 reward_so_far=7 | Position (-0.48, 1.08); velocity (-0.00, 0.07); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.34, near threshold. Continue observing.
+  ep6 FINAL: gated=-13 ungated=40 gates=58 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep7 t=  0 action=2 reward_so_far=4 | Position (-0.00, 1.40); velocity (-0.20, -0.52); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep7 t= 50 action=3 reward_so_far=40 | Position (-0.11, 1.18); velocity (-0.17, -0.16); angle -0.02 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep7 t=100 action=2 reward_so_far=48 | Position (-0.16, 1.08); velocity (-0.12, -0.10); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep7 t=150 action=1 reward_so_far=46 | Position (-0.21, 1.03); velocity (-0.08, -0.04); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep7 t=200 action=2 reward_so_far=47 | Position (-0.23, 0.95); velocity (0.00, -0.04); angle 0.10 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep7 t=250 action=1 reward_so_far=26 | Position (-0.25, 0.87); velocity (0.07, -0.07); angle -0.21 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep7 t=300 action=2 reward_so_far=28 | Position (-0.20, 0.78); velocity (0.12, -0.12); angle 0.17 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.34, near threshold. Continue observing.
+  ep7 t=350 action=1 reward_so_far=52 | Position (-0.20, 0.71); velocity (0.00, 0.02); angle -0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep7 t=400 action=2 reward_so_far=51 | Position (-0.21, 0.66); velocity (-0.00, -0.07); angle -0.00 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep7 t=450 action=2 reward_so_far=37 | Position (-0.21, 0.63); velocity (-0.02, 0.03); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep7 FINAL: gated=24 ungated=7 gates=5 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep8 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.41); velocity (0.49, -0.02); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep8 t= 50 action=2 reward_so_far=-7 | Position (0.19, 1.36); velocity (0.30, -0.08); angle 0.22 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 0.66 > 0.6085784965324185. Consider gated action.
+  ep8 t=100 action=2 reward_so_far=25 | Position (0.28, 1.32); velocity (0.13, -0.07); angle 0.02 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep8 t=150 action=2 reward_so_far=18 | Position (0.32, 1.24); velocity (0.02, -0.12); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep8 t=200 action=2 reward_so_far=23 | Position (0.35, 1.12); velocity (0.10, -0.06); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep8 t=250 action=0 reward_so_far=21 | Position (0.38, 1.02); velocity (0.03, -0.10); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep8 t=300 action=0 reward_so_far=18 | Position (0.38, 0.92); velocity (-0.01, -0.15); angle 0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep8 t=350 action=0 reward_so_far=28 | Position (0.36, 0.79); velocity (-0.06, -0.06); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep8 t=400 action=3 reward_so_far=32 | Position (0.33, 0.65); velocity (-0.03, -0.08); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep8 t=450 action=2 reward_so_far=43 | Position (0.32, 0.53); velocity (0.03, -0.00); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep8 FINAL: gated=26 ungated=45 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep9 t=  0 action=3 reward_so_far=0 | Position (-0.01, 1.41); velocity (-0.52, -0.06); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep9 t= 50 action=1 reward_so_far=-3 | Position (-0.22, 1.25); velocity (-0.34, -0.09); angle -0.25 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep9 t=100 action=2 reward_so_far=28 | Position (-0.34, 1.07); velocity (-0.23, -0.23); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.44, near threshold. Continue observing.
+  ep9 t=150 action=2 reward_so_far=34 | Position (-0.45, 0.96); velocity (-0.18, 0.06); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep9 t=200 action=2 reward_so_far=40 | Position (-0.50, 0.95); velocity (-0.08, -0.08); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep9 t=250 action=1 reward_so_far=25 | Position (-0.54, 0.91); velocity (-0.09, -0.05); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.51, near threshold. Continue observing.
+  ep9 t=300 action=2 reward_so_far=26 | Position (-0.57, 0.85); velocity (-0.05, -0.03); angle 0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.54, near threshold. Continue observing.
+  ep9 t=350 action=2 reward_so_far=1 | Position (-0.61, 0.88); velocity (-0.10, 0.16); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.77 > 0.6085784965324185. Consider gated action.
+  ep9 t=400 action=2 reward_so_far=-197 | Position (-0.73, 1.63); velocity (-0.36, 1.14); angle 0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.87 > 0.6085784965324185. Consider gated action.
+  ep9 t=450 action=2 reward_so_far=-516 | Position (-0.98, 3.51); velocity (-0.59, 2.22); angle 0.13 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.89 > 0.6085784965324185. Consider gated action.
+  ep9 FINAL: gated=-635 ungated=-6 gates=128 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.7863436123348018 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep10 t=  0 action=1 reward_so_far=0 | Position (0.00, 1.41); velocity (0.29, -0.07); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep10 t= 50 action=2 reward_so_far=11 | Position (0.09, 1.33); velocity (0.12, -0.06); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.26); PPO action is likely safe.
+  ep10 t=100 action=1 reward_so_far=6 | Position (0.14, 1.30); velocity (0.02, -0.09); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.36, near threshold. Continue observing.
+  ep10 t=150 action=2 reward_so_far=-11 | Position (0.08, 1.17); velocity (-0.14, -0.18); angle -0.17 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.42, near threshold. Continue observing.
+  ep10 t=200 action=1 reward_so_far=7 | Position (0.07, 1.07); velocity (-0.00, -0.11); angle 0.06 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep10 t=250 action=1 reward_so_far=13 | Position (0.05, 0.99); velocity (-0.06, -0.09); angle -0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep10 t=300 action=0 reward_so_far=10 | Position (0.02, 0.85); velocity (-0.12, -0.12); angle 0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep10 t=350 action=2 reward_so_far=17 | Position (-0.04, 0.72); velocity (-0.10, -0.11); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep10 t=400 action=0 reward_so_far=21 | Position (-0.06, 0.61); velocity (-0.03, -0.06); angle 0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep10 t=450 action=2 reward_so_far=17 | Position (-0.08, 0.49); velocity (-0.05, -0.15); angle 0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep10 FINAL: gated=5 ungated=22 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep11 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.42); velocity (0.43, 0.39); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep11 t= 50 action=2 reward_so_far=9 | Position (0.17, 1.47); velocity (0.20, 0.02); angle 0.17 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.28); PPO action is likely safe.
+  ep11 t=100 action=2 reward_so_far=22 | Position (0.22, 1.37); velocity (0.12, -0.16); angle -0.07 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep11 t=150 action=2 reward_so_far=21 | Position (0.28, 1.26); velocity (0.12, -0.14); angle 0.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep11 t=200 action=2 reward_so_far=25 | Position (0.33, 1.20); velocity (0.11, -0.03); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep11 t=250 action=2 reward_so_far=19 | Position (0.37, 1.10); velocity (0.04, -0.14); angle 0.11 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep11 t=300 action=1 reward_so_far=18 | Position (0.35, 0.98); velocity (-0.04, -0.12); angle -0.12 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep11 t=350 action=1 reward_so_far=30 | Position (0.34, 0.85); velocity (0.03, -0.10); angle -0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep11 t=400 action=3 reward_so_far=28 | Position (0.36, 0.77); velocity (0.06, -0.02); angle 0.09 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep11 t=450 action=2 reward_so_far=36 | Position (0.38, 0.64); velocity (0.04, -0.10); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep11 FINAL: gated=28 ungated=-28 gates=1 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep12 t=  0 action=2 reward_so_far=0 | Position (-0.00, 1.40); velocity (-0.41, -0.38); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep12 t= 50 action=2 reward_so_far=18 | Position (-0.21, 1.11); velocity (-0.31, -0.21); angle -0.17 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep12 t=100 action=0 reward_so_far=55 | Position (-0.30, 1.02); velocity (-0.11, 0.01); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep12 t=150 action=3 reward_so_far=43 | Position (-0.39, 0.93); velocity (-0.17, -0.00); angle -0.06 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.34, near threshold. Continue observing.
+  ep12 t=200 action=3 reward_so_far=38 | Position (-0.48, 0.86); velocity (-0.18, -0.05); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep12 t=250 action=2 reward_so_far=26 | Position (-0.55, 0.76); velocity (-0.02, -0.13); angle -0.18 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.56, near threshold. Continue observing.
+  ep12 t=300 action=3 reward_so_far=19 | Position (-0.56, 0.63); velocity (-0.18, -0.07); angle 0.15 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.59, near threshold. Continue observing.
+  ep12 t=350 action=2 reward_so_far=24 | Position (-0.64, 0.51); velocity (-0.11, -0.15); angle -0.09 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep12 t=400 action=1 reward_so_far=26 | Position (-0.68, 0.36); velocity (-0.11, 0.04); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep12 t=450 action=3 reward_so_far=19 | Position (-0.72, 0.29); velocity (-0.05, -0.10); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep12 FINAL: gated=-2 ungated=14 gates=26 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep13 t=  0 action=3 reward_so_far=0 | Position (-0.01, 1.41); velocity (-0.79, -0.04); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep13 t= 50 action=2 reward_so_far=23 | Position (-0.32, 1.15); velocity (-0.38, -0.19); angle -0.30 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep13 t=100 action=1 reward_so_far=72 | Position (-0.42, 1.02); velocity (-0.16, -0.06); angle -0.02 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.26); PPO action is likely safe.
+  ep13 t=150 action=2 reward_so_far=66 | Position (-0.49, 0.98); velocity (-0.11, -0.02); angle 0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: intervene. Monitor says 0.63 > 0.6085784965324185. Consider gated action.
+  ep13 t=200 action=2 reward_so_far=41 | Position (-0.58, 0.92); velocity (-0.22, -0.05); angle -0.14 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.54, near threshold. Continue observing.
+  ep13 t=250 action=2 reward_so_far=47 | Position (-0.66, 0.94); velocity (-0.10, -0.02); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.49, near threshold. Continue observing.
+  ep13 t=300 action=2 reward_so_far=-33 | Position (-0.70, 1.07); velocity (0.09, 0.45); angle -0.19 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.85 > 0.6085784965324185. Consider gated action.
+  ep13 t=350 action=2 reward_so_far=-318 | Position (-0.42, 2.23); velocity (1.11, 1.43); angle -0.50 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.87 > 0.6085784965324185. Consider gated action.
+  ep13 t=400 action=2 reward_so_far=-761 | Position (0.71, 4.16); velocity (3.40, 1.89); angle -0.74 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: intervene. Monitor says 0.89 > 0.6085784965324185. Consider gated action.
+  ep13 FINAL: gated=-914 ungated=6 gates=149 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.7188264058679706 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep14 t=  0 action=2 reward_so_far=-0 | Position (-0.01, 1.40); velocity (-0.68, -0.35); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep14 t= 50 action=2 reward_so_far=-4 | Position (-0.33, 1.16); velocity (-0.59, -0.23); angle -0.30 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.42, near threshold. Continue observing.
+  ep14 t=100 action=2 reward_so_far=62 | Position (-0.52, 0.88); velocity (-0.23, -0.17); angle -0.10 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep14 t=150 action=2 reward_so_far=65 | Position (-0.61, 0.81); velocity (-0.11, -0.10); angle -0.08 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.39, near threshold. Continue observing.
+  ep14 t=200 action=1 reward_so_far=49 | Position (-0.66, 0.70); velocity (-0.12, -0.07); angle 0.18 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.50, near threshold. Continue observing.
+  ep14 t=250 action=2 reward_so_far=-147 | Position (-0.90, 1.13); velocity (-0.93, 0.86); angle 0.35 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.88 > 0.6085784965324185. Consider gated action.
+  ep14 FINAL: gated=-293 ungated=9 gates=66 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.823076923076923 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep15 t=  0 action=3 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.24, 0.07); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep15 t= 50 action=3 reward_so_far=-6 | Position (-0.12, 1.36); velocity (-0.20, -0.01); angle -0.08 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.38, near threshold. Continue observing.
+  ep15 t=100 action=2 reward_so_far=-3 | Position (-0.21, 1.28); velocity (-0.13, 0.01); angle -0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.50, near threshold. Continue observing.
+  ep15 t=150 action=2 reward_so_far=-13 | Position (-0.30, 1.23); velocity (-0.19, -0.05); angle -0.09 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.54, near threshold. Continue observing.
+  ep15 t=200 action=1 reward_so_far=-6 | Position (-0.34, 1.24); velocity (-0.04, 0.01); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.39, near threshold. Continue observing.
+  ep15 t=250 action=3 reward_so_far=-20 | Position (-0.36, 1.18); velocity (-0.03, -0.09); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.54, near threshold. Continue observing.
+  ep15 t=300 action=1 reward_so_far=-14 | Position (-0.33, 1.10); velocity (0.02, -0.06); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep15 t=350 action=3 reward_so_far=-18 | Position (-0.34, 1.02); velocity (-0.04, -0.07); angle -0.06 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep15 t=400 action=2 reward_so_far=-27 | Position (-0.36, 0.94); velocity (-0.16, 0.00); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.66 > 0.6085784965324185. Consider gated action.
+  ep15 t=450 action=2 reward_so_far=-30 | Position (-0.43, 0.90); velocity (-0.13, -0.05); angle -0.04 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: intervene. Monitor says 0.67 > 0.6085784965324185. Consider gated action.
+  ep15 FINAL: gated=-33 ungated=25 gates=18 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep16 t=  0 action=2 reward_so_far=0 | Position (0.00, 1.40); velocity (0.24, -0.52); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep16 t= 50 action=2 reward_so_far=38 | Position (0.11, 1.23); velocity (0.17, 0.01); angle 0.05 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep16 t=100 action=3 reward_so_far=42 | Position (0.16, 1.20); velocity (0.03, 0.00); angle 0.09 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep16 t=150 action=2 reward_so_far=40 | Position (0.14, 1.12); velocity (-0.03, -0.12); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.45, near threshold. Continue observing.
+  ep16 t=200 action=2 reward_so_far=41 | Position (0.11, 1.02); velocity (-0.06, -0.05); angle -0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep16 t=250 action=0 reward_so_far=47 | Position (0.09, 0.92); velocity (-0.03, -0.08); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep16 t=300 action=2 reward_so_far=47 | Position (0.05, 0.81); velocity (-0.07, 0.01); angle -0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep16 t=350 action=2 reward_so_far=39 | Position (-0.01, 0.71); velocity (-0.13, -0.09); angle -0.06 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep16 t=400 action=2 reward_so_far=45 | Position (-0.04, 0.60); velocity (-0.00, -0.16); angle -0.06 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep16 t=450 action=2 reward_so_far=51 | Position (-0.04, 0.50); velocity (0.04, -0.11); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep16 FINAL: gated=49 ungated=8 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep17 t=  0 action=1 reward_so_far=0 | Position (0.00, 1.41); velocity (0.45, -0.09); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep17 t= 50 action=2 reward_so_far=-2 | Position (0.18, 1.28); velocity (0.22, -0.16); angle 0.27 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep17 t=100 action=2 reward_so_far=34 | Position (0.20, 1.15); velocity (-0.03, -0.15); angle -0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep17 t=150 action=2 reward_so_far=41 | Position (0.17, 1.07); velocity (-0.02, -0.06); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep17 t=200 action=3 reward_so_far=26 | Position (0.18, 1.07); velocity (-0.02, -0.09); angle 0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep17 t=250 action=2 reward_so_far=36 | Position (0.19, 0.92); velocity (0.05, -0.11); angle -0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep17 t=300 action=1 reward_so_far=38 | Position (0.18, 0.78); velocity (-0.07, -0.08); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep17 t=350 action=2 reward_so_far=34 | Position (0.12, 0.61); velocity (-0.06, -0.21); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep17 t=400 action=2 reward_so_far=54 | Position (0.11, 0.47); velocity (-0.02, -0.11); angle 0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep17 t=450 action=2 reward_so_far=40 | Position (0.06, 0.38); velocity (-0.16, -0.18); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep17 FINAL: gated=54 ungated=42 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep18 t=  0 action=1 reward_so_far=0 | Position (0.01, 1.41); velocity (0.74, 0.01); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep18 t= 50 action=2 reward_so_far=5 | Position (0.31, 1.32); velocity (0.41, -0.06); angle 0.24 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep18 t=100 action=2 reward_so_far=46 | Position (0.43, 1.22); velocity (0.16, -0.15); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep18 t=150 action=2 reward_so_far=50 | Position (0.45, 1.09); velocity (0.01, -0.18); angle -0.06 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep18 t=200 action=3 reward_so_far=62 | Position (0.45, 0.96); velocity (0.01, -0.07); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep18 t=250 action=2 reward_so_far=70 | Position (0.44, 0.77); velocity (-0.07, -0.09); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep18 t=300 action=2 reward_so_far=68 | Position (0.43, 0.65); velocity (-0.02, -0.18); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep18 t=350 action=2 reward_so_far=77 | Position (0.44, 0.47); velocity (0.03, -0.12); angle -0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep18 t=400 action=2 reward_so_far=70 | Position (0.44, 0.29); velocity (-0.00, -0.17); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep18 t=450 action=0 reward_so_far=72 | Position (0.46, 0.14); velocity (0.07, -0.10); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep18 FINAL: gated=78 ungated=24 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep19 t=  0 action=1 reward_so_far=3 | Position (0.00, 1.41); velocity (0.03, 0.05); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep19 t= 50 action=2 reward_so_far=-13 | Position (0.00, 1.39); velocity (0.00, -0.03); angle 0.08 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep19 t=100 action=2 reward_so_far=-15 | Position (-0.01, 1.34); velocity (0.00, -0.00); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep19 t=150 action=3 reward_so_far=-15 | Position (0.00, 1.30); velocity (-0.00, -0.01); angle -0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep19 t=200 action=3 reward_so_far=-26 | Position (-0.03, 1.23); velocity (-0.04, -0.04); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep19 t=250 action=1 reward_so_far=-32 | Position (-0.07, 1.14); velocity (-0.10, -0.10); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep19 t=300 action=0 reward_so_far=-27 | Position (-0.11, 1.03); velocity (-0.03, -0.06); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep19 t=350 action=2 reward_so_far=-21 | Position (-0.10, 0.94); velocity (0.01, -0.05); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep19 t=400 action=2 reward_so_far=-34 | Position (-0.09, 0.85); velocity (0.00, -0.10); angle 0.13 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep19 t=450 action=2 reward_so_far=-26 | Position (-0.10, 0.77); velocity (0.02, -0.09); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep19 FINAL: gated=-24 ungated=24 gates=5 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep20 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.42); velocity (0.33, 0.26); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep20 t= 50 action=3 reward_so_far=-21 | Position (0.14, 1.39); velocity (0.19, -0.09); angle 0.34 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep20 t=100 action=1 reward_so_far=21 | Position (0.17, 1.27); velocity (-0.07, -0.10); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep20 t=150 action=2 reward_so_far=25 | Position (0.12, 1.16); velocity (-0.07, -0.11); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep20 t=200 action=1 reward_so_far=21 | Position (0.08, 0.99); velocity (-0.16, -0.14); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep20 t=250 action=1 reward_so_far=41 | Position (0.04, 0.80); velocity (0.06, -0.07); angle -0.07 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep20 t=300 action=2 reward_so_far=40 | Position (0.06, 0.75); velocity (0.02, -0.12); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep20 t=350 action=2 reward_so_far=32 | Position (0.05, 0.70); velocity (-0.03, -0.14); angle 0.06 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep20 t=400 action=0 reward_so_far=24 | Position (0.05, 0.63); velocity (0.04, -0.07); angle -0.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep20 t=450 action=2 reward_so_far=27 | Position (0.09, 0.51); velocity (0.01, -0.13); angle 0.12 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep20 FINAL: gated=34 ungated=15 gates=10 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep21 t=  0 action=3 reward_so_far=2 | Position (-0.00, 1.41); velocity (-0.16, 0.07); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep21 t= 50 action=1 reward_so_far=-10 | Position (-0.07, 1.32); velocity (-0.13, -0.16); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep21 t=100 action=3 reward_so_far=7 | Position (-0.13, 1.18); velocity (-0.09, -0.01); angle -0.06 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep21 t=150 action=3 reward_so_far=7 | Position (-0.15, 1.09); velocity (-0.06, -0.10); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.38, near threshold. Continue observing.
+  ep21 t=200 action=2 reward_so_far=14 | Position (-0.19, 0.96); velocity (-0.06, -0.06); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep21 t=250 action=1 reward_so_far=13 | Position (-0.22, 0.89); velocity (0.01, -0.02); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep21 t=300 action=3 reward_so_far=9 | Position (-0.22, 0.86); velocity (-0.00, -0.00); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep21 t=350 action=2 reward_so_far=-2 | Position (-0.26, 0.73); velocity (-0.15, -0.14); angle -0.04 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep21 t=400 action=2 reward_so_far=-5 | Position (-0.27, 0.69); velocity (0.01, 0.02); angle -0.11 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.37, near threshold. Continue observing.
+  ep21 t=450 action=3 reward_so_far=-7 | Position (-0.26, 0.65); velocity (0.05, -0.09); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep21 FINAL: gated=-8 ungated=-62 gates=4 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep22 t=  0 action=0 reward_so_far=1 | Position (0.00, 1.42); velocity (0.34, 0.23); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep22 t= 50 action=2 reward_so_far=-2 | Position (0.13, 1.42); velocity (0.22, -0.05); angle 0.11 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.58, near threshold. Continue observing.
+  ep22 t=100 action=2 reward_so_far=18 | Position (0.20, 1.38); velocity (0.07, -0.03); angle 0.02 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep22 t=150 action=3 reward_so_far=1 | Position (0.21, 1.28); velocity (0.03, -0.17); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep22 t=200 action=2 reward_so_far=12 | Position (0.19, 1.15); velocity (-0.12, -0.10); angle -0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep22 t=250 action=2 reward_so_far=23 | Position (0.16, 1.06); velocity (0.00, -0.06); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep22 t=300 action=2 reward_so_far=23 | Position (0.17, 0.96); velocity (-0.02, -0.10); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep22 t=350 action=3 reward_so_far=11 | Position (0.18, 0.84); velocity (0.05, -0.13); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep22 t=400 action=2 reward_so_far=21 | Position (0.18, 0.71); velocity (-0.03, -0.17); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep22 t=450 action=1 reward_so_far=30 | Position (0.18, 0.58); velocity (0.04, -0.08); angle 0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep22 FINAL: gated=34 ungated=-9 gates=1 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep23 t=  0 action=2 reward_so_far=1 | Position (0.01, 1.40); velocity (0.73, -0.48); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep23 t= 50 action=3 reward_so_far=13 | Position (0.34, 1.19); velocity (0.56, -0.06); angle 0.22 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep23 t=100 action=1 reward_so_far=64 | Position (0.52, 1.09); velocity (0.21, -0.06); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.04); PPO action is likely safe.
+  ep23 t=150 action=3 reward_so_far=39 | Position (0.62, 1.02); velocity (0.21, -0.05); angle 0.18 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep23 t=200 action=2 reward_so_far=57 | Position (0.69, 0.88); velocity (0.08, -0.17); angle -0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep23 t=250 action=2 reward_so_far=56 | Position (0.73, 0.65); velocity (0.05, -0.12); angle 0.14 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep23 t=300 action=2 reward_so_far=54 | Position (0.71, 0.45); velocity (-0.07, -0.24); angle -0.11 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep23 t=350 action=1 reward_so_far=62 | Position (0.71, 0.26); velocity (0.05, -0.15); angle -0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep23 t=400 action=2 reward_so_far=55 | Position (0.74, 0.04); velocity (0.00, -0.22); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep23 FINAL: gated=-36 ungated=43 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep24 t=  0 action=2 reward_so_far=4 | Position (0.00, 1.40); velocity (0.28, -0.46); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep24 t= 50 action=2 reward_so_far=36 | Position (0.14, 1.21); velocity (0.15, -0.06); angle 0.11 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep24 t=100 action=2 reward_so_far=51 | Position (0.16, 1.12); velocity (0.03, -0.12); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep24 t=150 action=1 reward_so_far=43 | Position (0.14, 1.02); velocity (-0.06, -0.10); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep24 t=200 action=0 reward_so_far=57 | Position (0.11, 0.91); velocity (0.01, -0.00); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep24 t=250 action=2 reward_so_far=48 | Position (0.12, 0.82); velocity (0.03, -0.13); angle -0.06 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep24 t=300 action=3 reward_so_far=56 | Position (0.13, 0.74); velocity (-0.02, -0.01); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep24 t=350 action=2 reward_so_far=38 | Position (0.14, 0.64); velocity (0.02, -0.17); angle 0.08 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep24 t=400 action=1 reward_so_far=54 | Position (0.14, 0.50); velocity (0.04, -0.04); angle -0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep24 t=450 action=0 reward_so_far=48 | Position (0.15, 0.38); velocity (-0.04, -0.18); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep24 FINAL: gated=61 ungated=92 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep25 t=  0 action=1 reward_so_far=1 | Position (0.01, 1.42); velocity (0.80, 0.30); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep25 t= 50 action=1 reward_so_far=-3 | Position (0.32, 1.45); velocity (0.44, -0.04); angle 0.32 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.30, near threshold. Continue observing.
+  ep25 t=100 action=2 reward_so_far=48 | Position (0.45, 1.33); velocity (0.16, -0.19); angle 0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep25 t=150 action=2 reward_so_far=48 | Position (0.53, 1.25); velocity (0.11, -0.08); angle 0.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep25 t=200 action=2 reward_so_far=50 | Position (0.55, 1.16); velocity (0.06, -0.16); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep25 t=250 action=1 reward_so_far=43 | Position (0.59, 1.00); velocity (0.14, -0.02); angle -0.12 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep25 t=300 action=1 reward_so_far=45 | Position (0.65, 0.87); velocity (0.10, -0.13); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep25 t=350 action=3 reward_so_far=42 | Position (0.68, 0.72); velocity (0.05, -0.22); angle -0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep25 t=400 action=1 reward_so_far=46 | Position (0.71, 0.51); velocity (0.10, -0.18); angle 0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep25 t=450 action=0 reward_so_far=51 | Position (0.74, 0.28); velocity (0.02, -0.13); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.04); PPO action is likely safe.
+  ep25 FINAL: gated=34 ungated=46 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep26 t=  0 action=3 reward_so_far=0 | Position (-0.00, 1.41); velocity (-0.43, -0.10); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep26 t= 50 action=1 reward_so_far=-1 | Position (-0.18, 1.28); velocity (-0.23, -0.14); angle -0.21 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.30, near threshold. Continue observing.
+  ep26 t=100 action=2 reward_so_far=23 | Position (-0.26, 1.08); velocity (-0.19, -0.13); angle 0.12 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep26 t=150 action=2 reward_so_far=27 | Position (-0.36, 0.98); velocity (-0.17, -0.08); angle -0.09 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep26 t=200 action=1 reward_so_far=29 | Position (-0.43, 0.94); velocity (-0.11, -0.06); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep26 t=250 action=3 reward_so_far=32 | Position (-0.47, 0.90); velocity (0.01, -0.01); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.26); PPO action is likely safe.
+  ep26 t=300 action=3 reward_so_far=12 | Position (-0.49, 0.86); velocity (-0.16, 0.05); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.47, near threshold. Continue observing.
+  ep26 t=350 action=2 reward_so_far=9 | Position (-0.55, 0.88); velocity (-0.05, -0.05); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep26 t=400 action=1 reward_so_far=4 | Position (-0.59, 0.79); velocity (-0.08, 0.00); angle -0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.28); PPO action is likely safe.
+  ep26 t=450 action=2 reward_so_far=-0 | Position (-0.65, 0.72); velocity (-0.03, -0.03); angle -0.02 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep26 FINAL: gated=-13 ungated=35 gates=33 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep27 t=  0 action=2 reward_so_far=3 | Position (0.00, 1.40); velocity (0.21, -0.33); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep27 t= 50 action=2 reward_so_far=14 | Position (0.11, 1.32); velocity (0.13, 0.02); angle 0.10 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: monitor. Monitor says 0.51, near threshold. Continue observing.
+  ep27 t=100 action=2 reward_so_far=6 | Position (0.18, 1.28); velocity (0.17, 0.04); angle 0.07 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep27 t=150 action=2 reward_so_far=12 | Position (0.21, 1.23); velocity (0.06, -0.11); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.47, near threshold. Continue observing.
+  ep27 t=200 action=0 reward_so_far=15 | Position (0.22, 1.18); velocity (0.04, -0.02); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep27 t=250 action=2 reward_so_far=0 | Position (0.21, 1.08); velocity (-0.01, -0.21); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep27 t=300 action=2 reward_so_far=15 | Position (0.21, 1.01); velocity (0.02, -0.07); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep27 t=350 action=2 reward_so_far=0 | Position (0.21, 0.88); velocity (-0.05, -0.17); angle 0.09 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep27 t=400 action=2 reward_so_far=-3 | Position (0.20, 0.76); velocity (0.09, -0.17); angle -0.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep27 t=450 action=2 reward_so_far=10 | Position (0.25, 0.63); velocity (0.05, -0.09); angle 0.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep27 FINAL: gated=16 ungated=32 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep28 t=  0 action=2 reward_so_far=1 | Position (0.00, 1.40); velocity (0.20, -0.39); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep28 t= 50 action=2 reward_so_far=18 | Position (0.08, 1.21); velocity (0.12, -0.12); angle 0.20 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep28 t=100 action=2 reward_so_far=39 | Position (0.07, 1.11); velocity (-0.04, -0.15); angle -0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep28 t=150 action=0 reward_so_far=32 | Position (0.02, 1.02); velocity (-0.08, -0.11); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.30); PPO action is likely safe.
+  ep28 t=200 action=2 reward_so_far=32 | Position (-0.01, 0.94); velocity (-0.01, -0.14); angle 0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep28 t=250 action=0 reward_so_far=40 | Position (-0.06, 0.84); velocity (-0.09, -0.01); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep28 t=300 action=1 reward_so_far=36 | Position (-0.07, 0.76); velocity (0.05, -0.07); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep28 t=350 action=2 reward_so_far=31 | Position (-0.07, 0.66); velocity (-0.06, -0.19); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep28 t=400 action=2 reward_so_far=44 | Position (-0.08, 0.54); velocity (0.06, -0.03); angle 0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep28 t=450 action=1 reward_so_far=33 | Position (-0.05, 0.44); velocity (0.03, -0.12); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep28 FINAL: gated=48 ungated=11 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep29 t=  0 action=3 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.36, 0.38); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep29 t= 50 action=1 reward_so_far=-5 | Position (-0.15, 1.43); velocity (-0.27, -0.17); angle -0.17 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.59, near threshold. Continue observing.
+  ep29 t=100 action=2 reward_so_far=23 | Position (-0.24, 1.35); velocity (-0.15, 0.01); angle 0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep29 t=150 action=2 reward_so_far=19 | Position (-0.30, 1.29); velocity (-0.09, 0.06); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep29 t=200 action=3 reward_so_far=11 | Position (-0.33, 1.25); velocity (-0.09, -0.01); angle 0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.60, near threshold. Continue observing.
+  ep29 t=250 action=2 reward_so_far=16 | Position (-0.36, 1.12); velocity (-0.07, -0.10); angle 0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep29 t=300 action=2 reward_so_far=4 | Position (-0.41, 1.07); velocity (-0.15, -0.09); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.34, near threshold. Continue observing.
+  ep29 t=350 action=0 reward_so_far=5 | Position (-0.46, 1.04); velocity (-0.11, 0.01); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep29 t=400 action=2 reward_so_far=-140 | Position (-0.57, 1.38); velocity (-0.45, 0.81); angle 0.12 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.85 > 0.6085784965324185. Consider gated action.
+  ep29 t=450 action=2 reward_so_far=-409 | Position (-0.89, 2.86); velocity (-0.77, 1.87); angle 0.07 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.88 > 0.6085784965324185. Consider gated action.
+  ep29 FINAL: gated=-598 ungated=29 gates=128 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.810752688172043 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep30 t=  0 action=2 reward_so_far=4 | Position (0.00, 1.40); velocity (0.36, -0.44); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep30 t= 50 action=2 reward_so_far=17 | Position (0.19, 1.15); velocity (0.30, -0.16); angle 0.19 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep30 t=100 action=1 reward_so_far=53 | Position (0.25, 1.02); velocity (-0.02, -0.12); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep30 t=150 action=3 reward_so_far=65 | Position (0.25, 0.81); velocity (0.10, -0.11); angle -0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep30 t=200 action=2 reward_so_far=69 | Position (0.31, 0.69); velocity (0.10, -0.04); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep30 t=250 action=2 reward_so_far=65 | Position (0.35, 0.56); velocity (0.07, -0.11); angle -0.07 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep30 t=300 action=2 reward_so_far=56 | Position (0.41, 0.49); velocity (0.13, -0.13); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep30 t=350 action=3 reward_so_far=54 | Position (0.46, 0.34); velocity (0.03, -0.13); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep30 t=400 action=2 reward_so_far=51 | Position (0.50, 0.16); velocity (0.13, -0.14); angle 0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep30 t=450 action=3 reward_so_far=36 | Position (0.52, -0.04); velocity (-0.15, -0.16); angle 0.18 rad; legs (L=1, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep30 FINAL: gated=68 ungated=-16 gates=2 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep31 t=  0 action=1 reward_so_far=-2 | Position (0.00, 1.41); velocity (0.05, -0.19); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep31 t= 50 action=1 reward_so_far=1 | Position (-0.00, 1.35); velocity (0.02, -0.12); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep31 t=100 action=2 reward_so_far=4 | Position (-0.01, 1.23); velocity (-0.01, -0.16); angle -0.02 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.37, near threshold. Continue observing.
+  ep31 t=150 action=1 reward_so_far=5 | Position (0.00, 1.20); velocity (-0.04, 0.05); angle -0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep31 t=200 action=1 reward_so_far=-3 | Position (-0.01, 1.15); velocity (-0.02, -0.03); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep31 t=250 action=2 reward_so_far=-12 | Position (0.01, 1.09); velocity (0.08, -0.11); angle 0.08 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.48, near threshold. Continue observing.
+  ep31 t=300 action=3 reward_so_far=1 | Position (0.01, 0.97); velocity (-0.05, -0.03); angle 0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep31 t=350 action=2 reward_so_far=-3 | Position (-0.00, 0.88); velocity (0.04, -0.10); angle -0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep31 t=400 action=1 reward_so_far=-26 | Position (0.00, 0.77); velocity (-0.06, -0.17); angle 0.18 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep31 t=450 action=2 reward_so_far=-2 | Position (-0.07, 0.57); velocity (-0.15, -0.17); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.17); PPO action is likely safe.
+  ep31 FINAL: gated=10 ungated=-5 gates=6 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep32 t=  0 action=1 reward_so_far=-2 | Position (0.00, 1.41); velocity (0.03, -0.14); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep32 t= 50 action=2 reward_so_far=-4 | Position (-0.01, 1.35); velocity (-0.03, -0.12); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep32 t=100 action=0 reward_so_far=-10 | Position (0.01, 1.29); velocity (0.05, -0.08); angle -0.06 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.51, near threshold. Continue observing.
+  ep32 t=150 action=2 reward_so_far=-3 | Position (0.04, 1.19); velocity (0.04, -0.08); angle 0.04 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep32 t=200 action=2 reward_so_far=-25 | Position (0.03, 1.07); velocity (-0.05, -0.22); angle 0.16 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep32 t=250 action=2 reward_so_far=-10 | Position (-0.01, 0.97); velocity (-0.07, -0.09); angle -0.11 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep32 t=300 action=2 reward_so_far=-10 | Position (-0.05, 0.81); velocity (-0.07, -0.20); angle 0.09 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep32 t=350 action=2 reward_so_far=0 | Position (-0.09, 0.69); velocity (-0.06, -0.19); angle -0.04 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep32 t=400 action=0 reward_so_far=7 | Position (-0.11, 0.57); velocity (-0.04, -0.06); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep32 t=450 action=2 reward_so_far=11 | Position (-0.14, 0.43); velocity (-0.05, -0.13); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep32 FINAL: gated=15 ungated=65 gates=6 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep33 t=  0 action=1 reward_so_far=1 | Position (0.00, 1.41); velocity (0.44, -0.02); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep33 t= 50 action=2 reward_so_far=3 | Position (0.17, 1.36); velocity (0.24, -0.06); angle 0.12 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep33 t=100 action=2 reward_so_far=29 | Position (0.21, 1.22); velocity (-0.08, -0.10); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep33 t=150 action=3 reward_so_far=28 | Position (0.20, 0.97); velocity (0.15, -0.14); angle -0.10 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep33 t=200 action=2 reward_so_far=27 | Position (0.29, 0.86); velocity (0.15, -0.18); angle 0.15 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep33 t=250 action=1 reward_so_far=45 | Position (0.34, 0.76); velocity (0.10, -0.04); angle 0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep33 t=300 action=1 reward_so_far=41 | Position (0.38, 0.70); velocity (0.03, -0.06); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep33 t=350 action=2 reward_so_far=24 | Position (0.43, 0.56); velocity (0.10, -0.15); angle 0.09 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep33 t=400 action=2 reward_so_far=16 | Position (0.42, 0.35); velocity (-0.12, -0.27); angle -0.12 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep33 t=450 action=2 reward_so_far=38 | Position (0.44, 0.00); velocity (0.23, -0.28); angle 0.08 rad; legs (L=0, R=1). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.03); PPO action is likely safe.
+  ep33 FINAL: gated=-62 ungated=37 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.9535398230088495 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep34 t=  0 action=3 reward_so_far=1 | Position (-0.00, 1.41); velocity (-0.47, 0.07); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep34 t= 50 action=3 reward_so_far=13 | Position (-0.18, 1.27); velocity (-0.22, -0.07); angle -0.18 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep34 t=100 action=3 reward_so_far=15 | Position (-0.25, 1.20); velocity (-0.20, -0.03); angle 0.16 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.60, near threshold. Continue observing.
+  ep34 t=150 action=2 reward_so_far=3 | Position (-0.37, 1.12); velocity (-0.23, -0.14); angle -0.18 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.46, near threshold. Continue observing.
+  ep34 t=200 action=2 reward_so_far=32 | Position (-0.44, 0.98); velocity (-0.11, -0.11); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep34 t=250 action=2 reward_so_far=32 | Position (-0.47, 0.96); velocity (0.05, -0.04); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.39, near threshold. Continue observing.
+  ep34 t=300 action=1 reward_so_far=27 | Position (-0.46, 0.95); velocity (0.02, 0.03); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep34 t=350 action=2 reward_so_far=3 | Position (-0.48, 0.88); velocity (-0.13, -0.01); angle 0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.51, near threshold. Continue observing.
+  ep34 t=400 action=2 reward_so_far=-12 | Position (-0.58, 0.78); velocity (-0.25, -0.08); angle -0.08 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep34 t=450 action=2 reward_so_far=-21 | Position (-0.68, 0.71); velocity (-0.17, -0.11); angle -0.12 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: intervene. Monitor says 0.66 > 0.6085784965324185. Consider gated action.
+  ep34 FINAL: gated=-18 ungated=44 gates=39 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep35 t=  0 action=2 reward_so_far=2 | Position (0.00, 1.40); velocity (0.46, -0.30); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep35 t= 50 action=3 reward_so_far=2 | Position (0.21, 1.32); velocity (0.35, -0.01); angle 0.15 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep35 t=100 action=0 reward_so_far=21 | Position (0.31, 1.28); velocity (0.08, -0.11); angle -0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep35 t=150 action=3 reward_so_far=30 | Position (0.37, 1.06); velocity (0.17, -0.09); angle 0.05 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep35 t=200 action=2 reward_so_far=34 | Position (0.43, 0.96); velocity (0.08, -0.13); angle 0.05 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep35 t=250 action=2 reward_so_far=28 | Position (0.49, 0.83); velocity (0.12, -0.13); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep35 t=300 action=2 reward_so_far=35 | Position (0.52, 0.67); velocity (0.03, -0.15); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep35 t=350 action=2 reward_so_far=44 | Position (0.51, 0.52); velocity (-0.05, -0.14); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep35 t=400 action=2 reward_so_far=38 | Position (0.48, 0.33); velocity (-0.01, -0.20); angle -0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep35 t=450 action=3 reward_so_far=34 | Position (0.52, 0.19); velocity (0.05, -0.09); angle 0.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep35 FINAL: gated=42 ungated=104 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep36 t=  0 action=0 reward_so_far=1 | Position (-0.00, 1.42); velocity (-0.31, 0.47); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep36 t= 50 action=1 reward_so_far=5 | Position (-0.10, 1.49); velocity (-0.10, -0.15); angle -0.18 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep36 t=100 action=2 reward_so_far=29 | Position (-0.13, 1.35); velocity (-0.08, -0.12); angle 0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep36 t=150 action=2 reward_so_far=23 | Position (-0.18, 1.30); velocity (-0.10, -0.07); angle -0.09 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.61, near threshold. Continue observing.
+  ep36 t=200 action=2 reward_so_far=25 | Position (-0.22, 1.25); velocity (-0.03, -0.12); angle -0.06 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep36 t=250 action=2 reward_so_far=17 | Position (-0.26, 1.20); velocity (-0.14, -0.07); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.47, near threshold. Continue observing.
+  ep36 t=300 action=2 reward_so_far=17 | Position (-0.33, 1.13); velocity (-0.11, 0.00); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep36 t=350 action=2 reward_so_far=-5 | Position (-0.41, 1.09); velocity (-0.13, -0.11); angle -0.13 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep36 t=400 action=2 reward_so_far=12 | Position (-0.43, 0.99); velocity (-0.06, -0.02); angle 0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep36 t=450 action=0 reward_so_far=1 | Position (-0.46, 0.93); velocity (-0.10, -0.06); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep36 FINAL: gated=4 ungated=19 gates=27 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep37 t=  0 action=3 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.21, 0.47); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep37 t= 50 action=1 reward_so_far=27 | Position (-0.07, 1.47); velocity (-0.06, -0.01); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep37 t=100 action=2 reward_so_far=24 | Position (-0.07, 1.38); velocity (0.04, -0.05); angle -0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.42, near threshold. Continue observing.
+  ep37 t=150 action=1 reward_so_far=13 | Position (-0.05, 1.32); velocity (-0.03, -0.13); angle 0.08 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep37 t=200 action=1 reward_so_far=26 | Position (-0.07, 1.20); velocity (0.07, -0.08); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep37 t=250 action=3 reward_so_far=24 | Position (-0.06, 1.07); velocity (-0.09, -0.05); angle 0.09 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep37 t=300 action=2 reward_so_far=26 | Position (-0.06, 0.87); velocity (0.11, -0.21); angle -0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep37 t=350 action=1 reward_so_far=42 | Position (-0.04, 0.76); velocity (-0.05, -0.06); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.13); PPO action is likely safe.
+  ep37 t=400 action=2 reward_so_far=37 | Position (-0.08, 0.63); velocity (-0.07, -0.18); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep37 t=450 action=3 reward_so_far=43 | Position (-0.11, 0.54); velocity (-0.11, -0.08); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep37 FINAL: gated=37 ungated=-55 gates=9 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep38 t=  0 action=1 reward_so_far=2 | Position (0.00, 1.41); velocity (0.09, 0.05); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep38 t= 50 action=2 reward_so_far=-7 | Position (0.01, 1.40); velocity (-0.05, -0.03); angle 0.06 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.37, near threshold. Continue observing.
+  ep38 t=100 action=1 reward_so_far=-15 | Position (-0.02, 1.34); velocity (-0.07, -0.08); angle -0.04 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep38 t=150 action=2 reward_so_far=-24 | Position (-0.06, 1.25); velocity (-0.13, -0.10); angle 0.11 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.45, near threshold. Continue observing.
+  ep38 t=200 action=3 reward_so_far=-18 | Position (-0.12, 1.16); velocity (-0.05, -0.07); angle -0.08 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep38 t=250 action=2 reward_so_far=-13 | Position (-0.13, 1.13); velocity (-0.00, 0.01); angle 0.03 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep38 t=300 action=2 reward_so_far=-16 | Position (-0.13, 1.04); velocity (0.02, -0.07); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep38 t=350 action=2 reward_so_far=-22 | Position (-0.14, 0.96); velocity (-0.07, -0.12); angle 0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.26); PPO action is likely safe.
+  ep38 t=400 action=1 reward_so_far=-32 | Position (-0.19, 0.87); velocity (-0.10, -0.05); angle -0.10 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep38 t=450 action=0 reward_so_far=-23 | Position (-0.23, 0.82); velocity (-0.06, 0.06); angle -0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep38 FINAL: gated=-32 ungated=29 gates=9 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep39 t=  0 action=0 reward_so_far=0 | Position (-0.00, 1.41); velocity (-0.29, 0.12); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep39 t= 50 action=2 reward_so_far=23 | Position (-0.10, 1.29); velocity (-0.06, -0.04); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep39 t=100 action=0 reward_so_far=18 | Position (-0.14, 1.17); velocity (-0.13, -0.06); angle -0.04 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep39 t=150 action=1 reward_so_far=8 | Position (-0.22, 1.10); velocity (-0.20, -0.13); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep39 t=200 action=2 reward_so_far=15 | Position (-0.30, 1.03); velocity (-0.11, -0.08); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep39 t=250 action=3 reward_so_far=19 | Position (-0.34, 0.95); velocity (-0.06, -0.04); angle -0.01 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep39 t=300 action=2 reward_so_far=12 | Position (-0.35, 0.87); velocity (0.03, -0.10); angle 0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.56, near threshold. Continue observing.
+  ep39 t=350 action=2 reward_so_far=10 | Position (-0.35, 0.83); velocity (-0.04, -0.02); angle 0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep39 t=400 action=1 reward_so_far=-6 | Position (-0.41, 0.84); velocity (-0.12, -0.01); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep39 t=450 action=2 reward_so_far=-7 | Position (-0.46, 0.74); velocity (-0.08, -0.09); angle -0.03 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep39 FINAL: gated=-10 ungated=-97 gates=10 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep40 t=  0 action=2 reward_so_far=2 | Position (-0.00, 1.40); velocity (-0.15, -0.52); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep40 t= 50 action=3 reward_so_far=31 | Position (-0.08, 1.10); velocity (-0.26, -0.25); angle 0.07 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.39, near threshold. Continue observing.
+  ep40 t=100 action=2 reward_so_far=69 | Position (-0.17, 0.88); velocity (-0.01, -0.08); angle -0.10 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep40 t=150 action=1 reward_so_far=63 | Position (-0.16, 0.81); velocity (0.05, -0.10); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep40 t=200 action=2 reward_so_far=66 | Position (-0.14, 0.71); velocity (-0.01, -0.14); angle 0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.26); PPO action is likely safe.
+  ep40 t=250 action=2 reward_so_far=72 | Position (-0.17, 0.65); velocity (-0.06, -0.08); angle 0.00 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep40 t=300 action=2 reward_so_far=65 | Position (-0.20, 0.56); velocity (-0.07, -0.07); angle -0.04 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep40 t=350 action=2 reward_so_far=65 | Position (-0.24, 0.43); velocity (-0.08, -0.10); angle 0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep40 t=400 action=1 reward_so_far=57 | Position (-0.27, 0.32); velocity (-0.06, -0.07); angle -0.10 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep40 t=450 action=3 reward_so_far=58 | Position (-0.31, 0.24); velocity (-0.12, -0.00); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep40 FINAL: gated=48 ungated=88 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep41 t=  0 action=1 reward_so_far=-0 | Position (0.01, 1.40); velocity (0.80, -0.37); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep41 t= 50 action=0 reward_so_far=-2 | Position (0.38, 1.12); velocity (0.64, -0.11); angle 0.35 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep41 t=100 action=2 reward_so_far=72 | Position (0.55, 0.84); velocity (0.01, -0.21); angle 0.17 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.03); PPO action is likely safe.
+  ep41 t=150 action=2 reward_so_far=91 | Position (0.56, 0.65); velocity (0.18, -0.06); angle -0.07 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep41 t=200 action=3 reward_so_far=82 | Position (0.64, 0.52); velocity (0.03, -0.14); angle 0.12 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep41 t=250 action=2 reward_so_far=79 | Position (0.62, 0.34); velocity (0.04, -0.19); angle -0.15 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep41 t=300 action=3 reward_so_far=87 | Position (0.67, 0.18); velocity (-0.04, -0.01); angle 0.36 rad; legs (L=1, R=1). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep41 t=350 action=3 reward_so_far=64 | Position (0.62, 0.18); velocity (-0.16, -0.05); angle 0.40 rad; legs (L=1, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep41 t=400 action=3 reward_so_far=58 | Position (0.52, 0.10); velocity (-0.26, -0.08); angle 0.46 rad; legs (L=1, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep41 t=450 action=3 reward_so_far=92 | Position (0.39, 0.03); velocity (-0.14, -0.02); angle 0.28 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.03); PPO action is likely safe.
+  ep41 FINAL: gated=136 ungated=14 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep42 t=  0 action=0 reward_so_far=2 | Position (0.00, 1.42); velocity (0.01, 0.41); angle -0.00 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep42 t= 50 action=2 reward_so_far=19 | Position (0.01, 1.47); velocity (-0.00, -0.07); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.36, near threshold. Continue observing.
+  ep42 t=100 action=1 reward_so_far=20 | Position (0.01, 1.38); velocity (-0.05, -0.03); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.27); PPO action is likely safe.
+  ep42 t=150 action=3 reward_so_far=13 | Position (-0.01, 1.31); velocity (-0.05, -0.06); angle 0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.34, near threshold. Continue observing.
+  ep42 t=200 action=1 reward_so_far=17 | Position (-0.00, 1.15); velocity (0.07, -0.11); angle 0.02 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep42 t=250 action=2 reward_so_far=19 | Position (-0.01, 1.06); velocity (-0.07, -0.03); angle -0.07 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep42 t=300 action=2 reward_so_far=17 | Position (-0.03, 1.04); velocity (-0.00, -0.09); angle 0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.42, near threshold. Continue observing.
+  ep42 t=350 action=2 reward_so_far=8 | Position (-0.05, 0.96); velocity (-0.07, -0.12); angle 0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.38, near threshold. Continue observing.
+  ep42 t=400 action=1 reward_so_far=12 | Position (-0.09, 0.82); velocity (-0.07, -0.13); angle -0.01 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep42 t=450 action=0 reward_so_far=20 | Position (-0.11, 0.66); velocity (-0.03, -0.11); angle 0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep42 FINAL: gated=25 ungated=19 gates=1 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep43 t=  0 action=3 reward_so_far=-0 | Position (0.00, 1.42); velocity (0.46, 0.35); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep43 t= 50 action=1 reward_so_far=0 | Position (0.20, 1.51); velocity (0.28, 0.04); angle 0.14 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: monitor. Monitor says 0.57, near threshold. Continue observing.
+  ep43 t=100 action=2 reward_so_far=25 | Position (0.28, 1.44); velocity (0.04, -0.12); angle 0.03 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep43 t=150 action=3 reward_so_far=24 | Position (0.31, 1.36); velocity (0.03, -0.04); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep43 t=200 action=2 reward_so_far=23 | Position (0.30, 1.25); velocity (-0.06, -0.13); angle -0.04 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep43 t=250 action=3 reward_so_far=11 | Position (0.30, 1.19); velocity (0.06, -0.11); angle -0.10 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.43, near threshold. Continue observing.
+  ep43 t=300 action=2 reward_so_far=27 | Position (0.34, 1.05); velocity (-0.02, -0.10); angle 0.05 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep43 t=350 action=2 reward_so_far=19 | Position (0.35, 0.91); velocity (0.13, -0.12); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep43 t=400 action=0 reward_so_far=27 | Position (0.36, 0.77); velocity (-0.03, -0.11); angle -0.05 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep43 t=450 action=3 reward_so_far=31 | Position (0.36, 0.62); velocity (0.02, -0.09); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.14); PPO action is likely safe.
+  ep43 FINAL: gated=42 ungated=0 gates=3 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep44 t=  0 action=2 reward_so_far=3 | Position (0.00, 1.40); velocity (0.34, -0.37); angle -0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep44 t= 50 action=2 reward_so_far=13 | Position (0.15, 1.28); velocity (0.25, -0.07); angle 0.14 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep44 t=100 action=1 reward_so_far=23 | Position (0.27, 1.21); velocity (0.21, 0.03); angle 0.04 rad; legs (L=0, R=0). Monitor says: failure
+     Plan: continue. Monitor confidence low (0.25); PPO action is likely safe.
+  ep44 t=150 action=2 reward_so_far=25 | Position (0.31, 1.07); velocity (-0.08, -0.15); angle 0.10 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.09); PPO action is likely safe.
+  ep44 t=200 action=2 reward_so_far=50 | Position (0.27, 0.89); velocity (-0.04, -0.08); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep44 t=250 action=2 reward_so_far=32 | Position (0.24, 0.77); velocity (-0.06, -0.26); angle -0.09 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.18); PPO action is likely safe.
+  ep44 t=300 action=3 reward_so_far=43 | Position (0.27, 0.61); velocity (0.14, -0.10); angle 0.05 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.15); PPO action is likely safe.
+  ep44 t=350 action=2 reward_so_far=45 | Position (0.34, 0.50); velocity (0.14, -0.07); angle -0.04 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep44 t=400 action=3 reward_so_far=20 | Position (0.44, 0.41); velocity (0.26, -0.06); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.23); PPO action is likely safe.
+  ep44 t=450 action=2 reward_so_far=20 | Position (0.52, 0.25); velocity (0.07, -0.23); angle 0.10 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep44 FINAL: gated=20 ungated=24 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep45 t=  0 action=1 reward_so_far=0 | Position (0.01, 1.42); velocity (0.76, 0.32); angle -0.01 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep45 t= 50 action=3 reward_so_far=-4 | Position (0.30, 1.51); velocity (0.45, -0.01); angle 0.24 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep45 t=100 action=2 reward_so_far=30 | Position (0.44, 1.47); velocity (0.19, -0.09); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep45 t=150 action=1 reward_so_far=35 | Position (0.47, 1.35); velocity (-0.03, -0.12); angle 0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep45 t=200 action=1 reward_so_far=30 | Position (0.45, 1.18); velocity (-0.06, -0.21); angle -0.11 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.29); PPO action is likely safe.
+  ep45 t=250 action=2 reward_so_far=45 | Position (0.47, 1.01); velocity (0.05, -0.16); angle 0.11 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep45 t=300 action=2 reward_so_far=38 | Position (0.47, 0.84); velocity (0.04, -0.20); angle -0.18 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.24); PPO action is likely safe.
+  ep45 t=350 action=2 reward_so_far=50 | Position (0.48, 0.62); velocity (0.05, -0.25); angle 0.14 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.12); PPO action is likely safe.
+  ep45 t=400 action=2 reward_so_far=72 | Position (0.46, 0.45); velocity (-0.03, -0.12); angle -0.09 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.07); PPO action is likely safe.
+  ep45 t=450 action=2 reward_so_far=76 | Position (0.48, 0.32); velocity (-0.01, -0.14); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.11); PPO action is likely safe.
+  ep45 FINAL: gated=49 ungated=18 gates=4 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep46 t=  0 action=3 reward_so_far=2 | Position (-0.00, 1.42); velocity (-0.29, 0.28); angle 0.00 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep46 t= 50 action=2 reward_so_far=24 | Position (-0.10, 1.38); velocity (-0.07, -0.03); angle -0.09 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.20); PPO action is likely safe.
+  ep46 t=100 action=3 reward_so_far=10 | Position (-0.13, 1.31); velocity (-0.18, -0.02); angle 0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.42, near threshold. Continue observing.
+  ep46 t=150 action=3 reward_so_far=12 | Position (-0.20, 1.24); velocity (-0.15, -0.03); angle 0.03 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.56, near threshold. Continue observing.
+  ep46 t=200 action=1 reward_so_far=7 | Position (-0.24, 1.10); velocity (-0.01, -0.14); angle -0.11 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.31, near threshold. Continue observing.
+  ep46 t=250 action=3 reward_so_far=9 | Position (-0.21, 1.02); velocity (0.06, -0.05); angle 0.14 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.55, near threshold. Continue observing.
+  ep46 t=300 action=2 reward_so_far=26 | Position (-0.18, 0.97); velocity (0.03, -0.05); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.36, near threshold. Continue observing.
+  ep46 t=350 action=0 reward_so_far=9 | Position (-0.18, 0.94); velocity (-0.06, -0.03); angle 0.06 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep46 t=400 action=2 reward_so_far=15 | Position (-0.21, 0.82); velocity (0.00, -0.11); angle -0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.33, near threshold. Continue observing.
+  ep46 t=450 action=2 reward_so_far=14 | Position (-0.22, 0.72); velocity (-0.07, -0.07); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.40, near threshold. Continue observing.
+  ep46 FINAL: gated=8 ungated=35 gates=13 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep47 t=  0 action=0 reward_so_far=0 | Position (-0.00, 1.42); velocity (-0.50, 0.22); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep47 t= 50 action=2 reward_so_far=3 | Position (-0.21, 1.34); velocity (-0.36, -0.13); angle -0.16 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.21); PPO action is likely safe.
+  ep47 t=100 action=2 reward_so_far=24 | Position (-0.34, 1.19); velocity (-0.17, -0.05); angle -0.15 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.30, near threshold. Continue observing.
+  ep47 t=150 action=2 reward_so_far=34 | Position (-0.36, 1.14); velocity (0.05, -0.05); angle 0.12 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.32, near threshold. Continue observing.
+  ep47 t=200 action=2 reward_so_far=-133 | Position (-0.48, 1.43); velocity (-0.68, 0.66); angle 0.37 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.87 > 0.6085784965324185. Consider gated action.
+  ep47 FINAL: gated=-500 ungated=28 gates=78 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.7291666666666666 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+  ep48 t=  0 action=2 reward_so_far=1 | Position (0.01, 1.40); velocity (0.67, -0.36); angle -0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep48 t= 50 action=2 reward_so_far=11 | Position (0.31, 1.16); velocity (0.47, -0.11); angle 0.28 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.19); PPO action is likely safe.
+  ep48 t=100 action=2 reward_so_far=64 | Position (0.38, 1.05); velocity (-0.08, -0.11); angle -0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep48 t=150 action=3 reward_so_far=69 | Position (0.40, 0.89); velocity (0.12, -0.03); angle 0.07 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.06); PPO action is likely safe.
+  ep48 t=200 action=0 reward_so_far=74 | Position (0.43, 0.70); velocity (0.01, -0.16); angle 0.06 rad; legs (L=0, R=0). Monitor says: failur
+     Plan: continue. Monitor confidence low (0.05); PPO action is likely safe.
+  ep48 t=250 action=2 reward_so_far=79 | Position (0.42, 0.49); velocity (0.04, -0.23); angle -0.08 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep48 t=300 action=2 reward_so_far=92 | Position (0.41, 0.26); velocity (-0.13, -0.18); angle 0.01 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.08); PPO action is likely safe.
+  ep48 t=350 action=2 reward_so_far=80 | Position (0.38, 0.06); velocity (0.05, -0.28); angle -0.11 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: continue. Monitor confidence low (0.10); PPO action is likely safe.
+  ep48 t=400 action=0 reward_so_far=116 | Position (0.40, -0.05); velocity (0.00, -0.00); angle -0.10 rad; legs (L=1, R=1). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.02); PPO action is likely safe.
+  ep48 t=450 action=1 reward_so_far=115 | Position (0.40, -0.05); velocity (0.00, -0.00); angle -0.10 rad; legs (L=1, R=1). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.03); PPO action is likely safe.
+  ep48 FINAL: gated=114 ungated=48 gates=0 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=1.0 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=0.0 conf=1.0
+
+  ep49 t=  0 action=3 reward_so_far=-0 | Position (-0.01, 1.40); velocity (-0.75, -0.31); angle 0.01 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.00); PPO action is likely safe.
+  ep49 t= 50 action=2 reward_so_far=22 | Position (-0.35, 1.11); velocity (-0.46, -0.08); angle -0.27 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: continue. Monitor confidence low (0.22); PPO action is likely safe.
+  ep49 t=100 action=2 reward_so_far=58 | Position (-0.49, 1.00); velocity (-0.21, -0.14); angle 0.09 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: continue. Monitor confidence low (0.16); PPO action is likely safe.
+  ep49 t=150 action=2 reward_so_far=52 | Position (-0.59, 0.83); velocity (-0.14, -0.18); angle -0.21 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: intervene. Monitor says 0.66 > 0.6085784965324185. Consider gated action.
+  ep49 t=200 action=3 reward_so_far=69 | Position (-0.62, 0.73); velocity (-0.06, -0.06); angle 0.10 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.35, near threshold. Continue observing.
+  ep49 t=250 action=2 reward_so_far=59 | Position (-0.68, 0.67); velocity (-0.15, -0.05); angle -0.05 rad; legs (L=0, R=0). Monitor says: fai
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep49 t=300 action=2 reward_so_far=59 | Position (-0.72, 0.57); velocity (-0.07, -0.12); angle 0.02 rad; legs (L=0, R=0). Monitor says: fail
+     Plan: monitor. Monitor says 0.41, near threshold. Continue observing.
+  ep49 t=350 action=3 reward_so_far=33 | Position (-0.77, 0.51); velocity (-0.22, 0.09); angle 0.09 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: monitor. Monitor says 0.58, near threshold. Continue observing.
+  ep49 t=400 action=2 reward_so_far=-59 | Position (-0.84, 0.75); velocity (0.16, 0.54); angle -0.30 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.84 > 0.6085784965324185. Consider gated action.
+  ep49 t=450 action=2 reward_so_far=-321 | Position (-0.38, 1.83); velocity (1.69, 1.37); angle -0.41 rad; legs (L=0, R=0). Monitor says: failu
+     Plan: intervene. Monitor says 0.88 > 0.6085784965324185. Consider gated action.
+  ep49 FINAL: gated=-694 ungated=101 gates=168 (skipped_qcov=0)
+    Verifier: ALWAYS angle_below(1.0) -> freq=1.0 conf=1.0
+    Verifier: EVENTUALLY velocity_below(0.3) -> freq=0.772 conf=1.0
+    Verifier: ALWAYS (landed() IMPLIES in_pad()) -> freq=1.0 conf=1.0
+
+======================================================================
+PHASE 1.5 v0.2 FULL INTEGRATION SUMMARY
+======================================================================
+  Episodes:                50
+  Ungated PPO mean:        18.0 +/- 43.7
+  Gated (Monitor+Q) mean:  -64.7 +/- 225.8
+  Delta:                   -82.69
+  Avg gates per episode:   23.56
+  Gates skipped (q_cov):   0
+  SlotMonitor val AUROC:   0.803
+  Platt:                   a=2.229, b=1.280
+  Calibrated threshold:    0.609  (target FPR=0.1)
+  Q coverage:              78429  (min=50)
+

@@ -1,0 +1,45 @@
+Y2 follow-up: MADDPG v3 Monitor aux loss = NEGATIVE (3 arms identical)
+
+Tried Monitor as critic-side auxiliary loss in MADDPG v2 (Y2 follow-up
+to H5 REFUTED). 3-arm 5-seed sweep at matched compute (80 updates x
+10 episodes = 800 env episodes).
+
+Architecture: per-agent frozen Monitor (decoupled, AUROC ~0.8 on
+frozen PPO rollouts) used as extra loss term in critic. Actor unchanged.
+
+3 arms:
+- with_aux: critic_loss = Q-MSE + 0.5 * MonitorBCE
+- no_aux: MADDPG v2 baseline
+- ablated: random Monitor (no training) as aux control
+
+5-seed results (PettingZoo Simple Spread v3, continuous):
+- with_aux: -70.50 +/- 1.13
+- no_aux:   -70.50 +/- 1.13
+- ablated:  -70.50 +/- 1.13
+
+All three arms produced IDENTICAL results to 0.01 precision.
+The frozen-Monitor aux loss has ZERO measurable effect.
+
+Why: frozen Monitor has no parameters to update, so aux loss gradient
+either does not flow (with torch.no_grad) or flows only through the
+obs tensor (no effect on critic). Trainable AuxHead alternative hung
+with retain_graph=True (memory blowup).
+
+Implication: Monitor aux loss is a dead end for MA credit assignment,
+consistent with H5 (Monitor as reward shaping also REFUTED).
+The unifying finding: per-agent Monitor signal is not a useful training
+signal for MA at our compute scale. Monitors are VERIFIERS, not
+training signals (architectural lesson sharpened).
+
+H5 stays REFUTED. 9-hypo tally unchanged: 6 validated, 2 refuted (H5, H6),
+1 open (H9).
+
+Code: projects/project_f_multi_agent/code/pz_maddpg_v3.py
+- 3 arms via --arm {with_aux,no_aux,ablated}
+- --use-aux-head experimental (4th design, hung; documented in log)
+
+Full log: experiments_log/2026-07-28-pz-maddpg-v3-3arm-5seed.md
+
+Y2 next directions: (a) learned inter-agent comms (TarMAC, IC3Net),
+(b) longer MADDPG training (10K+ episodes), (c) Monitor as MA verifier
+(cross-agent evidence chain, not RL signal).

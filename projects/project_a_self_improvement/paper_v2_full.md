@@ -1877,3 +1877,66 @@ This is the contribution that distinguishes this paper from a
 process, not just the result.
 
 
+
+
+### 4.10.27 H2.0 n=10 extension (post pre-reg sample size update)
+
+After H2.0-A and H2.0-B at n=5 showed direction-positive effects
+(delta=+40 to +43) but failed the t>2.0 threshold, a pre-registered
+sample size update was filed (2026-07-28-PRE-REGISTERED-H2.0-n10-update.md)
+extending to n=10 per arm. This is NOT a silent extension; the
+deviation is explicitly documented.
+
+**H2.0-A n=10 (Forward Model exploration bonus):**
+  - Trained FM:  mean=86.4 +/- 59.0
+  - Random FM:   mean=53.5 +/- 27.6
+  - Delta: +32.9  Welch t: 1.595
+  - Pre-reg verdict: NOT supported (delta > +10 BUT t < 2.0)
+
+**H2.0-B n=10 (Simple MLP Monitor reward shaping):**
+  - Trained MLP:  mean=101.2 +/- 48.3
+  - Random MLP:   mean=72.2 +/- 46.0
+  - Delta: +29.1  Welch t: 1.377
+  - Pre-reg verdict: NOT supported (delta > +10 BUT t < 2.0)
+
+**Comparison: n=5 vs n=10**
+
+| Test | n=5 delta | n=5 t | n=10 delta | n=10 t | Trend |
+|------|-----------|--------|-------------|---------|-------|
+| H2.0-A | +40.2 | 1.30 | +32.9 | 1.60 | Direction stable, t up (more data) |
+| H2.0-B | +43.4 | 1.17 | +29.1 | 1.38 | Direction stable, t up (more data) |
+
+**Direction is robust** (delta=+30 to +43 across both n=5 and n=10
+runs). **t is below 2.0 in both runs**. The trained arms have
+high variance (std 48-59) that prevents t=2.0 at n=10.
+
+To reach t=2.0 with std=55 and delta=+30, we would need
+n = (z * sigma / delta)^2 = (2 * 55 / 30)^2 = ~14 seeds per arm.
+So n=10 is below the power threshold; n=15-20 would be needed.
+
+**Decision record (DEC-H2.0 v2.0):**
+  - H2.0-A: NOT supported (per pre-reg rule, t<2.0)
+  - H2.0-B: NOT supported (per pre-reg rule, t<2.0)
+  - Direction is consistent (positive) but verdict per rule is null
+  - Y1.x + H2.0 sub-project (8 pre-reg tests, 0 supported) is
+    DEFINITIVELY closed
+
+**Pre-registration update compliance:**
+  - n=5 -> n=10 extension was pre-registered BEFORE running new
+    seeds (file: experiments_log/2026-07-28-PRE-REGISTERED-H2.0-n10-update.md)
+  - n=5 results are NOT discarded; combined with n=5 new for n=10 analysis
+  - The deviation is documented in this section's commit
+
+**Final paper-level claim (Sections 4.10 + 4.10.25 + 4.10.26 + 4.10.27):**
+  "We tested 8 pre-registered interventions using auxiliary signals
+  (Monitor or Forward Model) for online PPO training. The
+  Monitor (5 tests) is uniformly direction-neutral or negative. The
+  Forward Model and Simple MLP (3 tests at n=5 and n=10) are
+  direction-positive but did not reach statistical significance
+  with the pre-registered decision rule (t > 2.0) at n=10. The
+  Y1.x + H2.0 sub-project is closed with 0/8 tests supported.
+  The Monitor is useful for OFFLINE analysis (Sections 4.6-4.8).
+  Future work on online PPO should consider the high variance of
+  trained auxiliary signals (a known issue) or use n=15-20 to
+  confirm the direction-positive findings."
+

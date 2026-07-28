@@ -3,7 +3,16 @@
 > Release history for the Y1 paper.
 > Format: keep-a-changelog inspired, adapted for single-paper releases.
 
-## v3.7 -- 2026-07-28 (this release)
+## v3.8 -- 2026-07-29 (this release)
+- Added Y2 Project G section under Future Work. Pre-registered H10
+  pilot (n=5 stratified seeds, N=12/seed) direction-REFUTED at this
+  sample size (Joint 0.650 > Frozen 0.550; Welch t = -0.516 n.s.).
+  Negative control PASSES (Frozen > Random by 0.30). Full pre-reg
+  H10 (n=5 x 200 rollouts/seed) not run due to CPU budget; GPU-bound.
+- Source: experiments_log/2026-07-29-H10-stratified-n5-result.md
+- Reference: experiments_log/2026-07-28-PRE-REGISTERED-H10.md
+
+## v3.7 -- 2026-07-28
 
 ### Status
 - **Pre-arXiv**: ready for PI final review, not yet submitted.
@@ -43,18 +52,18 @@
 
 ## v3.6 -- 2026-07-28 (Y1 paper polish)
 
-- §4.5/4.6 + §5.4 + §6.5 added.
+- 搂4.5/4.6 + 搂5.4 + 搂6.5 added.
 - Phase 2 closure section added (DMC continuous REFUTED).
 - Thesis addendum M (Phase 2 closure) cross-referenced.
 
-## v3.5 -- 2026-07-28 (Y1 paper §4.5/4.6 + thesis addendum M)
+## v3.5 -- 2026-07-28 (Y1 paper 搂4.5/4.6 + thesis addendum M)
 
 - Internal release only; superseded by v3.6.
 
 ## v3.0 -- 2026-07-28 (Y1 paper polish)
 
 - 9-hypothesis framework introduced.
-- §4.5/4.6 sections added.
+- 搂4.5/4.6 sections added.
 - Phase 2 outline integrated.
 
 ## v2.x -- 2026-07-27 (earlier drafts)
@@ -68,7 +77,7 @@
 
 ## v1.0 -- 2026-07-27 (initial Y1 paper draft)
 
-- §1-3 draft + 4 figures + 2 LaTeX tables.
+- 搂1-3 draft + 4 figures + 2 LaTeX tables.
 - First honest framing throughout.
 
 ## v0.x -- 2026-07-25 (Project A paper v1_full)

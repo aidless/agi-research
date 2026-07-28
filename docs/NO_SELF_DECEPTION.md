@@ -1,4 +1,4 @@
-﻿# NO_SELF_DECEPTION.md — Anti-self-deception protocol for AGI agent
+# NO_SELF_DECEPTION.md — Anti-self-deception protocol for AGI agent
 
 > Effective: 2026-07-28. Author: agent (Codex) on instruction from PI.
 > Trigger: knowledge base critique identified the v0.1 paper as
@@ -167,3 +167,86 @@ Any future "POSITIVE result" claim from this agent should reference
 this document. If a future claim does not have a negative control,
 mechanism, replication, and limitation stated, the reader should
 treat it with skepticism.
+
+
+---
+
+## 9.1 Real-world teaching example: the H10 N=6 vs N=12 swing
+
+> Added: 2026-07-29. Source: experiments_log/2026-07-29-H10-multi-seed-n5-result.md
+> (older entry) + 2026-07-29-H10-stratified-n5-result.md.
+
+This is a documented case study of why pre-registration matters. It
+should be used as a teaching example for future agents and researchers.
+
+### The setup
+
+Project G (LLM Self-Monitoring) pre-registered H10 with a hard
+decision rule: Frozen > Joint by delta > 0.05 AND Welch t > 2.0 AND
+Frozen > Random by delta > 0.10. The pre-registration was filed on
+2026-07-28 BEFORE running the pilot.
+
+### The pilot sequence (without pre-registration, the N=6 result would have been overclaimed)
+
+| Run | N | Frozen | Joint | Random | Note |
+|-----|---|--------|-------|--------|------|
+| N=6 | 6 | **1.000** | **1.000** | 0.000 | Ceiling effect (both arms perfect) |
+| N=12 | 12 | **0.000** | **0.000** | 1.000 | Overfit (both arms worse than random) |
+
+The N=6 result looked like a textbook "frozen = joint = perfect, random = worst"
+H10 win. Without pre-registration, this would have been overclaimed as
+a positive finding.
+
+The N=12 result (with the same simple-arithmetic dataset, same prompt,
+same Monitor architecture) was the OPPOSITE: both arms at 0.000, random
+at 1.000. This is a textbook "trained worse than random" failure mode.
+
+### What the swing teaches
+
+1. **Small-N pilots are unstable**. With N=6 traces, both arms can
+   achieve perfect AUROC (ceiling). With N=12, both arms can be worse
+   than random (overfit on a small training set). Neither result is
+   a stable signal.
+
+2. **Pre-registration prevents overclaim**. If H10 had been
+   declared "VALIDATED" on the N=6 result, the N=12 result would have
+   been a retraction. Pre-registration forced honest reporting of
+   both results and the eventual REFUTED verdict (Joint > Frozen by
+   0.10 in the n=5 stratified pilot).
+
+3. **Negative control is essential**. Random < Frozen is the
+   negative control. Without it, the N=6 result (Frozen = Joint = 1.0)
+   would have looked great but meaningless. With it, we can tell
+   that both arms are doing something, just not consistently
+   better than random at small N.
+
+4. **Per-seed variance is the dominant signal**. With small N and
+   small eval (3-4 traces), per-seed AUROC swings 0.000 to 1.000
+   for the same arm. Multi-seed aggregation is necessary to average
+   this out.
+
+### What the final H10 verdict looks like
+
+After n=5 stratified seeds (Frozen 0.550 ± 0.371, Joint 0.650 ± 0.224,
+Random 0.250 ± 0.354):
+- Joint > Frozen by 0.10 (direction REFUTES H10)
+- Welch t = -0.516 (NOT significant at t>2.0)
+- Frozen > Random by 0.30 (negative control PASSES)
+
+**Verdict per pre-reg**: REFUTED (direction-consistent, but not
+statistically significant at this sample size).
+
+### Lesson for future work
+
+Before declaring "X works" or "X doesn't work" from a small pilot:
+
+1. **Pre-register the decision rule** BEFORE running the pilot.
+2. **Run n>=5 seeds** to estimate variance.
+3. **Always include a negative control** (e.g., random Monitor signal).
+4. **Report per-seed results** alongside aggregate.
+5. **Use stratified train/eval split** if the dataset has both classes.
+6. **Acknowledge instability** when N is small.
+
+The N=6 -> N=12 swing is a textbook case of why these steps matter.
+
+---

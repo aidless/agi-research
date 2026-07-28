@@ -985,3 +985,45 @@ Independent replication is required before publication.
 ---
 
 *[End of appendices. Total paper draft: §1-7 + References + 4 Appendices = ~30 KB.]*
+
+
+### Y2 Project G: does decoupling transfer to LLM self-rewarding?
+
+In parallel with the Y1 paper, we ran Project G (LLM Self-Monitoring)
+as a natural follow-up: does the decoupled-Monitor principle that
+holds on classical RL also hold on LLM self-rewarding? We pre-registered
+H10 (`experiments_log/2026-07-28-PRE-REGISTERED-H10.md`) with a hard
+decision rule (Frozen > Joint by delta > 0.05 AND Welch t > 2.0 AND
+Frozen > Random by delta > 0.10 on the negative control).
+
+We ran a stratified-split multi-seed pilot on CPU (Qwen2.5-1.5B-Instruct
++ simple arithmetic dataset, n=5 seeds, N=12 traces/seed). Results
+(see `experiments_log/2026-07-29-H10-stratified-n5-result.md`):
+
+| Arm    | Mean | Std   |
+|--------|------|-------|
+| Frozen | 0.550 | 0.371 |
+| Joint  | 0.650 | 0.224 |
+| Random | 0.250 | 0.354 |
+
+The H10 hypothesis is **direction-REFUTED at this sample size**: Joint
+(0.650) > Frozen (0.550) by 0.10, opposite of the H10 prediction.
+The negative control PASSES (Frozen 0.550 > Random 0.250). However,
+Welch t = -0.516 is well below the 2.0 threshold, so this is not a
+statistically significant REFUTATION.
+
+**This is a direction-consistent negative result for the decoupling
+principle on LLMs at this sample size.** It suggests the H1 decoupling
+result on classical RL may be PPO-specific and does not transfer
+to LLM self-rewarding without modification. The full pre-registered
+H10 (n=5 x 200 rollouts/seed) was not run due to CPU budget; on GPU
+it would run in ~1 hour.
+
+If H10 is confirmed REFUTED at full scale, the broader research
+direction would pivot away from decoupling-as-a-general-principle
+toward more specific LLM-aware architectures. The H11 contingency
+plan in the pre-registration (slot attention ablation, H11b) is
+less motivated if H10 is REFUTED.
+
+---
+

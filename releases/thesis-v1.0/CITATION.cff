@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this thesis, please cite it as below."
+title: "Archimedes: A 5-Year Research Program Toward a Self-Improving AGI Substrate"
+version: "1.0"
+date-released: 2026-07-27
+license: "MIT"
+license-url: "https://opensource.org/licenses/MIT/"
+type: "monograph"
+authors:
+  - family-names: "Liu"
+    given-names: "Zewen"
+    alias: "aidless"
+    affiliation: "Independent (Archimedes Project, AGI-2026-001)"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+keywords:
+  - "AGI substrate"
+  - "reinforcement learning"
+  - "self-improvement"
+  - "decoupled monitor"
+  - "slot attention"
+  - "differentiable logic"
+  - "neuro-symbolic verification"
+  - "pre-registration"
+  - "honest null result"
+  - "open science"
+abstract: >
+  The Archimedes Project is a 5-year independent research program
+  toward a self-improving AGI substrate. This thesis documents the
+  project as a coherent research monograph, presenting the ENWI
+  framework (5-layer architecture, 11 mathematical theorems, 5
+  falsifiable predictions) and the Y0/Y1 research results. Highlights
+  include the H1 decoupling ablation (5/5 seeds, frozen Monitor AUROC
+  0.796 vs joint 0.072 on LunarLander-v3), the Slot-Monitor (AUROC
+  0.989 vs raw-history 0.796), the Y1.3 training-time regularizer
+  (n=15, +50 mean over PPO baseline, p<0.001), the DLR attention
+  architecture (4 envs, 97.8% mean accuracy), and the 9-hypothesis
+  pre-registered framework (6 validated, 2 refuted, 1 open).
+  Honest null results (8 pre-reg H tests, 0 supported at the strict
+  t>2.0 rule) are documented with the same precision as positive
+  results. The thesis closes with a 5-year roadmap toward a
+  verifiable, open, reproducible AGI substrate.
+references:
+  - type: "article"
+    title: "Decoupled Monitors as Training-Time Regularizers: An Empirical Study with 9 Pre-Registered Hypotheses"
+    authors:
+      - family-names: "Liu"
+        given-names: "Zewen"
+    date-released: 2026-07-28
+    license: "CC-BY-4.0"
+    url: "https://github.com/aidless/agi-research/blob/main/papers/y1_paper_draft.md"

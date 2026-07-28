@@ -2889,3 +2889,142 @@ Total commits at Y1 paper draft completion: **110** (with this commit: **111**).
 ---
 
 *[End of addendum K. Thesis v1.0 + addendum total ~2900 lines.]*
+
+
+---
+
+## Addendum Chapter L: Phase 2 Multi-Agent Plan (2026-07-28)
+
+### L.1 Context
+
+Y0 + Y1 work was single-agent focused. Phase 2 extends the Archimedes
+substrate to multi-agent settings, specifically:
+
+- Multiple agents with separate Monitors
+- Decentralized coordination via shared DLR predicates
+- Cross-agent knowledge transfer via symbolic layer
+
+### L.2 Honest starting position
+
+**We have zero multi-agent implementation or experiments at this point.**
+This addendum describes a forward-looking plan with specific falsifiable
+hypotheses.
+
+### L.3 The H2 hypothesis
+
+Following the Y1 H1 result (decoupled Monitor > joint Monitor on
+LunarLander, 5/5 seeds), we propose:
+
+**H2**: In cooperative multi-agent settings, decentralized decoupled
+Monitors trained on each agent's frozen policy outperform jointly-trained
+shared Monitors.
+
+We expect this because:
+- The Y1 H1 mechanism (decoupling preserves discrimination) is
+  environment-agnostic
+- Credit assignment in cooperative settings is a generalization of
+  the single-agent distributional shift problem
+- DLR predicates can serve as a communication medium between agents
+
+**Honest note**: H2 may fail because:
+- Multi-agent credit assignment is fundamentally different from
+  single-agent distributional shift
+- Communication costs may dominate the decoupling benefit
+- Decentralized training may be harder than centralized
+
+### L.4 Proposed architecture: Decentralized Monitor Coordination (DMC)
+
+```
+For each agent i:
+  - Local Monitor M_i trained on frozen local policy
+  - Local slot world model W_i
+  - Local slot-Monitor + DLR predicates
+
+Shared symbolic channel:
+  - DLR predicates broadcast from each agent
+  - Joint failure predictor F(C) consumes broadcast predicates
+  - Each agent's training uses:
+      shaped_reward_i = env_reward + lambda * (1 - M_i) * F(C)
+```
+
+This generalizes Y1.3 to multi-agent by using shared predicates as the
+coordination medium.
+
+### L.5 Y2 experimental plan
+
+**Environments** (3, easy to medium):
+- PettingZoo Simple Spread (3 agents, coverage)
+- PettingZoo Simple Reference (3 agents, coverage)
+- ParticleEnv cooperative navigation (3 agents, distance)
+
+**Baselines**:
+- Independent PPO (no coordination)
+- Shared PPO (parameter sharing)
+- QMIX (standard cooperative MARL)
+
+**Methods to test**:
+- DMC (our proposal)
+- DMC-shared (Monitors shared across agents)
+- Independent DMC (no joint failure predictor)
+
+**Hypothesis test**: 5 seeds × 3 envs × 4 methods = 60 runs
+
+### L.6 Y2 timeline
+
+| Month | Task |
+|-------|------|
+| 2027-01 | Implement DMC architecture |
+| 2027-02 | PettingZoo baselines |
+| 2027-03 | DMC vs baselines on 3 envs |
+| 2027-04 | Cross-agent symbolic knowledge transfer |
+| 2027-05 | Analysis + draft §1-3 |
+| 2027-06 | Draft §4-6 + appendix |
+| 2027-07 | Internal review + revisions |
+| 2027-08 | Submit to AAMAS 2028 |
+
+### L.7 Compute budget
+
+- ~30 min per multi-agent seed (PettingZoo)
+- 60 runs total = ~30 hours wall time
+- Fits within Y2 budget on CPU
+
+### L.8 Honest risk assessment
+
+**Risks**:
+1. H2 may fail (decoupling doesn't transfer to multi-agent)
+2. DLR broadcasts may not provide useful information
+3. Compute budget may be insufficient for thorough evaluation
+4. Multi-agent benchmarks may be too easy / not stress-test the protocol
+
+**Mitigations**:
+- Pre-register H2 with specific decision criteria
+- Plan for negative-result publication
+- Budget conservatively (5 seeds × 3 envs)
+- Include both easy and medium-difficulty environments
+
+### L.9 What we need from the user (PI)
+
+To execute Phase 2 in 2027:
+
+1. **Apply to GPU grant** (Lambda Labs / Hugging Face / Google Cloud)
+   - We have drafts ready (`grant_applications/`)
+   - Without GPU, 60 runs takes ~30 hours on CPU; with GPU, ~5 hours
+2. **Apply to PhD programs** (templates ready)
+   - Phase 2 work is publishable in 2027 if results are good
+3. **Find 1-2 collaboration partners** in multi-agent RL
+
+### L.10 What we don't promise
+
+- Multi-agent self-monitoring is hard; we may not see positive results
+- Compute may be limiting; if Y2 results are negative, that's still useful
+- Phase 2 may take longer than 12 months if results are negative
+
+### L.11 Artifacts
+
+- `papers/phase2_paper_outline.md` (~10 KB, full §1-9 outline)
+- `papers/y1_paper_draft.md` (Y1 paper, single-agent foundation)
+- This thesis (overall Archimedes context)
+
+---
+
+*[End of addendum L. Thesis v1.0 + addendum total ~3000 lines.]*

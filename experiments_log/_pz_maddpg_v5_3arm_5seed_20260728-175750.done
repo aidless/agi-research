@@ -1,0 +1,18 @@
+﻿
+=== v5 3-arm 5-seed sweep start 20260728-175750 ===
+v5 arm=with_verifier seed=0 pid=19672
+v5 arm=with_verifier seed=1 pid=21332
+v5 arm=with_verifier seed=2 pid=12188
+v5 arm=with_verifier seed=3 pid=20484
+v5 arm=with_verifier seed=4 pid=17584
+v5 arm=no_verifier seed=0 pid=3792
+v5 arm=no_verifier seed=1 pid=9420
+v5 arm=no_verifier seed=2 pid=14720
+v5 arm=no_verifier seed=3 pid=8580
+v5 arm=no_verifier seed=4 pid=12472
+v5 arm=random_verifier seed=0 pid=2532
+v5 arm=random_verifier seed=1 pid=10400
+v5 arm=random_verifier seed=2 pid=20064
+v5 arm=random_verifier seed=3 pid=19072
+v5 arm=random_verifier seed=4 pid=17524
+=== 15 launched ===

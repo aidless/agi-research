@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 582, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 551, in main
+    actors, monitors, trust_heads, history, mon_aurocs = train_maddpg_v5(
+                                                         ^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 460, in train_maddpg_v5
+    actor_loss_v2 = -critic(full_obs, full_act_pred, full_msg=None if not use_verifier else torch.zeros(Bi, N_AGENTS * 0))[:, i].mean() if not use_verifier else None
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: CentralizedCritic.forward() got an unexpected keyword argument 'full_msg'

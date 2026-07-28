@@ -1,0 +1,18 @@
+﻿
+=== DMC continuous 3-arm 5-seed v2 start 20260728-140448 ===
+DMC-cont v2 arm=real seed=0 pid=19656
+DMC-cont v2 arm=real seed=1 pid=5568
+DMC-cont v2 arm=real seed=2 pid=18656
+DMC-cont v2 arm=real seed=3 pid=18352
+DMC-cont v2 arm=real seed=4 pid=19832
+DMC-cont v2 arm=random seed=0 pid=11864
+DMC-cont v2 arm=random seed=1 pid=16836
+DMC-cont v2 arm=random seed=2 pid=3428
+DMC-cont v2 arm=random seed=3 pid=11148
+DMC-cont v2 arm=random seed=4 pid=3808
+DMC-cont v2 arm=none seed=0 pid=16388
+DMC-cont v2 arm=none seed=1 pid=20556
+DMC-cont v2 arm=none seed=2 pid=20020
+DMC-cont v2 arm=none seed=3 pid=9556
+DMC-cont v2 arm=none seed=4 pid=9944
+=== 15 launched ===

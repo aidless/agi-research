@@ -1,0 +1,18 @@
+﻿
+=== DMC 3-arm 5-seed sweep start 20260728-133752 (real vs random vs none) ===
+DMC arm=real seed=0 pid=16664
+DMC arm=real seed=1 pid=16516
+DMC arm=real seed=2 pid=14584
+DMC arm=real seed=3 pid=8880
+DMC arm=real seed=4 pid=14528
+DMC arm=random seed=0 pid=6404
+DMC arm=random seed=1 pid=20280
+DMC arm=random seed=2 pid=12232
+DMC arm=random seed=3 pid=15260
+DMC arm=random seed=4 pid=5184
+DMC arm=none seed=0 pid=16924
+DMC arm=none seed=1 pid=5336
+DMC arm=none seed=2 pid=16160
+DMC arm=none seed=3 pid=12976
+DMC arm=none seed=4 pid=12388
+=== All 15 launched ===

@@ -129,32 +129,41 @@ decoupled Monitors trained on each agent's frozen policy outperform
 jointly-trained shared Monitors (when the per-agent PPO baseline is
 itself adequate).
 
-**Status**: PARTIAL (DMC end-to-end works; 5-seed result INCONCLUSIVE on this env)
+**Status**: PARTIAL (decoupling validated; reward shaping does NOT generalise)
 
-**Evidence** (full log: `experiments_log/2026-07-28-pz-dmc-5seed.md`):
-- Per-agent Monitor AUROC across 15 (5 seed x 3 agent): mean 0.990,
-  min 0.965, max 1.000. **Decoupling assumption VALIDATED on MA env.**
+**Evidence** (full logs: `experiments_log/2026-07-28-pz-dmc-5seed.md`,
+`experiments_log/2026-07-28-pz-dmc-3arm-5seed.md`):
+
+*5-seed main sweep (--shaping-mode real, PettingZoo Simple Spread v3):*
+- Per-agent Monitor AUROC across 15 (5 seed x 3 agent): mean 0.990
 - DMC shaped vs Stage-1 shared PPO: +16.22 mean, 4/5 positive,
-  paired t=+2.055 (NOT significant at df=4, alpha=0.05).
-- DMC 5-seed mean: -125.34 +/- 42.23. vs shared PPO seed 0: -95.15
-  vs MADDPG: -75.78 vs random: -77.45.
-- Joint failure predictor AUROC: 0.500 across all 5 seeds
-  (per-agent Monitor does NOT see inter-agent failure patterns).
+  paired t=+2.055 (NOT significant at df=4)
+- DMC 5-seed mean: -125.34 +/- 42.23
 
-**Interpretation**: DMC partially rescues unstable Stage-1 PPO
-(+16 over diverged PPO, 4/5 seeds) but does not reach random or
-MADDPG. Confounders: (a) action space (DMC discrete vs MADDPG
-continuous), (b) credit assignment (DMC local Monitor vs MADDPG
-centralised critic), (c) compute (DMC 150 ep vs MADDPG 600 ep),
-(d) Monitor is a binary failure signal vs Q dense value.
+*3-arm 5-seed sweep (real vs random vs none, same Stage 1):*
+- real   shaping: -125.34 +/- 42.23
+- random shaping: -128.02 +/- 38.98
+- none   shaping: -127.66 +/- 39.63
+- Paired t real vs none: mean +2.32, t=+0.69 (NOT significant)
+- Paired t real vs random: mean +2.67, t=+0.94 (NOT significant)
+- Paired t random vs none: mean -0.36, t=-0.38 (NOT significant)
 
-**H5 verdict**: INCONCLUSIVE on this env at this compute budget.
-A fair DMC vs MADDPG comparison would need continuous-action DMC,
-matched compute, and a denser Monitor signal. Y2 work.
+**Interpretation**:
+- **Decoupling assumption VALIDATED on MA env** (Monitor AUROC 0.99, matches
+  Y1.3 single-agent frozen Monitor).
+- **Y1.3-style reward shaping does NOT generalise to multi-agent** at this
+  compute scale. The earlier +16.2 finding was an artifact of comparing
+  against an unstable Stage 1; the true shaping contribution is ~+2.3
+  (NOT significant).
+- This sharpens the Y1 paper: Y1.3 is a *single-agent* result. The
+  Monitor architecture is portable to MA but the reward-shaping recipe is not.
 
-**Y2 follow-up**: continuous-action DMC; SlotMonitor version;
-longer Stage-1 (>=200 episodes to stable point); proper
-next_obs Monitor bootstrap; matched-budget vs MADDPG.
+**H5 verdict**: PARTIAL. Y2 work needs continuous-action DMC at matched
+compute vs MADDPG to give H5 a real closure.
+
+**Y2 follow-up**: continuous-action DMC; SlotMonitor version; longer
+Stage-1 (>=200 episodes to stable point); proper next_obs Monitor
+bootstrap; matched-budget vs MADDPG.
 
 
 ## H6: Joint Monitor failure is monotonic with PPO updates

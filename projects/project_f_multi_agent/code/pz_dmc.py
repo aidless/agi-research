@@ -282,10 +282,13 @@ def ppo_update_peragent(policies, optimizers, trajectories, n_epochs=4,
 
 
 def collect_episode_shaped(policies, monitors, env, seed, monitor_beta=0.5,
-                            history_len=20, obs_dim=18):
+                            history_len=20, obs_dim=18, shaping_mode="real"):
     """Like collect_episode_peragent but applies Y1.3-style shaping.
 
-    r_total = r_env - monitor_beta * monitor_prob_i
+    shaping_mode:
+      real    = r_total = r_env - monitor_beta * monitor_prob_i
+      random  = r_total = r_env - monitor_beta * U[0,1] per agent
+      none    = r_total = r_env (no shaping; identical to per-agent PPO Stage 2)
 
     We do this by *subtracting* from the per-step joint reward a
     penalty proportional to the agent's Monitor probability on that
@@ -314,9 +317,16 @@ def collect_episode_shaped(policies, monitors, env, seed, monitor_beta=0.5,
             arr = histories[a][-history_len:]
             for i, o in enumerate(arr):
                 win[i] = o
-            with torch.no_grad():
-                m_prob = float(monitors[a](torch.from_numpy(win).unsqueeze(0)).item())
-            shaped_reward = reward - monitor_beta * m_prob
+            if shaping_mode == "real":
+                with torch.no_grad():
+                    m_prob = float(monitors[a](torch.from_numpy(win).unsqueeze(0)).item())
+                shaped_reward = reward - monitor_beta * m_prob
+            elif shaping_mode == "random":
+                m_prob = float(np.random.rand())
+                shaped_reward = reward - monitor_beta * m_prob
+            else:  # none
+                m_prob = 0.0
+                shaped_reward = reward
 
             transitions[a].append({
                 "obs": obs.copy(), "action": action, "log_prob": log_prob,
@@ -394,6 +404,9 @@ def main():
     p.add_argument("--n-shaped-updates", type=int, default=15,
                    help="Stage-2 PPO updates with shaped reward.")
     p.add_argument("--monitor-beta", type=float, default=0.5)
+    p.add_argument("--shaping-mode", type=str, default="real",
+                   choices=["real","random","none"],
+                   help="real=trained per-agent Monitor; random=U[0,1] per agent; none=no shaping.")
     p.add_argument("--history-len", type=int, default=20)
     p.add_argument("--n-eval-episodes", type=int, default=20)
     p.add_argument("--max-cycles", type=int, default=25)
@@ -541,7 +554,8 @@ def main():
     # Phase 4: Stage-2 PPO with Y1.3-style reward shaping
     print()
     print(f"Phase 4: Stage-2 PPO with shaped reward "
-          f"({args.n_shaped_updates} updates, monitor_beta={args.monitor_beta})...")
+          f"({args.n_shaped_updates} updates, monitor_beta={args.monitor_beta}, "
+          f"shaping_mode={args.shaping_mode})...")
     # Reset optimisers; reuse the warm-start policies
     for p_ in policies.values():
         p_.train()
@@ -556,7 +570,8 @@ def main():
                 policies, monitors, make_env(args.max_cycles),
                 seed=args.seed * 10000 + 80000 + u * 100 + ep,
                 monitor_beta=args.monitor_beta,
-                history_len=args.history_len, obs_dim=obs_dim)
+                history_len=args.history_len, obs_dim=obs_dim,
+                shaping_mode=args.shaping_mode)
             trajs.append({a: tr[a] for a in tr})
         ppo_update_peragent(policies, optimizers, trajs)
         ev = evaluate_policy(policies, n_episodes=5, seed=3000 + u, max_cycles=args.max_cycles)
@@ -591,12 +606,13 @@ def main():
     print()
 
     # Save log
-    log_path = HERE / "checkpoints" / "pz_dmc" / f"seed{args.seed}" / "phase2_log.json"
+    log_path = HERE / "checkpoints" / "pz_dmc" / f"seed{args.seed}_{args.shaping_mode}" / "phase2_log.json"
     log_path.parent.mkdir(parents=True, exist_ok=True)
     log_path.write_text(json.dumps({
         "env": "PettingZoo Simple Spread v3 (discrete)",
         "seed": args.seed,
         "mode": "DMC: per-agent PPO + per-agent Monitor + Y1.3-style reward penalty",
+        "shaping_mode": args.shaping_mode,
         "n_ppo_updates_stage1": args.n_ppo_updates,
         "n_ppo_updates_stage2": args.n_shaped_updates,
         "n_episodes_per_update": args.n_episodes_per_update,

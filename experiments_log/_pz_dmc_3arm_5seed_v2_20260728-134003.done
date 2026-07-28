@@ -1,0 +1,18 @@
+﻿
+=== DMC 3-arm 5-seed sweep v2 start 20260728-134003 ===
+v2 arm=real seed=0 pid=2176
+v2 arm=real seed=1 pid=16440
+v2 arm=real seed=2 pid=7844
+v2 arm=real seed=3 pid=14636
+v2 arm=real seed=4 pid=13896
+v2 arm=random seed=0 pid=11784
+v2 arm=random seed=1 pid=19452
+v2 arm=random seed=2 pid=11312
+v2 arm=random seed=3 pid=9420
+v2 arm=random seed=4 pid=19004
+v2 arm=none seed=0 pid=18408
+v2 arm=none seed=1 pid=8580
+v2 arm=none seed=2 pid=11852
+v2 arm=none seed=3 pid=16404
+v2 arm=none seed=4 pid=9440
+=== v2 15 launched ===

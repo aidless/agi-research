@@ -1,0 +1,58 @@
+============================================================
+DMC (Decoupled Monitor Coordination) - PettingZoo Simple Spread v3
+============================================================
+  seed=3, monitor_beta=0.5
+  Stage 1: 5 PPO updates x 10 episodes
+  Monitor training: 50 frozen-PPO episodes
+  Stage 2: 5 shaped PPO updates
+  History len: 20, eval episodes: 15
+  Per-agent: independent PPO + independent Monitor + Y1.3-style shaping
+
+  obs_dim=18, n_actions=5
+
+Phase 1: Random baseline...
+  Random:  -82.89 +/- 21.73
+
+Phase 2: Stage-1 SHARED PPO (no Monitor) 5 updates...
+  stage1 u= 0 eval5=-149.14
+  stage1 u= 1 eval5=-148.95
+  stage1 u= 2 eval5=-153.72
+  stage1 u= 3 eval5=-145.37
+  stage1 u= 4 eval5=-161.08
+  Stage 1 final eval: -139.13 +/- 45.65
+
+Phase 3: Train 3 per-agent Monitors on frozen PPO rollouts...
+  Monitor dataset: n=50, median_return=-24.91, min=-46.65, max=-12.93
+  Threshold = median (-24.91); pos=25, neg=25
+  Monitor agent_0: AUROC=1.000  (n=50, pos=25, neg=25)
+  Monitor agent_1: AUROC=0.982  (n=50, pos=25, neg=25)
+  Monitor agent_2: AUROC=1.000  (n=50, pos=25, neg=25)
+
+Phase 3b: Joint failure predictor (diagnosis only)...
+  Joint failure predictor AUROC: 0.500
+
+Phase 4: Stage-2 PPO with shaped reward (5 updates, monitor_beta=0.5, shaping_mode=none)...
+  stage2 u= 0 eval5=-146.33
+  stage2 u= 1 eval5=-121.36
+  stage2 u= 2 eval5=-114.68
+  stage2 u= 3 eval5=-111.00
+  stage2 u= 4 eval5=-122.19
+
+Phase 5: Final eval...
+
+============================================================
+DMC SUMMARY
+============================================================
+  Random:                   -82.89 +/- 21.73
+  Per-agent PPO (Stage 1): -139.13 +/- 45.65
+  DMC (Stage 2, shaped):   -103.73 +/- 32.74
+  Delta vs random:          -20.83
+  Delta vs Stage 1 PPO:     +35.40
+
+  Per-agent Monitor AUROC (frozen PPO rollouts):
+    agent_0: 1.000
+    agent_1: 0.982
+    agent_2: 1.000
+  Joint failure predictor AUROC: 0.500
+
+Log saved to: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_dmc\seed3\phase2_log.json

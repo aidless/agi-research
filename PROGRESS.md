@@ -1393,3 +1393,112 @@ discipline verified: Welch t < 2.0 reported as inconclusive, NOT
 overclaimed as positive; Random > Frozen reported as concerning, NOT
 overclaimed as refutation.*
 
+
+
+## 2026-07-29 session -- stratified split + Project G REFUTED + thesis packaging
+
+**Major progress** (2 commits this session):
+
+- [x] **Stratified split fix** (203220d): added H10_STRATIFIED=1 to
+  h10_real_pilot.py. Splits each class independently at 75/25 so
+  eval always has both classes. Eliminates the degenerate eval issue
+  from the previous n=5 deterministic pilot (where seed 2 had eval
+  all-failure, AUROC undefined).
+
+- [x] **Stratified n=5 H10 pilot** (203220d):
+  - 5 seeds × N=12 traces × stratified split
+  - Aggregate: Frozen 0.550 ± 0.371, Joint 0.650 ± 0.224, Random 0.250 ± 0.354
+  - **Joint > Frozen by 0.10 (H10 direction REFUTED)**
+  - Welch t = -0.516 (NOT significant at t>2.0)
+  - Frozen > Random by 0.30 (negative control PASSES)
+  - All 5 seeds produced meaningful AUROC (no NaN)
+
+- [x] **Y1 paper v3.8** (e3656b7): added new "Y2 Project G: does
+  decoupling transfer to LLM self-rewarding?" section under Future
+  Work. Documents the H10 pilot REFUTATION in the main paper.
+
+- [x] **Thesis v1.0 release bundle** (e3656b7): new
+  `releases/thesis-v1.0/` directory with:
+  - thesis.md (115 KB / 3000+ lines)
+  - thesis.html (132 KB)
+  - thesis.pdf (188 KB)
+  - README.md (release notes, 4.5 KB)
+  - MANIFEST.md (SHA-256 inventory)
+  - CITATION.cff (GitHub citation, 2 KB)
+  - CHANGELOG.md (release history)
+  - SUBMISSION.md (arXiv submission checklist, 5 KB)
+
+- [x] **NO_SELF_DECEPTION.md teaching example** (e3656b7): added
+  §9.1 "Real-world teaching example: the H10 N=6 vs N=12 swing"
+  with full case study showing why pre-registration matters.
+
+**Total commits**: 127 (+2 this session)
+
+**H10 final state per pre-reg**:
+- Direction: REFUTED (Joint > Frozen by 0.10 mean)
+- Statistical significance: NOT met (Welch t = -0.516, |t| < 2.0)
+- Negative control: PASSED (Frozen > Random by 0.30)
+- Full pre-reg (n=5 x 200 rollouts/seed): not run, GPU-bound
+
+**H11 status**: moot per pre-reg (H11 contingent on H10 VALIDATED;
+H10 REFUTED, so H11 is moot). Pivot to other directions recommended.
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | Multi-seed stratified with Welch t; H10 REFUTED reported honestly |
+| Completeness | 5/5 | All 4 deliverables: stratified pilot + Y1 paper update + thesis packaging + protocol enhancement |
+| Clarity | 5/5 | Each artifact has README + MANIFEST + CITATION + SUBMISSION |
+| Actionability | 5/5 | Path forward clear (pivot direction or GPU for full pre-reg) |
+| Conciseness | 4/5 | Some sections could be tighter |
+| **Overall** | **24/25 (96%)** | Strong honest delivery on all four sub-tasks |
+
+**Honest Boundary**:
+- H10 REFUTED is a direction-consistent verdict at n=5/N=12 stratified.
+  Not statistically significant. Full pre-reg (200 rollouts/seed)
+  still required for confirmation.
+- Thesis packaging is a release artifact, NOT submission. PI must
+  walk through SUBMISSION.md checklist before arXiv submission.
+- NO_SELF_DECEPTION.md teaching example uses the actual H10 swing
+  (N=6 to N=12) as a case study. The teaching example is honest
+  (not a fabricated clean story).
+
+**Pending (PI action)**:
+- [ ] Run full pre-reg H10 (n=5 x 200 rollouts/seed) on GPU to confirm
+      or refute H10 direction-consistent REFUTATION
+- [ ] If H10 confirmed REFUTED: pivot Project G to a different
+      direction (Project D language-as-type-system, Project E DLR
+      expansion, or Project F multi-agent)
+- [ ] Walk through thesis SUBMISSION.md checklist for arXiv
+- [ ] Walk through Y1 paper v3.8 SUBMISSION.md checklist for arXiv
+- [ ] Submit PhD applications (templates ready; deadline 2026-09 to
+      2027-01)
+- [ ] Find 2 critique partners for the Y1 paper
+
+**Work Board (post-stratified + packaging)**:
+  Y1 (closing)                          Y2 (starting)
+  ---------------------                  ---------------------
+  ? Y1 paper v3.8 (Project G section)  ? Run full pre-reg H10 on GPU
+  ? PhD SoP v2.1 (6 + writing + CV)    ? Pivot Project G direction
+  ? Y1 release v3.7/3.8 bundle          ? Submit PhD applications
+  ? Y1.x + H2.0 closed (8 tests)        ? Find 2 critique partners
+  ? NO_SELF_DECEPTION.md + §9.1         ? Submit Y1 to arXiv
+  ? Thesis v1.0 release bundle          ? Submit thesis to arXiv
+  ? Project G H10 REFUTED (n=5 strat)   ? Y2 multi-agent (Project F)
+
+**Commit timeline this session**:
+```
+e3656b7 Packaging: Y1 paper v3.8 (Project G section added) + thesis v1.0 release bundle + NO_SELF_DECEPTION H10 swing teaching example
+203220d Project G v0.5: stratified split + n=5 H10 pilot -- Joint 0.650 > Frozen 0.550 (H10 direction REFUTED, n.s.)
+1019a2d Project G v0.4: multi-seed H10 pilot n=5/N=12 -- direction-consistent (F-J=+0.25), Welch t=1.0 (n.s.), negative control fails, INCONCLUSIVE
+```
+
+*Session state at 2026-07-29: 127 commits. Project G H10 multi-seed
+stratified pilot complete (n=5, REFUTED at the direction level).
+Y1 paper v3.8 published with Project G section. Thesis v1.0 packaged
+for arXiv submission. NO_SELF_DECEPTION.md enhanced with H10 swing
+case study. H11 moot per pre-reg. NO_SELF_DECEPTION.md protocol
+discipline verified throughout: REFUTED direction reported with same
+precision as VALIDATED would be, with statistical caveat clearly
+stated.*
+

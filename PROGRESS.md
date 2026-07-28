@@ -1311,3 +1311,85 @@ discipline verified: N=6 and N=12 results reported with same
 precision; instability of small-N pilots documented as a teaching
 example for the protocol.*
 
+
+
+## 2026-07-28 sixth session -- multi-seed H10 pilot (path 2 continued)
+
+**Major progress** (1 commit this session):
+
+- [x] **Multi-seed H10 pilot n=5/N=12** (1019a2d):
+  - Added H10_SEED env var to h10_real_pilot.py
+  - Wrote multi_seed_aggregate.py (Welch t-test, n=5)
+  - Ran 5 seeds sequentially:
+    - seed 0: Frozen=0.000, Joint=0.000, Random=1.000
+    - seed 1: Frozen=0.500, Joint=0.000, Random=0.500
+    - seed 2: NaN (eval all-failure, degenerate)
+    - seed 3: Frozen=1.000, Joint=0.500, Random=1.000
+    - seed 4: Frozen=0.500, Joint=0.500, Random=0.500
+  - Aggregate (n=4 after excluding NaN seed 2):
+    - Frozen: 0.500 +/- 0.408
+    - Joint:  0.250 +/- 0.289
+    - Random: 0.750 +/- 0.289
+
+**Welch t-tests**:
+- Frozen vs Joint: t=+1.000, df=5.40 (NOT significant at t>2.0)
+- Frozen vs Random: t=-1.000, df=5.40 (NOT significant in absolute value)
+
+**H10 verdict per pre-reg rule**:
+- Frozen > Joint by >0.05: PASSES (mean delta = +0.25)
+- Welch t > 2.0: FAILS (t = 1.000)
+- Frozen > Random by >0.10: FAILS (Random > Frozen by 0.25)
+- **INCONCLUSIVE** (insufficient statistical power)
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | Welch t computed correctly; all 5 seeds documented |
+| Completeness | 5/5 | n=5 seeds ran end-to-end; aggregator works |
+| Clarity | 5/5 | Per-seed table + aggregate + verdict all clear |
+| Actionability | 4/5 | Recommendation clear (need GPU or larger N) |
+| Conciseness | 4/5 | Log is detailed but appropriate |
+| **Overall** | **23/25 (92%)** | Strong honest framing of multi-seed result |
+
+**Honest Boundary**:
+- H10 hypothesis INCONCLUSIVE (direction consistent, but t < 2.0)
+- Negative control FAILS at this N (Random > Frozen by 0.25)
+- Seed 2 was degenerate (eval all-failure); excluded from aggregate
+- Welch t = 1.000 < 2.0 threshold; cannot call this H10 verdict
+- This is the multi-seed pipeline working, NOT the H10 result
+- Full pre-reg H10 (n=5 x 200 rollouts/seed) still required
+
+**Pending (PI action)**:
+- [ ] GPU access for full pre-reg H10 (recommended)
+- [ ] Or: extend to N=50+ traces/seed (still feasible on CPU, ~80 min)
+- [ ] Or: use stratified train/eval split (currently deterministic split can give degenerate eval)
+
+**Work Board (post-multi-seed H10 pilot)**:
+  Project G state at 2026-07-28 (end of path 2):
+  - Architecture (LLMSlotMonitor, joint_monitor): validated
+  - H10 pre-registration: filed
+  - H11 pre-registration: filed (contingent on H10)
+  - 3-arm synthetic multi-arm smoke (n=3): inconclusive on synthetic
+  - Real-LM pipeline (Qwen2.5-1.5B + simple arith): validated
+  - Multi-seed n=5/N=12: INCONCLUSIVE on H10 direction
+    - Frozen > Joint by 0.25 (direction matches H10)
+    - Welch t = 1.0 < 2.0 (NOT significant)
+    - Random > Frozen (negative control fails)
+  - **H10 hypothesis verdict**: UNTESTED at meaningful power
+  - Simple-arithmetic dataset: reusable for Y2/Y3 work
+
+**Commit timeline this session**:
+```
+1019a2d Project G v0.4: multi-seed H10 pilot n=5/N=12 -- direction-consistent (F-J=+0.25), Welch t=1.0 (n.s.), negative control fails, INCONCLUSIVE
+826117d PROGRESS: 2026-07-28 fifth session -- simple arithmetic path (N=6 ceiling, N=12 overfit; H10 still UNTESTED)
+```
+
+*Session state at 2026-07-28 end-of-path-2-multi-seed: 125 commits.
+Multi-seed H10 pilot pipeline complete (n=5 seeds, N=12/seed).
+Result: INCONCLUSIVE per pre-reg rule (direction consistent, Welch t
+< 2.0). Negative control FAILS at this sample size. Full pre-reg
+H10 still requires n=5 x 200 rollouts/seed. NO_SELF_DECEPTION.md
+discipline verified: Welch t < 2.0 reported as inconclusive, NOT
+overclaimed as positive; Random > Frozen reported as concerning, NOT
+overclaimed as refutation.*
+

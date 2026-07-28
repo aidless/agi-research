@@ -1,0 +1,29 @@
+{
+  "y13acrobat_real_n5": {
+    "n": 5,
+    "mean": -91.7,
+    "std": 13.31,
+    "per_seed": [
+      -115.04,
+      -87.38,
+      -87.66,
+      -87.16,
+      -81.28
+    ]
+  },
+  "ppoacrobat_n5": {
+    "n": 5,
+    "mean": -87.43,
+    "std": 8.4,
+    "per_seed": [
+      -80.26,
+      -86.86,
+      -84.84,
+      -101.82,
+      -83.36
+    ]
+  },
+  "delta": -4.28,
+  "welch_t": -0.607,
+  "note": "PRELIMINARY H2 verdict using existing data. Full H2 (real vs random, n=10) was aborted."
+}

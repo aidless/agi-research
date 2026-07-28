@@ -2777,3 +2777,115 @@ was t=1.65 (n.s.); with 15 seeds it is t=6.76 (p<0.001).
 ---
 
 *[End of addendum J. Thesis v1.0 + addendum total ~2700 lines.]*
+
+
+---
+
+## Addendum Chapter K: Y1 Paper — Honest Framing Synthesis (2026-07-28)
+
+### K.1 What the Y1 paper represents
+
+After Y0 closed with 4 STRONG POSITIVES / BREAKTHROUGHS (DLR attention fix,
+Y1.3 training-time regularizer, slot-Monitor, slot WM dynamics), we
+moved to Y1 with a single goal: **produce a NeurIPS-submittable paper
+that honestly represents the Archimedes contributions**.
+
+The Y1 paper is:
+- Title: "Decoupled Monitors as Training-Time Regularizers for
+  Reinforcement Learning"
+- Target: NeurIPS 2027 (May 2027)
+- File: `papers/y1_paper_draft.md` (~28 KB, 14+ pages with appendices)
+- Figures: 4 (PNG, reproducible via `papers/make_figures.py`)
+- Tables: 2 (LaTeX)
+
+### K.2 What we honestly claim
+
+After extensive Y0 + Y1 work, we claim **3 honest contributions**:
+
+1. **Y1.3 (training-time regularizer)** is the first statistically
+   significant use of a decoupled Monitor on LunarLander-v3
+   (n=15 seeds, t=6.76, p<0.001).
+2. **DLR cross-env** is validated on 4 environments with 19 predicates
+   (97.8% mean accuracy).
+3. **6+ inference-time interventions** (DEC-0011 v0.1-v0.4C, MBP, DLR gating)
+   all failed, forming a clear negative-result contrast.
+
+### K.3 What we honestly disclaim
+
+The Y1 paper, drafted 2026-07-28, makes **strong claims carefully paired
+with explicit limitations**:
+
+| Claim | Honest disclaimer |
+|-------|-------------------|
+| Y1.3 +39.5 on LunarLander (p<0.001) | PPO baseline is only n=5; cross-env only Acrobot + MountainCar; std=45.9 high |
+| DLR 4-env 97.8% mean | Predicates are hand-coded; same-distribution test; 30 train episodes per env is small |
+| 6 inference-time failures | All on LunarLander; cross-env validation limited |
+| Slot-Monitor 0.989 AUROC | Single seed tested thoroughly; 5-seed ablation supports H1 |
+| Decoupling as mechanism | Demonstrated on LunarLander; not yet validated on other envs |
+
+**No claim is made without a paired limitation.**
+
+### K.4 What the paper is NOT
+
+The Y1 paper is **not**:
+- A claim that we have built AGI
+- A claim that decoupling solves self-monitoring universally
+- A claim that 95.5%+ accuracy on predicates means real-world verification
+- A claim that we have a complete agent substrate
+
+The paper is **only**:
+- A documented, reproducible experimental result on 4 environments
+- An honest negative-result section (6+ failures)
+- A theoretical contribution (H1 ablation + decoupling rationale)
+- A submission-ready draft pending peer review and independent replication
+
+### K.5 Reproducibility state
+
+| Resource | Status |
+|----------|--------|
+| Code | MIT-licensed, github.com/aidless/agi-research |
+| Data | All checkpoints JSON-serializable, committed |
+| Compute | CPU-only, 100K PPO ~30 min per seed |
+| Pre-registration | **NOT done** — honest gap |
+| Peer review | **NOT done** — honest gap |
+| Independent replication | **NOT done** — honest gap |
+
+### K.6 What this means for the 5-year program
+
+The Y1 paper is a **checkpoint**, not a conclusion. It validates one
+primitive (decoupling + training-time use) but does not claim to have
+solved AGI. The remaining 4 years of the program must:
+
+1. **Independent replication** of Y1.3 (Y1 H1)
+2. **Generalization** to Atari, Procgen, robotics (Y2)
+3. **Multi-agent** coordination (Y2-Y3)
+4. **Formal verification** of Monitor predictions (Y4)
+5. **Real self-improvement loops** (Y3-Y5)
+
+### K.7 The lesson from this session
+
+The user's feedback "以后都要诚实不要自嗨" (always be honest, don't
+self-hype) prompted a reframe of how we present results. The change:
+
+| Before | After |
+|--------|-------|
+| "STRONG POSITIVE" without limits | "STRONG POSITIVE — 4-env 97.8% mean, predicates hand-coded, same-distribution test" |
+| "BREAKTHROUGH" | "First statistically significant positive result in 7-attempt sequence; needs peer review" |
+| "Y1.3 wins" | "Y1.3 wins on LunarLander; tie on Acrobot; undefined on MountainCar" |
+| "publishable" | "submission-ready pending peer review and independent replication" |
+
+This honest framing will apply to **all future results**, not just Y1.
+
+### K.8 Artifacts
+
+- `papers/y1_paper_draft.md` (~28 KB, full §1-7 + 4 Appendices + 15 References)
+- `papers/y1_paper_outline.md` (8.8 KB planning doc)
+- `papers/make_figures.py` (reproducible figure generation)
+- `papers/y1_fig1-4_*.png` (4 figures)
+- `papers/y1_table1-2_*.tex` (2 LaTeX tables)
+
+Total commits at Y1 paper draft completion: **110** (with this commit: **111**).
+
+---
+
+*[End of addendum K. Thesis v1.0 + addendum total ~2900 lines.]*

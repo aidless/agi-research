@@ -1,0 +1,13 @@
+============================================================
+MADDPG v6 (trust head ablation) - arm=no_verifier
+============================================================
+Phase 1: Random baseline = -78.96 +/- 23.05
+    update 1/80: mean_episode_return=-80.3
+    update 20/80: mean_episode_return=-77.16
+    update 40/80: mean_episode_return=-86.2
+    update 60/80: mean_episode_return=-73.02
+    update 80/80: mean_episode_return=-67.16
+
+Phase 3: Final eval...
+  MADDPG v6 (no_verifier) eval: -70.08 +/- 18.13  (delta vs random: 8.88)
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v6\seed2_no_verifier\phase2_log.json

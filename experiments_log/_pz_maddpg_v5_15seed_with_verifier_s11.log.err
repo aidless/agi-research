@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 582, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 544, in main
+    rnd_returns = run_random_baseline(args.seed, n_episodes=20, max_cycles=args.max_cycles)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 217, in run_random_baseline
+    env = make_env(max_cycles)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 151, in make_env
+    return simple_spread_v3.env(N=N_AGENTS, max_cycles=max_cycles, continuous_actions=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\pettingzoo\mpe\_mpe_utils\simple_env.py", line 19, in env
+    env = raw_env(**kwargs)
+          ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\pettingzoo\mpe\simple_spread\simple_spread.py", line 85, in __init__
+    SimpleEnv.__init__(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\pettingzoo\mpe\_mpe_utils\simple_env.py", line 53, in __init__
+    self.screen = pygame.Surface([self.width, self.height])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pygame.error: Out of memory

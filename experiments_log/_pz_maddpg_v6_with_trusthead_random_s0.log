@@ -1,0 +1,13 @@
+============================================================
+MADDPG v6 (trust head ablation) - arm=with_trusthead_random
+============================================================
+Phase 1: Random baseline = -78.61 +/- 23.24
+    update 1/80: mean_episode_return=-77.99
+    update 20/80: mean_episode_return=-67.67
+    update 40/80: mean_episode_return=-75.49
+    update 60/80: mean_episode_return=-91.46
+    update 80/80: mean_episode_return=-82.98
+
+Phase 3: Final eval...
+  MADDPG v6 (with_trusthead_random) eval: -71.97 +/- 19.44  (delta vs random: 6.64)
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v6\seed0_with_trusthead_random\phase2_log.json

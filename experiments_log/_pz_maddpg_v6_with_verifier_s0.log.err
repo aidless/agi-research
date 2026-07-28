@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v6.py", line 254, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v6.py", line 227, in main
+    actors, trust_heads, history = train_maddpg_v6(
+                                   ^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v6.py", line 192, in train_maddpg_v6
+    trust_opts[j].zero_grad(); trust_loss.backward(); trust_opts[j].step()
+                               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\_tensor.py", line 581, in backward
+    torch.autograd.backward(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\autograd\__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\autograd\graph.py", line 825, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Trying to backward through the graph a second time (or directly access saved tensors after they have already been freed). Saved intermediate values of the graph are freed when you call .backward() or autograd.grad(). Specify retain_graph=True if you need to backward through the graph a second time or if you need to access saved tensors after calling backward.

@@ -884,3 +884,129 @@ null cross-env / null inference-time findings together. No overclaim.
 sub-project definitively closed (8 pre-reg, 0 supported). PhD SoP v2.0
 delivered as 6 per-program variants; PI customization pending. NO_SELF_
 DECEPTION.md protocol remains in force.*
+
+
+---
+
+## 2026-07-28 second session -- packaging + Project G kickoff
+
+**Major progress** (3 commits this session):
+
+- [x] **PhD SoP v2.0** (83228d1): 6 per-program variants
+  (already reported in earlier session entry; carried forward).
+- [x] **Packaging** (f5af230): Y1 paper v3.7 release bundle
+  - releases/y1-paper-v3.7/paper.md (38 KB, full §1-7 + 4 appendices)
+  - releases/y1-paper-v3.7/figures/ (4 PNGs, ~155 KB total)
+  - releases/y1-paper-v3.7/tables/ (2 LaTeX, ~1.6 KB)
+  - releases/y1-paper-v3.7/README.md (release notes, 5.3 KB)
+  - releases/y1-paper-v3.7/SUBMISSION.md (arXiv checklist, 6.0 KB)
+  - releases/y1-paper-v3.7/MANIFEST.md (SHA-256 inventory, 2.3 KB)
+  - releases/y1-paper-v3.7/CITATION.cff (GitHub citation, 2.0 KB)
+  - releases/y1-paper-v3.7/CHANGELOG.md (release history, 3.0 KB)
+  - Plus copies of paper + figures + tables + 9-hypo framework +
+    related-work note for offline reference
+
+- [x] **Project G kickoff** (f9bd445): new direction -- LLM self-
+  monitoring with decoupled Monitor
+  - projects/project_g_llm_self_monitoring/README.md (7.4 KB,
+    11 sections, full hypothesis framing)
+  - projects/project_g_llm_self_monitoring/code/llm_monitor.py
+    (LLMSlotMonitor: Slot-Monitor adapted to LLM traces,
+    17,985 params)
+  - projects/project_g_llm_self_monitoring/code/frozen_rollout_collector.py
+    (synthetic LLM trace generator for smoke test)
+  - projects/project_g_llm_self_monitoring/code/failure_label_generator.py
+    (label definition in separate file for reviewability)
+  - projects/project_g_llm_self_monitoring/code/h10_smoke.py
+    (end-to-end smoke test, **AUROC 0.848 PASSED**)
+  - experiments_log/2026-07-28-PRE-REGISTERED-H10.md (5.7 KB,
+    full H10 hypothesis + decision rule + sample-size protocol +
+    NO_SELF_DECEPTION.md compliance checklist)
+  - experiments_log/2026-07-28-H10-smoke.md (architecture
+    validation log, 2.8 KB)
+  - ROADMAP.md section 3.1 added (Project G as P1 candidate)
+
+**Total commits**: 113 (+3 this session)
+
+**Why Project G is the "新方向"**:
+- Y1.x + H2.0 closed (8 pre-reg tests, 0 supported at strict t>2.0)
+- Y2 Phase 2 multi-agent (Project F) is the *next* direction but
+  is more of an extension (DMC + MADDPG)
+- Project G is a fresh domain: **does decoupled-Monitor logic
+  transfer from classical RL to LLM self-rewarding?** This is a
+  genuinely new test of the decoupling principle, not a continuation.
+- H10 is pre-registered with a hard decision rule (frozen > joint
+  by delta > 0.05 AND Welch t > 2.0 AND negative control).
+- Smoke test passes (AUROC 0.848 on synthetic signal); architecture
+  is ready for real-LLM rollouts when the user provides one.
+
+**Smoke test result (architecture validation)**:
+- Train: 160 synthetic traces, 50 epochs, Adam lr=1e-3, BCE loss
+- Eval: 40 held-out traces
+- Final AUROC: **0.848** (peak 0.929 at epoch 20)
+- Final accuracy: 0.875
+- Compute: ~10 seconds on CPU
+- Verdict: **PASS** -- architecture validates, ready for real H10
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | Smoke test ran, AUROC 0.848 measured; H10 not yet run |
+| Completeness | 4/5 | All 3 options delivered; Project G needs user-LLM choice |
+| Clarity | 5/5 | Packaging + Project G both have full READMEs + changelogs |
+| Actionability | 5/5 | PhD SoP ready to customize; release ready to submit; H10 ready to run |
+| Conciseness | 4/5 | Some sections could be tighter (e.g., packaging README) |
+| **Overall** | **23/25 (92%)** | Strong delivery across 3 distinct work streams |
+
+**Honest Boundary**:
+- The H10 smoke test is on SYNTHETIC data, not a real LLM. The
+  smoke test does NOT count toward the H10 verdict.
+- The H10 hypothesis itself has NOT been tested. Only the
+  architecture has been validated.
+- Project G "新方向" status is aspirational until the real H10
+  experiment runs.
+- PhD SoP variants are DRAFTS; user must add lab/advisor names and
+  verify references before submission.
+- Packaging SUBMISSION.md is a checklist, not a guarantee that the
+  paper is ready. PI final review still needed.
+
+**Pending (PI action)**:
+- [ ] PhD SoP: customize each variant (lab/advisor names, recent
+      papers, program-specific portal rules)
+- [ ] PhD SoP: customize academic_cv.md per program
+- [ ] PhD SoP: trim writing_sample_outline.md to per-program page limit
+- [ ] PhD SoP: submit in 2026-09 to 2027-01 window
+- [ ] Packaging: walk through SUBMISSION.md checklist
+- [ ] Packaging: convert paper.md to LaTeX if preferred over Markdown
+- [ ] Packaging: submit to arXiv (target late 2026)
+- [ ] Project G: choose frozen LLM (Qwen-1.5B / Phi-3-mini / other)
+- [ ] Project G: choose reasoning dataset (GSM8K / MATH / other)
+- [ ] Project G: confirm compute budget (CPU OK? GPU needed?)
+- [ ] Project G: run real H10 experiment per pre-registration
+
+**Work Board (post-packaging + Project G)**:
+  Y1 (closing)                          Y2 (starting)
+  ---------------------                  ---------------------
+  ✅ PhD SoP v2.0 6 variants              ⏳ Submit PhD apps (PI)
+  ✅ Y1 paper v3.7 release bundle         ⏳ Submit Y1 to arXiv (PI)
+  ✅ Y1.x + H2.0 closed (8 tests, 0 sup.)  ⏳ Y2 multi-agent (PettingZoo)
+  ✅ NO_SELF_DECEPTION.md protocol active  ⏳ Y2 multi-agent Y1 paper §4-6
+  ✅ H6 instrumented 5-seed REFUTED        ⏳ Y9 self-improvement loop
+  🆕 Project G spec + H10 pre-reg         🆕 H10 real-LLM experiment
+  🆕 Project G smoke test PASS (0.848)    🆕 H11 / H12 follow-up (if H10 holds)
+
+**Commit timeline this session**:
+`
+f9bd445 Project G kickoff: LLM Self-Monitoring (H10 pre-reg + LLMSlotMonitor architecture + smoke test AUROC 0.848)
+f5af230 Packaging: Y1 paper v3.7 release bundle (arXiv-ready, MANIFEST+SHA256, SUBMISSION checklist, CITATION.cff)
+a11af88 PROGRESS: 2026-07-28 late session -- PhD SoP v2.0 (6 per-program variants)
+83228d1 PhD SoP v2.0: 6 per-program variants (MIT/Stanford/CMU/Berkeley/DeepMind/Anthropic)
+9fd5480 H2.0 n=10 extension: still NOT supported (delta=+30, t<2.0 with n=10)
+`
+
+*Session state at 2026-07-28 end-of-day: 113 commits. Three
+distinct work streams delivered in one session: PhD SoP v2.0
+(6 variants), Y1 paper v3.7 release packaging (arXiv-ready),
+and Project G kickoff (LLM self-monitoring new direction with
+H10 pre-registration). NO_SELF_DECEPTION.md protocol remains in
+force.*

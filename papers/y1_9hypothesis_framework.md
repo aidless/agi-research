@@ -129,21 +129,33 @@ decoupled Monitors trained on each agent's frozen policy outperform
 jointly-trained shared Monitors (when the per-agent PPO baseline is
 itself adequate).
 
-**Status**: 🔄 **OPEN** (Phase 2 — Y2 work)
+**Status**: PARTIAL (DMC end-to-end works; 5-seed result INCONCLUSIVE on this env)
 
-**Evidence so far**:
-- DMC architecture implemented (skeleton, random init)
-- PettingZoo Simple Spread baseline:
-  - Random: -77.45
-  - Per-agent PPO: -100.51
-  - Shared PPO: -95.15
-  - MADDPG: -75.78
-- **DMC vs MADDPG not yet tested** (DMC needs trained Monitors)
+**Evidence** (full log: `experiments_log/2026-07-28-pz-dmc-5seed.md`):
+- Per-agent Monitor AUROC across 15 (5 seed x 3 agent): mean 0.990,
+  min 0.965, max 1.000. **Decoupling assumption VALIDATED on MA env.**
+- DMC shaped vs Stage-1 shared PPO: +16.22 mean, 4/5 positive,
+  paired t=+2.055 (NOT significant at df=4, alpha=0.05).
+- DMC 5-seed mean: -125.34 +/- 42.23. vs shared PPO seed 0: -95.15
+  vs MADDPG: -75.78 vs random: -77.45.
+- Joint failure predictor AUROC: 0.500 across all 5 seeds
+  (per-agent Monitor does NOT see inter-agent failure patterns).
 
-**Y2 follow-up**: implement real DMC with trained per-agent Monitors,
-compare to MADDPG baseline on PettingZoo Simple Spread.
+**Interpretation**: DMC partially rescues unstable Stage-1 PPO
+(+16 over diverged PPO, 4/5 seeds) but does not reach random or
+MADDPG. Confounders: (a) action space (DMC discrete vs MADDPG
+continuous), (b) credit assignment (DMC local Monitor vs MADDPG
+centralised critic), (c) compute (DMC 150 ep vs MADDPG 600 ep),
+(d) Monitor is a binary failure signal vs Q dense value.
 
----
+**H5 verdict**: INCONCLUSIVE on this env at this compute budget.
+A fair DMC vs MADDPG comparison would need continuous-action DMC,
+matched compute, and a denser Monitor signal. Y2 work.
+
+**Y2 follow-up**: continuous-action DMC; SlotMonitor version;
+longer Stage-1 (>=200 episodes to stable point); proper
+next_obs Monitor bootstrap; matched-budget vs MADDPG.
+
 
 ## H6: Joint Monitor failure is monotonic with PPO updates
 
@@ -227,7 +239,7 @@ Monitor accuracy improves without task regression.
 | H2 | ✅ VALIDATED | Y1.3 +50, p<0.001 | cross-env, longer training |
 | H3 | ✅ VALIDATED | DLR 97.8% 4-env mean | harder envs, learned predicates |
 | H4 | ✅ VALIDATED | Slot-Monitor 0.989 vs 0.796 | 5-seed validation |
-| H5 | 🔄 OPEN | DMC architecture skeleton, MADDPG -75.78 | DMC vs MADDPG |
+| H5 | PARTIAL | DMC 5-seed: Monitor AUROC 0.99, DMC vs Stage1 +16.2 (4/5 pos, p~0.10) | continuous-action DMC, matched compute |
 | H6 | △ PARTIAL | joint Monitor near-random | instrumented logging |
 | H7 | ✅ VALIDATED | PEP H1 + tamper H2 | DLR + real LLM |
 | H8 | ✅ VALIDATED | A2A gate intercepts A3 | DMC integration |
@@ -239,7 +251,7 @@ Monitor accuracy improves without task regression.
 
 Wait — re-counting: H1 ✓, H2 ✓, H3 ✓, H4 ✓, H7 ✓, H8 ✓ = **6 validated**.
 H6 △ = **1 partial**.
-H5, H9 = **2 open**.
+H9 = **1 open**. **Total: 6 validated, 2 partial, 1 open.**
 
 **Y2 priorities**:
 1. H5 (DMC) — most impactful, depends on working PPO baseline (have MADDPG)

@@ -1133,3 +1133,92 @@ across packaging + PhD SoP v2.0 + Project G v0.1 + PhD SoP v2.1 +
 Project G v0.2. NO_SELF_DECEPTION.md protocol remains in force; the
 H10 multi-arm smoke test correctly reports negative synthetic result
 without framing it as H10 refutation.*
+
+
+---
+
+## 2026-07-28 fourth session -- H10 real-LM pilot (system validation)
+
+**Major progress** (2 commits this session):
+
+- [x] **Real-LM pilot code** (5ee7b12):
+  - projects/project_g_llm_self_monitoring/code/real_llm_rollout_collector.py
+    (8.3 KB): loads Qwen2.5-1.5B-Instruct (1.5B params, float16) from
+    local cache, loads GSM8K, generates reasoning traces with confidence
+    scores, extracts failure labels from GSM8K ground truth.
+  - projects/project_g_llm_self_monitoring/code/h10_real_pilot.py
+    (6.9 KB): 3-arm H10 pilot (frozen / joint / random), n=1 seed,
+    configurable via H10_N_TOTAL + H10_MAX_NEW_TOKENS env vars.
+
+- [x] **N=4 pilot result** (23160b6):
+  - LM load: 22.3s (one-time)
+  - Trace collection: 637.4s (~160s/trace, 4 traces * 20 tokens)
+  - All 4 traces labeled as failures (Qwen2.5-1.5B + 20 tokens
+    insufficient for GSM8K multi-step math)
+  - AUROC undefined (one-class dataset)
+  - **Verdict**: pipeline validated end-to-end on real LM traces,
+    but H10 hypothesis not testable at N=4/20 tokens
+
+**System constraints discovered**:
+- Qwen2.5-3B-Instruct float16 fails to load (OSError 1455, paging file)
+- Qwen2.5-1.5B-Instruct float16 loads OK (~22s)
+- 1.5B on CPU: ~4 sec/token generation
+- 4 traces * 20 tokens: 11 min total (manageable)
+- 8 traces * 32 tokens: >25 min (timeout)
+- 4 traces * 40 tokens: >20 min (timeout)
+
+**N=4 pilot verdict**: pipeline validated, but all-failure dataset
+makes AUROC undefined. H10 hypothesis not testable at this scale.
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | Pipeline runs end-to-end; AUROC undefined reported honestly |
+| Completeness | 4/5 | Pipeline ready, but H10 result requires GPU or smaller dataset |
+| Clarity | 5/5 | All timing + constraints documented |
+| Actionability | 4/5 | Clear path forward documented (GPU or easier dataset) |
+| Conciseness | 4/5 | Logs are thorough |
+| **Overall** | **22/25 (88%)** | Good delivery, system constraint is real |
+
+**Honest Boundary**:
+- This N=4 pilot is NOT the pre-registered H10 verdict.
+- Pipeline validated; H10 hypothesis still requires the full n=5 run.
+- The "all failures" outcome is documented with same precision as a
+  positive result would be.
+- Real H10 needs GPU (or much easier problems / smaller N / longer budget).
+- The user should not run the full pre-registered H10 on this CPU
+  system within reasonable time; the pilot confirms the bottleneck.
+
+**Pending (PI action)**:
+- [ ] Get GPU access (or HF Residency / Lambda Labs grant) for full H10
+- [ ] Alternative: use simpler dataset (single-step arithmetic) where
+      1.5B + 20 tokens produces some successes
+- [ ] Alternative: increase max_new_tokens to 128+ (requires ~50 min for
+      N=4 on CPU; longer for full pre-reg)
+- [ ] Alternative: pre-train Qwen2.5-1.5B on GSM8K-style problems so it
+      can succeed in few tokens (introduces training bias; risky)
+
+**Work Board (post-real-LM pilot validation)**:
+  Project G state at 2026-07-28:
+  - Architecture (LLMSlotMonitor, joint_monitor): validated
+  - H10 pre-registration: filed
+  - H11 pre-registration: filed (contingent on H10)
+  - 3-arm synthetic multi-arm smoke (n=3): inconclusive on synthetic data
+  - Real-LM pilot N=4: pipeline validated, H10 not testable at this scale
+  - Full pre-registered H10 (n=5, 200 rollouts/seed): needs GPU or
+    longer budget
+
+**Commit timeline this session**:
+`
+23160b6 Project G v0.2.2: H10 real-LM pilot N=4 result -- pipeline works (all traces failure due to short tokens, AUROC undefined)
+5ee7b12 Project G v0.2.1: real-LM pilot code (Qwen2.5-1.5B + GSM8K) + system validation (4 traces generated successfully on CPU)
+1539455 Project G v0.2: joint Monitor + H11 pre-reg + paper outline + multi-arm smoke (n=3, H10 direction NOT reproduced on synthetic, expected)
+`
+
+*Session state at 2026-07-28 end-of-real-LM-pilot: 118 commits. Real-LM
+H10 pilot pipeline validated end-to-end on Qwen2.5-1.5B + GSM8K in float16
+on CPU. N=4 pilot ran successfully but all 4 traces failed (insufficient
+tokens for Qwen2.5-1.5B to solve GSM8K), making AUROC undefined. Full
+pre-registered H10 requires GPU access or a smaller dataset. NO_SELF_
+DECEPTION.md protocol remains in force; the all-failure result is
+reported with same precision as a positive result would be.*

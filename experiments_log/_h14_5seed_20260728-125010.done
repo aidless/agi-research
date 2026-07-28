@@ -1,0 +1,39 @@
+﻿
+=== H1.4: 5 real + 5 random (exploration bonus) start 20260728-125010 ===
+
+y14 seed 0   START 2026-07-28 12:50:10
+y14 seed 0   LAUNCHED 2026-07-28 12:50:10   pid=11940
+--- real 0 done ---
+
+y14 seed 1   START 2026-07-28 12:50:10
+y14 seed 1   LAUNCHED 2026-07-28 12:50:10   pid=6464
+--- real 1 done ---
+
+y14 seed 2   START 2026-07-28 12:50:10
+y14 seed 2   LAUNCHED 2026-07-28 12:50:10   pid=9088
+--- real 2 done ---
+
+y14 seed 3   START 2026-07-28 12:50:10
+y14 seed 3   LAUNCHED 2026-07-28 12:50:10   pid=12540
+--- real 3 done ---
+
+y14 seed 4   START 2026-07-28 12:50:10
+y14 seed 4   LAUNCHED 2026-07-28 12:50:10   pid=3736
+--- All 5 real launched at 2026-07-28 12:50:10 ===
+--- Now launching 5 random (will run SEQUENTIALLY via WaitForExit) ---
+
+y14r seed 0   START 2026-07-28 12:50:10
+y14r seed 0   LAUNCHED 2026-07-28 12:50:10   pid=8880
+
+y14r seed 1   START 2026-07-28 12:50:10
+y14r seed 1   LAUNCHED 2026-07-28 12:50:10   pid=17792
+
+y14r seed 2   START 2026-07-28 12:50:10
+y14r seed 2   LAUNCHED 2026-07-28 12:50:10   pid=8288
+
+y14r seed 3   START 2026-07-28 12:50:10
+y14r seed 3   LAUNCHED 2026-07-28 12:50:10   pid=9464
+
+y14r seed 4   START 2026-07-28 12:50:10
+y14r seed 4   LAUNCHED 2026-07-28 12:50:10   pid=1884
+=== All 10 H1.4 processes launched at 2026-07-28 12:50:10 ===

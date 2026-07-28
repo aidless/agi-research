@@ -34,6 +34,34 @@ due to PPO failure; need more appropriate env).
 
 ---
 
+## H1.4: Monitor as exploration bonus (vs Y1.3 reward penalty)
+
+**Statement**: Replacing the training-time *reward penalty* (Y1.3) with
+a Monitor-derived *exploration bonus* (added to policy entropy) produces
+a statistically significant policy gain over the same PPO baseline.
+
+**Status**: REFUTED (5 seeds, LunarLander-v3, 100K PPO)
+
+**Evidence** (full log: `experiments_log/2026-07-28-pz-h14-bonus-refuted.md`):
+- H1.4 REAL (trained Slot-Monitor bonus): mean 52.7 +/- 24.0 (n=5)
+- H1.4 RANDOM (U[0,1] bonus control): mean 78.3 +/- 45.4 (n=5)
+- PPO baseline (no Monitor): 40.6 +/- 37.1 (n=5)
+- Y1.3 (training-time penalty, 15 seeds): 80.1 +/- 45.9
+- Per-seed REAL - RANDOM deltas: +41.87, -36.25, -0.84, -94.89, -37.93
+- Positive seeds (REAL > RANDOM): 1/5
+- Welch t = -1.115, df ~ 6.1 (not significant at alpha=0.05)
+
+**Implication for Y1 paper**: The Y1.3 finding does NOT generalise
+to other Monitor-on-RL interventions. Only the *training-time reward
+penalty* use of a decoupled Monitor is validated. Exploration bonus,
+joint training, inference-time intervention, and longer training
+(H3 500K) all fail. This sharpens (not weakens) the Y1 claim: the
+architecture is *not* generically useful for RL; it is useful
+*specifically* as a reward shaper on a frozen-policy Monitor.
+
+**Y2 follow-up**: optional H1.4b with smaller bonus (lambda=0.05) to
+rule out the too-strong explanation; pre-register first.
+
 ## H2: Training-time Monitor > Inference-time intervention
 
 **Statement**: Using the Monitor as a **training-time reward shaper**

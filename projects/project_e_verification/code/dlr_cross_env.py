@@ -62,6 +62,14 @@ def get_predicates(env_name):
             "low_velocity": lambda obs: float(np.sqrt(obs[2]**2 + obs[3]**2) < 0.3),
             "safe_approach": lambda obs: float(0.0 < obs[1] < 1.5 and abs(obs[0]) < 0.5),
         }, obs_dim, n_actions
+    elif env_name == "Pendulum-v1":
+        obs_dim = 3
+        n_actions = 1  # continuous, but we discretize for DLR
+        return {
+            "low_angle": lambda obs: float(abs(obs[0]) < 0.5),
+            "low_ang_vel": lambda obs: float(abs(obs[2]) < 1.0),
+            "upright_approx": lambda obs: float(obs[0] > 0.9),
+        }, obs_dim, n_actions
     elif env_name == "Acrobot-v1":
         obs_dim = 6
         n_actions = 3

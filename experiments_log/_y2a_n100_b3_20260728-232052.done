@@ -1,0 +1,10 @@
+﻿
+=== Y2-a batch 3: remaining no_verifier 58-64 + both arms 65-99 ===
+b3 nv s=58 pid=20180
+b3 nv s=59 pid=12216
+b3 nv s=60 pid=2168
+b3 nv s=61 pid=22108
+b3 nv s=62 pid=16136
+b3 nv s=63 pid=19544
+b3 nv s=64 pid=13892
+=== 7 no_verifier 58-64 launched ===

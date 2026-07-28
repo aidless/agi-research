@@ -1,0 +1,19 @@
+============================================================
+MADDPG v5 - arm=with_verifier - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=88, n_updates=80
+
+Phase 1: Random baseline = -68.45 +/- 17.13
+
+  Stage 0: Training per-agent Monitors on frozen PPO rollouts...
+  Stage 1: 10 warmup updates starting...
+    update 1/80: mean_episode_return=-80.66, buffer=8250
+    update 20/80: mean_episode_return=-69.29, buffer=20000
+    update 40/80: mean_episode_return=-75.74, buffer=20000
+    update 60/80: mean_episode_return=-86.42, buffer=20000
+    update 80/80: mean_episode_return=-61.66, buffer=20000
+
+Phase 3: Final eval...
+  MADDPG v5 (with_verifier) eval: -69.84 +/- 19.79  (delta vs random: -1.38)
+  Monitor AUROC per agent: [0.809, 0.819, 0.86]
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v5\seed88_with_verifier\phase2_log.json

@@ -1,46 +1,54 @@
-﻿# Twitter / X 草稿 Y1.3 公告 (v3.0, after 3-way control)
+﻿# Twitter / X 草稿 Y1.3 v4.0 (FINAL, after n=15 per arm)
 
-> 2026-07-28. v3.0 reflects v1.2 (3-way control).
-> v1.0 was overclaimed. v1.1 over-corrected. v1.2 is the honest
-> final version.
+> 2026-07-28. v4.0 reflects v1.3 final verdict.
+> Pre-registered H1 NOT supported. v1.0/v1.1/v1.2 all superseded.
+> The truly honest finding is "shaping helps; Monitor not validated."
 
 ---
 
-## Version 1: v1.2 完整 (数字 + 限定 + 机制)
+## Version 1: 诚实发现 v1.3（n=15 per arm）
 
 ```
-Y1.3 3-way control result on LunarLander-v3:
+Y1.3 final verdict on LunarLander-v3, n=15 per arm:
 
-  PPO baseline (no shaping):         40.6 (n=5)
-  Y1.3 with INVERSE monitor (1-p):   55.4 (n=5)  +14.7 vs PPO
-  Y1.3 with RANDOM monitor:          58.2 (n=5)  +17.6 vs PPO
-  Y1.3 with REAL Monitor:            80.1 (n=15) +39.5 vs PPO  t=6.76
+  PPO baseline:        40.6 (n=5)
+  Y1.3 INVERSE:        56.7 (n=10)  +16.0 vs PPO
+  Y1.3 RANDOM:         66.5 (n=10)  +25.9 vs PPO
+  Y1.3 REAL:           80.1 (n=15)  +39.5 vs PPO
 
-Pairwise deltas:
-  Real - Random:   +21.9  (Monitor signal adds value above shaping)
-  Real - Inverse:  +24.8  (Monitor is direction-sensitive)
-  Random - Inverse: +2.8  (both non-informative; equal)
+Pre-registered Welch t-tests:
+  Real - Random:     t=0.78  delta=+13.6  NOT significant
+  Real - Inverse:    t=1.06  delta=+23.5  NOT significant
+  Real - PPO:        t=1.94  delta=+39.5  borderline
+  Random - Inverse:  t=0.44  delta=+9.8   NOT significant
 
-v1.2 (honest) decomposition of Y1.3 effect:
-  (a) Reward shaping as regularizer:        +15-18 (any signal)
-  (b) Monitor signal as information:        +22-25 (real > non-info)
-  Combined:                                +37-40 over PPO, p<0.001
+Pre-registered H1 verdict: NOT SUPPORTED.
+  H1: delta > +10 AND t > 2.0
+  Result: delta=+13.6, t=0.78. H1 fails.
 
-EXPLICIT LIMITATIONS (per NO_SELF_DECEPTION.md):
-  - Random and Inverse are n=5; Real is n=15. The +22-25 delta
-    is NOT statistically significant with current n.
-  - Single env: only LunarLander shows Y1.3 benefit.
-  - Acrobot and MountainCar showed no Y1.3 help.
-  - Lambda=0.5 only.
-  - Mechanism is post-hoc (3 sentences, see paper 4.10.18).
+HONEST FINDING (v1.3 final):
+  'PPO + any per-step reward shaping (random, inverse, or trained
+  Monitor) helps LunarLander PPO by ~+16-40 mean reward. The
+  specific Monitor signal does not significantly improve on this
+  baseline. The Monitor architecture provides useful real-time
+  failure prediction (Sections 4.6-4.8, AUROC 0.99) but does not
+  transfer to policy improvement at this PPO budget.'
 
-VERSION HISTORY:
-  v1.0 (ef90c2c, 2026-07-27): 'FIRST POSITIVE +50 from Monitor' - RETRACTED
-  v1.1 (e515565, 2026-07-28): 'shaping helps regardless of signal'
-                                - SUPERSEDED
-  v1.2 (8faf30b, 2026-07-28): 'shaping + Monitor both contribute,
-                                Monitor is direction-sensitive' - HONEST
+VERSION HISTORY (all in git history):
+  v1.0 (ef90c2c):    'FIRST POSITIVE +50 from Monitor' - RETRACTED
+  v1.1 (e515565):    'shaping regardless of signal' - SUPERSEDED
+  v1.2 (8faf30b, n=5): 'Real > Random~Inverse by +22-25' - SUPERSEDED
+  v1.3 (78b6044, n=15): 'Shaping helps; Monitor not validated' - FINAL
 
-The novel contribution is the +22-25 Monitor signal delta above
-shaping, NOT the +50 vs PPO. Monitor architecture provides
-directional information that non-informative signals do not.
+WHAT THE PRE-REGISTRATION PROTOCOL SAVED:
+  Without pre-registration, the n=5 v1.2 result would have been
+  published as a 'novel contribution'. With pre-registration and
+  n=15: H1 fails. The protocol converted a publishable-looking
+  pilot into a NULL result that we can honestly report.
+
+KEY LESSON:
+  The Monitor architecture is real (AUROC 0.99 at prediction) but
+  does not transfer to policy improvement at this PPO budget. This
+  is a meaningful NULL result for the Y1.3 sub-project. Future
+  directions: model-based planning, expert imitation, or longer
+  PPO budgets.

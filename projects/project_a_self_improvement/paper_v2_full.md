@@ -1477,3 +1477,63 @@ significantly help PPO. At 500K, it actively hurts.
   4. The Monitor architecture is real (AUROC 0.99) but its USE
      matters. Reward shaping was the wrong use case.
 
+
+
+### 4.10.22 H1.4 - Monitor as EXPLORATION BONUS (different use case)
+
+Y1.3 (Sections 4.10.1-4.10.21) used Monitor as REWARD SHAPING
+(shaped_reward = env_reward - lambda * Monitor_prob). H1.4 tests
+a DIFFERENT use case: EXPLORATION BONUS (shaped_reward = env_reward
++ beta * Monitor_prob). The sign is REVERSED: H1.4 says "explore
+Monitor-flagged states" (curiosity-style), Y1.3 says "avoid them"
+(reward shaping).
+
+**Pre-registered H1.4 (LunarLander-v3, n=5 per arm, 100K PPO):**
+  H1.4: With Monitor as exploration bonus, Y1.4 with real
+  Monitor gives higher mean return than Y1.4 with random monitor,
+  delta > +10 AND Welch t > 2.0.
+  H0: Real and random give same mean return.
+
+**H1.4 results:**
+
+| Method | n | Mean | Std |
+|--------|---|------|-----|
+| H1.4 (real, exploration bonus) | 5 | 52.7 | 24.1 |
+| H1.4 (random, exploration bonus) | 5 | 78.3 | 45.4 |
+
+**Delta: -25.6, Welch t = -1.12. H1.4 NOT supported.**
+
+## 4.10.23 Y1.x sub-project FINAL CLOSE (after H1.4)
+
+4 independent pre-registered tests of the Monitor as policy
+intervention for PPO. ALL 4 failed.
+
+| Test | Intervention | n | Delta (real - random) | t | Verdict |
+|------|---------------|---|------------------------|---|---------|
+| H1 | Y1.3 reward shaping, 100K PPO | 15/10 | +13.6 | 0.78 | NOT supported |
+| H2 | Y1.3 reward shaping, Acrobot | 5/0 | (Y1.3 ~ PPO) | n/a | no help |
+| H3 | Y1.3 reward shaping, 500K PPO | 5/5 | -53.1 | -2.16 | NOT supported, ACTIVE HARM |
+| **H1.4** | **Monitor exploration bonus** | **5/5** | **-25.6** | **-1.12** | **NOT supported** |
+
+**4 tests, 0 supported.** Monitor signal does NOT help PPO in
+any tested intervention.
+
+**Y1.x sub-project CLOSED (final).** The Monitor architecture is
+real (Sections 4.6-4.8, AUROC 0.99) but its ONLINE policy
+interventions do not work. The Monitor is useful for OFFLINE
+analysis (where the policy fails) but not for action-level gains.
+
+**Decision record DEC-Y1.x FINAL:**
+  - H1 + H2 + H3 + H1.4 all show Y1.x (Monitor as policy
+    intervention) does NOT help PPO.
+  - RECOMMENDATION: STOP using Monitor for online policy
+    interventions. Use Monitor for offline analysis only.
+  - NEXT direction: should NOT be more Monitor use cases.
+    Consider: different model architecture, different PPO variant,
+    or accept that the policy-improvement goal is out of reach
+    for this Monitor at this PPO budget.
+
+**Paper should distinguish:**
+  - Monitor ARCHITECTURE: real, AUROC 0.99 (Sections 4.6-4.8)
+  - Monitor USE CASES for policy: 4 tests, all negative (Section 4.10)
+

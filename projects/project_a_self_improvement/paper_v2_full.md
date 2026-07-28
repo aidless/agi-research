@@ -1335,3 +1335,79 @@ v1.0 violated the P0 checklist. v1.1 partially complied.
 v1.2 fully complies.
 
 
+
+
+### 4.10.19 Y1.3 v1.3 FINAL - n=15 per arm, H1 NOT supported
+
+Following the pre-registered H1 (experiments_log/2026-07-28-PRE-REGISTERED-H1-v1.md),
+we extended the 3-way control from n=5 to n=15 per arm (random+inverse
+went from 5 to 10 seeds; real stayed at 15). Pre-registered decision
+rule: n=10+ per arm, Welch t > 2.0, delta > +10.
+
+Final results:
+
+| Method                          | n   | Mean | Delta vs PPO |
+|---------------------------------|-----|------|--------------|
+| PPO baseline (no shaping)        | 5   | 40.6 | -            |
+| Y1.3 with **INVERSE** monitor    | 10  | 56.7 | +16.0        |
+| Y1.3 with **RANDOM** monitor     | 10  | 66.5 | +25.9        |
+| Y1.3 with **REAL** Monitor        | 15  | 80.1 | +39.5        |
+
+Pre-registered Welch t-tests (n=10-15 per arm, threshold t=2.14):
+  Real - Random:     t = 0.78  delta=+13.6  **NOT significant**
+  Real - Inverse:    t = 1.06  delta=+23.5  **NOT significant**
+  Real - PPO:        t = 1.94  delta=+39.5  borderline
+  Random - Inverse:  t = 0.44  delta=+9.8   **NOT significant**
+
+**Pre-registered H1 verdict: H1 NOT SUPPORTED.**
+  Decision rule: delta > +10 AND t > 2.0.
+  Result: delta=+13.6, t=0.78. H1 fails.
+
+**FINAL honest contribution of Y1.3:**
+  "PPO + any per-step reward shaping (random, inverse, or trained
+  Monitor) helps LunarLander PPO by ~+16-40 mean reward. The
+  specific Monitor signal does not significantly improve on this
+  baseline. The Monitor architecture provides useful real-time
+  failure prediction (Sections 4.6-4.8, AUROC 0.99) but does not
+  transfer to policy improvement at this PPO budget."
+
+**Version history:**
+  v1.0 (ef90c2c):  "FIRST POSITIVE +50 from Monitor" - RETRACTED
+  v1.1 (e515565):  "shaping regardless of signal" - SUPERSEDED
+  v1.2 (8faf30b, n=5): "Real > Random~Inverse by +22-25" - SUPERSEDED
+  v1.3 (this, n=15):  "Shaping helps; Monitor not validated" - FINAL
+
+**What the pre-registration saved us from:**
+Without pre-registration, the n=5 v1.2 result (+22-25, "novel
+contribution") would have been published as a publishable claim.
+With pre-registration and n=15: H1 fails. The pre-registered
+protocol converted a publishable-looking result into a NULL result
+that we can honestly report.
+
+**What this means for the paper:**
+- The Monitor architecture (Section 4.6-4.8, AUROC 0.99) is still
+  a valid contribution at the prediction level
+- The online gating (v0.1-v0.4C) is still HALTED
+- The training-time regularizer (Y1.3) is reframed as "reward
+  shaping helps; Monitor signal not specifically validated"
+- The "self-deception" critique in the knowledge base was
+  structurally correct: the v1.0/v1.1/v1.2 progression showed the
+  same pattern
+
+**Limitations:**
+- All controls on a single env (LunarLander-v3)
+- Acrobot and MountainCar already showed no Y1.3 benefit
+- The Monitor signal may help with more PPO budget or different
+  PPO variants - this is H2, not H1
+
+**Anti-self-deception compliance:** v1.3 is the FIRST Y1.3 verdict
+that fully complies with NO_SELF_DECEPTION.md P0 checklist:
+  [x] Negative control (real vs random: t=0.78, not sig)
+  [x] Inverse control (real vs inverse: t=1.06, not sig)
+  [x] At least n=10 per arm for the headline comparison
+  [x] Pre-registered hypothesis and decision rule
+  [x] Limitations in this section
+  [x] Self-critique: the v1.0/v1.1/v1.2 sequence was self-deceptive;
+       v1.3 corrects by reporting H1 not supported
+
+

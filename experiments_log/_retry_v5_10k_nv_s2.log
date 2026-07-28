@@ -1,0 +1,55 @@
+============================================================
+MADDPG v5 - arm=no_verifier - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=2, n_updates=800
+
+Phase 1: Random baseline = -79.23 +/- 27.94
+
+  Stage 0: Training per-agent Monitors on frozen PPO rollouts...
+  Stage 1: 10 warmup updates starting...
+    update 1/800: mean_episode_return=-88.1, buffer=8250
+    update 20/800: mean_episode_return=-87.41, buffer=20000
+    update 40/800: mean_episode_return=-66.87, buffer=20000
+    update 60/800: mean_episode_return=-76.09, buffer=20000
+    update 80/800: mean_episode_return=-80.92, buffer=20000
+    update 100/800: mean_episode_return=-69.51, buffer=20000
+    update 120/800: mean_episode_return=-71.43, buffer=20000
+    update 140/800: mean_episode_return=-67.2, buffer=20000
+    update 160/800: mean_episode_return=-73.95, buffer=20000
+    update 180/800: mean_episode_return=-64.46, buffer=20000
+    update 200/800: mean_episode_return=-73.7, buffer=20000
+    update 220/800: mean_episode_return=-80.22, buffer=20000
+    update 240/800: mean_episode_return=-65.97, buffer=20000
+    update 260/800: mean_episode_return=-70.12, buffer=20000
+    update 280/800: mean_episode_return=-65.98, buffer=20000
+    update 300/800: mean_episode_return=-73.17, buffer=20000
+    update 320/800: mean_episode_return=-70.91, buffer=20000
+    update 340/800: mean_episode_return=-68.63, buffer=20000
+    update 360/800: mean_episode_return=-73.06, buffer=20000
+    update 380/800: mean_episode_return=-59.33, buffer=20000
+    update 400/800: mean_episode_return=-71.0, buffer=20000
+    update 420/800: mean_episode_return=-69.82, buffer=20000
+    update 440/800: mean_episode_return=-71.39, buffer=20000
+    update 460/800: mean_episode_return=-55.36, buffer=20000
+    update 480/800: mean_episode_return=-69.23, buffer=20000
+    update 500/800: mean_episode_return=-61.16, buffer=20000
+    update 520/800: mean_episode_return=-67.9, buffer=20000
+    update 540/800: mean_episode_return=-79.83, buffer=20000
+    update 560/800: mean_episode_return=-85.56, buffer=20000
+    update 580/800: mean_episode_return=-79.1, buffer=20000
+    update 600/800: mean_episode_return=-68.38, buffer=20000
+    update 620/800: mean_episode_return=-70.33, buffer=20000
+    update 640/800: mean_episode_return=-80.88, buffer=20000
+    update 660/800: mean_episode_return=-65.21, buffer=20000
+    update 680/800: mean_episode_return=-73.88, buffer=20000
+    update 700/800: mean_episode_return=-73.81, buffer=20000
+    update 720/800: mean_episode_return=-62.2, buffer=20000
+    update 740/800: mean_episode_return=-71.69, buffer=20000
+    update 760/800: mean_episode_return=-74.1, buffer=20000
+    update 780/800: mean_episode_return=-72.3, buffer=20000
+    update 800/800: mean_episode_return=-76.36, buffer=20000
+
+Phase 3: Final eval...
+  MADDPG v5 (no_verifier) eval: -80.46 +/- 23.48  (delta vs random: -1.23)
+  Monitor AUROC per agent: [0.921, 0.927, 0.845]
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v5\seed2_no_verifier\phase2_log.json

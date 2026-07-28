@@ -1,0 +1,33 @@
+﻿
+=== Y2 A+B+C final sprint start 20260728-210037 ===
+v7-random s=0 pid=20416
+v7-random s=1 pid=14560
+v7-random s=2 pid=21276
+v7-random s=3 pid=13188
+v7-random s=4 pid=13828
+v7-with s=0 pid=7644
+v7-with s=1 pid=14188
+v7-with s=2 pid=17360
+v7-with s=3 pid=17076
+v7-with s=4 pid=7100
+v7-no s=0 pid=20844
+v7-no s=1 pid=6224
+v7-no s=2 pid=6400
+v7-no s=3 pid=20716
+v7-no s=4 pid=22088
+v5-30seed-with s=15 pid=15568
+v5-30seed-with s=16 pid=8968
+v5-30seed-with s=17 pid=7592
+v5-30seed-with s=18 pid=10900
+v5-30seed-with s=19 pid=8728
+v5-30seed-with s=20 pid=15040
+v5-30seed-with s=21 pid=15032
+v5-30seed-with s=22 pid=13624
+v5-30seed-with s=23 pid=2836
+v5-30seed-with s=24 pid=13996
+v5-30seed-with s=25 pid=22100
+v5-30seed-with s=26 pid=4916
+v5-30seed-with s=27 pid=11956
+v5-30seed-with s=28 pid=21692
+v5-30seed-with s=29 pid=2636
+=== 50 jobs launched ===

@@ -1,0 +1,15 @@
+============================================================
+MADDPG v5 - arm=no_verifier - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=3, n_updates=800
+
+Phase 1: Random baseline = -79.44 +/- 21.18
+
+  Stage 0: Training per-agent Monitors on frozen PPO rollouts...
+  Stage 1: 10 warmup updates starting...
+    update 1/800: mean_episode_return=-77.65, buffer=8250
+    update 20/800: mean_episode_return=-92.77, buffer=20000
+    update 40/800: mean_episode_return=-84.23, buffer=20000
+    update 60/800: mean_episode_return=-67.81, buffer=20000
+    update 80/800: mean_episode_return=-75.52, buffer=20000
+    update 100/800: mean_episode_return=-90.06, buffer=20000

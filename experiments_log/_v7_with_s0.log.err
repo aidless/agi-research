@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v7.py", line 587, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v7.py", line 555, in main
+    actors, monitors, trust_heads, history, mon_aurocs = train_maddpg_v5(
+                                                         ^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v7.py", line 379, in train_maddpg_v5
+    monitors, mon_aurocs = train_per_agent_monitors(actors, n_monitor_eps, seed, n_epochs=monitor_epochs)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v7.py", line 297, in train_per_agent_monitors
+    obs_list, rets = collect_monitor_data(actors, n_eps, seed * 1000 + 7777)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v7.py", line 264, in collect_monitor_data
+    env = make_env(25)
+          ^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v7.py", line 151, in make_env
+    return simple_spread_v3.env(N=N_AGENTS, max_cycles=max_cycles, continuous_actions=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\pettingzoo\mpe\_mpe_utils\simple_env.py", line 19, in env
+    env = raw_env(**kwargs)
+          ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\pettingzoo\mpe\simple_spread\simple_spread.py", line 85, in __init__
+    SimpleEnv.__init__(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\pettingzoo\mpe\_mpe_utils\simple_env.py", line 53, in __init__
+    self.screen = pygame.Surface([self.width, self.height])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pygame.error: Out of memory

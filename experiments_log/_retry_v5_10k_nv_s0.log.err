@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 582, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 551, in main
+    actors, monitors, trust_heads, history, mon_aurocs = train_maddpg_v5(
+                                                         ^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v5.py", line 523, in train_maddpg_v5
+    print("    update " + str(u + 1) + "/" + str(n_updates) + ": mean_episode_return=" + str(round(mean_return, 2)) + ", buffer=" + str(len(buffer)), flush=True)
+OSError: [Errno 22] Invalid argument

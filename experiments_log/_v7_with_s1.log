@@ -1,0 +1,8 @@
+============================================================
+MADDPG v5 - arm=with_verifier - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=1, n_updates=80
+
+Phase 1: Random baseline = -80.96 +/- 22.5
+
+  Stage 0: Training per-agent Monitors on frozen PPO rollouts...

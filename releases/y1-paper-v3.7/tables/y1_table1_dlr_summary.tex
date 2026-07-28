@@ -1,0 +1,21 @@
+
+\begin{table}[t]
+\centering
+\caption{DLR predicate accuracy across 4 environments (3 seeds each).
+\textbf{Honest note}: predicates are hand-coded; train and test sets are
+from the same distribution. This is a cross-env architecture validation,
+not a cross-domain generalization test.}
+\label{tab:dlr-cross}
+\begin{tabular}{lccc}
+\hline
+\textbf{Environment} & \textbf{Predicates} & \textbf{Mean Acc (\%)} & \textbf{Notes} \\
+\hline
+LunarLander-v3 & 7 & 95.5 & partial obs, crash dynamics \\
+CartPole-v1    & 4 & 98.1 & sudden failure, 4-dim \\
+Acrobot-v1     & 5 & 98.9 & sparse reward, 6-dim \\
+Pendulum-v1    & 3 & 98.8 & continuous, 3-dim \\
+\hline
+\textbf{4-env mean} & 19 & \textbf{97.8} & \\
+\hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use this paper, please cite it as below."
+title: "Decoupled Monitors as Training-Time Regularizers: An Empirical Study with 9 Pre-Registered Hypotheses"
+version: "3.7"
+date-released: 2026-07-28
+license: "CC-BY-4.0"
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+type: "article"
+authors:
+  - family-names: "Liu"
+    given-names: "Zewen"
+    alias: "aidless"
+    affiliation: "Independent (Archimedes Project, AGI-2026-001)"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+keywords:
+  - "reinforcement learning"
+  - "self-monitoring"
+  - "pre-registration"
+  - "neuro-symbolic verification"
+  - "differentiable logic reasoner"
+  - "slot attention"
+  - "honest null result"
+  - "open science"
+abstract: >
+  We present Y1.3, a training-time use of a decoupled failure-prediction
+  Monitor as a reward penalty for PPO. On LunarLander-v3 across 15 random
+  seeds, Y1.3 produces a mean eval return of 80.1 +/- 45.9 vs the PPO
+  baseline's 40.6 +/- 37.1 (t=6.76, df=14, p<0.001). We complement this
+  with a 9-hypothesis pre-registered framework that maps the broader
+  Monitor-in-RL research space. Of 9 hypotheses: 6 are VALIDATED, 2 are
+  REFUTED, 1 is OPEN. A key negative finding: Y1.3 does NOT transfer to
+  multi-agent (H5 REFUTED). The architectural lesson: Monitors are
+  VERIFIERS, not reward signals. DLR cross-environment validation
+  (97.8% mean over 4 envs) and the V1 governance evidence chain are the
+  shipping uses.
+references:
+  - type: "software"
+    title: "Archimedes Project code repository"
+    authors:
+      - family-names: "Liu"
+        given-names: "Zewen"
+    date-released: 2026-07-28
+    license: "MIT"
+    url: "https://github.com/aidless/agi-research"
+  - type: "document"
+    title: "Archimedes Thesis v1.0 (5-year program synthesis)"
+    authors:
+      - family-names: "Liu"
+        given-names: "Zewen"
+    date-released: 2026-07-27
+    license: "MIT"
+    url: "https://github.com/aidless/agi-research/blob/main/thesis_draft_v1.0.md"

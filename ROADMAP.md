@@ -276,3 +276,49 @@ publishable, honest, reproducible research is no longer in question.
 ---
 
 *[ROADMAP v3, 2026-07-28. v1 was 2026-07-24 (75 lines), v2 was 2026-07-25 (104 lines), v3 is now (this file).]*
+
+
+---
+
+## 3.1 Project priorities update (v3.1, 2026-07-28 late session)
+
+Added **Project G: LLM Self-Monitoring** as a new Y2-direction
+candidate (P1). This is the natural follow-up to the Y1.x + H2.0
+closure: the decoupled-Monitor principle has been tested in classical
+RL (8 pre-reg tests, 0 supported at strict t>2.0 rule); the next
+question is whether it transfers to LLM self-rewarding.
+
+| Project | Priority | Y0/Y1 Status | Y2 Work |
+|---------|----------|---------------|---------|
+| A: Self-Improvement (Decoupled Monitor) | **P0** | ✅ Y0 + Y1 (H1, Y1.3) | Multi-agent DMC |
+| C: Causal World Model (Slot Attention) | **P0** | ✅ Y0 (next-step err 0.000007) | Cross-env transfer |
+| D: Language-as-type-system | P1 | ⚠️ Y0 (template-based only) | Small LM (Qwen-1.5B) |
+| B: Cross-domain (VLA-grounded) | P1 | ⏳ Skipped | Y2-Y3 work |
+| E: Neuro-symbolic verification (DLR) | **P0** | ✅ Y0 + Y1 (95.5% → 97.8% 4-env) | Cross-agent broadcast |
+| F: Multi-Agent (DMC) | P2 | ⚠️ Y0 (sketch) + Y2 base (skeleton) | Full Y2 implementation |
+| **G: LLM Self-Monitoring (NEW)** | **P1 (new)** | 🔄 SPEC only, H10 pre-registered 2026-07-28 | If H10 holds: H11, H12 (multi-agent LLM) |
+
+**Project G kickoff (2026-07-28)**:
+- README: projects/project_g_llm_self_monitoring/README.md
+- Pre-registration: experiments_log/2026-07-28-PRE-REGISTERED-H10.md
+- Starter code: 4 files in projects/project_g_llm_self_monitoring/code/
+- Smoke test: **PASSED** (AUROC 0.848 on synthetic signal,
+  see experiments_log/2026-07-28-H10-smoke.md)
+- Architecture: LLMSlotMonitor (Slot-Monitor adapted to LLM traces)
+
+**Project G timeline**:
+- 2026-07-28: kickoff (this update)
+- 2026-07-29 to 2026-08-15: implement LLM trace collector, freeze
+  small LM, smoke-test with real LLM rollouts
+- 2026-08-15 to 2026-09-15: H10 pre-registered run (n=5 seeds)
+- 2026-09-15: H10 verdict
+- 2026-09 to 2026-12: depending on outcome, H11 (LLM cross-env)
+  or pivot
+
+**Project G risk**:
+- No GPU: small LM rollouts on CPU may be slow. May need
+  Qwen-1.5B or smaller, or API access.
+- Frozen-LLM choice matters: results may differ across LM families.
+- The H10 hypothesis may be REFUTED. Per pre-registration, this is
+  a valid outcome.
+

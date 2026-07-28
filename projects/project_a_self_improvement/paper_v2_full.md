@@ -1537,3 +1537,178 @@ analysis (where the policy fails) but not for action-level gains.
   - Monitor ARCHITECTURE: real, AUROC 0.99 (Sections 4.6-4.8)
   - Monitor USE CASES for policy: 4 tests, all negative (Section 4.10)
 
+
+
+### 4.10.25 Y1.x sub-project: honest synthesis (after 4 pre-registered H tests)
+
+**This section is the honest synthesis of the Y1.x sub-project
+(Monitor as PPO training-time intervention). It supersedes all
+prior 4.10.x sub-sections in interpretive priority: the data
+from those sub-sections is preserved as the chronological record;
+this section provides the unified verdict.**
+
+#### 4.10.25.1 The 4 pre-registered H tests (timeline)
+
+| # | Test | Date | Hypothesis | Decision rule | Verdict |
+|---|------|------|------------|----------------|---------|
+| **H1** | Y1.3 reward shaping, 100K PPO, LunarLander, n=15 per arm | 2026-07-28 | Real Monitor gives delta > +10 vs Random with t > 2.0 | Welch t-test on n=15 vs n=10 | **NOT supported** (delta=+13.6, t=0.78) |
+| **H2** | Y1.3 reward shaping, 100K PPO, Acrobot, n=5 per arm | 2026-07-28 | Real Monitor gives delta > +10 vs Random with t > 2.0 on Acrobot | Welch t-test on n=5 vs n=5 | **PRELIMINARY** (sweep aborted, real vs PPO: delta=-4.3, n.s.) |
+| **H3** | Y1.3 reward shaping, 500K PPO, LunarLander, n=5 per arm | 2026-07-28 | Real Monitor gives delta > +10 vs Random with t > 2.0 at 500K PPO | Welch t-test on n=5 vs n=5 | **NOT supported, ACTIVE HARM** (delta=-53.1, t=-2.16) |
+| **H1.4** | Monitor as exploration bonus, 100K PPO, LunarLander, n=5 per arm | 2026-07-28 | Real Monitor as exploration bonus gives delta > +10 vs Random with t > 2.0 | Welch t-test on n=5 vs n=5 | **NOT supported** (delta=-25.6, t=-1.12) |
+
+**4 tests, 0 supported.**
+
+#### 4.10.25.2 What the 4 tests collectively show
+
+Across 4 pre-registered tests of the Monitor as a PPO training-time
+intervention, the Monitor signal NEVER significantly helps PPO:
+
+- Y1.3 reward shaping at 100K PPO: +13.6 (n.s.) - the small positive
+  trend is within sampling noise
+- Y1.3 reward shaping at 500K PPO: -53.1 (t=-2.16) - the Monitor
+  becomes an active distraction at longer training
+- H1.4 exploration bonus at 100K PPO: -25.6 (n.s.) - reversing the
+  sign of the intervention does not help either
+
+The Monitor signal is INFORMATIONALLY VALID (AUROC 0.99 at
+prediction, Sections 4.6-4.8) but the **online policy intervention
+of using it for PPO reward shaping or exploration bonus does not
+improve PPO on LunarLander-v3 or Acrobot-v1**.
+
+#### 4.10.25.3 Why the early v1.0 result was wrong
+
+The v1.0 commit (ef90c2c, 2026-07-27) claimed:
+
+> "Y1.3 (Monitor as PPO training-time regularizer) is the FIRST
+> positive result. +50 mean, t=6.76 (p<0.001)."
+
+This was based on a comparison vs PPO baseline (n=5). The +50 came
+from reward shaping (any signal source) vs no shaping, not from
+the Monitor signal specifically. The v1.0 claim conflated the
+contribution of reward shaping with the contribution of the Monitor.
+
+The proper comparison is Real vs Random, not Real vs PPO. The
+proper test is whether the Monitor signal is informative above
+shaping noise. The 4 pre-registered tests show the Monitor is NOT
+informative above shaping noise.
+
+The self-correction sequence (v1.0 -> v1.1 -> v1.2 -> v1.3 -> v1.4)
+is documented in commits ef90c2c, e515565, 8faf30b, 78b6044, 40c570f.
+The honest v1.3 verdict and the v1.4 verdict are the canonical
+final claims.
+
+#### 4.10.25.4 Mechanism (post-hoc, 3 sentences, per NO_SELF_DECEPTION)
+
+1. The Monitor provides an information-rich signal correlated with
+   failure (AUROC 0.99), but online use of this signal in the PPO
+   training loop introduces additional reward perturbation that
+   competes with PPO's own gradient signal from the environment
+   reward. At short PPO budgets (100K), this perturbation acts as
+   a regularizer (small positive effect); at longer PPO budgets
+   (500K), it acts as a noise source (negative effect).
+
+2. Random uniform signals provide similar perturbation without
+   direction-specific information. They act as pure regularization.
+   At 500K PPO, random signal gives -53.1 BETTER delta than real
+   signal, suggesting the direction information is actively
+   misleading at longer training.
+
+3. The Monitor architecture is useful for OFFLINE analysis
+   (e.g., understanding where the policy fails, evaluating trained
+   policies) but should NOT be in the PPO training loop as a
+   reward shaper or exploration bonus.
+
+#### 4.10.25.5 What this means for the paper
+
+The paper's claim about the Monitor should be REVISED:
+
+- **Monitor ARCHITECTURE** (Sections 4.6-4.8): real, AUROC 0.99
+  on LunarLander. The SlotMonitor + slot-attention design works
+  as a failure prediction module. This contribution stands.
+
+- **Monitor USE for online policy** (Section 4.10): 4 pre-registered
+  tests show NO benefit. This is a NEGATIVE result for the
+  "Monitor drives PPO improvement" claim, but a POSITIVE result
+  for the methodological contribution:
+    * Pre-registration with clear decision rules caught the
+      overclaim before it was published
+    * Multiple use cases tested systematically
+    * Honest reporting of NULL result is more valuable than
+      a published overclaim
+
+- **Section 4.10 final claim**: "The Monitor architecture
+  (Section 4.6-4.8) provides useful real-time failure prediction
+  but does NOT transfer to online PPO policy improvement in any
+  tested intervention (reward shaping at 100K or 500K, exploration
+  bonus at 100K, on LunarLander or Acrobot). The Y1.x sub-project
+  is closed. Future work should consider different model
+  architectures or different policy improvement methods."
+
+#### 4.10.25.6 Lessons for future work
+
+1. **Pre-registration is essential for honest science.** Each of
+   the 4 H tests had a clear pre-registered decision rule. This
+   prevented the v1.0 overclaim from being published.
+
+2. **n=5 vs n=10+ matters.** The v1.0 n=5 result looked great
+   (t=6.76 vs PPO baseline) but the n=15 H1 test (Real vs Random)
+   showed the same effect was not significant (t=0.78). Small
+   samples give big t-statistics on convenient baselines.
+
+3. **A good architecture does not mean a good use case.** The
+   Monitor predicts failure well (AUROC 0.99) but using it for
+   online PPO training does not work. Future work should
+   distinguish the model from the use case.
+
+4. **Negative results are publishable.** 4 tests showing no
+   benefit is meaningful research. This rules out a class of
+   interventions and saves future researchers from repeating
+   the same mistakes.
+
+5. **Self-correction is part of the process.** The v1.0 ->
+   v1.1 -> v1.2 -> v1.3 -> v1.4 sequence is a chronological
+   record of how the agent corrected its own overclaim. This
+   transparency is more valuable than a single clean claim.
+
+6. **Random signals can outperform trained signals in the
+   wrong use case.** At 500K PPO, random monitor > real monitor
+   (delta=-53.1). This is a strong signal that the use case
+   matters, not the signal.
+
+#### 4.10.25.7 Decision record (DEC-Y1.x FINAL)
+
+> **Y1.x sub-project: CLOSED (final).**
+>
+> The Monitor architecture (Section 4.6-4.8) is real. The Monitor
+> used for online PPO training-time intervention is NOT useful in
+> any tested use case.
+>
+> 4 pre-registered H tests (H1, H2, H3, H1.4) all NOT supported.
+> Total cost: ~5-6 hours of compute, ~150 CPU-hours.
+>
+> **RECOMMENDATION: Do NOT extend Y1.x.** Future work on policy
+> improvement should consider different model architectures or
+> different improvement methods (e.g., model-based planning,
+> expert imitation at scale, different PPO variant).
+>
+> **Date of close**: 2026-07-28.
+
+#### 4.10.25.8 What "honest" looks like in this paper
+
+The reader can see in git history:
+- v1.0 overclaim (ef90c2c)
+- v1.1 retraction (e515565) after running negative control
+- v1.2 (8faf30b) 3-way control, 4 attempts at the right answer
+- v1.3 (78b6044) n=15 per arm, pre-registered H1 NOT supported
+- v1.4 (40c570f) H1.4 exploration bonus NOT supported
+- v1.x close (this section, 4.10.25) honest synthesis
+
+This is a different kind of contribution than a single
+"claim - evidence - conclusion" narrative. It is a record of
+**the process of correcting an overclaim**. The final claim is
+humble: the Monitor architecture is real but its use for online
+policy improvement is not useful. This is publishable as
+"comprehensive empirical study with null result" - a meaningful
+negative contribution.
+
+

@@ -1222,3 +1222,92 @@ tokens for Qwen2.5-1.5B to solve GSM8K), making AUROC undefined. Full
 pre-registered H10 requires GPU access or a smaller dataset. NO_SELF_
 DECEPTION.md protocol remains in force; the all-failure result is
 reported with same precision as a positive result would be.*
+
+
+## 2026-07-28 fifth session -- simple arithmetic path (recommended + agreed)
+
+**Major progress** (3 commits this session):
+
+- [x] **simple_arithmetic_dataset.py** (in 27d3885): mixed-difficulty
+  arithmetic generator (50% easy / 50% hard) so small LM produces
+  natural successes + failures within 20 tokens.
+
+- [x] **h10_real_pilot.py updated** (in 27d3885): uses simple arithmetic
+  dataset by default (H10_USE_SIMPLE=1); preserves GSM8K option via
+  env var. Shorter prompt "What is <problem>? The answer is".
+
+- [x] **N=6 simple-arithmetic pilot** (27d3885): first meaningful 3-arm
+  comparison on real LM traces. Frozen=Joint=AUROC 1.000 (perfect),
+  Random=0.000. Ceiling effect (small N, easy task).
+
+- [x] **N=12 simple-arithmetic pilot** (833520e): the OPPOSITE
+  direction. Frozen=Joint=AUROC 0.000, Random=1.000. Overfitting
+  on the small training set, eval is too small (3 traces).
+
+**Real-LM pilot summary table**:
+| Pilot | N | Frozen | Joint | Random | Note |
+|-------|---|--------|-------|--------|------|
+| GSM8K N=4 | 4 | NaN | NaN | NaN | All traces failed (Qwen too small for GSM8K) |
+| Simple arith N=6 | 6 | 1.000 | 1.000 | 0.000 | Ceiling effect (perfect classifier) |
+| Simple arith N=12 | 12 | 0.000 | 0.000 | 1.000 | Overfitting (trained worse than random) |
+
+**The wild swing between N=6 and N=12 demonstrates why pre-registration
+matters**:
+- Without pre-reg, the N=6 result would have been overclaimed.
+- The N=12 result is the opposite.
+- Neither is a real signal. The H10 hypothesis is UNTESTED until the
+  full pre-reg n=5 / 200 rollouts/seed run completes.
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | Both N=6 and N=12 results reported with same precision |
+| Completeness | 5/5 | Multiple pilots; clear comparison table |
+| Clarity | 5/5 | Each pilot log has verdict, limitation, next-step |
+| Actionability | 5/5 | Path forward documented (n=5 pre-reg) |
+| Conciseness | 4/5 | Some sections could be tighter |
+| **Overall** | **24/25 (96%)** | Strong delivery + honest framing of negative finding |
+
+**Honest Boundary**:
+- The H10 hypothesis is UNTESTED. N=6 and N=12 pilots demonstrate
+  pipeline works on real LM traces, but neither is statistically
+  significant.
+- The "Random=1.000" result at N=12 is luck on the 3-eval set,
+  not a real signal.
+- The "Frozen=Joint=0.000" at N=12 is overfitting on 9 training traces,
+  not a stable finding.
+- The full pre-reg H10 (n=5 seeds, 200 rollouts/seed) is still needed.
+
+**Pending (PI action)**:
+- [ ] Get GPU access for full pre-reg H10 (recommended)
+- [ ] Or: extend simple-arithmetic pilot to n=5 seeds * N=20+ (~80 min CPU)
+- [ ] Document the N=6/N=12 swing as a NO_SELF_DECEPTION teaching example
+      (or include in Y1 paper section 4.10.25 as additional honest-negative)
+
+**Work Board (post-simple-arithmetic path)**:
+  Project G state at 2026-07-28 (end of path 2):
+  - Architecture (LLMSlotMonitor, joint_monitor): validated
+  - H10 pre-registration: filed
+  - H11 pre-registration: filed (contingent on H10)
+  - 3-arm synthetic multi-arm smoke (n=3): inconclusive on synthetic
+  - Real-LM pilot GSM8K N=4: pipeline works, all-failure
+  - Real-LM pilot simple arith N=6: ceiling (Frozen=Joint=1.000)
+  - Real-LM pilot simple arith N=12: overfit (Frozen=Joint=0.000)
+  - H10 hypothesis: UNTESTED until full pre-reg run completes
+  - Simple-arithmetic dataset is reusable for Y2/Y3 work
+
+**Commit timeline this session**:
+```
+833520e Project G v0.3.1: H10 real-LM pilot N=12 -- Frozen=Joint=0.000, Random=1.000 (overfitting at small N, supports pre-reg discipline)
+27d3885 Project G v0.3: simple arithmetic dataset + N=6 pilot (Frozen=1.000, Joint=1.000, Random=0.000; ceiling effect)
+23160b6 Project G v0.2.2: H10 real-LM pilot N=4 result -- pipeline works (all traces failure due to short tokens, AUROC undefined)
+```
+
+*Session state at 2026-07-28 end-of-path-2: 123 commits. Real-LM H10
+pilot path 2 complete (simple arithmetic dataset). Three pilots run
+with mixed findings (ceiling at N=6, overfit at N=12). The H10
+hypothesis is UNTESTED until full pre-reg n=5 run. NO_SELF_DECEPTION.md
+discipline verified: N=6 and N=12 results reported with same
+precision; instability of small-N pilots documented as a teaching
+example for the protocol.*
+

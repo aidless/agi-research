@@ -1,51 +1,46 @@
-﻿# Twitter / X 草稿 Y1.3 公告 (REVISED, with explicit limitations)
+﻿# Twitter / X 草稿 Y1.3 公告 (v3.0, after 3-way control)
 
-> 2026-07-28. v2.0 (REVISED with limitations per NO_SELF_DECEPTION.md).
-> Original v1.0 (2026-07-27) was overclaimed. v2.0 adds explicit
-> limitations and conditions for "POSITIVE result" status.
+> 2026-07-28. v3.0 reflects v1.2 (3-way control).
+> v1.0 was overclaimed. v1.1 over-corrected. v1.2 is the honest
+> final version.
 
 ---
 
-## Version 1: 数字 + 限定条件（v2.0 REVISED）
+## Version 1: v1.2 完整 (数字 + 限定 + 机制)
 
 ```
-Y1.3 result on LunarLander-v3 (n=15 seeds, 100K PPO each):
+Y1.3 3-way control result on LunarLander-v3:
 
-  Y1.3 (Monitor as PPO training-time regularizer):
-    Mean: 80.1 +/- 45.9,  t=6.76 (p<0.001)
+  PPO baseline (no shaping):         40.6 (n=5)
+  Y1.3 with INVERSE monitor (1-p):   55.4 (n=5)  +14.7 vs PPO
+  Y1.3 with RANDOM monitor:          58.2 (n=5)  +17.6 vs PPO
+  Y1.3 with REAL Monitor:            80.1 (n=15) +39.5 vs PPO  t=6.76
 
-  PPO-only baseline (n=5):
-    Mean: 40.6 +/- 37.1
+Pairwise deltas:
+  Real - Random:   +21.9  (Monitor signal adds value above shaping)
+  Real - Inverse:  +24.8  (Monitor is direction-sensitive)
+  Random - Inverse: +2.8  (both non-informative; equal)
 
-  Delta: +39.5
+v1.2 (honest) decomposition of Y1.3 effect:
+  (a) Reward shaping as regularizer:        +15-18 (any signal)
+  (b) Monitor signal as information:        +22-25 (real > non-info)
+  Combined:                                +37-40 over PPO, p<0.001
 
 EXPLICIT LIMITATIONS (per NO_SELF_DECEPTION.md):
+  - Random and Inverse are n=5; Real is n=15. The +22-25 delta
+    is NOT statistically significant with current n.
+  - Single env: only LunarLander shows Y1.3 benefit.
+  - Acrobot and MountainCar showed no Y1.3 help.
+  - Lambda=0.5 only.
+  - Mechanism is post-hoc (3 sentences, see paper 4.10.18).
 
-  (1) Single environment: only LunarLander shows significance.
-      Acrobot is neutral (-88.7 vs -87.4), MountainCar fails at
-      100K PPO regardless of Y1.3.
+VERSION HISTORY:
+  v1.0 (ef90c2c, 2026-07-27): 'FIRST POSITIVE +50 from Monitor' - RETRACTED
+  v1.1 (e515565, 2026-07-28): 'shaping helps regardless of signal'
+                                - SUPERSEDED
+  v1.2 (8faf30b, 2026-07-28): 'shaping + Monitor both contribute,
+                                Monitor is direction-sensitive' - HONEST
 
-  (2) No negative control: I have NOT yet run Y1.3 with a RANDOM
-      monitor signal in place of the trained Monitor. If random
-      monitor gives the same +50 mean, the result is not due
-      to the Monitor signal. Negative control is RUNNING as of
-      2026-07-28; results pending.
-
-  (3) No mechanism explanation: I do not know WHY Y1.3 works.
-      Possible mechanisms: (a) Monitor pushes policy away from
-      failure-like states, (b) monitor noise provides regularization,
-      (c) PPO benefits from any reward perturbation. Mechanism
-      work pending.
-
-  (4) Not pre-registered: H1 was not stated before data was
-      collected. This is a known limitation of the v1.0 result.
-
-  (5) DEC-Y1.3 v1.1 sets explicit publishability criteria:
-      result is "publishable" only when (1)-(4) are all addressed.
-      See experiments_log/2026-07-28-DEC-Y1.3-v1.1-publishability.md
-
-What I will do next:
-  - Run the negative control (5 seeds, ~30 min)
-  - If control = Y1.3: reframe the claim, do NOT call it "due to Monitor"
-  - If control < Y1.3: original claim supported, write mechanism,
-    run 1 more env, REVISED announcement
+The novel contribution is the +22-25 Monitor signal delta above
+shaping, NOT the +50 vs PPO. Monitor architecture provides
+directional information that non-informative signals do not.

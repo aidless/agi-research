@@ -115,13 +115,45 @@ def main():
     print(f"  Failure rate: {n_failure / n_total_collected:.3f}")
     print()
 
-    # Step 4: Train/eval split (deterministic).
-    n_train = int(n_total_collected * n_train_frac)
-    train_features = torch.stack(trace_features[:n_train])
-    train_labels = torch.tensor(labels[:n_train], dtype=torch.float32)
-    eval_features = torch.stack(trace_features[n_train:])
-    eval_labels = torch.tensor(labels[n_train:], dtype=torch.float32)
-    print(f"Train: {tuple(train_features.shape)}, eval: {tuple(eval_features.shape)}")
+    # Step 4: Stratified train/eval split (so eval has both classes).
+    use_stratified = os.environ.get("H10_STRATIFIED", "1") == "1"
+    if use_stratified:
+        # Group indices by label, then take 75% train / 25% eval from each.
+        n_total = n_total_collected
+        train_indices = []
+        eval_indices = []
+        # Use a per-class seed offset so the split is reproducible.
+        rng_split = torch.Generator().manual_seed(seed + 1000)
+        for label_val in [0.0, 1.0]:
+            label_idx = [i for i, l in enumerate(labels) if l == label_val]
+            n_label = len(label_idx)
+            if n_label < 2:
+                # Not enough examples of this class for stratified split;
+                # fall back to deterministic.
+                train_indices.extend(label_idx)
+                continue
+            perm = torch.randperm(n_label, generator=rng_split).tolist()
+            n_train_label = max(1, int(n_label * n_train_frac))
+            train_indices.extend([label_idx[p] for p in perm[:n_train_label]])
+            eval_indices.extend([label_idx[p] for p in perm[n_train_label:]])
+        # Shuffle combined indices.
+        combined_perm = torch.randperm(len(train_indices), generator=rng_split).tolist()
+        train_indices = [train_indices[i] for i in combined_perm]
+        combined_perm = torch.randperm(len(eval_indices), generator=rng_split).tolist()
+        eval_indices = [eval_indices[i] for i in combined_perm]
+        train_features = torch.stack([trace_features[i] for i in train_indices])
+        train_labels = torch.tensor([labels[i] for i in train_indices], dtype=torch.float32)
+        eval_features = torch.stack([trace_features[i] for i in eval_indices])
+        eval_labels = torch.tensor([labels[i] for i in eval_indices], dtype=torch.float32)
+        print(f"Train: {tuple(train_features.shape)}, eval: {tuple(eval_features.shape)} (stratified)")
+    else:
+        # Deterministic (legacy) split.
+        n_train = int(n_total_collected * n_train_frac)
+        train_features = torch.stack(trace_features[:n_train])
+        train_labels = torch.tensor(labels[:n_train], dtype=torch.float32)
+        eval_features = torch.stack(trace_features[n_train:])
+        eval_labels = torch.tensor(labels[n_train:], dtype=torch.float32)
+        print(f"Train: {tuple(train_features.shape)}, eval: {tuple(eval_features.shape)} (deterministic)")
     print(f"Train failure rate: {train_labels.mean().item():.3f}")
     print(f"Eval failure rate:  {eval_labels.mean().item():.3f}")
     print()

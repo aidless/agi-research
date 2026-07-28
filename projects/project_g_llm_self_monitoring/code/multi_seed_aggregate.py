@@ -64,10 +64,10 @@ def welch_t(a, b):
 def main():
     log_dir = sys.argv[1] if len(sys.argv) > 1 else "."
     n_seeds = int(sys.argv[2]) if len(sys.argv) > 2 else 5
-    # Look for files matching _h10_real_pilot_simple_seed*.log
+    # Look for files matching _h10_stratified_seed*.log
     seed_logs = []
     for i in range(n_seeds):
-        path = os.path.join(log_dir, f"_h10_real_pilot_simple_seed{i}.log")
+        path = os.path.join(log_dir, f"_h10_stratified_seed{i}.log")
         if os.path.exists(path):
             seed_logs.append((i, path))
     if not seed_logs:

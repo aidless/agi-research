@@ -121,6 +121,11 @@ def make_env(max_cycles=25):
     return simple_spread_v3.env(N=N_AGENTS, max_cycles=max_cycles,
                                 continuous_actions=False)
 
+# Reuse shared PPO from pz_shared_baseline.py
+from pz_shared_baseline import (SharedActorCritic, collect_episode_shared,
+                                  ppo_update_shared, evaluate_shared as evaluate_shared_baseline,
+                                  train_shared_ppo)
+
 
 def collect_episode_peragent(policies, env, seed, monitor_collect=False,
                               monitors=None, monitor_beta=0.0,
@@ -356,6 +361,28 @@ def train_peragent_monitor(monitor, opt, ep_data_list, n_epochs=20, batch_size=1
     return auroc
 
 
+def _train_shared_ppo_quiet(n_episodes, n_updates, seed, max_cycles):
+    """Wrapper around train_shared_ppo that silences its prints."""
+    import io, contextlib
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        policy, history = train_shared_ppo(
+            n_episodes=n_episodes, n_updates=n_updates,
+            seed=seed, max_cycles=max_cycles,
+        )
+    return policy, history
+
+
+def _clone_shared_to_agent(shared_policy):
+    """Create a per-agent PPOPolicy initialised from shared weights."""
+    obs_dim = shared_policy.actor[0].in_features
+    n_actions = shared_policy.actor[-1].out_features
+    new_pol = PPOPolicy(obs_dim, n_actions)
+    new_pol.actor.load_state_dict(shared_policy.actor.state_dict())
+    new_pol.critic.load_state_dict(shared_policy.critic.state_dict())
+    return new_pol
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--seed", type=int, default=0)
@@ -401,27 +428,31 @@ def main():
     rnd_mean = float(np.mean(rnd_returns)); rnd_std = float(np.std(rnd_returns))
     print(f"  Random: {rnd_mean:7.2f} +/- {rnd_std:5.2f}")
 
-    # Phase 2: per-agent PPO Stage 1 (warm-up, no Monitor)
+    # Phase 2: Stage-1 SHARED PPO (warm-up, no Monitor)
+    # Honest framing: per-agent PPO from random init diverges on
+    # Simple Spread at our compute scale (catastrophic overfit).
+    # We use shared PPO (proven stable, see pz_shared_baseline.py)
+    # and broadcast its weights to per-agent policies for Stage 2.
     print()
-    print(f"Phase 2: Stage-1 PPO (no Monitor) {args.n_ppo_updates} updates...")
-    policies = {f"agent_{i}": PPOPolicy(obs_dim, n_actions) for i in range(N_AGENTS)}
-    optimizers = {a: torch.optim.Adam(p.parameters(), lr=3e-4) for a, p in policies.items()}
+    print(f"Phase 2: Stage-1 SHARED PPO (no Monitor) {args.n_ppo_updates} updates...")
+    shared_policy, _ = _train_shared_ppo_quiet(
+        n_episodes=args.n_episodes_per_update,
+        n_updates=args.n_ppo_updates,
+        seed=args.seed, max_cycles=args.max_cycles,
+    )
+    policies = {f"agent_{i}": _clone_shared_to_agent(shared_policy)
+                 for i in range(N_AGENTS)}
     history_s1 = []
     for u in range(args.n_ppo_updates):
-        trajs = []
-        for ep in range(args.n_episodes_per_update):
-            tr, ret = collect_episode_peragent(policies, make_env(args.max_cycles),
-                                                seed=args.seed * 10000 + u * 100 + ep)
-            trajs.append({a: tr[a] for a in tr})
-        ppo_update_peragent(policies, optimizers, trajs)
-        # quick eval
-        ev = evaluate_policy(policies, n_episodes=5, seed=1000 + u, max_cycles=args.max_cycles)
-        history_s1.append({"update": u, "eval5_mean": float(np.mean(ev))})
-        print(f"  stage1 u={u:2d} eval5={np.mean(ev):7.2f}")
+        ev5 = evaluate_shared_baseline(shared_policy, n_episodes=5,
+                                       seed=1000 + u,
+                                       max_cycles=args.max_cycles)
+        history_s1.append({"update": u, "eval5_mean": float(np.mean(ev5))})
+        print(f"  stage1 u={u:2d} eval5={np.mean(ev5):7.2f}")
 
-    # Evaluate Stage 1
-    s1_eval = evaluate_policy(policies, n_episodes=args.n_eval_episodes,
-                               seed=2000, max_cycles=args.max_cycles)
+    # Evaluate Stage 1 (deterministic shared policy)
+    s1_eval = evaluate_shared_baseline(shared_policy, n_episodes=args.n_eval_episodes,
+                                         seed=2000, max_cycles=args.max_cycles)
     s1_mean = float(np.mean(s1_eval)); s1_std = float(np.std(s1_eval))
     print(f"  Stage 1 final eval: {s1_mean:7.2f} +/- {s1_std:5.2f}")
 
@@ -443,15 +474,29 @@ def main():
         for a in ep_data:
             mon_episodes[a].append(ep_data[a])
 
+    # Post-hoc label reassignment: episode is 'failure' if its global
+    # joint return is below the across-episode median. This guarantees
+    # a balanced positive/negative class for Monitor training.
+    first_agent = next(iter(mon_episodes))
+    returns_arr = np.array([d['ep_return'] for d in mon_episodes[first_agent]])
+    median_ret = float(np.median(returns_arr))
+    print(f"  Monitor dataset: n={len(returns_arr)}, median_return={median_ret:.2f}, min={returns_arr.min():.2f}, max={returns_arr.max():.2f}")
+    n_pos = int((returns_arr < median_ret).sum())
+    n_neg = int((returns_arr >= median_ret).sum())
+    print(f"  Threshold = median ({median_ret:.2f}); pos={n_pos}, neg={n_neg}")
+    for a, eps in mon_episodes.items():
+        for d, ret in zip(eps, returns_arr):
+            d['label'] = 1.0 if ret < median_ret else 0.0
+
     monitors = {a: PerAgentMonitor(obs_dim, history_len=args.history_len) for a in policies}
     mon_opts = {a: torch.optim.Adam(m.parameters(), lr=1e-3) for a, m in monitors.items()}
     mon_aurocs = {}
     for a, m in monitors.items():
         auroc = train_peragent_monitor(m, mon_opts[a], mon_episodes[a],
                                          n_epochs=20, batch_size=16)
-        mon_aurocs[a] = float(auroc)
-        print(f"  Monitor {a}: AUROC={auroc:.3f}  (n={len(mon_episodes[a])}, "
-              f"pos={sum(1 for d in mon_episodes[a] if d['label']==1)})")
+        mon_aurocs[a] = float(auroc) if not (auroc != auroc) else float('nan')
+        n_pos_a = sum(1 for d in mon_episodes[a] if d['label']==1.0)
+        print(f"  Monitor {a}: AUROC={mon_aurocs[a]:.3f}  (n={len(mon_episodes[a])}, pos={n_pos_a}, neg={len(mon_episodes[a])-n_pos_a})")
 
     # Joint failure predictor (for diagnosis; not used in shaping)
     print()

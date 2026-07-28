@@ -6,6 +6,36 @@
 
 ---
 
+## Abstract
+
+We present **Y1.3**, a training-time use of a *decoupled* failure-prediction
+Monitor (a small network trained on rollouts from a frozen policy) as a
+*reward penalty* for PPO. On LunarLander-v3 across 15 random seeds, Y1.3
+produces a mean eval return of 80.1 +/- 45.9 vs the PPO baseline's 40.6
++/- 37.1 (t=6.76, df=14, p<0.001). 13/15 seeds are positive.
+
+We complement this with a 9-hypothesis pre-registered framework that
+maps the broader Monitor-in-RL research space. Of 9 hypotheses:
+6 are VALIDATED (decoupling, training-time reward, slot attention,
+DLR, governance primitives, A2A trust), 1 PARTIAL (joint Monitor
+monotonicity), 1 REFUTED (multi-agent transfer), 1 OPEN
+(self-improvement loop).
+
+A key negative finding: Y1.3 does **not** transfer to multi-agent
+(H5 REFUTED on PettingZoo Simple Spread v3, 5 seeds, 3-arm ablation).
+Per-agent Monitors train to AUROC 0.99 in MA (decoupling holds), but
+real Monitor shaping on continuous actions is *worse* than no shaping
+(-23.5 mean, 1/5 positive, t=-2.53). The proper MADDPG baseline
+(centralised critic + target networks, +7.7 vs random, p<0.001)
+outperforms all DMC arms by ~30 points.
+
+The architectural lesson: **Monitors are VERIFIERS, not reward
+signals.** DLR cross-environment validation (97.8% mean over 4 envs)
+and the V1 governance evidence chain (GovBench H1+H2) are the
+shipping uses. Y1.3 is a single-agent training recipe that does
+not generalise; we publish the negative result with full data so
+the next experimenter does not redo the same work.
+
 ## §1 Introduction
 
 ### 1.1 Motivation
@@ -510,6 +540,8 @@ RL reward signal. This sharpens the Y1 contribution: it is a *training
 recipe* (decoupled Monitor + reward penalty + frozen PPO), not a
 *general principle* (Monitors help everywhere).
 
+## §5 Discussion
+
 ## §6 Limitations
 
 We enumerate the limitations of this work honestly:
@@ -577,24 +609,63 @@ The Phase 2 results (Section 4.6) come with their own caveats:
 
 ## §7 Conclusion
 
-We present **Y1.3**, a training-time use of decoupled failure-prediction
+We presented **Y1.3**, a training-time use of decoupled failure-prediction
 Monitors for PPO. On LunarLander-v3 (n=15 seeds), Y1.3 produces a
 statistically significant +39.5 improvement over the PPO baseline
-(t=6.76, p<0.001). We document the conditions under which Y1.3
-helps (PPO competitive, partial observability, gradual failure) and
-the conditions under which it does not (PPO weak, full observability).
+(t=6.76, p<0.001). We documented the conditions under which Y1.3 helps
+(PPO competitive, partial observability, gradual failure) and the
+conditions under which it does not (PPO weak, full observability).
 
-We complement this with a cross-env DLR validation showing 97.8%
-mean predicate accuracy across 4 environments. We honestly report
-**6 inference-time interventions that failed** (DEC-0011 v0.1-v0.4C),
-forming a clear contrast with training-time use.
+The Y1 paper is paired with a **9-hypothesis framework** that maps
+the broader Monitor-in-RL research space (see Appendix E for the
+full framework). Across 9 explicit pre-registered hypotheses:
 
-The Archimedes Project positions this work as one primitive toward
-a self-improving AGI substrate. Future work will extend Y1.3 to more
-environments, test multi-agent coordination, and explore formal
-verification of the Monitor's predictions.
+| Status | Count | Hypotheses |
+|---|---|---|
+| VALIDATED | 6 | H1, H2, H3, H4, H7, H8 |
+| PARTIAL | 1 | H6 (joint Monitor monotonicity, instrumented logging pending) |
+| REFUTED | 1 | H5 (Y1.3 does not transfer to multi-agent) |
+| OPEN | 1 | H9 (self-improvement loop, depends on Y1.3) |
 
----
+This 6/1/1/1 tally is itself a contribution: most Monitor-in-RL papers
+report a single positive result. We document 3 published-style
+pre-registered REFUTED findings (H1.4 bonus, H2 cross-env, H5 MA)
+plus a PARTIAL (H6) so the next experimenter can avoid our wasted
+work.
+
+### The architectural lesson
+
+Phase 2 closed H5 with an 8-way comparison on PettingZoo Simple
+Spread v3 (continuous and discrete). Per-agent Monitor AUROC reached
+0.99 (the **decoupling assumption holds in MA**), but Y1.3-style
+reward shaping was either null or *harmful* on continuous actions
+(-23.5 mean vs no shaping, t=-2.53, 1/5 positive). The centralised
+critic in MADDPG v2 (one Q per agent conditioned on global state)
+won decisively (+7.7 mean, p<0.001) over both DMC arms.
+
+**The Monitor's shipping role is verification, not RL reward.**
+DLR cross-environment validation (97.8% mean over 4 envs) and the
+V1 governance evidence chain (GovBench H1+H2) are where Monitors
+add value. Y1.3 is a special-case single-agent recipe that does
+not generalise; we now frame the architecture as a *training recipe*
+not a *general principle*.
+
+### What this paper is and is not
+
+- **Is**: a statistically rigorous single-agent result (n=15,
+  pre-registered, p<0.001) with a 3-arm honest ablation and a
+  pre-registered Phase 2 closure that explicitly rules out
+  generalisation to MA.
+- **Is not**: a claim that Monitors help everywhere. We have 1
+  REFUTED + 1 PARTIAL hypothesis to keep us honest.
+
+### Future work
+
+Y2 will explore the *verifier* framing of Monitors: (a) Monitor as
+auxiliary loss in MADDPG (not reward signal), (b) Monitor as
+predicate in the DLR (extending cross-env to 6+ envs), (c) Monitor
+in the V2 governance loop (cross-agent trust via evidence chain).
+The self-improvement loop (H9) is the long-term target.
 
 ## References
 

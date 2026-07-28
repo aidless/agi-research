@@ -1,0 +1,13 @@
+=== H6 instrumented: seed=1, n_ppo_steps=10240, interval=1024 ===
+  Collecting held-out set (20 rollouts) from initial PPO...
+  Heldout threshold (p10.0 of heldout returns): -312.61
+  Step 0 (Monitor random): heldout AUROC = 0.278
+  Step 2048: heldout_AUROC=0.667 train_threshold=-50.0 mean_train_return=-184.72
+  Step 4096: heldout_AUROC=0.972 train_threshold=-50.0 mean_train_return=-170.02
+  Step 6144: heldout_AUROC=1.0 train_threshold=-293.11 mean_train_return=-159.71
+  Step 8192: heldout_AUROC=1.0 train_threshold=-279.32 mean_train_return=-151.47
+  Step 10240: heldout_AUROC=1.0 train_threshold=-268.47 mean_train_return=-147.58
+
+  Spearman rho(step, AUROC) = 0.894, p=0.041
+  H6 verdict: REFUTED
+  Log: E:\agi-research\projects\project_a_self_improvement\code\checkpoints\h6_instrumented\seed1\h6_log.json

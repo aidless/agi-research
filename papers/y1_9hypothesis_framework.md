@@ -129,41 +129,54 @@ decoupled Monitors trained on each agent's frozen policy outperform
 jointly-trained shared Monitors (when the per-agent PPO baseline is
 itself adequate).
 
-**Status**: PARTIAL (decoupling validated; reward shaping does NOT generalise)
+**Status**: REFUTED (continuous-action DMC, matched compute vs MADDPG v2)
 
 **Evidence** (full logs: `experiments_log/2026-07-28-pz-dmc-5seed.md`,
-`experiments_log/2026-07-28-pz-dmc-3arm-5seed.md`):
+`2026-07-28-pz-dmc-3arm-5seed.md`, `2026-07-28-pz-dmc-continuous-3arm-5seed.md`):
 
-*5-seed main sweep (--shaping-mode real, PettingZoo Simple Spread v3):*
-- Per-agent Monitor AUROC across 15 (5 seed x 3 agent): mean 0.990
-- DMC shaped vs Stage-1 shared PPO: +16.22 mean, 4/5 positive,
-  paired t=+2.055 (NOT significant at df=4)
-- DMC 5-seed mean: -125.34 +/- 42.23
+*Decoupling assumption VALIDATED on MA env:*
+- Discrete DMC 5-seed: per-agent Monitor AUROC mean 0.990 (15 agents)
+- Continuous DMC 5-seed: per-agent Monitor AUROC mean 0.989 (15 agents)
 
-*3-arm 5-seed sweep (real vs random vs none, same Stage 1):*
-- real   shaping: -125.34 +/- 42.23
-- random shaping: -128.02 +/- 38.98
-- none   shaping: -127.66 +/- 39.63
-- Paired t real vs none: mean +2.32, t=+0.69 (NOT significant)
-- Paired t real vs random: mean +2.67, t=+0.94 (NOT significant)
-- Paired t random vs none: mean -0.36, t=-0.38 (NOT significant)
+*Discrete-action DMC (3-arm, n=5):*
+- real vs none: +2.32 (NOT significant)
+- real vs random: +2.67 (NOT significant)
 
-**Interpretation**:
-- **Decoupling assumption VALIDATED on MA env** (Monitor AUROC 0.99, matches
-  Y1.3 single-agent frozen Monitor).
-- **Y1.3-style reward shaping does NOT generalise to multi-agent** at this
-  compute scale. The earlier +16.2 finding was an artifact of comparing
-  against an unstable Stage 1; the true shaping contribution is ~+2.3
-  (NOT significant).
-- This sharpens the Y1 paper: Y1.3 is a *single-agent* result. The
-  Monitor architecture is portable to MA but the reward-shaping recipe is not.
+*Continuous-action DMC (3-arm, n=5, matched compute to MADDPG v2):*
+- real shaping: -101.03 +/- 21.13
+- random shaping: -84.55 +/- 8.35
+- no shaping: -77.50 +/- 6.09
+- real vs none: mean_diff=-23.53, t=-2.53 (close to sig df=4, 1/5 positive)
+- real vs random: mean_diff=-16.48, t=-1.49 (1/5 positive)
 
-**H5 verdict**: PARTIAL. Y2 work needs continuous-action DMC at matched
-compute vs MADDPG to give H5 a real closure.
+*Final 6-way comparison:*
+| Method | Mean | n | Action |
+|---|---|---|---|
+| Random | -77.45 | 1 | continuous |
+| Per-agent PPO | -100.51 | 1 | discrete |
+| Shared PPO | -95.15 | 1 | discrete |
+| DMC discrete (real) | -125.34 | 5 | discrete |
+| DMC continuous real | -101.03 | 5 | continuous |
+| DMC continuous none | -77.50 | 5 | continuous |
+| MADDPG v1 (broken) | -75.78 | 1 | continuous |
+| **MADDPG v2 (proper)** | **-70.45** | 5 | continuous |
 
-**Y2 follow-up**: continuous-action DMC; SlotMonitor version; longer
-Stage-1 (>=200 episodes to stable point); proper next_obs Monitor
-bootstrap; matched-budget vs MADDPG.
+**H5 verdict: REFUTED on continuous actions at matched compute.** The
+trained per-agent Monitor is BIASED toward Stage-1 failure modes and
+adds destabilising reward noise to Stage-2 PPO. random shaping is also
+slightly negative vs no shaping (-7.0). MADDPG v2 (centralised critic
++ proper bootstrap) is the only positive baseline on this env at this
+compute scale.
+
+**Implication for Y1 paper**: Y1.3 is strictly a *single-agent* finding.
+The Monitor architecture is portable to MA (decoupling works) but the
+Y1.3 reward-shaping recipe is not. The DMC vs MADDPG gap (~30 points)
+is a clean credit-assignment win for centralised critics.
+
+**Y2 follow-up**: revisit H5 only after (a) honest scaling to 10K+
+MADDPG steps (so MADDPG stops being an easy win), (b) deeper Monitor
+that conditions on inter-agent comms, (c) end-to-end MADDPG with
+trained Monitor as auxiliary loss (not shaping).
 
 
 ## H6: Joint Monitor failure is monotonic with PPO updates
@@ -172,17 +185,37 @@ bootstrap; matched-budget vs MADDPG.
 monotonically as PPO updates accumulate, due to the policy gradient
 dragging the Monitor's signal.
 
-**Status**: △ **PARTIAL** (5 seeds, single env)
+**Status**: REFUTED (5-seed instrumented, 10K PPO steps)
 
-**Evidence**:
-- Joint Monitor AUROC after 100K PPO: 0.072 (LunarLander)
-- 4 of 5 joint seeds have AUROC < 0.11 (essentially random)
-- This is consistent with monotonic decrease but not directly measured
+**Evidence** (full log: `experiments_log/2026-07-28-h6-instrumented-5seed.md`):
+- 5 seeds x 5 evaluation points each (2048, 4096, 6144, 8192, 10240 PPO steps).
+- Held-out set: 20 rollouts collected ONCE at the start, then reused.
+- Per-seed Spearman rho between PPO step and heldout Monitor AUROC:
+  - seed 0: -0.894 (p=0.04) - VALIDATED
+  - seed 1: +0.894 (p=0.04) - REFUTED
+  - seed 2: -0.707 (p=0.18) - PARTIAL
+  - seed 3: +0.975 (p=0.005) - REFUTED
+  - seed 4: +0.447 (p=0.45) - REFUTED
+- 3/5 seeds show INCREASING AUROC, not decreasing.
+- Aggregate: mean rho=+0.143, sd=0.887.
 
-**Y2 follow-up**: instrument training to log joint Monitor AUROC every
-10K PPO steps; verify monotonic decrease.
+**Interpretation**: The pre-registered mechanism behind H1 (frozen > joint)
+is NOT 'joint Monitor loses discrimination over PPO updates'. The actual
+behaviour is mixed: joint Monitor can increase in AUROC and still fail as
+a reward signal, because the failure concept it learns is policy-coupled.
+H1 itself (frozen 0.796 vs joint 0.072 at 100K PPO) is still validated;
+only H6's proposed mechanism is refuted.
 
----
+**Implication for Y1 paper**: H1 framing stays; the proposed mechanism
+('joint AUROC degrades with PPO') should be removed or reframed as
+'joint Monitor learns a policy-coupled failure concept that does not
+transfer as a reward signal even when AUROC is high'.
+
+**Y2 follow-up**: investigate what failure concept the joint Monitor
+learns (visualise its predictions vs frozen Monitor on held-out data)
+and whether early stopping on the joint Monitor recovers the frozen
+Monitor's quality.
+
 
 ## H7: Reference Monitor + Evidence Chain (V1 governance)
 
@@ -248,8 +281,8 @@ Monitor accuracy improves without task regression.
 | H2 | ✅ VALIDATED | Y1.3 +50, p<0.001 | cross-env, longer training |
 | H3 | ✅ VALIDATED | DLR 97.8% 4-env mean | harder envs, learned predicates |
 | H4 | ✅ VALIDATED | Slot-Monitor 0.989 vs 0.796 | 5-seed validation |
-| H5 | PARTIAL | DMC 5-seed: Monitor AUROC 0.99, DMC vs Stage1 +16.2 (4/5 pos, p~0.10) | continuous-action DMC, matched compute |
-| H6 | △ PARTIAL | joint Monitor near-random | instrumented logging |
+| H5 | REFUTED | DMC continuous real vs none: -23.5 (1/5 pos, t=-2.53) | revisit after 10K MADDPG scale |
+| H6 | REFUTED | joint AUROC does NOT decrease; 3/5 seeds increase (Spearman rho=+0.14 mean) | remove mechanism from H1 framing |
 | H7 | ✅ VALIDATED | PEP H1 + tamper H2 | DLR + real LLM |
 | H8 | ✅ VALIDATED | A2A gate intercepts A3 | DMC integration |
 | H9 | 🔄 OPEN | Y1.3 is 1-step | 2-step + loop |

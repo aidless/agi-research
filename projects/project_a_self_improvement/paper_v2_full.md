@@ -1411,3 +1411,69 @@ that fully complies with NO_SELF_DECEPTION.md P0 checklist:
        v1.3 corrects by reporting H1 not supported
 
 
+
+
+### 4.10.20 H3 - 500K PPO budget (does longer training help H1?)
+
+H1 (100K PPO): H1 NOT supported. Real - Random = +13.6, t=0.78.
+H2 preliminary (Acrobot, 100K PPO, n=5): Y1.3 not better than PPO.
+
+**H3 (500K PPO, n=5 per arm) pre-registered hypothesis:**
+  H3: With 500K PPO (5x H1), Y1.3 with trained Monitor gives higher
+      mean return than Y1.3 with random Monitor, delta > +10 AND
+      Welch t > 2.0.
+  H0: Real and random give same mean return at 500K PPO.
+
+**H3 results (LunarLander-v3, n=5 per arm, 500K PPO):**
+
+| Method | n | Mean | Std |
+|--------|---|------|-----|
+| Y1.3 (real, 500K) | 5 | 170.7 | 49.9 |
+| Y1.3 (random, 500K) | 5 | **223.9** | 23.0 |
+
+**Delta (real - random): -53.1, Welch t = -2.16**
+
+**Pre-registered verdict: H3 NOT supported.** delta is negative
+(Real < Random), not positive. t magnitude is borderline but
+direction is wrong (Random > Real at 500K PPO).
+
+**The Monitor signal at 500K PPO becomes a PPO noise source.**
+Real Monitor went from 80.1 (100K) to 170.7 (500K) (+91, PPO
+converged). Random Monitor went from 66.5 (100K) to 223.9 (500K)
+(+157.4, much more convergence help). At longer training, the
+Monitor perturbation is no longer a useful regularizer - it
+distracts from PPO's own (better) gradient.
+
+## 4.10.21 Y1.3 sub-project CLOSE
+
+Three independent tests of the Y1.3 intervention:
+  - H1 (100K PPO, n=15 per arm): H1 NOT supported, Real - Random = +13.6
+  - H2 prelim (Acrobot, n=5): Y1.3 ~ PPO
+  - H3 (500K PPO, n=5 per arm): H3 NOT supported, Real - Random = -53.1
+
+**All three tests agree:** Y1.3 with trained Monitor does NOT
+significantly help PPO. At 500K, it actively hurts.
+
+**FINAL verdict of Y1.3:**
+  "The Monitor architecture provides useful real-time failure
+  prediction (Sections 4.6-4.8, AUROC 0.99) but does NOT transfer
+  to policy improvement via reward shaping at any PPO budget we
+  tested (100K or 500K). Y1.3 sub-project is CLOSED."
+
+**Decision record DEC-Y1.3 FINAL (v1.5):**
+  - H1: NOT supported (Monitor not validated, 100K PPO)
+  - H2: Y1.3 not better than PPO (Acrobot, 100K PPO)
+  - H3: NOT supported AND Real < Random (500K PPO, ACTIVE HARM)
+  - **RECOMMENDATION**: Y1.3 sub-project closed. Do NOT extend.
+  - **NEXT**: try a different intervention (Monitor as exploration
+    signal, rollout filter, or imitation learning quality signal).
+
+**Lessons for future work:**
+  1. Pre-registration with clear decision rules works.
+  2. n=5 per arm catches large effects (-53.1, t=-2.16); small
+     effects (+13.6) need n=10+.
+  3. Pilot results generalize poorly. Always do pre-registered
+     replication.
+  4. The Monitor architecture is real (AUROC 0.99) but its USE
+     matters. Reward shaping was the wrong use case.
+

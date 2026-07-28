@@ -1,0 +1,136 @@
+============================================================
+MADDPG v3 - arm=with_aux - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=0, n_updates=800, monitor_alpha=0.5
+
+Phase 1: Random baseline = -78.38 +/- 25.77
+
+  Stage 1: 10 warmup updates starting...
+  Stage 1 update 1/10 done, buffer=750
+  Stage 1 update 3/10 done, buffer=2250
+  Stage 1 update 5/10 done, buffer=3750
+  Stage 1 update 7/10 done, buffer=5250
+  Stage 1 update 9/10 done, buffer=6750
+  Stage 1 done. Training Monitors...
+    collect_monitor_data: n_eps=80 starting
+    collect_monitor_data: 0/80
+    collect_monitor_data: 10/80
+    collect_monitor_data: 20/80
+    collect_monitor_data: 30/80
+    collect_monitor_data: 40/80
+    collect_monitor_data: 50/80
+    collect_monitor_data: 60/80
+    collect_monitor_data: 70/80
+    collect_monitor_data: collected 240 obs_by_agent, 80 returns; returns=[-59.67185234193765, -57.14735439886411, -51.342545007809264, -62.12410311878767, -60.508765177750604]
+    train_per_agent_monitors: len(obs_list)=240, median_ret=-69.31
+    training Monitor agent 0
+      agent 0 epoch 0 done, loss=0.6934
+      agent 0 epoch 1 done, loss=0.6832
+      agent 0 epoch 2 done, loss=0.6371
+      agent 0 epoch 19 done, loss=0.3841
+      agent 0 training done, computing AUROC
+      agent 0 p_all stats: min=0.015 max=0.999 mean=0.516
+      agent 0 AUROC=0.779
+    training Monitor agent 1
+      agent 1 epoch 0 done, loss=0.7073
+      agent 1 epoch 1 done, loss=0.6698
+      agent 1 epoch 2 done, loss=0.6872
+      agent 1 epoch 19 done, loss=0.2307
+      agent 1 training done, computing AUROC
+      agent 1 p_all stats: min=0.01 max=0.999 mean=0.51
+      agent 1 AUROC=0.832
+    training Monitor agent 2
+      agent 2 epoch 0 done, loss=0.6987
+      agent 2 epoch 1 done, loss=0.6855
+      agent 2 epoch 2 done, loss=0.6844
+      agent 2 epoch 19 done, loss=0.2662
+      agent 2 training done, computing AUROC
+      agent 2 p_all stats: min=0.023 max=0.995 mean=0.521
+      agent 2 AUROC=0.799
+  Monitors trained, AUROC=[0.7789797782897949, 0.8319722414016724, 0.7991688251495361]
+    update 1/800: mean_episode_return=-78.49, buffer=8250, noise=0.5
+    update 10/800: mean_episode_return=-65.73, buffer=15000, noise=0.49
+    update 20/800: mean_episode_return=-70.25, buffer=20000, noise=0.479
+    update 30/800: mean_episode_return=-76.1, buffer=20000, noise=0.467
+    update 40/800: mean_episode_return=-93.01, buffer=20000, noise=0.456
+    update 50/800: mean_episode_return=-92.17, buffer=20000, noise=0.445
+    update 60/800: mean_episode_return=-65.24, buffer=20000, noise=0.434
+    update 70/800: mean_episode_return=-83.83, buffer=20000, noise=0.422
+    update 80/800: mean_episode_return=-88.09, buffer=20000, noise=0.411
+    update 90/800: mean_episode_return=-64.81, buffer=20000, noise=0.4
+    update 100/800: mean_episode_return=-80.44, buffer=20000, noise=0.389
+    update 110/800: mean_episode_return=-78.8, buffer=20000, noise=0.377
+    update 120/800: mean_episode_return=-72.68, buffer=20000, noise=0.366
+    update 130/800: mean_episode_return=-83.95, buffer=20000, noise=0.355
+    update 140/800: mean_episode_return=-66.14, buffer=20000, noise=0.344
+    update 150/800: mean_episode_return=-92.54, buffer=20000, noise=0.332
+    update 160/800: mean_episode_return=-65.17, buffer=20000, noise=0.321
+    update 170/800: mean_episode_return=-77.47, buffer=20000, noise=0.31
+    update 180/800: mean_episode_return=-79.14, buffer=20000, noise=0.299
+    update 190/800: mean_episode_return=-72.56, buffer=20000, noise=0.287
+    update 200/800: mean_episode_return=-68.84, buffer=20000, noise=0.276
+    update 210/800: mean_episode_return=-82.13, buffer=20000, noise=0.265
+    update 220/800: mean_episode_return=-86.5, buffer=20000, noise=0.254
+    update 230/800: mean_episode_return=-77.37, buffer=20000, noise=0.242
+    update 240/800: mean_episode_return=-83.18, buffer=20000, noise=0.231
+    update 250/800: mean_episode_return=-71.55, buffer=20000, noise=0.22
+    update 260/800: mean_episode_return=-65.05, buffer=20000, noise=0.209
+    update 270/800: mean_episode_return=-66.81, buffer=20000, noise=0.197
+    update 280/800: mean_episode_return=-78.11, buffer=20000, noise=0.186
+    update 290/800: mean_episode_return=-86.67, buffer=20000, noise=0.175
+    update 300/800: mean_episode_return=-74.92, buffer=20000, noise=0.164
+    update 310/800: mean_episode_return=-76.43, buffer=20000, noise=0.152
+    update 320/800: mean_episode_return=-76.05, buffer=20000, noise=0.141
+    update 330/800: mean_episode_return=-70.07, buffer=20000, noise=0.13
+    update 340/800: mean_episode_return=-77.08, buffer=20000, noise=0.119
+    update 350/800: mean_episode_return=-81.18, buffer=20000, noise=0.107
+    update 360/800: mean_episode_return=-67.99, buffer=20000, noise=0.096
+    update 370/800: mean_episode_return=-62.41, buffer=20000, noise=0.085
+    update 380/800: mean_episode_return=-81.1, buffer=20000, noise=0.074
+    update 390/800: mean_episode_return=-67.46, buffer=20000, noise=0.062
+    update 400/800: mean_episode_return=-55.68, buffer=20000, noise=0.051
+    update 410/800: mean_episode_return=-82.53, buffer=20000, noise=0.05
+    update 420/800: mean_episode_return=-73.12, buffer=20000, noise=0.05
+    update 430/800: mean_episode_return=-68.55, buffer=20000, noise=0.05
+    update 440/800: mean_episode_return=-77.79, buffer=20000, noise=0.05
+    update 450/800: mean_episode_return=-74.61, buffer=20000, noise=0.05
+    update 460/800: mean_episode_return=-76.58, buffer=20000, noise=0.05
+    update 470/800: mean_episode_return=-77.8, buffer=20000, noise=0.05
+    update 480/800: mean_episode_return=-60.75, buffer=20000, noise=0.05
+    update 490/800: mean_episode_return=-65.08, buffer=20000, noise=0.05
+    update 500/800: mean_episode_return=-69.0, buffer=20000, noise=0.05
+    update 510/800: mean_episode_return=-72.08, buffer=20000, noise=0.05
+    update 520/800: mean_episode_return=-66.6, buffer=20000, noise=0.05
+    update 530/800: mean_episode_return=-70.2, buffer=20000, noise=0.05
+    update 540/800: mean_episode_return=-69.46, buffer=20000, noise=0.05
+    update 550/800: mean_episode_return=-78.18, buffer=20000, noise=0.05
+    update 560/800: mean_episode_return=-86.23, buffer=20000, noise=0.05
+    update 570/800: mean_episode_return=-69.25, buffer=20000, noise=0.05
+    update 580/800: mean_episode_return=-90.86, buffer=20000, noise=0.05
+    update 590/800: mean_episode_return=-83.11, buffer=20000, noise=0.05
+    update 600/800: mean_episode_return=-83.61, buffer=20000, noise=0.05
+    update 610/800: mean_episode_return=-79.08, buffer=20000, noise=0.05
+    update 620/800: mean_episode_return=-75.53, buffer=20000, noise=0.05
+    update 630/800: mean_episode_return=-61.48, buffer=20000, noise=0.05
+    update 640/800: mean_episode_return=-79.19, buffer=20000, noise=0.05
+    update 650/800: mean_episode_return=-90.62, buffer=20000, noise=0.05
+    update 660/800: mean_episode_return=-86.58, buffer=20000, noise=0.05
+    update 670/800: mean_episode_return=-84.55, buffer=20000, noise=0.05
+    update 680/800: mean_episode_return=-81.64, buffer=20000, noise=0.05
+    update 690/800: mean_episode_return=-79.02, buffer=20000, noise=0.05
+    update 700/800: mean_episode_return=-71.83, buffer=20000, noise=0.05
+    update 710/800: mean_episode_return=-84.58, buffer=20000, noise=0.05
+    update 720/800: mean_episode_return=-73.66, buffer=20000, noise=0.05
+    update 730/800: mean_episode_return=-71.52, buffer=20000, noise=0.05
+    update 740/800: mean_episode_return=-65.86, buffer=20000, noise=0.05
+    update 750/800: mean_episode_return=-60.54, buffer=20000, noise=0.05
+    update 760/800: mean_episode_return=-76.32, buffer=20000, noise=0.05
+    update 770/800: mean_episode_return=-72.55, buffer=20000, noise=0.05
+    update 780/800: mean_episode_return=-67.0, buffer=20000, noise=0.05
+    update 790/800: mean_episode_return=-78.8, buffer=20000, noise=0.05
+    update 800/800: mean_episode_return=-79.41, buffer=20000, noise=0.05
+
+Phase 3: Final eval...
+  MADDPG v3 (with_aux) eval: -74.75 +/- 14.74  (delta vs random: 3.63)
+  Monitor AUROC per agent: [0.7789797782897949, 0.8319722414016724, 0.7991688251495361]
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v3\seed0_with_aux\phase2_log.json

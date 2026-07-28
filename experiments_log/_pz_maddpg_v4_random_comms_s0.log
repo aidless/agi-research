@@ -1,0 +1,17 @@
+============================================================
+MADDPG v4 - arm=random_comms - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=0, n_updates=80
+
+Phase 1: Random baseline = -77.59 +/- 18.59
+
+  Stage 1: 10 warmup updates starting...
+    update 1/80: mean_episode_return=-81.63, buffer=8250
+    update 20/80: mean_episode_return=-76.63, buffer=20000
+    update 40/80: mean_episode_return=-79.83, buffer=20000
+    update 60/80: mean_episode_return=-57.41, buffer=20000
+    update 80/80: mean_episode_return=-84.37, buffer=20000
+
+Phase 3: Final eval...
+  MADDPG v4 (random_comms) eval: -70.77 +/- 18.33  (delta vs random: 6.83)
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v4\seed0_random_comms\phase2_log.json

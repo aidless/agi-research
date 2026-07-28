@@ -173,23 +173,39 @@ The Monitor architecture is portable to MA (decoupling works) but the
 Y1.3 reward-shaping recipe is not. The DMC vs MADDPG gap (~30 points)
 is a clean credit-assignment win for centralised critics.
 
-**Y2 follow-up (executed 2026-07-28)**: option (c) tested with
-`pz_maddpg_v3.py`. 3-arm 5-seed sweep (with_aux / no_aux / ablated)
-at 80 updates x 10 episodes (matched compute to v2):
-- with_aux: -70.50 +/- 1.13 (5 seeds)
-- no_aux:   -70.50 +/- 1.13 (5 seeds)
-- ablated:  -70.50 +/- 1.13 (5 seeds)
+**Y2 follow-up (executed 2026-07-28)**: three paths tested:
 
-All three arms produced IDENTICAL results: the frozen-Monitor aux
-loss has zero effect at this compute scale. A trainable AuxHead
-alternative was structurally fragile (memory blowup).
-Verdict: Monitor aux loss is a dead end for MA credit assignment.
-Full log: `experiments_log/2026-07-28-pz-maddpg-v3-3arm-5seed.md`.
+**Path (a) longer compute (v3 10K)**: re-ran v3 with 10x compute
+(800 updates x 10 ep = 8000 ep/seed, vs 800 in the short run).
+- with_aux: -74.89 +/- 3.57 (5 seeds)
+- no_aux:   -71.85 +/- 2.37
+- ablated:  -74.10 +/- 4.01
+- with_aux vs no_aux: mean_diff=-3.03, t=-1.39, 0/5 positive
+At 10K, the arms DIVERGE: aux loss is actively HARMFUL
+(0/5 positive vs no_aux). Hypothesis 'compute was too short' is
+refuted. Full log: `experiments_log/2026-07-28-pz-maddpg-v3-10k-3arm-5seed.md`.
 
-**Y2 next directions**: (a) learned inter-agent comms (TarMAC, IC3Net),
-(b) longer MADDPG training (10K+ episodes) where Monitor signal might
-matter, (c) end-to-end Monitor as MA verifier (cross-agent evidence
-chain, not RL signal).
+**Path (b) inter-agent comms (v4)**: tested TarMAC-lite where each
+agent broadcasts a 32-dim message to all others; critic input is
+extended with all_messages. 3-arm 5-seed (with_comms / no_comms /
+random_comms) at 80 updates x 10 episodes:
+- with_comms:   -70.31 +/- 1.14
+- no_comms:     -70.32 +/- 1.22
+- random_comms: -70.35 +/- 1.22
+- with_comms vs no_comms: mean_diff=+0.00, t=+0.05 (NOT sig)
+Inter-agent comms have near-zero effect. Full log:
+`experiments_log/2026-07-28-pz-maddpg-v4-3arm-5seed.md`.
+
+**Unified Y2 finding**: critic-side extras (Monitor aux loss, inter-
+agent messages) do NOT improve MADDPG v2 at any compute scale we
+tested (800, 8000 episodes). MADDPG v2 baseline is near-saturated on
+Simple Spread at this scale; the bottleneck is elsewhere (env
+complexity, not credit assignment).
+
+**Path (c) deferred**: Monitor as MA verifier (post-hoc cross-agent
+evidence chain, NOT critic-side extra) is the remaining Y2 direction
+and a candidate new paper claim. Implementation deferred to next
+session due to complexity.
 
 
 ## H6: Joint Monitor failure is monotonic with PPO updates

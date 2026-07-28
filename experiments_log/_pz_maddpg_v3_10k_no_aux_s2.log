@@ -1,0 +1,80 @@
+============================================================
+MADDPG v3 - arm=no_aux - PettingZoo Simple Spread v3 (continuous)
+============================================================
+  seed=2, n_updates=800, monitor_alpha=0.5
+
+Phase 1: Random baseline = -80.36 +/- 25.58
+
+  Stage 1: 10 warmup updates starting...
+  Stage 1 update 1/10 done, buffer=750
+  Stage 1 update 3/10 done, buffer=2250
+  Stage 1 update 5/10 done, buffer=3750
+  Stage 1 update 7/10 done, buffer=5250
+  Stage 1 update 9/10 done, buffer=6750
+  Stage 1 done. Training Monitors...
+    collect_monitor_data: n_eps=80 starting
+    collect_monitor_data: 0/80
+    collect_monitor_data: 10/80
+    collect_monitor_data: 20/80
+    collect_monitor_data: 30/80
+    collect_monitor_data: 40/80
+    collect_monitor_data: 50/80
+    collect_monitor_data: 60/80
+    collect_monitor_data: 70/80
+    collect_monitor_data: collected 240 obs_by_agent, 80 returns; returns=[-33.6940585766632, -75.1044974835991, -59.017740376973485, -40.62057772340396, -90.61849644704063]
+    train_per_agent_monitors: len(obs_list)=240, median_ret=-71.95
+    training Monitor agent 0
+      agent 0 epoch 0 done, loss=0.6835
+      agent 0 epoch 1 done, loss=0.6545
+      agent 0 epoch 2 done, loss=0.6491
+      agent 0 epoch 19 done, loss=0.169
+      agent 0 training done, computing AUROC
+      agent 0 p_all stats: min=0.001 max=1.0 mean=0.5
+      agent 0 AUROC=0.921
+    training Monitor agent 1
+      agent 1 epoch 0 done, loss=0.6929
+      agent 1 epoch 1 done, loss=0.6624
+      agent 1 epoch 2 done, loss=0.6602
+      agent 1 epoch 19 done, loss=0.1232
+      agent 1 training done, computing AUROC
+      agent 1 p_all stats: min=0.0 max=1.0 mean=0.502
+      agent 1 AUROC=0.927
+    training Monitor agent 2
+      agent 2 epoch 0 done, loss=0.7038
+      agent 2 epoch 1 done, loss=0.627
+      agent 2 epoch 2 done, loss=0.5886
+      agent 2 epoch 19 done, loss=0.185
+      agent 2 training done, computing AUROC
+      agent 2 p_all stats: min=0.012 max=0.996 mean=0.514
+      agent 2 AUROC=0.845
+  Monitors trained, AUROC=[0.9207342267036438, 0.9274166822433472, 0.8448413610458374]
+    update 1/800: mean_episode_return=-88.1, buffer=8250, noise=0.5
+    update 10/800: mean_episode_return=-81.44, buffer=15000, noise=0.49
+    update 20/800: mean_episode_return=-87.41, buffer=20000, noise=0.479
+    update 30/800: mean_episode_return=-87.34, buffer=20000, noise=0.467
+    update 40/800: mean_episode_return=-66.87, buffer=20000, noise=0.456
+    update 50/800: mean_episode_return=-73.74, buffer=20000, noise=0.445
+    update 60/800: mean_episode_return=-76.09, buffer=20000, noise=0.434
+    update 70/800: mean_episode_return=-76.64, buffer=20000, noise=0.422
+    update 80/800: mean_episode_return=-80.92, buffer=20000, noise=0.411
+    update 90/800: mean_episode_return=-69.86, buffer=20000, noise=0.4
+    update 100/800: mean_episode_return=-69.51, buffer=20000, noise=0.389
+    update 110/800: mean_episode_return=-86.35, buffer=20000, noise=0.377
+    update 120/800: mean_episode_return=-71.43, buffer=20000, noise=0.366
+    update 130/800: mean_episode_return=-81.85, buffer=20000, noise=0.355
+    update 140/800: mean_episode_return=-67.2, buffer=20000, noise=0.344
+    update 150/800: mean_episode_return=-79.0, buffer=20000, noise=0.332
+    update 160/800: mean_episode_return=-73.95, buffer=20000, noise=0.321
+    update 170/800: mean_episode_return=-66.43, buffer=20000, noise=0.31
+    update 180/800: mean_episode_return=-64.46, buffer=20000, noise=0.299
+    update 190/800: mean_episode_return=-82.14, buffer=20000, noise=0.287
+    update 200/800: mean_episode_return=-73.7, buffer=20000, noise=0.276
+    update 210/800: mean_episode_return=-65.23, buffer=20000, noise=0.265
+    update 220/800: mean_episode_return=-80.22, buffer=20000, noise=0.254
+    update 230/800: mean_episode_return=-70.73, buffer=20000, noise=0.242
+    update 240/800: mean_episode_return=-65.97, buffer=20000, noise=0.231
+    update 250/800: mean_episode_return=-60.16, buffer=20000, noise=0.22
+    update 260/800: mean_episode_return=-70.12, buffer=20000, noise=0.209
+    update 270/800: mean_episode_return=-84.63, buffer=20000, noise=0.197
+    update 280/800: mean_episode_return=-65.98, buffer=20000, noise=0.186
+    update 290/800: mean_episode_return=-69.04, buffer=20000, noise=0.175

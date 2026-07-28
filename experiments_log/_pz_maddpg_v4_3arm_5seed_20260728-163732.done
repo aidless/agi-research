@@ -1,0 +1,18 @@
+﻿
+=== v4 3-arm 5-seed sweep start 20260728-163732 ===
+v4 arm=with_comms seed=0 pid=16548
+v4 arm=with_comms seed=1 pid=21348
+v4 arm=with_comms seed=2 pid=2628
+v4 arm=with_comms seed=3 pid=11148
+v4 arm=with_comms seed=4 pid=15464
+v4 arm=no_comms seed=0 pid=12672
+v4 arm=no_comms seed=1 pid=19876
+v4 arm=no_comms seed=2 pid=18748
+v4 arm=no_comms seed=3 pid=4588
+v4 arm=no_comms seed=4 pid=8676
+v4 arm=random_comms seed=0 pid=17280
+v4 arm=random_comms seed=1 pid=17472
+v4 arm=random_comms seed=2 pid=14356
+v4 arm=random_comms seed=3 pid=16220
+v4 arm=random_comms seed=4 pid=15476
+=== 15 launched ===

@@ -1,0 +1,18 @@
+﻿
+=== v3 10K episodes 3-arm 5-seed start 20260728-162423 ===
+v3-10k arm=with_aux seed=0 pid=7336
+v3-10k arm=with_aux seed=1 pid=10712
+v3-10k arm=with_aux seed=2 pid=6876
+v3-10k arm=with_aux seed=3 pid=21040
+v3-10k arm=with_aux seed=4 pid=3056
+v3-10k arm=no_aux seed=0 pid=3732
+v3-10k arm=no_aux seed=1 pid=19564
+v3-10k arm=no_aux seed=2 pid=19324
+v3-10k arm=no_aux seed=3 pid=10536
+v3-10k arm=no_aux seed=4 pid=11080
+v3-10k arm=ablated seed=0 pid=3452
+v3-10k arm=ablated seed=1 pid=13352
+v3-10k arm=ablated seed=2 pid=10444
+v3-10k arm=ablated seed=3 pid=21196
+v3-10k arm=ablated seed=4 pid=5072
+=== 15 launched ===

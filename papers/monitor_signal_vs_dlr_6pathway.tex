@@ -748,11 +748,21 @@ We note the following limitations of the present study:
         Simple Spread v3. The findings may not generalize to other
         MARL environments (e.g., predator-prey, traffic, mujoco
         multi-agent).
-  \item \textbf{Single compute scale}: we use 800 env episodes per
-        seed (80 PPO updates $\times$ 10 episodes). Real-world MARL
-        often uses 100K+ episodes. The v5 effect-shrinkage
-        trajectory suggests that the v5 effect is real but small;
-        longer compute may reveal other patterns.
+  \item \textbf{Single compute scale (800 episodes only validated
+        at $n=100$)}: we use 800 env episodes per seed (80 PPO
+        updates $\times$ 10 episodes) for the main results.
+        Real-world MARL often uses 100K+ episodes. A preliminary
+        10K-episode test ($n=5$) showed the dlr\_only effect
+        \textbf{REVERSES} at longer training: at 800ep, dlr\_only
+        is slightly better than no\_verifier (+0.15 at $n=5$,
+        +0.06 at $n=100$); at 10K, dlr\_only is WORSE than
+        no\_verifier by $-1.69$ (NOT sig at $n=5$). The 10K
+        result is confounded by overall training instability
+        (no\_verifier at 10K = $-71.45$ vs $-70.50$ at 800ep,
+        suggesting MADDPG v2 overfits/diffuses at 10K with these
+        hyperparameters). We do NOT recommend dlr\_only for use
+        with longer training regimes (10K+ episodes) without
+        further hyperparameter tuning.
   \item \textbf{3 agents only}: Simple Spread v3 has 3 agents.
         Larger agent counts may have different dynamics and
         cross-agent signal requirements.
@@ -772,6 +782,10 @@ We note the following limitations of the present study:
         designed, run, and analyzed by a single investigator (L.Z.,
         with AI assistance from Codex). Independent replication
         would strengthen the findings.
+  \item \textbf{DLR coefficients not tuned}: we use the default
+        DLR coefficients from the Y1 Project E framework. A
+        hyperparameter sweep over DLR coefficients might reveal
+        larger effects.
 \end{itemize}
 
 \section{Conclusion}

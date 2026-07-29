@@ -1502,3 +1502,90 @@ discipline verified throughout: REFUTED direction reported with same
 precision as VALIDATED would be, with statistical caveat clearly
 stated.*
 
+
+
+## 2026-07-29 session 2 -- pivot Project G to Project D (option 1)
+
+**Major progress** (1 commit this session):
+
+- [x] **Project G closed** (formal pivot in ROADMAP v3.2)
+- [x] **H12 pre-registration** filed (2026-07-29-PRE-REGISTERED-H12.md):
+  Small LM as DLR type checker. Tests whether Qwen2.5-1.5B-Instruct
+  can match DLR baseline (97.8% mean accuracy on 4 envs) at predicate
+  verification without per-env training. Decision rule: LM >= 0.85
+  AND within 0.10 of DLR AND Welch t > 2.0 vs Random.
+
+- [x] **H12 starter code** (lm_type_checker.py, 9 KB):
+  - 3-arm evaluation: LM / DLR baseline / Random
+  - Pre-registered predicate definitions (upright, near_ground,
+    moving_slow, stable) with truth-value functions
+  - LM prompt template with state vector + predicate question
+  - Parses LM response (TRUE / FALSE / UNCERTAIN, fallback UNCERTAIN
+    scored as 0.5 partial credit)
+  - Per-arm accuracy and per-predicate breakdown
+
+- [x] **H12 smoke test result** (2026-07-29-H12-smoke-test.md):
+  - 1 sample (1 state x 1 predicate = 1 LM call)
+  - LM accuracy: **0.500** (== Random baseline)
+  - DLR baseline (mocked at 95.5% LunarLander accuracy): 1.000
+  - LM vs DLR gap: 0.500 (large negative)
+  - **LM failed to parse expected output format** (returned
+    UNCERTAIN or unparseable response)
+  - **Verdict**: NEGATIVE on current prompt template; prompt
+    engineering required before full pre-reg H12
+
+- [x] **ROADMAP.md v3.2** pivot decision: Project G closed, Project D
+  revived with H12 as the test hypothesis.
+
+**Total commits**: 128 (+1 this session)
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | LM 0.500 = Random; negative result reported honestly |
+| Completeness | 4/5 | Pre-reg + code + smoke + ROADMAP; full H12 not run |
+| Clarity | 5/5 | Each artifact has clear purpose + log |
+| Actionability | 4/5 | Path forward clear (prompt engineering) but not yet executed |
+| Conciseness | 4/5 | Some sections could be tighter |
+| **Overall** | **21/25 (84%)** | Good pivot delivery + honest negative finding |
+
+**Honest Boundary**:
+- H12 smoke test is NOT the pre-reg H12 result (n=1, not n=5).
+- LM 0.500 = Random is a NEGATIVE signal; H12 may be REFUTED at full
+  scale too.
+- Prompt template needs work before scaling up.
+- Project D revival is conditional on H12 result; if H12 REFUTED,
+  further pivot required.
+
+**Pending (PI action)**:
+- [ ] Prompt engineering iterations (try few-shot, shorter prompt,
+      output format change)
+- [ ] Full pre-reg H12 (n=5 seeds x 50 trajectories per seed)
+- [ ] Or: accept H12 REFUTED at smoke level and pivot again
+- [ ] GPU for larger LM (Qwen2.5-7B) if 1.5B insufficient
+
+**Work Board (post-pivot to Project D)**:
+  Y1 (closing)                          Y2 (starting)
+  ---------------------                  ---------------------
+  ? Y1 paper v3.8 (Project G section)  ? H12 prompt engineering
+  ? PhD SoP v2.1                       ? H12 full pre-reg n=5
+  ? Y1 release v3.8 + thesis v1.0       ? Submit PhD applications
+  ? Y1.x + H2.0 closed                 ? Find 2 critique partners
+  ? NO_SELF_DECEPTION + §9.1           ? Submit Y1 + thesis to arXiv
+  ? Project G H10 REFUTED (n=5 strat)   ?? Project D H12 (REVIVED)
+  ? Project D H12 pre-reg + smoke      ? Project D H12 full
+
+**Commit timeline this session**:
+```
+6cd929e Pivot Project G to Project D: H12 (small LM as DLR type checker) pre-reg + smoke + ROADMAP v3.2 pivot decision
+89695b2 PROGRESS: 2026-07-29 -- stratified split + H10 REFUTED + thesis v1.0 packaging + NO_SELF_DECEPTION H10 teaching example
+```
+
+*Session state at 2026-07-29 end-of-day: 128 commits. Project G
+formally pivoted to Project D (revival). H12 pre-registered; smoke
+test showed LM = Random at 0.500 (NEGATIVE on current prompt). Prompt
+engineering required before full pre-reg H12. NO_SELF_DECEPTION.md
+discipline verified: pivot decision documented, negative smoke test
+reported honestly, all 3 deliverables (pre-reg + code + ROADMAP)
+committed atomically.*
+

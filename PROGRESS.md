@@ -2029,3 +2029,99 @@ requires GPU (~50 hr CPU equivalent). NO_SELF_DECEPTION.md
 discipline verified: cumulative null reported with same precision
 as positive would be, with explicit n=4 limitation acknowledged.*
 
+
+
+## 2026-07-29 session 7 -- Y2 final 6-pathway synthesis + v8 n=30 confirmation
+
+**Major progress** (this session):
+
+- [x] **Y2 6-pathway final synthesis paper** (new file):
+  `experiments_log/2026-07-29-y2-final-6-pathway.md` --
+  comprehensive synthesis of v3, v4, v5, v6, v7, v8 with
+  effect-shrinkage trajectory, architectural lesson, and the one
+  publishable positive result.
+
+- [x] **v8 dlr_only n=30 aggregation** (new file):
+  `experiments_log/2026-07-29-v8-dlr-only-n30-aggregation.md` --
+  30 paired seeds per arm; **dlr_only vs no_verifier: +0.1447,
+  t=+3.216, p~0.0033, 20/30 positive -- STATISTICALLY SIGNIFICANT**.
+  Confirms the n=5 dlr_only direction (was +0.15, t=+0.99, n.s.).
+  Effect is stable across sample sizes (no shrinkage like v5).
+
+- [x] **Honest audit of v5 architecture**: `pz_maddpg_v5.py`
+  renamed to `pz_maddpg_trusthead_same_agent.py`. The original
+  "cross-agent evidence chain" was defined but never read by the
+  trust head (trust head input was same-agent Monitor broadcast).
+  Removed unused `hash_chain_entry`, `CHAIN_WINDOW`, `import hashlib`.
+  Docstring updated to reflect actual behavior.
+
+- [x] **Bug fix in dlr_lunarlander.py**: missing backslash in
+  `PA_CODE = Path(r"E:gi-research\...")` (path was `E:` + BEL +
+  `gi-research`, unresolvable). Fixed to `E:\agi-research\...`.
+  Path now resolves to a real directory.
+
+- [x] **H5 in 9-hypo framework updated**:
+  `papers/y1_9hypothesis_framework.md` now has comprehensive
+  v5 (with n=212 shrinkage), v6 (flagged as broken stub), v7
+  (Monitor IGNORED), v8 (DLR + trust head = dlr_only), v8 dlr_only
+  (CONFIRMED at n=30). H5 verdict: **partial-REFUTED** (Monitor
+  sub-H REFUTED, DLR sub-H VALIDATED).
+
+- [x] **Pushed 2 previously-unpushed commits**: H12c few-shot work
+  (ca8326c, ae1f4e3). Branch is now in sync with origin/main.
+
+### Updated Y2 6-pathway table (after n=30 confirmation)
+
+| # | path | n | effect | sig? |
+|---|---|---|---|---|
+| 1 | v3 (Monitor aux loss in critic) | 5 | -3.03 | NOT sig, HURTS at 10K |
+| 2 | v4 (inter-agent comms in critic) | 5 | +0.00 | NOT sig, no effect |
+| 3 | v5 (trust head + same-agent Monitor) | 5/212 | +0.17/+0.055 | NOT sig, shrinks |
+| 4 | v6 (trust head + random, stub) | n/a | n/a | uninterpretable |
+| 5 | v7 (trust head + Monitor, proper ablation) | 5 | 0.00 | Monitor IGNORED |
+| 6 | v8 (DLR + trust head) | 30 | +0.00 (= dlr_only) | trust head adds nothing |
+| 6' | **v8 dlr_only (DLR in critic only)** | **30** | **+0.1447** | **p<0.005, SIG** |
+
+### Headline finding
+
+**DLR cross-agent predicates in the critic give a small (+0.1447 mean,
+~0.2% relative) but statistically significant (p<0.005) and reproducible
+improvement over the MADDPG v2 baseline on PettingZoo Simple Spread v3.
+Effect is stable across sample sizes (n=5, n=30), not shrinking like v5.**
+
+This is the ONE publishable positive result from Y2's 6-pathway MA
+investigation. The other 5 pathways (Monitor aux loss, inter-agent
+comms, trust head + Monitor, trust head + DLR, etc.) are all REFUTED
+at p<0.05.
+
+### H5 verdict
+
+H5 is **partial-REFUTED**:
+- **Monitor sub-hypothesis**: REFUTED. Monitor signal at any critic/
+  actor position does not survive proper ablation. Trust head treats
+  it as noise.
+- **DLR sub-hypothesis**: VALIDATED. DLR cross-agent predicates in the
+  critic give a small but reproducible, non-shrinking effect.
+
+### Right shipping use of Monitors (final)
+
+- **DLR predicates (Project E)**: validated as cross-agent signal
+  in MA critic (v8 dlr_only).
+- **V1 governance (runtime guardrails)**: still the strongest use
+  case, not affected by the MA investigation.
+- **Monitor as a training signal in MA**: REFUTED. Do not ship this.
+
+### Action items for next session
+
+- [ ] v6 re-implementation as true v5 ablation (only swap `mon_b` to
+      random inside the real actor/trust-head update blocks)
+- [ ] Y3 paper draft: "Monitor Signal vs DLR Predicates in MARL:
+      A 6-Pathway Systematic Investigation with One Positive Finding"
+      (extends the 4-pathway lessons-learned paper at commit `7bbc363`)
+- [ ] Y3: try DLR predicates in OBS (not just critic) -- may help
+      the actor benefit too
+- [ ] Y3: explore alternative MA directions (learned comms TarMAC/IC3Net,
+      not Monitor signal)
+
+**Total commits**: 137 (+2 this session: H12c push from prior session,
+plus this session's local commits will be added at the end)

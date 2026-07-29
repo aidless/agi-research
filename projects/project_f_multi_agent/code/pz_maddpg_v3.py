@@ -309,7 +309,8 @@ def train_maddpg_v3(seed=0, n_updates=80, n_episodes=10, batch_size=128,
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--n-updates", type=int, default=80)
+    p.add_argument("--n-updates", type=int, default=800,
+                   help="PPO updates. 80 = 800 ep, 800 = 8000 ep.")
     p.add_argument("--n-episodes-per-update", type=int, default=10)
     p.add_argument("--n-eval-episodes", type=int, default=15)
     p.add_argument("--max-cycles", type=int, default=25)

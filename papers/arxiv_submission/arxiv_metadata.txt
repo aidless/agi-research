@@ -1,0 +1,16 @@
+Title: Monitor Signal vs DLR Predicates in Cooperative MARL: A 6-Pathway Systematic Investigation
+
+Authors: Liu Zewen (Archimedes Project, AGI-2026-001)
+
+Abstract: We systematically investigate 6 architectures for using failure-prediction signals in cooperative MARL on PettingZoo Simple Spread v3, training each arm at 80 PPO updates x 10 episodes = 800 env episodes per seed, with 5-30 seeds per arm (totaling 14,000+ training episodes). The 6 architectures cover critic-side extras (aux loss in v3, inter-agent messages in v4), actor-side trust head with three different input sources (Monitor in v5, random in v6, DLR in v8), and the trust-head ablation (v7). Five of six architectures are REFUTED at p<0.05. v3 (Monitor aux loss in critic) actively HURTS by -3.03 at 10K episodes (0/5 positive). v5 (trust head + Monitor) shows a direction-consistent but shrinking effect (+0.1665 at n=5, +0.055 at n=212). The trust head completely ignores its input signal: v6 with_verifier == v6 with_trusthead_random BIT-FOR-BIT IDENTICAL (5/5 at n=5, 30/30 at n=30 CLEAN, max abs diff 0.00). The single publishable result is DLR cross-agent predicates in the critic (v8 dlr_only): +0.1447 (p<0.005, t=+3.216, 20/30 positive at n=30, effect stable across sample sizes, Cohen d_z=0.59). The trust head with DLR input is identical to DLR in the critic alone (v8 == dlr_only, 0.00 diff at n=30). The architectural lesson: hand-crafted interpretable features (DLR) in the critic work; learned failure predictions (Monitor) in any critic/actor position do not. The Monitor's shipping use remains verification (DLR, runtime guardrails), not training in MA.
+
+Comments: Y3 paper extending the 4-pathway lessons-learned paper with v6, v7, v8 pathways and the n=30 CLEAN ablation result.
+
+Categories:
+- Primary: cs.MA (Multi-Agent Systems)
+- Cross-list: cs.LG (Machine Learning)
+- Cross-list: cs.AI (Artificial Intelligence)
+
+MSC classes: 68T05 (Learning and adaptive systems), 68T42 (Multi-agent systems)
+
+License: CC BY 4.0

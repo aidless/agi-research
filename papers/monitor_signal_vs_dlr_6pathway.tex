@@ -749,27 +749,25 @@ We note the following limitations of the present study:
         MARL environments (e.g., predator-prey, traffic, mujoco
         multi-agent).
   \item \textbf{Compute scale (800ep validated at $n=100$, 10K
-        tested at $n=20$)}: we use 800 env episodes per seed (80
-        PPO updates $\times$ 10 episodes) for the main results.
-        Real-world MARL often uses 100K+ episodes. The 10K-
-        episode test ($n=5$ then $n=20$) showed the dlr\_only
-        effect is \textbf{NOT ROBUST} at longer training. At
-        800ep, dlr\_only gives +0.06 over no\_verifier at
-        $n=100$ (sig, $p_{\text{bonf}}=0.043$, 95\% CI
-        [+0.0084, +0.1149]). At 10K, the $n=5$ result showed
-        a direction REVERSAL ($-1.69$, NOT sig), but the $n=20$
-        result showed the direction back to positive (+1.27,
-        NOT sig at $p=0.15$, 95\% CI [-0.4641, +3.0118]
-        INCLUDES 0). The 10K result is confounded by overall
-        training instability: no\_verifier at 10K = $-74.02$
-        vs $-69.66$ at 800ep, suggesting MADDPG v2 overfits/
-        diffuses at 10K with these hyperparameters. The variance
-        at 10K is also 14$\times$ higher than at 800ep (sd\_diffs
-        = 3.97 vs 0.27). We do NOT recommend dlr\_only for use
-        with longer training regimes (10K+ episodes) without
-        further hyperparameter tuning. The 800ep result is the
-        most reliable estimate of the dlr\_only effect at our
-        compute scale.
+        tested at $n=5,20,50$)}: we use 800 env episodes per seed
+        (80 PPO updates $\times$ 10 episodes) for the main
+        results. Real-world MARL often uses 100K+ episodes. The
+        10K-episode test (3 different sample sizes: $n=5,20,50$)
+        showed the dlr\_only effect is \textbf{NOT ROBUST} at
+        longer training. At 800ep, dlr\_only gives +0.06 over
+        no\_verifier at $n=100$ (sig, $p_{\text{bonf}}=0.043$, 95\%
+        CI [+0.0084, +0.1149]). At 10K, all 3 sample sizes are
+        NOT significant: $n=5$ +0.169, $n=20$ +1.27, $n=50$
+        +0.63, all with 95\% CI including 0. The variance at 10K
+        is $\sim 18\times$ higher than at 800ep (sd\_diffs $\sim
+        4.9$ vs 0.27). The 10K result is confounded by overall
+        training instability: no\_verifier at 10K = $-74.29$ vs
+        $-69.66$ at 800ep, suggesting MADDPG v2 overfits/diffuses
+        at 10K with these hyperparameters. We do NOT recommend
+        dlr\_only for use with longer training regimes (10K+
+        episodes) without further hyperparameter tuning. The
+        800ep result is the most reliable estimate of the
+        dlr\_only effect at our compute scale.
   \item \textbf{3 agents only}: Simple Spread v3 has 3 agents.
         Larger agent counts may have different dynamics and
         cross-agent signal requirements.

@@ -1589,3 +1589,99 @@ discipline verified: pivot decision documented, negative smoke test
 reported honestly, all 3 deliverables (pre-reg + code + ROADMAP)
 committed atomically.*
 
+
+
+## 2026-07-29 session 3 -- SOTA LLM study (Kimi K3 + FlashKDA)
+
+**Major progress** (1 commit this session):
+
+- [x] **Kimi K3 study** (9909ef9): read Moonshot AI Kimi K3 README +
+  47-page technical report. Key findings:
+  - 2.8T params, 104B activated, MoE (16 of 896 experts)
+  - Architecture: Hybrid Attention = 3 KDA + 1 Gated MLA per block
+  - KDA = delta-rule recurrence + channel-wise forget gate
+  - Innovations: lower-bounded log-decay, AttnRes (attention over
+    depth), Stable LatentMoE (SiTU-GLU + Quantile Balancing),
+    NoPE via KDA gating/decay
+  - 1M context without RoPE rescaling
+  - Post-training: partial rollout RL + per-token regularization
+
+- [x] **FlashKDA study** (9909ef9): read FlashKDA README + deep-dive.
+  Key findings:
+  - CUTLASS-based kernel for Kimi Delta Attention
+  - Chunk size 16 (vs FLA's 64): fits in bf16, cheap 16x16 inverse
+  - Two-kernel split (K1 token-parallel + K2 head-parallel): 15%+ speedup
+  - bf16 state + fp32 FMA updates
+  - FP16 16x16 matrix inversion via Neumann series
+  - Sigmoid via PTX tanh.approx.f32, base-2 exponent via ex2.approx
+
+- [x] **STUDY_NOTES.md** (9909ef9, 11 KB): comprehensive summary
+  with Archimedes Project relevance analysis. Sections:
+  - Kimi K3 overview, architecture, training
+  - FlashKDA kernel implementation
+  - Direct + indirect relevance to Project A-F
+  - What we can/cannot reproduce
+  - Honest gaps in the study
+
+- [x] **gitignore for study_materials**: only docs committed, full
+  CUDA source tree excluded from version control.
+
+**Total commits**: 130 (+1 this session)
+
+**Relevance to Archimedes**:
+
+| Project | Relevance to Kimi K3 / FlashKDA |
+|---------|--------------------------------|
+| A (decoupled Monitor) | KDA's gating is conceptually similar; we don't use linear attention though |
+| C (slot world model) | Different paradigm (slot vs KDA); cross-pollination limited |
+| D (language-as-type-system) | Kimi K3's "thinking" mode suggests structured LM reasoning; H12 (LM as DLR type checker) is on the right track |
+| E (DLR) | AttnRes pseudo-query attention is a complementary selective retrieval mechanism |
+| F (multi-agent) | Kimi K3's partial rollout scheme is directly relevant to async multi-agent training |
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 4/5 | Studied docs honestly; didn't claim reproduction we can't do |
+| Completeness | 5/5 | Both zips fully extracted + summarized |
+| Clarity | 5/5 | STUDY_NOTES.md organized by topic + Archimedes relevance |
+| Actionability | 4/5 | Identifies what we can/can't reproduce + suggests directions |
+| Conciseness | 4/5 | Comprehensive but some sections could be tighter |
+| **Overall** | **22/25 (88%)** | Strong study with honest limitations |
+
+**Honest Boundary**:
+- Did NOT run FlashKDA kernels (no GPU).
+- Did NOT load Kimi K3 weights (too large for CPU).
+- Did NOT empirically verify quantitative claims (e.g., 2.5x
+  scaling efficiency over Kimi K2).
+- Did NOT compare KDA vs standard softmax attention mathematically.
+- This is a study notes document, not an empirical comparison.
+
+**Pending (PI action)**:
+- [ ] Cite Kimi K3 + FlashKDA in Archimedes thesis (next update)
+- [ ] Consider KDA-inspired gating in Y2 Project A (decoupled Monitor
+      with channel-wise forget gates)
+- [ ] Consider partial rollout for Y2 Project F (multi-agent async)
+- [ ] Try larger LM (Qwen2.5-7B) for H12 if GPU becomes available
+
+**Work Board (post-SOTA-study)**:
+  Knowledge / SOTA awareness: ADDED
+  ---------------------                  ---------------------
+  ? Kimi K3 tech report studied         ? Update thesis refs
+  ? FlashKDA kernel studied            ? KDA-inspired gating?
+  ? STUDY_NOTES.md committed            ? Partial rollout in Y2 F?
+  ? gitignore for source tree          ? H12 with bigger LM
+
+**Commit timeline this session**:
+```
+9909ef9 Study: Kimi K3 + FlashKDA documentation (NO_SELF_DECEPTION-honest summary + Archimedes relevance)
+79f115f PROGRESS: 2026-07-29 session 2 -- pivot Project G to Project D (H12 pre-reg + smoke LM=Random)
+6cd929e Pivot Project G to Project D: H12 (small LM as DLR type checker) pre-reg + smoke + ROADMAP v3.2 pivot decision
+```
+
+*Session state at 2026-07-29 session 3: 130 commits. SOTA LLM study
+complete (Kimi K3 + FlashKDA). Both zips extracted to study_materials/;
+human-readable docs committed; CUDA source tree excluded via gitignore.
+STUDY_NOTES.md (11 KB) summarizes both with Archimedes Project
+relevance analysis. NO_SELF_DECEPTION.md discipline: honest about
+what was studied vs what could be reproduced on CPU.*
+

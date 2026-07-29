@@ -1870,3 +1870,84 @@ documentation-only; no code changes or experiments. NO_SELF_
 DECEPTION.md discipline verified: every design doc has explicit
 risks, decision rules, and honest boundaries.*
 
+
+
+## 2026-07-29 session 6 -- H12c (few-shot prompt) smoke test
+
+**Major progress** (1 commit this session):
+
+- [x] **H12c implementation** (in ca8326c): added few-shot prompt
+  to lm_type_checker.py with H12_PROMPT env var. 3 worked examples
+  covering near_ground (TRUE/FALSE) and upright (FALSE).
+
+- [x] **H12c smoke test** (ca8326c): 1 state x 1 predicate test with
+  few-shot prompt. **Result: LM 0.500 == Random** (same as H12
+  zero-shot). Few-shot prompt did not help on this single sample.
+
+**H12c vs H12 (zero-shot) comparison**:
+
+| H12 (zero-shot) | H12c (few-shot) | Improvement? |
+|-----------------|-----------------|---------------|
+| LM 0.500       | LM 0.500        | None (n=1)  |
+
+**Honest framing**:
+- N=1 is too small to refute H12c. Full pre-reg (n=5 seeds, 50
+  pairs/seed) is needed.
+- Pipeline validates: few-shot arm runs end-to-end.
+- CPU budget too tight for full H12c pre-reg (~16 hours). GPU
+  recommended per the H12 GPU plan.
+
+**Compute used**: ~9 minutes wall time for 1 LM call with few-shot
+prompt. Few-shot is ~2x slower than zero-shot on CPU due to longer
+context.
+
+**Total commits**: 135 (+1 this session)
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | LM 0.500 reported honestly; few-shot didn't help |
+| Completeness | 4/5 | Pipeline works; full pre-reg deferred to GPU |
+| Clarity | 5/5 | Log clearly explains n=1 limitation |
+| Actionability | 4/5 | Path forward clear (GPU for full H12c) |
+| Conciseness | 5/5 | Log is focused |
+| **Overall** | **23/25 (92%)** | Good delivery with honest limitation |
+
+**Honest Boundary**:
+- H12c smoke result is NEGATIVE on n=1. NOT a refutation (n=1 too
+  small). Need n=5 seeds, 50 pairs/seed.
+- Few-shot did NOT help on this sample. The 1.5B model is likely
+  the bottleneck (per H12b hypothesis: larger LM is needed).
+- CPU budget cannot run full H12c pre-reg (~16 hours). GPU is the
+  right path.
+- H12c remains open as a hypothesis; the few-shot template is
+  implemented and ready for GPU execution.
+
+**Pending (PI action)**:
+- [ ] GPU access: HF Residency / Lambda Labs ($1.50 for H12b pilot)
+- [ ] Run H12c on GPU (n=5 seeds, 50 pairs/seed) for full pre-reg
+- [ ] Run H12b (Qwen2.5-7B) on GPU for larger LM test
+- [ ] If both fail: pivot Project D to a different direction
+
+**Work Board (post-H12c)**:
+  H12 status: PIPELINE WORKS, FULL PRE-REG NEEDS GPU
+  ---------------------                  ---------------------
+  ? H12 zero-shot smoke (n=1, LM 0.500)  ? Run H12c on GPU
+  ? H12c few-shot smoke (n=1, LM 0.500)  ? Run H12b on GPU
+  ? lm_type_checker.py with both prompts
+  ? H12c log with honest framing
+
+**Commit timeline this session**:
+```
+ca8326c Project D H12c (few-shot prompt, n=1): LM still 0.500 = Random; few-shot does not help on this sample (n=1 too small to refute)
+ac5833c PROGRESS: 2026-07-29 session 5 -- 4 pending items done in order (thesis walkthrough + H13/H14/H12b pre-regs)
+```
+
+*Session state at 2026-07-29 session 6: 135 commits. H12c (few-shot
+prompt) smoke test ran; LM still 0.500 = Random. Few-shot did not
+help on n=1. Pipeline works end-to-end. Full H12c pre-reg (n=5 seeds,
+50 pairs/seed) requires GPU (~16 hr CPU equivalent). H12c remains
+open as a hypothesis; not refuted by n=1. NO_SELF_DECEPTION.md
+discipline verified: negative result reported with same precision
+as a positive would be, with explicit n=1 limitation.*
+

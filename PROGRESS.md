@@ -1685,3 +1685,85 @@ STUDY_NOTES.md (11 KB) summarizes both with Archimedes Project
 relevance analysis. NO_SELF_DECEPTION.md discipline: honest about
 what was studied vs what could be reproduced on CPU.*
 
+
+
+## 2026-07-29 session 4 -- thesis v1.1 (Kimi K3 + FlashKDA citations)
+
+**Major progress** (1 commit this session):
+
+- [x] **Thesis v1.1** (d0faa1a): added Kimi K3 + FlashKDA references
+  and SOTA context section:
+  - **Chapter 1.4 "SOTA context (mid-2026 update)"** added before
+    "1.3 What this thesis is not". Discusses:
+    - Kimi K3 (Moonshot AI, 2.8T MoE) and KDA equation
+    - FlashKDA kernel implementation
+    - Relevance to Archimedes: KDA's channel-wise forget gate
+      parallels our decoupled Monitor; AttnRes as complementary
+      selective retrieval; partial rollout for Project F
+    - **Explicit non-claim**: we do NOT claim competitiveness with
+      Kimi K3 or other frontier LLMs on raw capability benchmarks;
+      Archimedes is about a different research direction
+      (interpretable, self-improving substrate on CPU)
+
+  - **References [46]-[48]** added:
+    - [46] Moonshot AI. Kimi K3 tech report.
+    - [47] Moonshot AI. FlashKDA kernel.
+    - [48] Yang et al. Gated DeltaNet / Kimi Linear predecessor.
+
+  - **CHANGELOG bumped to v1.1**, CITATION.cff version bumped to 1.1,
+    MANIFEST regenerated with new SHA-256.
+
+- [x] **Sync to release bundle**: releases/thesis-v1.0/thesis.md
+  updated to match.
+
+**Total commits**: 132 (+1 this session)
+
+**Self-evaluation per NO_SELF_DECEPTION.md**:
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Accuracy | 5/5 | Kimi K3 facts verified from tech report; no fabricated claims |
+| Completeness | 5/5 | References + SOTA section + manifest all updated |
+| Clarity | 5/5 | New section is well-organized; non-claim explicit |
+| Actionability | 4/5 | Thesis now ready for arXiv submission (still needs PI walk-through) |
+| Conciseness | 5/5 | §1.4 is focused (~30 lines), not bloated |
+| **Overall** | **24/25 (96%)** | Strong delivery, no overclaim |
+
+**Honest Boundary**:
+- The SOTA section explicitly states we do NOT claim competitiveness
+  with frontier LLMs. This is honest framing.
+- Kimi K3 / FlashKDA claims are sourced from official docs read
+  today, not memory.
+- We do NOT have GPU resources to reproduce the KDA claims
+  empirically; this is documented in STUDY_NOTES.md §6.
+- Adding 3 references is a minor update; major changes (e.g., new
+  H10/H12 results in body text) would need a v1.2.
+
+**Pending (PI action)**:
+- [ ] Walk through thesis SUBMISSION.md checklist for arXiv
+- [ ] Consider KDA-inspired gating in Y2 Project A
+- [ ] Consider partial rollout for Y2 Project F (multi-agent)
+- [ ] Try larger LM (Qwen2.5-7B) for H12 if GPU becomes available
+
+**Work Board (post-thesis-v1.1)**:
+  Citation / SOTA awareness: UPDATED IN THESIS
+  ---------------------                  ---------------------
+  ? STUDY_NOTES.md (Kimi K3 + FlashKDA) ? KDA-inspired gating?
+  ? Thesis v1.1 (§1.4 SOTA context)       ? Partial rollout in Y2 F?
+  ? References [46]-[48] added             ? H12 with bigger LM
+  ? CHANGELOG + CITATION + MANIFEST bumped ? Submit to arXiv
+
+**Commit timeline this session**:
+```
+d0faa1a Thesis v1.1: add Kimi K3 + FlashKDA references [46]-[48] + Chapter 1.4 SOTA context (no raw-capability claims)
+41c911e PROGRESS: 2026-07-29 session 3 -- SOTA LLM study (Kimi K3 + FlashKDA documentation)
+9909ef9 Study: Kimi K3 + FlashKDA documentation (NO_SELF_DECEPTION-honest summary + Archimedes relevance)
+```
+
+*Session state at 2026-07-29 session 4: 132 commits. Thesis v1.1 published
+with Kimi K3 + FlashKDA references [46]-[48] and a Chapter 1.4 SOTA context
+section. The SOTA section explicitly states we do NOT claim competitiveness
+with frontier LLMs on raw benchmarks; Archimedes is about a different
+research direction (interpretable, self-improving substrate on CPU).
+NO_SELF_DECEPTION.md discipline verified: explicit non-claim, sourced
+facts, no overclaim of frontier-LLMs-beating capabilities.*
+

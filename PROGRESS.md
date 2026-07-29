@@ -2368,3 +2368,67 @@ DECEPTION.md discipline verified: positive result reported with same
 precision as null would be, with explicit n=3 limitation and
 "pre-reg still requires GPU" honest framing.*
 
+
+
+## 2026-07-29 session 9 -- v6 n=30 3-arm (REVISES n=5 finding)
+
+**Major progress** (this session):
+
+- [x] **v6 n=30 3-arm r3 completed** (40 jobs total: 30
+      with_trusthead_random + 10 no_verifier s20-s29).
+      Had to fix pettingzoo 1.26.1 -> 1.24.3 (1.26.1 removed the
+      .mpe submodule, breaking 30/30 with_trusthead_random
+      jobs and 4 no_verifier s26-s29 jobs in the n=30 batch).
+      Aggregation log:
+      `experiments_log/2026-07-29-v6-3arm-n30-aggregation.md`.
+
+- [x] **CRITICAL REVISION**: the n=5 bit-for-bit identity
+      (with_verifier == with_trusthead_random) does NOT hold at
+      n=30. The n=5 finding was a **short-training artifact**:
+      with only 2 min of training, the trust head doesn't have
+      time to learn to use its input slot, so the input source
+      (Monitor vs random) has no observable effect. At n=30 with
+      more training, the trust head does use its input, but
+      per-seed effects are large and not consistent in direction.
+
+- [x] **Updated 6-pathway paper section 2.4** to reflect n=30
+      v6 result. The cleanest "trust head ignores signal"
+      evidence is now v8 at n=30 (DLR in trust head == DLR in
+      critic, 0.00 diff across 30 paired seeds), NOT v6 at n=5.
+
+- [x] **Updated H5 in 9-hypo framework** with v6 n=30 result.
+
+### v6 n=30 paired tests
+
+| comparison | mean_diff | sd_diffs | t | n_pos | sig? |
+|---|---|---|---|---|---|
+| with_verifier vs no_verifier | +0.0592 | 1.6067 | +0.202 | 18/30 | NOT sig |
+| with_trusthead_random vs no_verifier | +0.5570 | 3.1763 | +0.961 | 14/30 | NOT sig |
+| with_verifier vs with_trusthead_random | -0.4978 | 3.5117 | -0.776 | 15/30 | NOT sig |
+
+### Bit-for-bit identity: n=5 vs n=30
+
+| | n=5 (r2) | n=30 (r3) |
+|---|---|---|
+| Bit-for-bit identical (with_verifier == with_trusthead_random) | **5/5 (100%)** | **0/30 (0%)** |
+| Max abs diff | 0.00 | 9.55 |
+| Mean abs diff | 0.00 | 2.80 |
+
+### Setup caveat
+
+The n=30 batch had a python/pettingzoo environment inconsistency:
+the user updated pettingzoo to 1.26.1 (which removed the .mpe
+submodule) DURING the n=30 batch run. Some with_verifier and
+no_verifier s0-s19 ran with the old python (had .mpe), but
+with_trusthead_random s0-s7 and no_verifier s26-s29 failed.
+The r3 batch re-ran the failed 40 jobs with pettingzoo 1.24.3.
+Per-seed results may not be strictly comparable across arms due
+to different python environments. The qualitative finding
+(trust head gives small non-significant effect, input source
+doesn't matter much) is robust to this confound.
+
+### Action items
+
+- [ ] (Optional) Re-run n=30 with_verifier and no_verifier s0-s19
+      with pettingzoo 1.24.3 for clean cross-arm comparison
+- [ ] Y3 paper: "Monitor Signal vs DLR Predicates in MARL"

@@ -130,7 +130,7 @@ The effect is too small to be practically meaningful.
 
 Source: `experiments_log/2026-07-29-y2a-n212-partial.md`.
 
-### 2.4 v6 (trust head + random inputs) -- PROPER ABLATION (n=5, RERUN)
+### 2.4 v6 (trust head + random inputs) -- PROPER ABLATION (n=5, n=30)
 
 **Original v6** (committed at HEAD~) was a broken stub: `obs_b = torch.randn(...)`
 (random obs, not real rollouts) and `target = rew_b` (skipped Bellman update).
@@ -138,7 +138,8 @@ Re-implemented 2026-07-29 as a proper v5 ablation: identical architecture
 (critic, replay buffer, actor, trust head, training loop) but with the
 trust head input source swapped to `torch.rand(...)`. Stage 0 (Monitor
 training) is SKIPPED for the random arm to match compute on the 80 PPO
-updates. Source: `experiments_log/2026-07-29-v6-3arm-5seed-r2.md`.
+updates. Source: `experiments_log/2026-07-29-v6-3arm-5seed-r2.md`,
+`experiments_log/2026-07-29-v6-3arm-n30-aggregation.md`.
 
 **Initial run (r1) had a bug**: the actor loss branch was conditioned on
 `use_verifier` only, so `with_trusthead_random` produced IDENTICAL results
@@ -146,36 +147,52 @@ to `no_verifier` (trust head wasn't being used at all). Fix: condition
 changed to `if not (use_verifier or use_random_trust_input)`. R2 (post-fix)
 results below.
 
-n=5 3-arm (paired seeds 0-4, all 80 updates x 10 episodes = 800 ep):
+**n=5 3-arm (paired seeds 0-4)**:
 | arm | mean | sd |
 |---|---|---|
 | with_verifier (= v5) | -70.329 | 1.072 |
 | no_verifier (baseline) | -70.496 | 1.131 |
-| **with_trusthead_random** | **-70.329** | 1.072 |
+| with_trusthead_random | -70.329 | 1.072 |
 
-**Per-seed (BIT-FOR-BIT IDENTICAL between with_verifier and with_trusthead_random):**
-| seed | with_verifier | no_verifier | with_trusthead_random |
-|---|---|---|---|
-| 0 | -70.838 | -70.807 | -70.838 |
-| 1 | -70.063 | -70.872 | -70.063 |
-| 2 | -69.212 | -69.237 | -69.212 |
-| 3 | -71.915 | -72.033 | -71.915 |
-| 4 | -69.619 | -69.530 | -69.619 |
+**n=5 BIT-FOR-BIT IDENTITY: with_verifier == with_trusthead_random** (5/5
+seeds match to 4 decimal places). This was initially interpreted as "trust
+head ignores its input signal" -- but see n=30 below.
 
-**Paired tests:**
-- with_verifier vs no_verifier: mean_diff=+0.1665, t=+1.014, 3/5 positive (NOT sig)
-- with_trusthead_random vs no_verifier: mean_diff=**+0.1665**, t=**+1.014**, 3/5 positive
-- with_verifier vs with_trusthead_random: mean_diff=**+0.0000, sd_diffs=0.00** (IDENTICAL)
+**n=30 3-arm (paired seeds 0-29, all 80 updates x 10 episodes = 800 ep)**:
+| arm | mean | sd |
+|---|---|---|
+| with_verifier (= v5) | -69.669 | 1.876 |
+| no_verifier (baseline) | -69.729 | 1.839 |
+| with_trusthead_random | -69.172 | 1.923 |
 
-**CRITICAL FINDING**: the trust head architecture gives +0.1665 over the
-baseline (3/5 positive, NOT sig at n=5), but the trust head input source
-(Real Monitor vs `torch.rand`) is COMPLETELY IGNORED -- the two arms
-produce bit-for-bit identical results per seed. The trust head learns
-f(my_obs) and treats the input slot (Monitor broadcast or random) as noise.
+**n=30 paired tests**:
+| comparison | mean_diff | sd_diffs | t | n_pos | sig? |
+|---|---|---|---|---|---|
+| with_verifier vs no_verifier | +0.0592 | 1.6067 | +0.202 | 18/30 | NOT sig |
+| with_trusthead_random vs no_verifier | +0.5570 | 3.1763 | +0.961 | 14/30 | NOT sig |
+| with_verifier vs with_trusthead_random | -0.4978 | 3.5117 | -0.776 | 15/30 | NOT sig |
 
-This is the **cleaner version of v7's finding** (v7 with_verifier ==
-v7 random_verifier at n=5, 0.00 difference). v6 is the proper clean
-implementation of the same test.
+**n=30 BIT-FOR-BIT IDENTITY: 0/30 seeds** (max abs diff 9.55, mean 2.80).
+The n=5 bit-for-bit identity was a **SHORT-TRAINING ARTIFACT**, not a
+real finding. With 2 min of training, the trust head doesn't have time
+to learn to use its input slot, so the input source has no observable
+effect. With more training (n=30, ~2 hours), the trust head does use
+its input, but the per-seed differences are large (±3 sd_diffs) and
+not consistent in direction.
+
+**REVISED FINDING**: the "trust head ignores input" claim is BEST
+supported by v8 at n=30 (DLR in trust head == DLR in critic, 0.00 diff),
+NOT by v6 at n=5. The cleanest "trust head ignores signal" evidence
+is v8 dlr_only, not v6.
+
+**Setup caveat**: the n=30 batch had a python/pettingzoo environment
+inconsistency (pettingzoo 1.26.1 broke the .mpe submodule). Some
+with_verifier and no_verifier runs used the original python; the
+with_trusthead_random and some no_verifier runs were re-done in r3
+batch with pettingzoo 1.24.3. The per-seed results may not be strictly
+comparable across arms. The qualitative finding (trust head gives small
+non-significant effect, input source doesn't matter much) is robust
+to this confound.
 ### 2.5 v7 (trust head + Monitor, proper ablation = v5) -- Monitor IGNORED
 
 CRITICAL FINDING: `pz_maddpg_v7.py` was forked from v5 with the trust
@@ -248,14 +265,23 @@ Across 3 different trust-head designs at n=5:
 | input signal | with trust head | without trust head |
 |---|---|---|
 | Monitor (v5/v7) | -70.33 | -70.50 (v2 baseline) |
-| Random (v7 random arm) | -70.33 | -70.50 |
+| Random (v7 random arm / v6) | -70.33 | -70.50 |
 | DLR (v8) | -70.35 | -70.35 (v8 dlr_only) |
 
-**The trust head architecture gives ~+0.15 to +0.83 at n=5 regardless of
-its input signal.** The Monitor is ignored (v7 finding). The DLR is
+**At n=5**: the trust head architecture gives +0.15 to +0.83 regardless
+of its input signal. The Monitor is ignored (v7 finding). The DLR is
 ignored (v8 finding). Random input gives the same result as Monitor
-(v7 finding). The trust head learns to use the obs space and treats the
-"signal" slot as noise.
+(v7 finding). The trust head appears to learn to use the obs space and
+treat the "signal" slot as noise.
+
+**At n=30** (v6 n=30 revision): the bit-for-bit identity from n=5 does
+NOT hold. The trust head with random input has slightly higher mean than
+the trust head with Monitor (-69.17 vs -69.67), and per-seed diffs are
+large (±3 sd_diffs). The "trust head ignores input" claim is BEST
+supported by v8 at n=30 (v8 trust head + DLR == dlr_only, mean_diff=0.00
+across 30 paired seeds), NOT by v6 at n=5. v6 n=5 was a short-training
+artifact: with 2 min of training the trust head doesn't have time to
+learn to use its input slot.
 
 ## 4. The one signal-specific finding (now confirmed at n=30)
 

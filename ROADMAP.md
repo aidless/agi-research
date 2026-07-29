@@ -322,3 +322,54 @@ question is whether it transfers to LLM self-rewarding.
 - The H10 hypothesis may be REFUTED. Per pre-registration, this is
   a valid outcome.
 
+
+
+---
+
+## 3.2 Project priorities update (v3.2, 2026-07-29 -- pivot from Project G)
+
+**PIVOT DECISION**: Project G (LLM Self-Monitoring, decoupled Monitor)
+is **direction-REFUTED** at n=5 stratified pilot (see
+`experiments_log/2026-07-29-H10-stratified-n5-result.md`).
+Joint Monitor 0.650 > Frozen Monitor 0.550, opposite of H10 prediction.
+Statistical significance: Welch t = -0.516 (NOT significant at t>2.0).
+Negative control PASSES (Frozen > Random by 0.30).
+
+**Per H10 pre-reg contingency**: H11 (cross-env transfer) is moot.
+**Per H10 REFUTED pivot rule**: Project G is replaced by Project D
+(language-as-type-system), with the specific question: can a small
+LM serve as a type checker for DLR predicates?
+
+### Project D revival: H12 (small LM as DLR type checker)
+
+| Project | Priority | Y0/Y1 Status | Y2 Work |
+|---------|----------|---------------|---------|
+| A: Self-Improvement (Decoupled Monitor) | **P0** | ✅ Y0 + Y1 (H1, Y1.3) | Multi-agent DMC |
+| C: Causal World Model (Slot Attention) | **P0** | ✅ Y0 (next-step err 0.000007) | Cross-env transfer |
+| D: Language-as-type-system (REVIVED) | **P1 (new)** | 🔄 SPEC + smoke test | H12 (LM as DLR type checker) |
+| B: Cross-domain (VLA-grounded) | P1 | ⏳ Skipped | Y2-Y3 work |
+| E: Neuro-symbolic verification (DLR) | **P0** | ✅ Y0 + Y1 (95.5% to 97.8% 4-env) | H12 integration |
+| F: Multi-Agent (DMC) | P2 | ⚠️ Y0 (sketch) + Y2 base (skeleton) | Full Y2 implementation |
+| ~~G: LLM Self-Monitoring~~ | ~~P1~~ | ❌ **CLOSED** (H10 REFUTED) | None (pivoted to D) |
+
+**Project D revival specifics**:
+- H12 pre-registration: `experiments_log/2026-07-29-PRE-REGISTERED-H12.md`
+- H12 starter code: `projects/project_d_language/code/lm_type_checker.py`
+- H12 smoke test result: `experiments_log/2026-07-29-H12-smoke-test.md`
+  (LM accuracy 0.500 == Random; prompt engineering required before
+  full pre-reg H12)
+
+**Project D timeline**:
+- 2026-07-29: H12 pre-registration + smoke test
+- 2026-07-30+: prompt engineering iterations (3-5 attempts)
+- 2026-08+: full pre-reg H12 (n=5 seeds × 50 trajectories per seed)
+- 2026-08+: paper outline for Project D H12 result
+
+**Project D risk**:
+- H12 smoke test already shows LM at random (0.500). H12 may be
+  REFUTED even with prompt engineering.
+- If H12 REFUTED: pivot again to a different Project D direction
+  (e.g., learned LM-as-type-checker with fine-tuning).
+- If H12 VALIDATED: integrate with Project E DLR for hybrid
+  verification (DLR when in-domain, LM when zero-shot).
+

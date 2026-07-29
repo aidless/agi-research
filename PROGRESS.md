@@ -2495,3 +2495,50 @@ doesn't matter much) is robust to this confound.
 - [x] n=30 CLEAN: bit-for-bit identity restored (30/30)
 - [x] Update 6-pathway paper + H5
 - [x] Commit and push
+
+
+## 2026-07-29 session 11 -- Y3 paper draft (6-pathway, 20KB, 369 lines)
+
+**Major progress** (this session):
+
+- [x] **Y3 paper draft**: `papers/monitor_signal_vs_dlr_6pathway.md`
+      -- 20KB, 369 lines, ~6 pages.
+      Title: "Monitor Signal vs DLR Predicates in Cooperative MARL:
+      A 6-Pathway Systematic Investigation"
+      Target venue: AAMAS 2027 / NeurIPS 2026 MARL workshop
+
+- [x] **Structure**:
+      1. Abstract
+      2. Introduction (with 6-pathway thesis)
+      3. Background (MADDPG, Y1.3, H5, PettingZoo Simple Spread v3)
+      4. The 6 Pathways (one subsection each with n=5 + n=30 results)
+      5. Cross-Pathway Analysis (architectural lesson, signal lesson,
+         effect-shrinkage trajectory, 6-pathway table)
+      6. Discussion (why trust head ignores input, why DLR works,
+         why effect-shrinkage differs)
+      7. Conclusion
+      8. References
+
+- [x] **Key findings included**:
+      - v6 n=5 and n=30 CLEAN: bit-for-bit identical per-seed
+        (with_verifier == with_trusthead_random)
+      - v8 dlr_only: +0.1447 (p<0.005, 20/30 pos at n=30)
+      - v5 effect-shrinkage: +0.17 (n=5) -> +0.055 (n=212)
+      - dlr_only effect-stability: +0.15 (n=5) -> +0.1447 (n=30)
+
+- [x] **6-pathway table at-a-glance** in Section 4.4:
+      | # | path | sig? | verdict |
+      | 1 | v3 | NOT sig, HURTS at 10K | REFUTED |
+      | 2 | v4 | NOT sig | REFUTED |
+      | 3 | v5 | NOT sig, shrinks | REFUTED |
+      | 4 | v6 | NOT sig, n=30 bit-for-bit = v5 | REFUTED (architecture only) |
+      | 5 | v7 | NOT sig | REFUTED, Monitor IGNORED |
+      | 6 | v8 | trust head adds nothing | DLR IGNORED by trust head |
+      | 6' | v8 dlr_only | p<0.005, SIG | PUBLISHABLE |
+
+### Action items
+
+- [x] Y3 paper draft: DONE (20KB, 369 lines)
+- [ ] Refine paper based on review (next session)
+- [ ] Convert to LaTeX format for submission
+- [ ] Decide final venue (workshop vs main track)

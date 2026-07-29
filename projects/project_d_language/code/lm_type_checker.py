@@ -246,8 +246,19 @@ def main():
     print()
 
     n_states = int(os.environ.get("H12_N_STATES", "1"))  # number of states for smoke test
-    states = make_synthetic_states(n_states=n_states, seed=42)
-    predicates = ["upright"]
+    use_deterministic = os.environ.get("H12_DETERMINISTIC", "0") == "1"
+    if use_deterministic:
+        # Deterministic test states (1 TRUE example + 1 FALSE example
+        # for the chosen predicate). This gives meaningful accuracy signal.
+        predicate = os.environ.get("H12_TEST_PREDICATE", "near_ground")
+        states = [
+            np.array([0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]),  # y_pos=0.1, near_ground=TRUE (or angle=0, upright=TRUE)
+            np.array([0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]),  # y_pos=0.5, near_ground=FALSE (or angle=0, upright=TRUE)
+        ]
+        predicates = [predicate]
+    else:
+        states = make_synthetic_states(n_states=n_states, seed=42)
+        predicates = ["upright"]
     # All (state, predicate) pairs.
     all_pairs = [(s, p) for s in states for p in predicates]
     all_states = [s for s, _ in all_pairs]

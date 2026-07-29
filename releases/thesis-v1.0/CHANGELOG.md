@@ -2,7 +2,21 @@
 
 > Release history for the Archimedes thesis.
 
-## v1.0 -- 2026-07-27 (this release)
+## v1.1 -- 2026-07-29 (this release)
+- Added Chapter 1.4 "SOTA context (mid-2026 update)" discussing
+  Kimi K3 (Moonshot AI, 2.8T MoE) and FlashKDA (kernel
+  implementation of Kimi Delta Attention). Relevance to Archimedes
+  is discussed: KDA's channel-wise forget gate parallels our
+  decoupled Monitor's policy/freeze decision; AttnRes is a
+  complementary selective retrieval; partial rollout is relevant
+  to Project F (multi-agent). We do NOT claim competitiveness with
+  frontier LLMs on raw capability benchmarks; the thesis is about
+  a different research direction.
+- Added references [46] Kimi K3, [47] FlashKDA, [48] Gated DeltaNet
+  predecessor. Total references: 48 (was 45).
+- Bumped CHANGELOG + manifest + citation accordingly.
+
+## v1.0 -- 2026-07-27
 
 ### Initial release
 

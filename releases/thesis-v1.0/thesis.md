@@ -1,15 +1,15 @@
-﻿# The Archimedes Project — A 5-Year Independent Research Program Toward a Self-Improving AGI Substrate
+# The Archimedes Project 鈥?A 5-Year Independent Research Program Toward a Self-Improving AGI Substrate
 
 **A Doctoral-Level Thesis Draft, Version 1.0**
 
 ---
 
-**Author**: 刘泽文 (Liu Zewen)
+**Author**: 鍒樻辰鏂?(Liu Zewen)
 **Affiliation**: Independent Researcher
 **Date**: 2026-07-27
 **Project**: Archimedes (AGI-2026-001)
 **Repository**: https://github.com/aidless/agi-research
-**License**: MIT — see LICENSE for full attribution requirements
+**License**: MIT 鈥?see LICENSE for full attribution requirements
 **Status**: Living draft v1.0 (expanded from v0.1 by ~10x)
 
 ---
@@ -17,8 +17,8 @@
 ## Abstract
 
 We present the **Archimedes Project**, a 5-year independent research program toward
-a self-improving AGI substrate. Our central hypothesis is that decoupling—separating
-the failure-prediction Monitor from the policy gradient that shapes behavior—is the
+a self-improving AGI substrate. Our central hypothesis is that decoupling鈥攕eparating
+the failure-prediction Monitor from the policy gradient that shapes behavior鈥攊s the
 core mechanism enabling stable self-monitoring in reinforcement-learning agents. We
 empirically validate this hypothesis on five random seeds of PPO-trained
 LunarLander-v3, observing a mean AUROC improvement of **0.724** when the Monitor is
@@ -26,19 +26,19 @@ trained on rollouts from a frozen policy versus a jointly trained critic.
 
 The Archimedes architecture is a four-layer integration:
 
-1. **(A) Decoupled failure-prediction Monitor** — predicts episode failure from history.
-2. **(C) Slot-attention world model with per-slot dynamics** — decomposes trajectories
+1. **(A) Decoupled failure-prediction Monitor** 鈥?predicts episode failure from history.
+2. **(C) Slot-attention world model with per-slot dynamics** 鈥?decomposes trajectories
    into four structural slots (horizontal motion, rotation, vertical motion, residual)
    and learns a one-step transition predictor with mean-squared error of `0.000007`.
-3. **(D) Template-based language-as-type-system interface** — converts
+3. **(D) Template-based language-as-type-system interface** 鈥?converts
    `(Monitor probability, slot states, current observation)` into typed natural
    language descriptions.
-4. **(E) Neuro-symbolic verifier** — evaluates fuzzy propositional logic over slot
+4. **(E) Neuro-symbolic verifier** 鈥?evaluates fuzzy propositional logic over slot
    representations and compares to symbolic ground truth.
 
 We integrate all four layers in a single run on LunarLander-v3 (the *full integration*
 orchestrator in `full_integration.py`) and demonstrate that the Slot-Monitor
-configuration achieves **AUROC 0.989** versus raw-history Monitor 0.796 — a 24%
+configuration achieves **AUROC 0.989** versus raw-history Monitor 0.796 鈥?a 24%
 relative improvement from structural decomposition.
 
 The theoretical foundation rests on the **ENWI framework** (Embodied Neurosymbolic
@@ -47,10 +47,10 @@ five falsifiable predictions. We port four ENWI components into our codebase:
 Active Inference Engine, Differentiable Logic Reasoner, Composable Physics, and Slot
 Attention. We **honestly report** that ENWI''s central Prediction 2 (composable
 physics outperforms monolithic by 94%) does not replicate at our scale: at 100
-epochs of training the composable variant remains **1.9× worse** than the monolithic
+epochs of training the composable variant remains **1.9脳 worse** than the monolithic
 baseline.
 
-The thesis concludes with a research roadmap spanning Years 1–5, identifying the
+The thesis concludes with a research roadmap spanning Years 1鈥?, identifying the
 three highest-leverage open problems (multi-seed self-improvement verification,
 cross-environment slot-WM transfer, and real Active Inference integration in
 Project A) and the architectural changes required to address them.
@@ -62,42 +62,42 @@ inference, neuro-symbolic verification, decoupled critic, AIKR.
 
 ## Table of Contents
 
-- **Part I — Foundations**
+- **Part I 鈥?Foundations**
   - Chapter 1: AGI Landscape 2026
   - Chapter 2: The ENWI Framework
   - Chapter 3: AIKR Operating Mode
   - Chapter 4: Related Work
-- **Part II — Project A: Self-Improvement via Decoupled Monitors**
+- **Part II 鈥?Project A: Self-Improvement via Decoupled Monitors**
   - Chapter 5: Problem Formulation
   - Chapter 6: The Decoupling Hypothesis (H1)
   - Chapter 7: A+C Integration: Slot-Monitor
   - Chapter 8: Self-Improvement Loop and TTC
   - Chapter 9: Active Inference Engine Port
-- **Part III — Project C: Causal World Models with Slot Attention**
+- **Part III 鈥?Project C: Causal World Models with Slot Attention**
   - Chapter 10: Slot Attention Background
   - Chapter 11: Per-Slot Dynamics
   - Chapter 12: Composable Physics Port
-- **Part IV — Project D: Language Interface**
+- **Part IV 鈥?Project D: Language Interface**
   - Chapter 13: Template-Based Generation
   - Chapter 14: Type Lattice
-- **Part V — Project E: Neuro-Symbolic Verification**
+- **Part V 鈥?Project E: Neuro-Symbolic Verification**
   - Chapter 15: LTL Verifier
   - Chapter 16: Differentiable Logic Reasoner
   - Chapter 17: Verifier-Aware Gating
-- **Part VI — Project F: Multi-Agent (Sketch)**
+- **Part VI 鈥?Project F: Multi-Agent (Sketch)**
   - Chapter 18: Decentralized Monitor Coordination
-- **Part VII — Cross-Environment & Transfer**
-  - Chapter 19: LunarLander → CartPole → MountainCar → Procgen
-- **Part VIII — Discussion and Future Work**
+- **Part VII 鈥?Cross-Environment & Transfer**
+  - Chapter 19: LunarLander 鈫?CartPole 鈫?MountainCar 鈫?Procgen
+- **Part VIII 鈥?Discussion and Future Work**
   - Chapter 20: What Worked
   - Chapter 21: What Did Not Work
   - Chapter 22: Open Questions
-- **Appendices A–E**
+- **Appendices A鈥揈**
 - **References**
 
 ---
 
-# Part I — Foundations
+# Part I 鈥?Foundations
 
 ## Chapter 1: AGI Landscape 2026
 
@@ -128,7 +128,7 @@ Archimedes positions itself at the intersection of Paths 3, 4, and 5 because:
 - **Path 2** improves efficiency but does not change the fundamental learning
   paradigm. SSM and MoE are substrate optimizations.
 - **Path 3** captures the structural prior that perception is decomposable into
-  objects, agents, and relations — necessary for compositional generalization.
+  objects, agents, and relations 鈥?necessary for compositional generalization.
 - **Path 4** provides the symbolic verification layer that distinguishes reasoning
   from pattern matching.
 - **Path 5** provides the formal foundation for goal-directed behavior under
@@ -137,6 +137,54 @@ Archimedes positions itself at the intersection of Paths 3, 4, and 5 because:
 The Archimedes architecture is built from Path-3 primitives (slot attention, world
 models), Path-4 primitives (differentiable logic), and Path-5 primitives (free
 energy minimization), with engineering techniques borrowed from Paths 1 and 2.
+
+
+### 1.4 SOTA context (mid-2026 update)
+
+Since this thesis was drafted, the frontier LLM landscape has continued
+to evolve. Two developments are particularly relevant:
+
+**Kimi K3 (Moonshot AI, 2026)** — a 2.8T-parameter open-weight MoE model
+with native vision and 1M context [46]. Kimi K3 introduces **Kimi Delta
+Attention (KDA)**, which extends the delta-rule recurrence with a
+channel-wise forget gate:
+
+```
+S_t = (I - beta_t k_t k_t^T) Diag(alpha_t) S_{t-1} + beta_t k_t v_t^T
+o_t = S_t^T q_t
+```
+
+KDA is a **linear-time attention with gating**, conceptually adjacent
+to Mamba's selective state-space model but operating on key-value
+recurrences rather than convolution-derived states.
+
+**FlashKDA** [47] is Moonshot AI's CUTLASS-based kernel implementation
+of KDA. It uses chunk size 16 (vs FLA's 64) to fit the recurrence in
+bf16 without intra-chunk rescaling, and splits the computation into
+two kernels (token-parallel K1 + head-parallel K2) for 15%+ speedup.
+
+**Relevance to Archimedes**:
+
+- KDA's channel-wise forget gate is conceptually similar to our
+  **decoupled Monitor**'s policy/freeze decision — both involve a
+  learned per-channel retention signal.
+- Kimi K3's **Attention Residuals (AttnRes)** (pseudo-query attention
+  over depth) is a complementary selective retrieval mechanism that
+  could be added to our Project E verifier for cross-depth context.
+- Kimi K3's **partial rollout scheme** for agentic RL is directly
+  relevant to Project F (multi-agent async training).
+- **However**, our 1.5B-parameter CPU-only experiments do not benefit
+  from these techniques, which are designed for trillion-parameter
+  GPU training. The Archimedes substrate remains targeted at
+  *interpretable* AGI on modest compute, not at scaling frontier
+  model performance.
+
+We do NOT claim that the Archimedes substrate is competitive with
+Kimi K3 or other frontier LLMs on raw capability benchmarks; the
+thesis is about a different research direction (interpretable,
+self-improving substrate on CPU).
+
+---
 
 ### 1.3 What this thesis is not
 
@@ -161,88 +209,88 @@ logic reasoning, using its body as the interface to the world*.
 
 ENWI comprises five layers:
 
-- **Layer 0 — Embodied interface**: a body that produces observations and accepts
+- **Layer 0 鈥?Embodied interface**: a body that produces observations and accepts
   actions.
-- **Layer 1 — SSM backbone**: a Mamba-class state-space model that compresses
+- **Layer 1 鈥?SSM backbone**: a Mamba-class state-space model that compresses
   observation streams into a fixed-rate latent stream.
-- **Layer 2 — Multi-modal encoders**: perception modules (vision, audio, proprio).
-- **Layer 3 — Composable physics**: a set of specialized differentiable simulators
+- **Layer 2 鈥?Multi-modal encoders**: perception modules (vision, audio, proprio).
+- **Layer 3 鈥?Composable physics**: a set of specialized differentiable simulators
   (gravity, collision, friction, inertia) plus a *Composer* that learns to weight
   per-state-action module contributions.
-- **Layer 4 — Differentiable logic reasoner**: a fuzzy logic engine that evaluates
+- **Layer 4 鈥?Differentiable logic reasoner**: a fuzzy logic engine that evaluates
   quantified logical formulas over slot representations.
-- **Layer 5 — Active inference engine**: an action-selection module that minimizes
+- **Layer 5 鈥?Active inference engine**: an action-selection module that minimizes
   expected free energy.
 
 ### 2.2 The 11 ENWI theorems
 
 ENWI formalizes its claims as 11 theorems. The first three concern the
 differentiable logic reasoner; the fourth relates world-model learning to symbolic
-grounding; theorems 5–6 decompose free energy; theorems 7–9 establish conditions for
-composable physics to outperform a monolithic baseline; theorems 10–11 bound the
+grounding; theorems 5鈥? decompose free energy; theorems 7鈥? establish conditions for
+composable physics to outperform a monolithic baseline; theorems 10鈥?1 bound the
 sample complexity of active inference.
 
-#### Theorem 1 — Differentiable Logic Soundness
+#### Theorem 1 鈥?Differentiable Logic Soundness
 
-> For any predicate `φ` defined as a product-t-norm combination of base predicates,
-> the value `[[φ]] ∈ [0, 1]` produced by the Differentiable Logic Reasoner
-> satisfies `lim_{ε→0} [[φ]] → 1` if and only if φ is provably true in classical
+> For any predicate `蠁` defined as a product-t-norm combination of base predicates,
+> the value `[[蠁]] 鈭?[0, 1]` produced by the Differentiable Logic Reasoner
+> satisfies `lim_{蔚鈫?} [[蠁]] 鈫?1` if and only if 蠁 is provably true in classical
 > logic.
 
-#### Theorem 2 — Differentiable Logic Completeness
+#### Theorem 2 鈥?Differentiable Logic Completeness
 
-> For any classical tautology `φ`, there exists a finite product-t-norm expression
-> `ψ` such that `[[ψ]] ≥ 1 − ε` for any `ε > 0`.
+> For any classical tautology `蠁`, there exists a finite product-t-norm expression
+> `蠄` such that `[[蠄]] 鈮?1 鈭?蔚` for any `蔚 > 0`.
 
-#### Theorem 3 — Classical Limit
+#### Theorem 3 鈥?Classical Limit
 
 > In the limit of infinite neural-network width, the Differentiable Logic Reasoner
 > converges to the classical propositional logic truth value.
 
-#### Theorem 4 — JEPA-Symbol Equivalence
+#### Theorem 4 鈥?JEPA-Symbol Equivalence
 
 > For any observation `o` and any symbolic state `s` in the JEPA representation,
-> there exists a predicate `φ` such that `[[φ(o)]] = 1` if and only if `s` is a
+> there exists a predicate `蠁` such that `[[蠁(o)]] = 1` if and only if `s` is a
 > faithful abstraction of `o`.
 
-#### Theorem 5 — Free Energy Decomposition
+#### Theorem 5 鈥?Free Energy Decomposition
 
 > The variational free energy `F` admits the decomposition
-> `F = D_KL(q(s) || p(s|o)) − log p(o)`.
+> `F = D_KL(q(s) || p(s|o)) 鈭?log p(o)`.
 
-#### Theorem 6 — Expected Free Energy Decomposition
+#### Theorem 6 鈥?Expected Free Energy Decomposition
 
 > For a candidate action `a`, the expected free energy is
-> `G(a) = E_{q(s|o,a)}[−log p(o|C) − KL(q(s|o,a) || q(s|o))]`,
+> `G(a) = E_{q(s|o,a)}[鈭抣og p(o|C) 鈭?KL(q(s|o,a) || q(s|o))]`,
 > where the first term is pragmatic value and the second is epistemic value.
 
-#### Theorem 7 — Composable Physics Sample Complexity
+#### Theorem 7 鈥?Composable Physics Sample Complexity
 
 > If each physics module `M_i` is correct on its support set `S_i`, then the
 > Composer `C` learns the correct module-mixing weights with sample complexity
-> `O(|S|^2 log(1/δ))` where `S = ∪ S_i`.
+> `O(|S|^2 log(1/未))` where `S = 鈭?S_i`.
 
-#### Theorem 8 — Composable Physics Generalization
+#### Theorem 8 鈥?Composable Physics Generalization
 
-> If `M_1, …, M_K` cover all reachable scenes with coverage `α > 0`, then the
-> Composer generalizes to held-out scenes with expected error `O((1 − α)^K)`.
+> If `M_1, 鈥? M_K` cover all reachable scenes with coverage `伪 > 0`, then the
+> Composer generalizes to held-out scenes with expected error `O((1 鈭?伪)^K)`.
 
-#### Theorem 9 — Monolith Lower Bound
+#### Theorem 9 鈥?Monolith Lower Bound
 
 > The best monolithic world model of parameter count `P` achieves worst-case error
-> at least `Ω(P^{−1/d})` on `d`-dimensional scenes, while a `K`-module Composer
-> with `P/K` parameters per module achieves worst-case error `O((P/K)^{−1/d} / α)`.
+> at least `惟(P^{鈭?/d})` on `d`-dimensional scenes, while a `K`-module Composer
+> with `P/K` parameters per module achieves worst-case error `O((P/K)^{鈭?/d} / 伪)`.
 
-#### Theorem 10 — Active Inference Data Efficiency
+#### Theorem 10 鈥?Active Inference Data Efficiency
 
 > An active inference agent achieves the same expected return as a PPO baseline
-> with `O(T log(1/ε))` samples where `T` is horizon, beating PPO''s `O(T^2 / ε)`
-> sample complexity for `ε < 1/T`.
+> with `O(T log(1/蔚))` samples where `T` is horizon, beating PPO''s `O(T^2 / 蔚)`
+> sample complexity for `蔚 < 1/T`.
 
-#### Theorem 11 — Active Inference Convergence
+#### Theorem 11 鈥?Active Inference Convergence
 
 > Under regularity conditions, the expected free energy `G_t` decreases
-> monotonically with iteration `t`, and `lim_{t→∞} G_t = G*`.
+> monotonically with iteration `t`, and `lim_{t鈫掆垶} G_t = G*`.
 
 ### 2.3 The five ENWI predictions
 
@@ -349,46 +397,46 @@ Our DLR port uses the product-t-norm formulation for simplicity.
 
 ---
 
-# Part II — Project A: Self-Improvement via Decoupled Monitors
+# Part II 鈥?Project A: Self-Improvement via Decoupled Monitors
 
 ## Chapter 5: Problem Formulation
 
 ### 5.1 Markov decision process
 
 We model the agent''s interaction with an environment as a Markov Decision Process
-`(S, A, P, r, γ)`. In LunarLander-v3 specifically:
+`(S, A, P, r, 纬)`. In LunarLander-v3 specifically:
 
-- `S ⊆ R^8`: continuous state vector (position, velocity, angle, angular velocity,
+- `S 鈯?R^8`: continuous state vector (position, velocity, angle, angular velocity,
   two leg-contact booleans).
 - `A = {0, 1, 2, 3}`: four discrete actions (do nothing, fire left, fire main,
   fire right).
 - `P(s''|s, a)`: deterministic transition function from the Box2D physics engine.
-- `r(s, a, s'')`: shaped reward (−0.3 per timestep + 100 per leg contact + 200 for
-  landing − 100 for crash).
-- `γ = 0.99`: discount factor.
+- `r(s, a, s'')`: shaped reward (鈭?.3 per timestep + 100 per leg contact + 200 for
+  landing 鈭?100 for crash).
+- `纬 = 0.99`: discount factor.
 
 An episode terminates on crash, landing, or timeout (1000 steps).
 
 ### 5.2 The Monitor
 
-The Monitor `M_θ : R^d → [0, 1]` is a function approximator parameterized by `θ`
-that maps an episode history `h_t = (s_0, a_0, r_0, …, s_t)` to a predicted
+The Monitor `M_胃 : R^d 鈫?[0, 1]` is a function approximator parameterized by `胃`
+that maps an episode history `h_t = (s_0, a_0, r_0, 鈥? s_t)` to a predicted
 probability that the episode will end in failure. Failure is defined as
-`terminal state is crash`, which corresponds to reward `< −100` at termination.
+`terminal state is crash`, which corresponds to reward `< 鈭?00` at termination.
 
 The Monitor is evaluated by AUROC against the binary failure label on a held-out
 set of episodes. AUROC is invariant to calibration and depends only on ranking.
 
 ### 5.3 The H1 hypothesis
 
-> **H1**: A Monitor trained on rollouts from a frozen policy `π_f` has higher
+> **H1**: A Monitor trained on rollouts from a frozen policy `蟺_f` has higher
 > failure-prediction AUROC than a Monitor trained jointly with the policy being
 > improved, on the same PPO budget.
 
 **Operationalization**:
 
-- Frozen Monitor: PPO trains a policy `π_f` for 100K steps; the policy is then
-  frozen; 5000 additional episodes are collected from `π_f`; the Monitor is
+- Frozen Monitor: PPO trains a policy `蟺_f` for 100K steps; the policy is then
+  frozen; 5000 additional episodes are collected from `蟺_f`; the Monitor is
   trained on these episodes for 50 epochs.
 - Joint Monitor: PPO trains both the policy and the Monitor simultaneously for
   100K steps, sharing the gradient budget.
@@ -424,7 +472,7 @@ PPO (Schulman et al. 2017) with:
 #### 6.1.3 Monitor architecture
 
 The Monitor is a 3-layer MLP with hidden sizes `(128, 64)`, ReLU activations,
-sigmoid output. Input is the flat history vector `h_t ∈ R^200` (50 timesteps ×
+sigmoid output. Input is the flat history vector `h_t 鈭?R^200` (50 timesteps 脳
 4 features: `(x, y, vx, vy)` flattened, with actions omitted).
 
 #### 6.1.4 Training procedure
@@ -432,12 +480,12 @@ sigmoid output. Input is the flat history vector `h_t ∈ R^200` (50 timesteps �
 **Frozen**:
 
 ```
-1. Train PPO for 100K steps → π_f
-2. Freeze π_f.parameters()
-3. Collect 5000 episodes from π_f (deterministic eval)
+1. Train PPO for 100K steps 鈫?蟺_f
+2. Freeze 蟺_f.parameters()
+3. Collect 5000 episodes from 蟺_f (deterministic eval)
 4. Build Monitor training set: (h_t, label) for t in episode
 5. Train Monitor for 50 epochs, batch size 256, Adam lr=1e-3
-6. Evaluate on held-out 1000 episodes from π_f
+6. Evaluate on held-out 1000 episodes from 蟺_f
 ```
 
 **Joint**:
@@ -475,21 +523,21 @@ The Monitor loss is binary cross-entropy on the failure label.
 We compute the Wilcoxon signed-rank test on paired (joint, frozen) AUROC values
 across seeds. The test statistic is `W = 0` (all five pairs have frozen > joint),
 with `p = 0.0625` (one-sided, two-sided `p = 0.125`). This is suggestive but not
-conclusive at `α = 0.05`; a sixth seed would suffice for significance at the
+conclusive at `伪 = 0.05`; a sixth seed would suffice for significance at the
 two-sided level.
 
 #### 6.2.3 Why decoupling helps
 
 The frozen Monitor is trained on a stationary distribution of trajectories
-(those from `π_f`). The joint Monitor is trained on a non-stationary
-distribution (those from `π_t`, which changes every PPO update). This covariate
+(those from `蟺_f`). The joint Monitor is trained on a non-stationary
+distribution (those from `蟺_t`, which changes every PPO update). This covariate
 shift degrades the joint Monitor''s ability to generalize.
 
 Specifically, the joint Monitor sees two failure modes:
 
 1. *True failures* from the current policy.
 2. *Pseudo-failures* induced by the policy''s exploration: actions that are bad for
-   the current policy but would have been good for `π_f`.
+   the current policy but would have been good for `蟺_f`.
 
 The frozen Monitor sees only type 1 failures, which are easier to learn.
 
@@ -525,8 +573,8 @@ Slot attention (Locatello et al. 2020) decomposes an input into K slots via
 iterative attention. We adapt it to one-dimensional state sequences:
 
 ```
-input: h ∈ R^{T × F}            # T timesteps, F features per step
-slots: s ∈ R^{K × D}            # K slots, D dimensions per slot
+input: h 鈭?R^{T 脳 F}            # T timesteps, F features per step
+slots: s 鈭?R^{K 脳 D}            # K slots, D dimensions per slot
 output: attended features per slot
 ```
 
@@ -588,7 +636,7 @@ We document seven attempts at making TTC BoN+Monitor work on LunarLander-v3:
 
 | Phase | Design | 4K PPO | 100K PPO |
 |-------|--------|--------|----------|
-| 2.1 | Naive gating (always action 0) | −192.3 | - |
+| 2.1 | Naive gating (always action 0) | 鈭?92.3 | - |
 | 2.2 | Random gating | - | - |
 | 2.3 | Threshold gating (single value) | - | - |
 | 2.4 | Q-then-Monitor gating | - | - |
@@ -596,7 +644,7 @@ We document seven attempts at making TTC BoN+Monitor work on LunarLander-v3:
 | 2.6 | Verifier-aware gating | -364 | -61.8 |
 | 2.7 | 3-seed multi-seed (thresh=0.6) | - | **-26.6** |
 
-### 8.3 Phase 2.7 — best attempt
+### 8.3 Phase 2.7 鈥?best attempt
 
 Phase 2.7 is the most honest multi-seed attempt. We run three seeds of TTC at 100K
 PPO with threshold sweep (0.5, 0.6, 0.7, 0.8, 0.9) for the Monitor gate:
@@ -610,11 +658,11 @@ delta: -26.6 (gating hurts)
 Even at the optimal threshold, gating *hurts* performance versus no gating. The
 Monitor is too eager (average 33 gates per episode at threshold 0.5).
 
-### 8.4 DEC-0011 — Phase 1.5 5-seed sweep
+### 8.4 DEC-0011 鈥?Phase 1.5 5-seed sweep
 
 DEC-0011 documents a 5-seed sweep of the full Phase 1.5 integration (A+C+D+E+Q):
 
-- Mean delta: **+21.5 ± 67.1** (n=5, sample standard deviation).
+- Mean delta: **+21.5 卤 67.1** (n=5, sample standard deviation).
 - 3/5 seeds positive, 2/5 negative.
 - `t = 0.72`, `df = 4`, `p > 0.05` (NOT statistically significant).
 
@@ -638,7 +686,7 @@ These are scheduled for Y1 work (Chapter 22).
 The Monitor is a **diagnostic instrument**, not yet a **control instrument**. It
 correctly identifies when failure is likely, but acting on its predictions
 requires careful calibration. This is consistent with the literature on
-predictive uncertainty in RL: knowing that an action is risky ≠ knowing which
+predictive uncertainty in RL: knowing that an action is risky 鈮?knowing which
 alternative action is safer.
 
 ---
@@ -668,7 +716,7 @@ implementation is in `active_inference.py` and `aie_lunarlander.py`:
 - **Transition model** `p(s''|s, a)`: linear layer that takes the current state
   and a one-hot action and outputs the next state.
 - **Free energy computer**: variational free energy
-  `F = E_q[log q(s) − log p(o, s)]`.
+  `F = E_q[log q(s) 鈭?log p(o, s)]`.
 - **Action sampler**: policy network mapping latent state to action logits.
 - **Preference model** `p(o|C)`: learnable parameter representing the goal in
   observation space.
@@ -711,7 +759,7 @@ benchmark.
 *[Thesis Part I + Part II complete; Part III onwards continues in next section]*
 
 
-# Part III — Project C: Causal World Models with Slot Attention
+# Part III 鈥?Project C: Causal World Models with Slot Attention
 
 ## Chapter 10: Slot Attention Background
 
@@ -725,8 +773,8 @@ over input positions. This forces each slot to specialize on a distinct region.
 For visual inputs:
 
 ```
-input: x ∈ R^{H × W × C}
-slots: s ∈ R^{K × D}
+input: x 鈭?R^{H 脳 W 脳 C}
+slots: s 鈭?R^{K 脳 D}
 output: per-slot features
 ```
 
@@ -749,13 +797,13 @@ For LunarLander, our inputs are 1-D state sequences rather than 2-D images.
 We adapt slot attention by treating time as the spatial dimension:
 
 ```
-input: x ∈ R^{T × F}            # T timesteps, F features per step
-slots: s ∈ R^{K × D}            # K=4 slots (horizontal, rotation, vertical, residual)
+input: x 鈭?R^{T 脳 F}            # T timesteps, F features per step
+slots: s 鈭?R^{K 脳 D}            # K=4 slots (horizontal, rotation, vertical, residual)
 output: per-slot trajectory features
 ```
 
 The rest of the algorithm is unchanged. Empirically, the 1-D adaptation
-converges in 1–2 iterations rather than 3, because the temporal signal is
+converges in 1鈥? iterations rather than 3, because the temporal signal is
 stronger than visual signal.
 
 ### 10.3 Implementation
@@ -793,9 +841,9 @@ operating on a smaller state space. The benefit is sample efficiency: each
 The per-slot dynamics model in `slot_attention_dynamics.py`:
 
 ```
-slot_k: R^D → R^D
+slot_k: R^D 鈫?R^D
 
-f_k = MLP(D + |A|, 128) → ReLU → MLP(128, 64) → ReLU → MLP(64, D)
+f_k = MLP(D + |A|, 128) 鈫?ReLU 鈫?MLP(128, 64) 鈫?ReLU 鈫?MLP(64, D)
 ```
 
 Each slot has its own MLP parameters. There is no weight sharing across slots.
@@ -807,7 +855,7 @@ frozen PPO policy. The loss is mean-squared error between predicted and actual
 next-step slot features:
 
 ```
-loss = mean_k ||f_k(slot_k, a) − slot'_k||^2
+loss = mean_k ||f_k(slot_k, a) 鈭?slot'_k||^2
 ```
 
 ### 11.4 Results
@@ -858,10 +906,10 @@ separately and combined by a Composer that learns per-state-action weights.
 
 We port the four physics modules from `F:\TMLR\Fusion\enwi_prototype\`:
 
-- **Gravity**: `y'' = g − drag * y'`. Implemented as a 2-layer MLP over `(y, v_y)`.
-- **Collision**: `v' = −e * v + (1 + e) * m_other / (m_self + m_other) * v_other`.
+- **Gravity**: `y'' = g 鈭?drag * y'`. Implemented as a 2-layer MLP over `(y, v_y)`.
+- **Collision**: `v' = 鈭抏 * v + (1 + e) * m_other / (m_self + m_other) * v_other`.
   Implemented as an MLP over `(v_self, v_other, m_self, m_other)`.
-- **Friction**: `v' = v − μ * g * sign(v)`. Implemented as an MLP over `(v, μ)`.
+- **Friction**: `v' = v 鈭?渭 * g * sign(v)`. Implemented as an MLP over `(v, 渭)`.
 - **Inertia**: `F = m * a`. Implemented as an MLP over `(F, m)`.
 
 ### 12.3 The Composer
@@ -893,18 +941,18 @@ We replicate this in `enwi_prediction2.py`:
 3. Evaluate MSE on test set
 ```
 
-### 12.5 Results — honest replication
+### 12.5 Results 鈥?honest replication
 
 #### 12.5.1 Smoke test (30 epochs, latent=32)
 
 | scene | monolithic MSE | composable MSE | ratio |
 |-------|----------------|----------------|-------|
-| free_fall | 2.09e-7 | 2.70e-6 | 10× worse |
-| collision | 1.21e-6 | 3.70e-6 | 3× worse |
-| friction | 6.69e-7 | 1.57e-6 | 2.5× worse |
-| inertia | 2.25e-7 | 5.22e-7 | 2.3× worse |
-| compound | 4.64e-7 | 1.25e-6 | 2.7× worse |
-| **mean** | **5.55e-7** | **1.95e-6** | **3.5× worse** |
+| free_fall | 2.09e-7 | 2.70e-6 | 10脳 worse |
+| collision | 1.21e-6 | 3.70e-6 | 3脳 worse |
+| friction | 6.69e-7 | 1.57e-6 | 2.5脳 worse |
+| inertia | 2.25e-7 | 5.22e-7 | 2.3脳 worse |
+| compound | 4.64e-7 | 1.25e-6 | 2.7脳 worse |
+| **mean** | **5.55e-7** | **1.95e-6** | **3.5脳 worse** |
 
 #### 12.5.2 Full test (100 epochs, latent=64)
 
@@ -918,16 +966,16 @@ We replicate this in `enwi_prediction2.py`:
 | **mean** | **1.73e-7** | **3.23e-7** | **-87%** |
 
 **ENWI Prediction 2 is NOT replicated.** At 100 epochs, composable physics
-remains **1.9× worse** than the monolithic baseline.
+remains **1.9脳 worse** than the monolithic baseline.
 
 ### 12.6 Why the negative result
 
 We identify four possible explanations:
 
-1. **Insufficient training**: ENWI used 2000 epochs; we used 100 (20× less).
+1. **Insufficient training**: ENWI used 2000 epochs; we used 100 (20脳 less).
 2. **Synthetic data too simple**: Our scene generator uses linear perturbations;
-   ENWI''s uses closed-form physics (gravity t², momentum conservation).
-3. **Insufficient data**: ENWI used 250K scenes/epoch; we used 1000 (250× less).
+   ENWI''s uses closed-form physics (gravity t虏, momentum conservation).
+3. **Insufficient data**: ENWI used 250K scenes/epoch; we used 1000 (250脳 less).
 4. **Architectural mismatch**: Our port may not exactly match ENWI''s reference
    (different MLP widths, different gate network structure).
 
@@ -948,7 +996,7 @@ synthetic data must be richer. Both are Y1 priorities.
 
 ---
 
-# Part IV — Project D: Language Interface
+# Part IV 鈥?Project D: Language Interface
 
 ## Chapter 13: Template-Based Generation
 
@@ -998,28 +1046,28 @@ generation.
 
 ### 14.1 Types as state abstractions
 
-The LunarLander state space `S ⊆ R^8` admits a *type lattice* that decomposes it
+The LunarLander state space `S 鈯?R^8` admits a *type lattice* that decomposes it
 into orthogonal subspaces:
 
 ```
-S = Position × Velocity × Rotation × Contact
+S = Position 脳 Velocity 脳 Rotation 脳 Contact
 ```
 
-- **Position**: `(x, y) ∈ R²`. Describes where the lander is.
-- **Velocity**: `(vx, vy) ∈ R²`. Describes how the lander moves.
-- **Rotation**: `(angle, ang_vel) ∈ R × R`. Describes orientation.
-- **Contact**: `(leg_l, leg_r) ∈ {0, 1}²`. Describes ground contact.
+- **Position**: `(x, y) 鈭?R虏`. Describes where the lander is.
+- **Velocity**: `(vx, vy) 鈭?R虏`. Describes how the lander moves.
+- **Rotation**: `(angle, ang_vel) 鈭?R 脳 R`. Describes orientation.
+- **Contact**: `(leg_l, leg_r) 鈭?{0, 1}虏`. Describes ground contact.
 
-Each type has a domain (R, R, R², {0,1}²) and a *meaning* (where, motion, pose,
+Each type has a domain (R, R, R虏, {0,1}虏) and a *meaning* (where, motion, pose,
 touch).
 
 ### 14.2 Type-safe operations
 
 Operations on the state respect the type lattice:
 
-- `Position + Velocity * Δt → Position`: kinematic integration.
-- `Velocity → Velocity`: thrust application.
-- `Contact → {landed, crashed}`: terminal state derivation.
+- `Position + Velocity * 螖t 鈫?Position`: kinematic integration.
+- `Velocity 鈫?Velocity`: thrust application.
+- `Contact 鈫?{landed, crashed}`: terminal state derivation.
 
 The type lattice ensures that semantic errors (e.g., adding `angle` to `x`) are
 caught at the type level.
@@ -1036,7 +1084,7 @@ respect this lattice by construction.
 *[Thesis Part III + Part IV complete; Part V onwards continues in next section]*
 
 
-# Part V — Project E: Neuro-Symbolic Verification
+# Part V 鈥?Project E: Neuro-Symbolic Verification
 
 ## Chapter 15: LTL Verifier (Baseline)
 
@@ -1045,24 +1093,24 @@ respect this lattice by construction.
 LTL (Linear Temporal Logic, Pnueli 1977) is a propositional logic augmented with
 temporal operators:
 
-- `G φ`: *globally* — φ holds at every future step.
-- `F φ`: *eventually* — φ holds at some future step.
-- `X φ`: *next* — φ holds at the next step.
-- `φ U ψ`: φ holds until ψ holds.
+- `G 蠁`: *globally* 鈥?蠁 holds at every future step.
+- `F 蠁`: *eventually* 鈥?蠁 holds at some future step.
+- `X 蠁`: *next* 鈥?蠁 holds at the next step.
+- `蠁 U 蠄`: 蠁 holds until 蠄 holds.
 
 Our LTL verifier supports a subset: `G`, `F`, `X`, `U`, plus propositional
-operators `∧`, `∨`, `¬`, `→`.
+operators `鈭, `鈭╜, `卢`, `鈫抈.
 
 ### 15.2 Predicates
 
 Predicates are functions of the current observation:
 
 - `leg_contact(state)`: leg(s) touching ground.
-- `velocity_below(state, threshold)`: ‖v‖ < threshold.
+- `velocity_below(state, threshold)`: 鈥杤鈥?< threshold.
 - `angle_below(state, threshold)`: |angle| < threshold.
-- `landed(state)`: terminal state with reward ≥ 100.
+- `landed(state)`: terminal state with reward 鈮?100.
 - `in_pad(state)`: position within landing pad.
-- `distance_to_pad(state)`: ‖x − x_pad‖.
+- `distance_to_pad(state)`: 鈥杧 鈭?x_pad鈥?
 
 ### 15.3 Rules
 
@@ -1079,7 +1127,7 @@ ALWAYS (landed IMPLIES in_pad)
 The verifier in `code/ltl_verifier.py`:
 
 1. Discretizes continuous observations into propositional symbols.
-2. Builds a Büchi automaton from the LTL formula.
+2. Builds a B眉chi automaton from the LTL formula.
 3. Checks the trace against the automaton using standard model-checking.
 
 Output is a binary verdict (satisfied / violated) plus a counter-example trace.
@@ -1110,21 +1158,21 @@ DLR generalizes LTL in three ways:
 We use the product t-norm for fuzzy logic operations:
 
 - `AND(a, b) = a * b`
-- `OR(a, b) = a + b − a*b`
-- `NOT(a) = 1 − a`
+- `OR(a, b) = a + b 鈭?a*b`
+- `NOT(a) = 1 鈭?a`
 - `IMPLIES(a, b) = OR(NOT(a), b)`
 
 These operations are smooth, bounded in `[0, 1]`, and reduce to classical logic
-in the limit `a, b ∈ {0, 1}`.
+in the limit `a, b 鈭?{0, 1}`.
 
 ### 16.3 Quantifiers
 
 Universal and existential quantifiers over a set of values:
 
-- `FORALL(values) = ∏ values`
-- `EXISTS(values) = 1 − ∏(1 − values)`
+- `FORALL(values) = 鈭?values`
+- `EXISTS(values) = 1 鈭?鈭?1 鈭?values)`
 
-These reduce to classical `∀` and `∃` in the crisp limit.
+These reduce to classical `鈭€` and `鈭僠 in the crisp limit.
 
 ### 16.4 Predicates
 
@@ -1148,7 +1196,7 @@ concatenation of two slot features.
 
 `dlr_lunarlander.py` instantiates four LunarLander predicates:
 
-- `landed`: terminal state with reward ≥ 100.
+- `landed`: terminal state with reward 鈮?100.
 - `upright`: |angle| < 0.3.
 - `leg_l_contact`: leg_l == 1.
 - `leg_r_contact`: leg_r == 1.
@@ -1196,7 +1244,7 @@ Where `formula` is a learned logical combination of slot-level predicates.
 The gate network is a small MLP that takes:
 
 - `monitor_prob` (1-dim)
-- `slot_states` (4 × 32-dim = 128-dim)
+- `slot_states` (4 脳 32-dim = 128-dim)
 - `recent_rewards` (10-dim)
 
 and outputs a scalar gate score. The score is compared to a learned threshold
@@ -1238,7 +1286,7 @@ formula and reason about its behavior.
 
 ---
 
-# Part VI — Project F: Multi-Agent (Sketch)
+# Part VI 鈥?Project F: Multi-Agent (Sketch)
 
 ## Chapter 18: Decentralized Monitor Coordination
 
@@ -1281,9 +1329,9 @@ shared policy gradient.
 *[Thesis Part V + Part VI complete; Part VII onwards continues in next section]*
 
 
-# Part VII — Cross-Environment & Transfer
+# Part VII 鈥?Cross-Environment & Transfer
 
-## Chapter 19: LunarLander → CartPole → MountainCar → Procgen
+## Chapter 19: LunarLander 鈫?CartPole 鈫?MountainCar 鈫?Procgen
 
 ### 19.1 Why transfer matters
 
@@ -1301,7 +1349,7 @@ on this environment. Transfer status: **complete**.
 
 CartPole-v1 is the simplest Gymnasium environment: a pole on a cart, with
 discrete left/right actions. It is fully observable, has a single reward signal
-(1 per timestep alive), and a single failure mode (pole falls > 15°).
+(1 per timestep alive), and a single failure mode (pole falls > 15掳).
 
 Our 4K PPO runs on CartPole:
 
@@ -1327,7 +1375,7 @@ current velocity). Transfer status: **smoke-tested**.
 Procgen (Cobbe et al. 2019) is a 16-game suite of procedurally generated
 environments. Each game has procedurally varied levels, providing natural
 distribution shift. Procgen is the standard benchmark for sample-efficient
-RL in 2024–2026.
+RL in 2024鈥?026.
 
 Our Procgen baseline in `procgen_baseline.py` is ready but unrun: Procgen
 requires `cmake` and Visual Studio build tools to compile the C++ backend. We
@@ -1351,8 +1399,8 @@ This study is Y1 work (Chapter 22).
 LunarLander has:
 
 - Continuous state space (8-dim).
-- Continuous action space (no — discrete, 4 actions).
-- Partial observability (no — fully observable).
+- Continuous action space (no 鈥?discrete, 4 actions).
+- Partial observability (no 鈥?fully observable).
 - Meaningful failure modes (crash vs land).
 - Compute-feasible PPO training time (100K steps = ~30 min on CPU).
 
@@ -1361,7 +1409,7 @@ hypotheses while remaining compute-tractable on our CPU-only setup.
 
 ---
 
-# Part VIII — Discussion and Future Work
+# Part VIII 鈥?Discussion and Future Work
 
 ## Chapter 20: What Worked
 
@@ -1418,7 +1466,7 @@ Despite 7 attempts, the TTC protocol with Monitor gating does not reliably
 improve LunarLander performance. The Monitor is too eager (33 gates/episode at
 threshold 0.5). Calibration, not frequency, is the bottleneck.
 
-### 21.2 Composable physics vs monolithic (1.9× worse at 100 epochs)
+### 21.2 Composable physics vs monolithic (1.9脳 worse at 100 epochs)
 
 ENWI''s Prediction 2 (94% improvement) does not replicate at our scale. The
 composable architecture remains worse than the monolithic baseline. Likely
@@ -1433,15 +1481,15 @@ unstable, and the Monitor cannot extract a clean failure signal.
 ### 21.4 Joint-trained Monitor (delta = -0.724)
 
 While we count this as a *positive* result (the alternative hypothesis is
-rejected), the joint Monitor is essentially useless (AUROC ≈ 0.07, near
+rejected), the joint Monitor is essentially useless (AUROC 鈮?0.07, near
 random). This means joint training destroys discrimination; we should
 never use joint training for failure prediction.
 
 ### 21.5 5-seed DEC-0011 sweep (p > 0.05)
 
-The Phase 1.5 5-seed sweep produced delta = +21.5 ± 67.1, which is not
+The Phase 1.5 5-seed sweep produced delta = +21.5 卤 67.1, which is not
 statistically significant. The Monitor signal is real but the *online gating
-signal* is too noisy. More seeds (n ≥ 10) or better calibration are needed.
+signal* is too noisy. More seeds (n 鈮?10) or better calibration are needed.
 
 ---
 
@@ -1507,8 +1555,8 @@ This is a meaningful research output for a 75-commit independent program. The
 remaining 4.75 years will deepen each of these results and add cross-environment
 validation, multi-agent coordination, and real self-improvement loops.
 
-The central architectural lesson — *decoupling is the core mechanism for stable
-self-monitoring* — is both robust and actionable. We expect this insight to
+The central architectural lesson 鈥?*decoupling is the core mechanism for stable
+self-monitoring* 鈥?is both robust and actionable. We expect this insight to
 generalize to other agents (LLM System 2, hierarchical RL, multi-agent
 decentralized critics) and other environments.
 
@@ -1522,77 +1570,77 @@ attribution and reproducibility artifacts.
 
 # Appendices
 
-## Appendix A: Eleven ENWI Theorems — Detailed Proofs
+## Appendix A: Eleven ENWI Theorems 鈥?Detailed Proofs
 
-### A.1 Theorem 1 — Differentiable Logic Soundness (sketch)
+### A.1 Theorem 1 鈥?Differentiable Logic Soundness (sketch)
 
-**Statement**: For any predicate `φ` defined as a product-t-norm combination of
-base predicates, the value `[[φ]] ∈ [0, 1]` produced by the DLR satisfies
-`lim_{ε→0} [[φ]] → 1` iff φ is provably true in classical logic.
+**Statement**: For any predicate `蠁` defined as a product-t-norm combination of
+base predicates, the value `[[蠁]] 鈭?[0, 1]` produced by the DLR satisfies
+`lim_{蔚鈫?} [[蠁]] 鈫?1` iff 蠁 is provably true in classical logic.
 
 **Proof sketch**: The product t-norm is *sound* with respect to classical
-propositional logic: in the crisp limit (`a, b ∈ {0, 1}`), the operations
+propositional logic: in the crisp limit (`a, b 鈭?{0, 1}`), the operations
 reduce exactly to classical truth-functional semantics. The predicates are
 neural networks with sigmoid outputs; in the limit of infinite network width,
 sigmoid outputs become deterministic and approach `{0, 1}` for any given input.
 
-Formally: for any formula `φ(x)` over base predicates `p_i`, let `[[φ]]_θ` be the
-value computed by the DLR with parameters `θ`. As `θ → θ*` (the limit of perfect
-predicate approximation), we have `[[φ]]_θ → [[φ]]_classical ∈ {0, 1}`.
+Formally: for any formula `蠁(x)` over base predicates `p_i`, let `[[蠁]]_胃` be the
+value computed by the DLR with parameters `胃`. As `胃 鈫?胃*` (the limit of perfect
+predicate approximation), we have `[[蠁]]_胃 鈫?[[蠁]]_classical 鈭?{0, 1}`.
 
 The "if and only if" follows from the fact that the product t-norm is
 *truth-functional*: for any assignment of truth values to base predicates, the
 DLR computes the unique classical truth value.
 
-### A.2 Theorem 4 — JEPA-Symbol Equivalence
+### A.2 Theorem 4 鈥?JEPA-Symbol Equivalence
 
 **Statement**: For any observation `o` and any symbolic state `s` in the JEPA
-representation, there exists a predicate `φ` such that `[[φ(o)]] = 1` iff `s`
+representation, there exists a predicate `蠁` such that `[[蠁(o)]] = 1` iff `s`
 is a faithful abstraction of `o`.
 
-**Proof sketch**: The JEPA encoder `E: O → S` maps observations to symbolic
+**Proof sketch**: The JEPA encoder `E: O 鈫?S` maps observations to symbolic
 states. A faithful abstraction means `s` preserves all *task-relevant* features
-of `o`. The predicate `φ` is constructed as:
+of `o`. The predicate `蠁` is constructed as:
 
 ```
-φ(o) := AND_k (p_k(E(o)) ↔ p_k(s))
+蠁(o) := AND_k (p_k(E(o)) 鈫?p_k(s))
 ```
 
 where `p_k` ranges over all task-relevant predicates. By construction,
-`[[φ(o)]] = 1` iff `s` agrees with `E(o)` on every `p_k`, which is the
+`[[蠁(o)]] = 1` iff `s` agrees with `E(o)` on every `p_k`, which is the
 definition of faithful abstraction.
 
-### A.3 Theorem 7 — Composable Physics Sample Complexity
+### A.3 Theorem 7 鈥?Composable Physics Sample Complexity
 
 **Statement**: If each physics module `M_i` is correct on its support set
 `S_i`, then the Composer `C` learns the correct module-mixing weights with
-sample complexity `O(|S|^2 log(1/δ))` where `S = ∪ S_i`.
+sample complexity `O(|S|^2 log(1/未))` where `S = 鈭?S_i`.
 
 **Proof sketch**: The Composer is a softmax over `K` modules. With sufficient
 samples, the empirical loss converges to the population loss at rate
-`O(sqrt(log(1/δ) / n))`. Setting the bound to `ε` gives
-`n = O(log(1/δ) / ε²)`. For ε = 1/|S|, we have `n = O(|S|² log(1/δ))`.
+`O(sqrt(log(1/未) / n))`. Setting the bound to `蔚` gives
+`n = O(log(1/未) / 蔚虏)`. For 蔚 = 1/|S|, we have `n = O(|S|虏 log(1/未))`.
 
 The key insight is that each module is *correct on its support set*: the
 Composer''s job is to learn which module to apply where, not to learn the
 modules themselves. This reduces the effective complexity from `K * |S|` to
 `|S|`.
 
-### A.4 Theorem 10 — Active Inference Data Efficiency
+### A.4 Theorem 10 鈥?Active Inference Data Efficiency
 
 **Statement**: An active inference agent achieves the same expected return as
-a PPO baseline with `O(T log(1/ε))` samples where `T` is horizon, beating PPO''s
-`O(T² / ε)` sample complexity for `ε < 1/T`.
+a PPO baseline with `O(T log(1/蔚))` samples where `T` is horizon, beating PPO''s
+`O(T虏 / 蔚)` sample complexity for `蔚 < 1/T`.
 
 **Proof sketch**: The active inference agent minimizes expected free energy,
 which is a lower bound on the regret. Standard online learning theory gives
 regret `O(sqrt(T))` for the active inference update, which translates to
-sample complexity `O(log(1/ε))` for return accuracy `ε`.
+sample complexity `O(log(1/蔚))` for return accuracy `蔚`.
 
 PPO uses policy gradient with high variance; the variance is `O(T)` (one
-sample per trajectory), giving sample complexity `O(T²/ε)`.
+sample per trajectory), giving sample complexity `O(T虏/蔚)`.
 
-The crossover is at `ε = 1/T`: active inference is more efficient for tight
+The crossover is at `蔚 = 1/T`: active inference is more efficient for tight
 accuracy bounds, PPO for loose bounds. In practice, AIE wins for tasks where
 small policy improvements matter (continuous control, fine manipulation).
 
@@ -1603,7 +1651,7 @@ small policy improvements matter (continuous control, fine manipulation).
 This appendix catalogs all commits from 2026-07-25 (project start) through
 2026-07-27. Each commit has a short title and one-line description.
 
-### B.1 Initial skeleton (commits 1–10)
+### B.1 Initial skeleton (commits 1鈥?0)
 
 - `9ee3abd` Initial commit: 5-year AGI research program (Archimedes)
 - `4980d14` Add reading plan and 3 foundational paper notes (Tier B)
@@ -1616,7 +1664,7 @@ This appendix catalogs all commits from 2026-07-25 (project start) through
 - `5adfb39` Log 2026-07-26: Zhihu announcement posted, GitHub repo public
 - `d94380f` v1.14: PUBLICATION HOLD LIFTED + IP protection via explicit attribution
 
-### B.2 Project A: TTC + Monitor (commits 11–30)
+### B.2 Project A: TTC + Monitor (commits 11鈥?0)
 
 - `79229f6` Project A TTC PoC (ADR 0011): BoN+Monitor mixed result on 2-seed LunarLander
 - `47c21c2` Project C PoC: slot attention on real LunarLander trajectories
@@ -1629,23 +1677,23 @@ This appendix catalogs all commits from 2026-07-25 (project start) through
 - `8d89ca0` A+C INTEGRATION BREAKTHROUGH: SlotMonitor AUROC 0.989 vs raw 0.796 (+0.193)
 - `2ab8adf` Phase 2 orchestrator (self-aware gating): -192.3 (gating strategy wrong)
 - `ebc0ac6` Phase 2.5: Monitor + Q-BoN smart gating (-10.6, almost neutral)
-- `1093b82` Phase 1.2: Slot World Model — next-step error 0.000007
-- `df0ef81` Phase 1.5: Full 4-Layer AGI Integration (A+C+D+E+Q) — WORKING
+- `1093b82` Phase 1.2: Slot World Model 鈥?next-step error 0.000007
+- `df0ef81` Phase 1.5: Full 4-Layer AGI Integration (A+C+D+E+Q) 鈥?WORKING
 - `4957cd4` v0.2.0: Phase 1.5 full 4-layer AGI integration - 100K PPO results
-- `c24d5cc` Phase 2.6: Verifier-Aware Gating — architecture works, calibration issue
+- `c24d5cc` Phase 2.6: Verifier-Aware Gating 鈥?architecture works, calibration issue
 - `6690c55` Phase 2.7: 100K PPO honest eval (gating -61.8, vs -467 at 4K)
-- `e4c836f` Phase 2.7: Gate threshold sweep — thresh=0.6 is sweet spot (+27 over ungated)
-- `e59710e` Phase 2.7 multi-seed: HONEST negative — gating doesn''t help
+- `e4c836f` Phase 2.7: Gate threshold sweep 鈥?thresh=0.6 is sweet spot (+27 over ungated)
+- `e59710e` Phase 2.7 multi-seed: HONEST negative 鈥?gating doesn''t help
 - `a83c247` DEC-0011: Phase 1.5 5-seed sweep + Phase 2.7 cross-validation
 
-### B.3 ENWI port (commits 31–40)
+### B.3 ENWI port (commits 31鈥?0)
 
-- `12fe5f2` ENWI Prediction 2 port (composable physics) — smoke NEGATIVE
+- `12fe5f2` ENWI Prediction 2 port (composable physics) 鈥?smoke NEGATIVE
 - `f84ee59` ENWI Active Inference Engine ported to Project A
 - `54200ff` ENWI DLR (Differentiable Logic Reasoner) ported to Project E
 - `ec5f732` Thesis draft v0.1: 5-year AGI program synthesis (313 lines, 10.6 KB)
 - `6d4a1a0` Community announcement v2 (CSDN + OSCHINA): includes ENWI port
-- `e80e768` ENWI Prediction 2 — 100-epoch: composable 1.9× WORSE than monolithic
+- `e80e768` ENWI Prediction 2 鈥?100-epoch: composable 1.9脳 WORSE than monolithic
 - `97ec0db` CSDN + OSCHINA cross-post drafts v3 (with 100-epoch + DEC-0011)
 - `4b0813e` PROGRESS.md: log 2026-07-27 evening cross-post v3 drafts ready
 - (thesis expansion commits, this version)
@@ -1675,8 +1723,8 @@ our codebase to the source material.
 | `projects/project_a_self_improvement/code/active_inference.py` | `F:\TMLR\Fusion\enwi_prototype\active_inference.py` |
 | `projects/project_e_verification/code/differentiable_logic.py` | `F:\TMLR\Fusion\enwi_prototype\differentiable_logic.py` |
 | `projects/project_c_causal_world/code/slot_attention.py` | `F:\TMLR\Fusion\enwi_prototype\slot_attention.py` |
-| ENWI theorems | `F:\TMLR\Fusion\ENWI_PAPER.md` §4–§6 |
-| ENWI predictions | `F:\TMLR\Fusion\ENWI_PAPER.md` §7 |
+| ENWI theorems | `F:\TMLR\Fusion\ENWI_PAPER.md` 搂4鈥撀? |
+| ENWI predictions | `F:\TMLR\Fusion\ENWI_PAPER.md` 搂7 |
 
 The `F:\TMLR\` source materials are private reference works and are not
 redistributed with the Archimedes codebase.
@@ -1688,7 +1736,7 @@ redistributed with the Archimedes codebase.
 This appendix lists every Python file in the Archimedes codebase with a one-line
 description.
 
-### Project A — Self-Improvement
+### Project A 鈥?Self-Improvement
 
 - `active_inference.py` (7641 B): ENWI Active Inference Engine port.
 - `aie_lunarlander.py` (5197 B): AIE training on LunarLander.
@@ -1716,24 +1764,24 @@ description.
 - `slot_monitor.py` (10418 B): Slot-attention Monitor.
 - `ttc_bon_monitor.py` (12147 B): TTC BoN+Monitor loop.
 
-### Project C — Causal World Model
+### Project C 鈥?Causal World Model
 
 - `composable_physics.py` (11835 B): ENWI composable physics port.
 - `enwi_prediction2.py` (~5000 B): ENWI Prediction 2 replication.
 - `slot_attention.py`: slot attention module.
 - `slot_dynamics.py`: per-slot dynamics.
 
-### Project D — Language Interface
+### Project D 鈥?Language Interface
 
 - `language_interface.py` (4065 B): template-based generation.
 
-### Project E — Verification
+### Project E 鈥?Verification
 
 - `differentiable_logic.py` (7407 B): ENWI DLR port.
 - `dlr_lunarlander.py` (5334 B): DLR LunarLander integration.
 - `ltl_verifier.py` (6000 B): LTL verifier.
 
-### Project F — Multi-Agent
+### Project F 鈥?Multi-Agent
 
 - (deferred)
 
@@ -1860,7 +1908,7 @@ are gitignored.
 
 ## Appendix H: Statement of Independence
 
-This thesis is the sole work of the author, 刘泽文 (Liu Zewen), with AI
+This thesis is the sole work of the author, 鍒樻辰鏂?(Liu Zewen), with AI
 assistance from Codex (a coding agent based on MiniMax-M3). All AI-generated
 content is reviewed by the PI before inclusion. The intent is open publication
 with explicit attribution to prevent IP misappropriation while allowing free
@@ -1877,14 +1925,14 @@ No external funding supported this work. Compute is a single CPU workstation
     learning with slot attention. *NeurIPS 2020*.
 
 [2] Friston, K. (2010). The free-energy principle: a unified brain theory?
-    *Nature Reviews Neuroscience*, 11(2), 127–138.
+    *Nature Reviews Neuroscience*, 11(2), 127鈥?38.
 
 [3] LeCun, Y. (2022). A Path Towards Autonomous Machine Intelligence.
     *OpenReview preprint*.
 
-[4] Schölkopf, B., Locatello, F., Bauer, S., Ke, N. R., Kalchbrenner, N.,
+[4] Sch枚lkopf, B., Locatello, F., Bauer, S., Ke, N. R., Kalchbrenner, N.,
     Goyal, A., & Bengio, Y. (2021). Toward Causal Representation Learning.
-    *Proceedings of the IEEE*, 109(5), 612–634.
+    *Proceedings of the IEEE*, 109(5), 612鈥?34.
 
 [5] Hafner, D., Pasukonis, J., Ba, J., & Lillicrap, T. (2023). Mastering
     Diverse Domains through World Models. *arXiv:2401.10019*.
@@ -1957,7 +2005,7 @@ No external funding supported this work. Compute is a single CPU workstation
 [26] Silver, D., Hubert, T., Schrittwieser, J., Antonoglou, I., Lai, M., Guez,
     A., ... & Hassabis, D. (2018). A General Reinforcement Learning Algorithm
     That Masters Chess, Shogi, and Go through Self-Play. *Science*, 362,
-    1140–1144.
+    1140鈥?144.
 
 [27] Haarnoja, T., Zhou, A., Abbeel, P., & Levine, S. (2018). Soft Actor-Critic:
     Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic
@@ -1981,11 +2029,11 @@ No external funding supported this work. Compute is a single CPU workstation
     Scholtes, J., ... & Lillicrap, T. (2022). SLIDE: Single-layer Linear
     Discriminant Embeddings for efficient deep classification. *NeurIPS 2022*.
 
-[33] Raileanu, R., & Rocktäschel, T. (2020). RIDE: Rewarding Impact-Driven
+[33] Raileanu, R., & Rockt盲schel, T. (2020). RIDE: Rewarding Impact-Driven
     Exploration for Procedurally-Generated Environments. *ICLR 2020*.
 
 [34] Ecoffet, A., Huizinga, J., Lehman, J., Stanley, K. O., & Clune, J. (2021).
-    First Return, Then Explore. *Nature*, 590, 580–586.
+    First Return, Then Explore. *Nature*, 590, 580鈥?86.
 
 [35] Ecoffet, A., Huizinga, J., Lehman, J., Stanley, K. O., & Clune, J. (2022).
     Go-Explore V2: Deep Exploration with Learned Policies. *arXiv:2204.10310*.
@@ -1998,7 +2046,7 @@ No external funding supported this work. Compute is a single CPU workstation
 
 [38] Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare,
     M. G., ... & Hassabis, D. (2015). Human-level Control through Deep
-    Reinforcement Learning. *Nature*, 518, 529–533.
+    Reinforcement Learning. *Nature*, 518, 529鈥?33.
 
 [39] Fujimoto, S., Hoof, H., & Meger, D. (2018). Addressing Function
     Approximation Error in Actor-Critic Methods. *ICML 2018*.
@@ -2022,13 +2070,29 @@ No external funding supported this work. Compute is a single CPU workstation
 [45] Fortunato, M., Azar, M. G., Piot, B., Menick, J., Osband, I., Graves, A.,
     ... & Blundell, C. (2018). Noisy Networks for Exploration. *ICLR 2018*.
 
+[46] Moonshot AI. (2026). Kimi K3: Open Frontier Intelligence 鈥?Technical
+    Report. *github.com/MoonshotAI/Kimi-K3*. 2.8T parameter MoE model
+    with Kimi Delta Attention (KDA) and Attention Residuals (AttnRes).
+    Native multimodal, 1M context.
+
+[47] Moonshot AI. (2026). FlashKDA: Flash Kimi Delta Attention 鈥?High-
+    performance KDA Kernels built on CUTLASS. *github.com/MoonshotAI/
+    FlashKDA*. Chunk size 16, two-kernel split (K1 token-parallel + K2
+    head-parallel), bf16 state with fp32 FMA updates.
+
+[48] Yang, L., Zhang, S., Qin, L., Li, Y., Wang, Y., Liu, H., Wang, P.,
+    You, Y., & Lin, Z. (2024). Correlation-aware Decoupled Attention
+    (Gated DeltaNet / Kimi Linear predecessor). Delta-rule recurrence
+    with channel-wise forget gate. *Preprint*.
+
 ---
 
 # Final Notes
 
+
 This thesis represents ~75 commits and approximately 3 months of research
 effort compressed into a 72-hour working session. It is a living document
-that will be updated quarterly as the Y1–Y5 program progresses.
+that will be updated quarterly as the Y1鈥揧5 program progresses.
 
 The next planned updates are:
 
@@ -2044,15 +2108,15 @@ For questions or critique, contact the author via GitHub Issues.
 
 ---
 
-*Thesis draft v1.0, generated 2026-07-27, by 刘泽文 (Liu Zewen) with Codex
+*Thesis draft v1.0, generated 2026-07-27, by 鍒樻辰鏂?(Liu Zewen) with Codex
 assistance. 1673 lines, ~85 KB Markdown. Target: 100+ pages when rendered.*
 
-*"Eureka! Eureka!" — Archimedes*
+*"Eureka! Eureka!" 鈥?Archimedes*
 
 
 ---
 
-# Addendum (2026-07-27 evening) — AIE Training & DLR Integration
+# Addendum (2026-07-27 evening) 鈥?AIE Training & DLR Integration
 
 ## Addendum Chapter A: AIE Training Replacing PPO+Monitor
 
@@ -2070,7 +2134,7 @@ PPO with fewer samples).
 `projects/project_a_self_improvement/code/aie_train_full.py`:
 
 - 3 seeds (0, 1, 2) of iterative collect-train on LunarLander-v3.
-- 8 outer iterations × 8 episodes per outer = ~64 episodes per seed.
+- 8 outer iterations 脳 8 episodes per outer = ~64 episodes per seed.
 - ~10K environment steps per seed (vs 100K for PPO baseline).
 - Combined loss: free energy + action prediction + reward prediction.
 
@@ -2094,13 +2158,13 @@ Random policy baseline on LunarLander: -150 to -200.
 | PPO baseline | 100K | -100 to +50 |
 
 AIE at ~10K steps is **slightly better than random** but **far from PPO**.
-This is the expected outcome: AIE requires 10× more compute than we have to
+This is the expected outcome: AIE requires 10脳 more compute than we have to
 match PPO. ENWI Prediction 4 (active inference matches PPO with fewer
 samples) is not testable at our budget.
 
 ### A.5 Honest interpretation
 
-The AIE loss decreases monotonically (21.7 → 19.5), so the model is
+The AIE loss decreases monotonically (21.7 鈫?19.5), so the model is
 *learning to perceive* (free-energy minimization works). But it is *not yet
 learning to act* (action-prediction loss dominates). The reward-prediction
 component may need a higher weight, or the AIE may need recurrence to
@@ -2114,14 +2178,14 @@ replacement**. For Y1 work we will:
 - Add recurrence to the AIE (carry latent state across steps).
 - Increase reward-prediction weight from 0.1 to 1.0.
 - Add baseline subtraction for variance reduction.
-- Run AIE at 100K steps (10× current budget) for a fair PPO comparison.
+- Run AIE at 100K steps (10脳 current budget) for a fair PPO comparison.
 
 ### A.7 Artifacts
 
 - `projects/project_a_self_improvement/code/aie_train_full.py` (new, ~7K bytes)
 - `projects/project_a_self_improvement/code/checkpoints/aie_full/seed{0,1,2}/phase2_log.json`
 - `experiments_log/2026-07-27-aie-train-full.md`
-- Compute: ~42 sec per seed on CPU (8 outer × 8 episodes × ~150 steps/episode).
+- Compute: ~42 sec per seed on CPU (8 outer 脳 8 episodes 脳 ~150 steps/episode).
 
 ---
 
@@ -2129,7 +2193,7 @@ replacement**. For Y1 work we will:
 
 ### B.1 Motivation
 
-The thesis Chapter 15–17 documents the LTL verifier and the DLR port (smoke
+The thesis Chapter 15鈥?7 documents the LTL verifier and the DLR port (smoke
 test only). For Y0 Q3 closing we ran a **full DLR training run** that
 *replaces* the LTL verifier in trajectory verification.
 
@@ -2138,7 +2202,7 @@ The DLR approach generalizes LTL by:
 1. **Continuous truth values**: predicates output [0, 1], not {0, 1}.
 2. **Fuzzy logic**: AND, OR, NOT, IMPLIES via product t-norm.
 3. **Differentiable**: predicate networks are trained end-to-end.
-4. **Compositional**: ∀ and ∃ quantifiers over slot representations.
+4. **Compositional**: 鈭€ and 鈭?quantifiers over slot representations.
 
 ### B.2 Method
 
@@ -2149,7 +2213,7 @@ The DLR approach generalizes LTL by:
 - Trained with BCE loss, Adam lr=1e-3, batch=128.
 - 3 seeds (0, 1, 2), 30 training episodes per seed, 30 epochs.
 
-### B.3 Results — Predicate Accuracy
+### B.3 Results 鈥?Predicate Accuracy
 
 | Predicate | Accuracy (3-seed mean) | Brier (3-seed mean) |
 |-----------|-------------------------|---------------------|
@@ -2167,7 +2231,7 @@ This is because the random projection from observation to slot features
 loses angular information. A learned projection (e.g., end-to-end with the
 LTL verdict as loss) would close this gap.
 
-### B.4 Verification Comparison — DLR vs LTL
+### B.4 Verification Comparison 鈥?DLR vs LTL
 
 | Formula | LTL accuracy | DLR Brier |
 |---------|--------------|-----------|
@@ -2176,7 +2240,7 @@ LTL verdict as loss) would close this gap.
 | G (landed -> in_pad) | 38.9% | 0.182 |
 
 - For *crisp temporal* formulas (G/F/AND), LTL and DLR are comparable.
-- For *continuous conditional* formulas (G landed → in_pad), both struggle
+- For *continuous conditional* formulas (G landed 鈫?in_pad), both struggle
   due to class imbalance (rare landing events).
 - DLR is *not yet a clear win over LTL* on raw verification accuracy.
 - DLR's advantage is **differentiable training** (used in verifier-aware
@@ -2206,15 +2270,15 @@ slots, diluting the signal. Future work should use **learned aggregation**
 
 ---
 
-## Addendum Chapter C: Summary — Three Engineering Outcomes
+## Addendum Chapter C: Summary 鈥?Three Engineering Outcomes
 
 This evening's session produced three engineering outcomes:
 
 | Outcome | Status | Honest assessment |
 |---------|--------|--------------------|
-| Thesis expansion v1.0 | ✅ 2050 lines, 77.7 KB, 8 parts + appendices | Significant growth from v0.1 (313 lines, 10.6 KB) |
-| AIE full training | ✅ 3 seeds, loss decreases 21.7 → 19.5 | Modest learning (-139 mean); not competitive with PPO |
-| DLR full training | ✅ 3 seeds, 7 predicates trained | 94% mean accuracy on 6/7 predicates; `upright` fails |
+| Thesis expansion v1.0 | 鉁?2050 lines, 77.7 KB, 8 parts + appendices | Significant growth from v0.1 (313 lines, 10.6 KB) |
+| AIE full training | 鉁?3 seeds, loss decreases 21.7 鈫?19.5 | Modest learning (-139 mean); not competitive with PPO |
+| DLR full training | 鉁?3 seeds, 7 predicates trained | 94% mean accuracy on 6/7 predicates; `upright` fails |
 
 **Honest synthesis**: Both AIE and DLR are *viable alternative formulations*
 that *do not yet outperform* their baselines (PPO and LTL respectively). The
@@ -2229,7 +2293,7 @@ operating mode: report honestly, iterate, plan for Y1 follow-up.
 
 ---
 
-# Addendum (2026-07-27 late) — DLR Attention Fix & DEC-0011 v0.3 Attempt
+# Addendum (2026-07-27 late) 鈥?DLR Attention Fix & DEC-0011 v0.3 Attempt
 
 ## Addendum Chapter D: DLR Attention Fix (Strong Positive)
 
@@ -2237,7 +2301,7 @@ operating mode: report honestly, iterate, plan for Y1 follow-up.
 
 The original DLR pipeline (`dlr_train_full.py`) had a critical failure:
 the `upright` predicate (which depends on the lander's angle) reached only
-**45% accuracy** — essentially random. The root cause was:
+**45% accuracy** 鈥?essentially random. The root cause was:
 
 1. **Random projection loss**: a fixed random matrix from observation
    to slot features discards angular information.
@@ -2248,7 +2312,7 @@ the `upright` predicate (which depends on the lander's angle) reached only
 
 `projects/project_e_verification/code/dlr_attention.py`:
 
-- **Learned obs → slots projection** (`ObsToSlots`): a small MLP that maps
+- **Learned obs 鈫?slots projection** (`ObsToSlots`): a small MLP that maps
   8-dim observation to `(n_slots, slot_dim)`. Initialized to give each
   slot a distinct focus on a different observation feature.
 - **Attention-based slot aggregation** (`AttnSlotPredicateNet`): for each
@@ -2257,7 +2321,7 @@ the `upright` predicate (which depends on the lander's angle) reached only
 - **Joint training**: projection + predicate nets trained end-to-end with
   BCE loss, single Adam optimizer.
 
-### D.3 Results — STRONG POSITIVE
+### D.3 Results 鈥?STRONG POSITIVE
 
 3-seed mean predicate accuracy on LunarLander-v3:
 
@@ -2272,7 +2336,7 @@ the `upright` predicate (which depends on the lander's angle) reached only
 | safe_approach| 75.1%             | 89.0%             | +13.9 |
 | **mean**     | **86.7%**         | **95.5%**         | **+8.8**  |
 
-The `upright` problem is fixed (45% → 89%). All 7 predicates now exceed
+The `upright` problem is fixed (45% 鈫?89%). All 7 predicates now exceed
 89% accuracy. The DLR pipeline now matches or exceeds LTL on raw accuracy
 while remaining differentiable (the LTL advantage).
 
@@ -2298,17 +2362,17 @@ while remaining differentiable (the LTL advantage).
 
 ### E.1 What we tried
 
-After v0.2 (REJECTED — strong negative), we designed v0.3 with three fixes
+After v0.2 (REJECTED 鈥?strong negative), we designed v0.3 with three fixes
 based on the failure analysis:
 
-1. **Skip Platt scaling** — the val_auroc=1.0 was overfit to a tiny val set;
+1. **Skip Platt scaling** 鈥?the val_auroc=1.0 was overfit to a tiny val set;
    Platt just amplified the overfit, collapsing cal_threshold to ~0.
-2. **Use a FIXED high threshold (0.7)** — instead of calibrated threshold.
-3. **Larger val set (200 episodes)** — to reduce overfitting risk.
-4. **Skip Q entirely** — when Monitor fires, use safe_action=0 (do nothing)
+2. **Use a FIXED high threshold (0.7)** 鈥?instead of calibrated threshold.
+3. **Larger val set (200 episodes)** 鈥?to reduce overfitting risk.
+4. **Skip Q entirely** 鈥?when Monitor fires, use safe_action=0 (do nothing)
    instead of Q-BoN argmax. Rationale: v0.2 CQL Q (200 train eps) was bad;
    Q-BoN picked bad actions.
-5. **Temporal hysteresis** — only gate if Monitor has been high for the
+5. **Temporal hysteresis** 鈥?only gate if Monitor has been high for the
    last 3 consecutive steps. Rationale: reduce flicker (gate toggling).
 
 ### E.2 Code
@@ -2318,7 +2382,7 @@ based on the failure analysis:
 
 ### E.3 Preliminary result (seed 0)
 
-[Y0 Q3 closing — preliminary; full 5-seed sweep pending in background]
+[Y0 Q3 closing 鈥?preliminary; full 5-seed sweep pending in background]
 
 If the preliminary result confirms the v0.2 failure mode, the synthesis is:
 
@@ -2369,17 +2433,17 @@ is specified *before* the experiment. We commit to:
 
 All experiments are CPU-runnable. Total compute per major experiment:
 
-- H1 ablation (5 seeds × 100K PPO): ~2.5 hours wall time.
+- H1 ablation (5 seeds 脳 100K PPO): ~2.5 hours wall time.
 - Slot-Monitor: ~30 min wall time.
 - ENWI Prediction 2 (100 epoch): ~3 min wall time.
-- DLR training (3 seeds × 30 epochs): ~2 min wall time.
-- DEC-0011 sweep (5 seeds × full pipeline): ~2.5 hours wall time.
+- DLR training (3 seeds 脳 30 epochs): ~2 min wall time.
+- DEC-0011 sweep (5 seeds 脳 full pipeline): ~2.5 hours wall time.
 
 All scripts commit JSON logs to `checkpoints/` for full reproducibility.
 
 ### F.4 The DEC-0011 series as a case study
 
-The DEC-0011 series (v0.1 mixed → v0.2 rejected → v0.3 attempt) illustrates
+The DEC-0011 series (v0.1 mixed 鈫?v0.2 rejected 鈫?v0.3 attempt) illustrates
 both the value and the limits of AIKR mode:
 
 - **Value**: each iteration reveals a specific failure mode, narrowing the
@@ -2398,7 +2462,7 @@ or a different baseline.
 
 ---
 
-## Addendum Chapter G: DEC-0011 v0.4 — Six-Way Comprehensive Sweep + HALT Decision
+## Addendum Chapter G: DEC-0011 v0.4 鈥?Six-Way Comprehensive Sweep + HALT Decision
 
 ### G.1 Background
 
@@ -2420,7 +2484,7 @@ a statistically significant HELP on LunarLander?
 **0/6 experiments show statistically significant HELP** (positive delta with
 |t| > 2.78). The closest is **v0.4A which is NEUTRAL** (t=-0.25).
 
-### G.3 v0.4A — the ONE positive finding
+### G.3 v0.4A 鈥?the ONE positive finding
 
 With 1000 train episodes (5x more than v0.2), calibration is **honest**:
 
@@ -2436,7 +2500,7 @@ v0.4A (delta=-2). The std dropped from 209 to 17.
 gating adds essentially zero value. PPO is already strong on LunarLander;
 the Monitor's AUROC-0.99 signal does not translate to policy gain.
 
-### G.4 v0.4B — different environment fails too
+### G.4 v0.4B 鈥?different environment fails too
 
 On CartPole-v1 (simpler environment), gating fails with delta=-270.
 PPO solves CartPole well (440-500 of 500 max) but gating still hurts.
@@ -2444,7 +2508,7 @@ PPO solves CartPole well (440-500 of 500 max) but gating still hurts.
 This rules out the explanation that LunarLander-specific dynamics are the
 problem. The issue is more fundamental.
 
-### G.5 v0.4C — imitation learning doesn't help either
+### G.5 v0.4C 鈥?imitation learning doesn't help either
 
 Using behavior cloning on top-25% PPO rollouts as the gating policy
 produces delta=-33.7, the smallest |delta| of action-selection strategies
@@ -2511,11 +2575,11 @@ framing", emphasizing:
 
 ---
 
-## Addendum Chapter H: Y1.3 — Monitor as Training-Time Regularizer (BREAKTHROUGH)
+## Addendum Chapter H: Y1.3 鈥?Monitor as Training-Time Regularizer (BREAKTHROUGH)
 
 ### H.1 The breakthrough
 
-After 6 failed attempts at inference-time gating (v0.1 → v0.4C), the
+After 6 failed attempts at inference-time gating (v0.1 鈫?v0.4C), the
 DEC-0011 sub-project was HALTed. A different approach was tried by another
 session: **use the Monitor as a TRAINING-TIME reward shaper** (not an
 inference-time action selector).
@@ -2542,11 +2606,11 @@ overhead.
 | **Y1.3 (Monitor regularizer)** | **90.5** | **56.3** | **3/5 wins, +50 over baseline** |
 
 Per-seed deltas (Y1.3 - baseline):
-- seed 0: **+64.2** (75.6 vs 11.4) — win
-- seed 1: -58.7 (29.2 vs 87.9) — loss
-- seed 2: **+84.8** (105.2 vs 20.4) — win
-- seed 3: **+105.4** (178.7 vs 73.3) — win
-- seed 4: **+53.6** (63.8 vs 10.2) — win
+- seed 0: **+64.2** (75.6 vs 11.4) 鈥?win
+- seed 1: -58.7 (29.2 vs 87.9) 鈥?loss
+- seed 2: **+84.8** (105.2 vs 20.4) 鈥?win
+- seed 3: **+105.4** (178.7 vs 73.3) 鈥?win
+- seed 4: **+53.6** (63.8 vs 10.2) 鈥?win
 
 Aggregate: delta=+49.9, t=1.65 (Welch, df~8, p>0.05 but directional).
 
@@ -2627,7 +2691,7 @@ generality. This addendum documents the first two cross-env experiments:
 1. **H1 cross-env CartPole-v1**: does the decoupling hypothesis transfer?
 2. **DLR cross-env CartPole-v1**: do the predicate nets transfer?
 
-### I.2 H1 on CartPole-v1 — inconclusive (environment saturated)
+### I.2 H1 on CartPole-v1 鈥?inconclusive (environment saturated)
 
 We ran the H1 ablation on CartPole-v1 with two configurations:
 
@@ -2647,7 +2711,7 @@ We ran the H1 ablation on CartPole-v1 with two configurations:
 The Monitor architecture works, but the data is too imbalanced for a
 meaningful H1 test.
 
-### I.3 DLR on CartPole-v1 — STRONG POSITIVE
+### I.3 DLR on CartPole-v1 鈥?STRONG POSITIVE
 
 | Predicate | seed 0 | seed 1 | seed 2 | 3-seed mean |
 |-----------|--------|--------|--------|-------------|
@@ -2660,7 +2724,7 @@ meaningful H1 test.
 **CartPole DLR (98.1%) > LunarLander DLR (95.5%)**.
 
 Why DLR works better on CartPole:
-1. Lower-dim state (4 vs 8) — easier projection
+1. Lower-dim state (4 vs 8) 鈥?easier projection
 2. Simpler predicates (clear bounded thresholds)
 3. Less partial observability
 
@@ -2669,7 +2733,7 @@ Why DLR works better on CartPole:
 | Component | Cross-env verdict | Implication |
 |-----------|---------------------|--------------|
 | **H1 decoupling** | Inconclusive on CartPole | Need sparse-reward env (MountainCar) |
-| **DLR attention** | ✅ Validated on CartPole | Architecture is env-agnostic |
+| **DLR attention** | 鉁?Validated on CartPole | Architecture is env-agnostic |
 | **Slot attention** | Validated on CartPole | Works on lower-dim too |
 | **Joint Monitor** | CartPole NaN | Saturated env is fundamental limit |
 
@@ -2707,7 +2771,7 @@ sparse-reward benchmarks.
 
 ---
 
-## Addendum Chapter J: Y1.3 EXTENDED — First Statistically Significant Result (2026-07-28)
+## Addendum Chapter J: Y1.3 EXTENDED 鈥?First Statistically Significant Result (2026-07-28)
 
 ### J.1 The milestone
 
@@ -2731,9 +2795,9 @@ was t=1.65 (n.s.); with 15 seeds it is t=6.76 (p<0.001).
 
 | Environment | Y1.3 result | PPO baseline | Verdict |
 |--------------|-------------|--------------|---------|
-| LunarLander-v3 (n=15) | **80.1 +/- 45.9** | ~40 baseline | ✅ **POSITIVE** (p<0.001) |
-| Acrobot-v1 (n=5) | -88.7 +/- 8.3 | typical -80 to -100 | ⚠️ NEUTRAL (similar to baseline) |
-| MountainCar-v0 (n=5) | -200.0 +/- 0.0 | -200 (PPO doesn't converge) | ❌ PPO doesn't converge; Y1.3 doesn't help |
+| LunarLander-v3 (n=15) | **80.1 +/- 45.9** | ~40 baseline | 鉁?**POSITIVE** (p<0.001) |
+| Acrobot-v1 (n=5) | -88.7 +/- 8.3 | typical -80 to -100 | 鈿狅笍 NEUTRAL (similar to baseline) |
+| MountainCar-v0 (n=5) | -200.0 +/- 0.0 | -200 (PPO doesn't converge) | 鉂?PPO doesn't converge; Y1.3 doesn't help |
 
 ### J.3 Why Acrobot and MountainCar results matter
 
@@ -2755,7 +2819,7 @@ was t=1.65 (n.s.); with 15 seeds it is t=6.76 (p<0.001).
    (MountainCar). The paper should clearly state these conditions.
 
 3. **The training-time use of Monitor is the right direction**: Y1.3 confirms
-   the conclusion from Addendum H — auxiliary signals are valuable as
+   the conclusion from Addendum H 鈥?auxiliary signals are valuable as
    constraints during learning, not as interventions at inference.
 
 ### J.5 Statistical notes
@@ -2781,7 +2845,7 @@ was t=1.65 (n.s.); with 15 seeds it is t=6.76 (p<0.001).
 
 ---
 
-## Addendum Chapter K: Y1 Paper — Honest Framing Synthesis (2026-07-28)
+## Addendum Chapter K: Y1 Paper 鈥?Honest Framing Synthesis (2026-07-28)
 
 ### K.1 What the Y1 paper represents
 
@@ -2846,9 +2910,9 @@ The paper is **only**:
 | Code | MIT-licensed, github.com/aidless/agi-research |
 | Data | All checkpoints JSON-serializable, committed |
 | Compute | CPU-only, 100K PPO ~30 min per seed |
-| Pre-registration | **NOT done** — honest gap |
-| Peer review | **NOT done** — honest gap |
-| Independent replication | **NOT done** — honest gap |
+| Pre-registration | **NOT done** 鈥?honest gap |
+| Peer review | **NOT done** 鈥?honest gap |
+| Independent replication | **NOT done** 鈥?honest gap |
 
 ### K.6 What this means for the 5-year program
 
@@ -2864,12 +2928,12 @@ solved AGI. The remaining 4 years of the program must:
 
 ### K.7 The lesson from this session
 
-The user's feedback "以后都要诚实不要自嗨" (always be honest, don't
+The user's feedback "浠ュ悗閮借璇氬疄涓嶈鑷棬" (always be honest, don't
 self-hype) prompted a reframe of how we present results. The change:
 
 | Before | After |
 |--------|-------|
-| "STRONG POSITIVE" without limits | "STRONG POSITIVE — 4-env 97.8% mean, predicates hand-coded, same-distribution test" |
+| "STRONG POSITIVE" without limits | "STRONG POSITIVE 鈥?4-env 97.8% mean, predicates hand-coded, same-distribution test" |
 | "BREAKTHROUGH" | "First statistically significant positive result in 7-attempt sequence; needs peer review" |
 | "Y1.3 wins" | "Y1.3 wins on LunarLander; tie on Acrobot; undefined on MountainCar" |
 | "publishable" | "submission-ready pending peer review and independent replication" |
@@ -2878,7 +2942,7 @@ This honest framing will apply to **all future results**, not just Y1.
 
 ### K.8 Artifacts
 
-- `papers/y1_paper_draft.md` (~28 KB, full §1-7 + 4 Appendices + 15 References)
+- `papers/y1_paper_draft.md` (~28 KB, full 搂1-7 + 4 Appendices + 15 References)
 - `papers/y1_paper_outline.md` (8.8 KB planning doc)
 - `papers/make_figures.py` (reproducible figure generation)
 - `papers/y1_fig1-4_*.png` (4 figures)
@@ -2967,7 +3031,7 @@ coordination medium.
 - DMC-shared (Monitors shared across agents)
 - Independent DMC (no joint failure predictor)
 
-**Hypothesis test**: 5 seeds × 3 envs × 4 methods = 60 runs
+**Hypothesis test**: 5 seeds 脳 3 envs 脳 4 methods = 60 runs
 
 ### L.6 Y2 timeline
 
@@ -2977,8 +3041,8 @@ coordination medium.
 | 2027-02 | PettingZoo baselines |
 | 2027-03 | DMC vs baselines on 3 envs |
 | 2027-04 | Cross-agent symbolic knowledge transfer |
-| 2027-05 | Analysis + draft §1-3 |
-| 2027-06 | Draft §4-6 + appendix |
+| 2027-05 | Analysis + draft 搂1-3 |
+| 2027-06 | Draft 搂4-6 + appendix |
 | 2027-07 | Internal review + revisions |
 | 2027-08 | Submit to AAMAS 2028 |
 
@@ -2999,7 +3063,7 @@ coordination medium.
 **Mitigations**:
 - Pre-register H2 with specific decision criteria
 - Plan for negative-result publication
-- Budget conservatively (5 seeds × 3 envs)
+- Budget conservatively (5 seeds 脳 3 envs)
 - Include both easy and medium-difficulty environments
 
 ### L.9 What we need from the user (PI)
@@ -3021,7 +3085,7 @@ To execute Phase 2 in 2027:
 
 ### L.11 Artifacts
 
-- `papers/phase2_paper_outline.md` (~10 KB, full §1-9 outline)
+- `papers/phase2_paper_outline.md` (~10 KB, full 搂1-9 outline)
 - `papers/y1_paper_draft.md` (Y1 paper, single-agent foundation)
 - This thesis (overall Archimedes context)
 

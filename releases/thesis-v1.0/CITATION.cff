@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this thesis, please cite it as below."
 title: "Archimedes: A 5-Year Research Program Toward a Self-Improving AGI Substrate"
-version: "1.0"
-date-released: 2026-07-27
+version: "1.1"
+date-released: 2026-07-29
 license: "MIT"
 license-url: "https://opensource.org/licenses/MIT/"
 type: "monograph"

@@ -1,0 +1,18 @@
+﻿
+=== v8 3-arm 5-seed sweep start 20260729-132026 ===
+v8 arm=v8 seed=0 pid=13712
+v8 arm=v8 seed=1 pid=21728
+v8 arm=v8 seed=2 pid=11712
+v8 arm=v8 seed=3 pid=18556
+v8 arm=v8 seed=4 pid=9660
+v8 arm=no_verifier seed=0 pid=13216
+v8 arm=no_verifier seed=1 pid=7676
+v8 arm=no_verifier seed=2 pid=19476
+v8 arm=no_verifier seed=3 pid=5700
+v8 arm=no_verifier seed=4 pid=2640
+v8 arm=dlr_only seed=0 pid=16412
+v8 arm=dlr_only seed=1 pid=6856
+v8 arm=dlr_only seed=2 pid=5172
+v8 arm=dlr_only seed=3 pid=20508
+v8 arm=dlr_only seed=4 pid=22352
+=== 15 launched ===

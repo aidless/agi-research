@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 379, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 348, in main
+    actors, trust_heads, history = train_maddpg_v8(
+                                   ^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 291, in train_maddpg_v8
+    assert others_dlr.shape[-1] == expected_dim, f'others_dlr shape mismatch: {others_dlr.shape} vs expected last dim {expected_dim}'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: others_dlr shape mismatch: torch.Size([39, 0]) vs expected last dim 48

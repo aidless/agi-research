@@ -1,0 +1,13 @@
+============================================================
+MADDPG v8 - arm=no_verifier
+============================================================
+Phase 1: Random baseline = -79.11 +/- 21.82
+    update 1/80: mean_episode_return=-85.63, buffer=750
+    update 20/80: mean_episode_return=-83.3, buffer=15000
+    update 40/80: mean_episode_return=-56.28, buffer=20000
+    update 60/80: mean_episode_return=-81.67, buffer=20000
+    update 80/80: mean_episode_return=-83.32, buffer=20000
+
+Phase 3: Final eval...
+  MADDPG v8 (no_verifier) eval: -71.99 +/- 18.79  (delta vs random: 7.12)
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v8\seed3_no_verifier\phase2_log.json

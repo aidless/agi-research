@@ -1,0 +1,37 @@
+Traceback (most recent call last):
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 379, in <module>
+    main()
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 348, in main
+    actors, trust_heads, history = train_maddpg_v8(
+                                   ^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 303, in train_maddpg_v8
+    trust = trust_heads[i](obs_b, my_dlr, others_dlr)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\agi-research\projects\project_f_multi_agent\code\pz_maddpg_v8.py", line 100, in forward
+    return torch.sigmoid(self.net(x))
+                         ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\container.py", line 250, in forward
+    input = module(input)
+            ^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\torch\nn\modules\linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (46x42 and 90x64)

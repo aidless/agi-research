@@ -1,0 +1,13 @@
+============================================================
+MADDPG v8 - arm=dlr_only
+============================================================
+Phase 1: Random baseline = -75.23 +/- 21.38
+    update 1/80: mean_episode_return=-68.72, buffer=750
+    update 20/80: mean_episode_return=-99.59, buffer=15000
+    update 40/80: mean_episode_return=-80.0, buffer=20000
+    update 60/80: mean_episode_return=-69.94, buffer=20000
+    update 80/80: mean_episode_return=-72.97, buffer=20000
+
+Phase 3: Final eval...
+  MADDPG v8 (dlr_only) eval: -69.54 +/- 18.58  (delta vs random: 5.69)
+  Log: E:\agi-research\projects\project_f_multi_agent\code\checkpoints\pz_maddpg_v8\seed4_dlr_only\phase2_log.json

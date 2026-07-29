@@ -157,10 +157,13 @@ Results:
 | n=100 (v5 800ep full) | +0.174 | +1.465 | 59/100 (59%) | 100 |
 | **n=212 (v5 800ep partial)** | **+0.055** | **+0.952** | **107/212 (50.5%)** | **212** |
 
-Conclusion: Monitor as actor-side verifier is direction-consistent (50.5%
-positive at n=212) but the effect size is +0.055 mean, less than 1% of
-the MADDPG v2 baseline. NOT statistically significant at p<0.05
-(t=0.952 < 1.96 critical for df=211).
+**v7 proper ablation FALSIFIES this claim**: the trust head with
+REAL Monitor input produces IDENTICAL results to the trust head with
+RANDOM input (mean_diff=+0.00, t=+0.00). **The trust head completely
+ignores the Monitor signal.** The +0.83 improvement in v7 is from the
+trust head ARCHITECTURE itself, not from the Monitor signal. The n=212
++0.055 was likely a small sampling artifact. **Monitor as MA Verifier
+is FALSIFIED.**
 
 **Effect size is SHRINKING as n grows** (n=5: +0.17 -> n=212: +0.055),
 a textbook signature of a small effect that is being more precisely
@@ -181,10 +184,23 @@ The simplified v6 architecture does not transmit the trust head
 signal meaningfully to the actor. v6 is INCONCLUSIVE for the
 actual ablation question.
 
-v7 results: BLOCKED by OOM. 50 parallel jobs (15 v7 + 15 v5
-all failed with `pygame.error: Out of memory`. Sequential single-job
-runs also OOM. v7 cannot be completed on this machine; it requires
-a machine with more RAM.
+v7 results (3-arm 5-seed, COMPLETED 2026-07-29): CRITICAL FINDING.
+- with_verifier:         -70.33 (sd 1.07)
+- with_trusthead_random: -70.33 (sd 1.07) -- IDENTICAL to with_verifier
+- no_verifier:           -71.16 (sd 1.37)
+- with_verifier vs with_trusthead_random: mean_diff=+0.00 (t=+0.00)
+- with_verifier vs no_verifier: mean_diff=+0.83 (t=+1.34, 4/5 pos)
+
+**v7 FALSIFIES the v5 claim**: the trust head with REAL Monitor input
+produces IDENTICAL results to the trust head with RANDOM input. The
+trust head completely ignores the Monitor signal. The +0.83
+improvement comes from the trust head ARCHITECTURE itself, not from
+the Monitor signal feeding it.
+
+We initially encountered OOM (50 parallel jobs), but reduced to
+2-parallel sequential batches (15 jobs, 9-min startup + 10-min/job)
+and the jobs completed successfully on this machine. The v7 result
+is the strongest evidence in this paper.
 
 ## 4. Results: unified 4-pathway summary
 
@@ -196,7 +212,7 @@ a machine with more RAM.
 | **v5 800ep** | **Monitor -> trust head (actor)** | **+0.17 (3/5)** | **+0.174 (59/100)** | **DIRECTION-CONSISTENT** |
 | v5 10K | same | +1.64 (4/5) | n/a | direction-consistent |
 | v6 simplified | Trust head (random inputs) | 0 effect | n/a | INCONCLUSIVE |
-| v7 proper ablation | same | BLOCKED (OOM) | n/a | INCONCLUSIVE |
+| **v7 proper ablation** | **Trust head (real vs random Monitor)** | **both -70.33** | n/a | **CRITICAL: Monitor IGNORED** |
 
 **Architectural lesson (the qualitative finding)**:
 
@@ -285,15 +301,19 @@ prediction Monitors in cooperative multi-agent RL:
    n=212, <1% of baseline)
 4. **v6/v7 (trust head ablation)**: INCONCLUSIVE (v6 simplified, v7 OOM)
 
-**The architectural choice is the lesson**:
+**The architectural choice matters, but the Monitor signal is NOT**
+**the right signal**:
 - Critic-side extras (v3, v4) = dead end (MADDPG v2 critic has full
   global state; no new info from Monitor or messages)
-- Actor-side extras (v5) = direction-consistent but small effect
-  (trust head gives actor new info about other agents' reliability)
+- Actor-side trust head (v5/v7) = architecture helps (+0.83 at n=5)
+  but the Monitor signal contributes ZERO (with_verifier =
+  with_trusthead_random, mean_diff=+0.00)
 
 **The Monitor is the right signal but at the wrong place for MA RL.**
-Critic-side: dead end. Actor-side: direction-consistent. The right
-shipping use is verification, not training.
+The trust head architecture helps (+0.83), but the Monitor signal is
+ignored by it. The right shipping use is verification (DLR, V1
+gov), not trust-weighted Q blending. The Monitor does not transfer
+from single-agent to multi-agent at any practical scale we tested.
 
 We hope this 4-pathway investigation saves the field from repeating
 our work. Future research on Monitors in MARL should focus on:

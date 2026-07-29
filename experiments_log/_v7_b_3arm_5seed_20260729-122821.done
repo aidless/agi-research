@@ -1,0 +1,20 @@
+﻿
+=== Y2-b v7 3-arm 5-seed (15 jobs, 2-parallel) ===
+v7-b random s=1 pid=9612
+v7-b random s=2 pid=3848
+v7-b random s=3 pid=12864
+v7-b random s=4 pid=3756
+=== 4 random launched ===
+v7-b with s=0 pid=21764
+v7-b with s=1 pid=3476
+v7-b with s=2 pid=5640
+v7-b with s=3 pid=12104
+v7-b with s=4 pid=22292
+=== 5 with launched ===
+v7-b no s=0 pid=4856
+v7-b no s=1 pid=12176
+v7-b no s=2 pid=4792
+v7-b no s=3 pid=1580
+v7-b no s=4 pid=11616
+=== 5 no launched ===
+=== 15 v7 jobs total launched ===

@@ -1,0 +1,10 @@
+﻿
+=== Y2-a n=300: 200 jobs (seeds 100-299), 2-parallel ===
+y2a-n300 nv s=100 pid=1552
+y2a-n300 nv s=101 pid=18200
+y2a-n300 nv s=102 pid=21448
+y2a-n300 nv s=103 pid=9736
+y2a-n300 nv s=104 pid=19936
+y2a-n300 nv s=105 pid=18420
+y2a-n300 nv s=106 pid=14156
+y2a-n300 nv s=107 pid=20780

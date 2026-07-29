@@ -25,7 +25,10 @@ import numpy as np
 
 # Default LM (cached locally).
 DEFAULT_LM = "Qwen/Qwen2.5-1.5B-Instruct"
-LOCAL_LM_PATH = r"F:\hf_cache\hub\models--Qwen--Qwen2.5-1.5B-Instruct\snapshots\989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+LOCAL_LM_PATH_1_5B = r"F:\hf_cache\hub\models--Qwen--Qwen2.5-1.5B-Instruct\snapshots\989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+LOCAL_LM_PATH_3B = r"F:\hf_cache\hub\models--Qwen--Qwen2.5-3B-Instruct\snapshots\aa8e72537993ba99e69dfaafa59ed015b17504d1"
+LOCAL_LM_PATH = os.environ.get("H12_LM_PATH", LOCAL_LM_PATH_1_5B)
+LM_NAME = os.environ.get("H12_LM_NAME", "Qwen2.5-1.5B-Instruct")
 
 
 # Pre-registered predicate definitions (LunarLander).
@@ -115,7 +118,7 @@ def build_prompt(state, predicate, prompt_style="zero_shot"):
     return build_zero_shot_prompt(state, predicate)
 
 
-def load_lm(model_path=LOCAL_LM_PATH, device="cpu", dtype=torch.float16):
+def load_lm(model_path=LOCAL_LM_PATH, device="cpu", dtype=torch.float32):
     """Load the small LM."""
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
@@ -267,7 +270,7 @@ def main():
     print()
 
     # Arm 1: Load small LM.
-    print("Loading Qwen2.5-1.5B-Instruct...")
+    print(f"Loading {LM_NAME} (path: {LOCAL_LM_PATH})...")
     model, tokenizer = load_lm()
     print("Loaded.")
     print()

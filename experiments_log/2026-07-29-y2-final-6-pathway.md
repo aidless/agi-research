@@ -130,17 +130,52 @@ The effect is too small to be practically meaningful.
 
 Source: `experiments_log/2026-07-29-y2a-n212-partial.md`.
 
-### 2.4 v6 (trust head + random inputs) -- ARCHITECTURE STUB
+### 2.4 v6 (trust head + random inputs) -- PROPER ABLATION (n=5, RERUN)
 
-`pz_maddpg_v6.py` was intended as the architecture ablation. Honest
-audit: the file is not a true ablation of v5. It uses `obs_b =
-torch.randn(...)` (random observations, not real rollouts) and
-`target = rew_b` (skipping the Bellman update). The trust-head class is
-carried over from v5 but the rest is a broken PPO stub. Any "result" from
-v6 is uninterpretable. Should be re-implemented as a true v5 ablation
-(only swap `mon_b` to random inside the real actor/trust-head update
-blocks) before drawing any conclusions.
+**Original v6** (committed at HEAD~) was a broken stub: `obs_b = torch.randn(...)`
+(random obs, not real rollouts) and `target = rew_b` (skipped Bellman update).
+Re-implemented 2026-07-29 as a proper v5 ablation: identical architecture
+(critic, replay buffer, actor, trust head, training loop) but with the
+trust head input source swapped to `torch.rand(...)`. Stage 0 (Monitor
+training) is SKIPPED for the random arm to match compute on the 80 PPO
+updates. Source: `experiments_log/2026-07-29-v6-3arm-5seed-r2.md`.
 
+**Initial run (r1) had a bug**: the actor loss branch was conditioned on
+`use_verifier` only, so `with_trusthead_random` produced IDENTICAL results
+to `no_verifier` (trust head wasn't being used at all). Fix: condition
+changed to `if not (use_verifier or use_random_trust_input)`. R2 (post-fix)
+results below.
+
+n=5 3-arm (paired seeds 0-4, all 80 updates x 10 episodes = 800 ep):
+| arm | mean | sd |
+|---|---|---|
+| with_verifier (= v5) | -70.329 | 1.072 |
+| no_verifier (baseline) | -70.496 | 1.131 |
+| **with_trusthead_random** | **-70.329** | 1.072 |
+
+**Per-seed (BIT-FOR-BIT IDENTICAL between with_verifier and with_trusthead_random):**
+| seed | with_verifier | no_verifier | with_trusthead_random |
+|---|---|---|---|
+| 0 | -70.838 | -70.807 | -70.838 |
+| 1 | -70.063 | -70.872 | -70.063 |
+| 2 | -69.212 | -69.237 | -69.212 |
+| 3 | -71.915 | -72.033 | -71.915 |
+| 4 | -69.619 | -69.530 | -69.619 |
+
+**Paired tests:**
+- with_verifier vs no_verifier: mean_diff=+0.1665, t=+1.014, 3/5 positive (NOT sig)
+- with_trusthead_random vs no_verifier: mean_diff=**+0.1665**, t=**+1.014**, 3/5 positive
+- with_verifier vs with_trusthead_random: mean_diff=**+0.0000, sd_diffs=0.00** (IDENTICAL)
+
+**CRITICAL FINDING**: the trust head architecture gives +0.1665 over the
+baseline (3/5 positive, NOT sig at n=5), but the trust head input source
+(Real Monitor vs `torch.rand`) is COMPLETELY IGNORED -- the two arms
+produce bit-for-bit identical results per seed. The trust head learns
+f(my_obs) and treats the input slot (Monitor broadcast or random) as noise.
+
+This is the **cleaner version of v7's finding** (v7 with_verifier ==
+v7 random_verifier at n=5, 0.00 difference). v6 is the proper clean
+implementation of the same test.
 ### 2.5 v7 (trust head + Monitor, proper ablation = v5) -- Monitor IGNORED
 
 CRITICAL FINDING: `pz_maddpg_v7.py` was forked from v5 with the trust

@@ -1,0 +1,34 @@
+﻿
+=== v6 3-arm 5-seed RERUN (4-parallel) start 20260729-165757 ===
+=== After fixing use_random_trust_input trust-head branch bug ===
+LAUNCH  arm=with_verifier seed=0 pid=1368 start=2026-07-29 16:57:57
+LAUNCH  arm=with_verifier seed=1 pid=22156 start=2026-07-29 16:57:57
+LAUNCH  arm=with_verifier seed=2 pid=20400 start=2026-07-29 16:57:57
+LAUNCH  arm=with_verifier seed=3 pid=23828 start=2026-07-29 16:57:57
+DONE    arm=with_verifier seed=0 pid=1368 exit= end=2026-07-29 16:59:57
+DONE    arm=with_verifier seed=1 pid=22156 exit= end=2026-07-29 16:59:57
+DONE    arm=with_verifier seed=2 pid=20400 exit= end=2026-07-29 16:59:57
+DONE    arm=with_verifier seed=3 pid=23828 exit= end=2026-07-29 16:59:57
+LAUNCH  arm=with_verifier seed=4 pid=18844 start=2026-07-29 16:59:57
+LAUNCH  arm=no_verifier seed=0 pid=19948 start=2026-07-29 16:59:57
+LAUNCH  arm=no_verifier seed=1 pid=24128 start=2026-07-29 16:59:57
+LAUNCH  arm=no_verifier seed=2 pid=24464 start=2026-07-29 16:59:57
+DONE    arm=no_verifier seed=0 pid=19948 exit= end=2026-07-29 17:01:58
+DONE    arm=no_verifier seed=1 pid=24128 exit= end=2026-07-29 17:01:58
+DONE    arm=no_verifier seed=2 pid=24464 exit= end=2026-07-29 17:01:58
+LAUNCH  arm=no_verifier seed=3 pid=24316 start=2026-07-29 17:01:58
+LAUNCH  arm=no_verifier seed=4 pid=23496 start=2026-07-29 17:01:59
+LAUNCH  arm=with_trusthead_random seed=0 pid=22024 start=2026-07-29 17:01:59
+DONE    arm=with_verifier seed=4 pid=18844 exit= end=2026-07-29 17:02:29
+LAUNCH  arm=with_trusthead_random seed=1 pid=14404 start=2026-07-29 17:02:29
+DONE    arm=no_verifier seed=3 pid=24316 exit= end=2026-07-29 17:03:59
+DONE    arm=no_verifier seed=4 pid=23496 exit= end=2026-07-29 17:03:59
+DONE    arm=with_trusthead_random seed=0 pid=22024 exit= end=2026-07-29 17:03:59
+DONE    arm=with_trusthead_random seed=1 pid=14404 exit= end=2026-07-29 17:03:59
+LAUNCH  arm=with_trusthead_random seed=2 pid=15792 start=2026-07-29 17:03:59
+LAUNCH  arm=with_trusthead_random seed=3 pid=13648 start=2026-07-29 17:03:59
+LAUNCH  arm=with_trusthead_random seed=4 pid=7848 start=2026-07-29 17:03:59
+DONE    arm=with_trusthead_random seed=2 pid=15792 exit= end=2026-07-29 17:05:30
+DONE    arm=with_trusthead_random seed=3 pid=13648 exit= end=2026-07-29 17:05:30
+DONE    arm=with_trusthead_random seed=4 pid=7848 exit= end=2026-07-29 17:05:30
+All 15 jobs complete at 2026-07-29 17:05:30

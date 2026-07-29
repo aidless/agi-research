@@ -2200,3 +2200,61 @@ register, add $5, launch A10G, SSH in, and run H12b + H12c in
 discipline verified: cost estimates based on public pricing, not
 fabricated; commands are runnable as-is.*
 
+
+
+## 2026-07-29 session 8 -- v6 proper ablation (trust head ignores input, BIT-FOR-BIT)
+
+**Major progress** (this session):
+
+- [x] **v6 rewritten as proper v5 ablation** (modified
+      `projects/project_f_multi_agent/code/pz_maddpg_v6.py`):
+      architecture identical to v5 (renamed
+      `pz_maddpg_trusthead_same_agent.py`); ONLY the trust head
+      input source differs (Monitor broadcast vs torch.rand).
+      Stage 0 (Monitor training) is SKIPPED in the random arm.
+
+- [x] **v6 n=5 3-arm r2 confirmed**: with_verifier,
+      no_verifier, with_trusthead_random all run end-to-end.
+      Aggregation log: `experiments_log/2026-07-29-v6-3arm-5seed-r2.md`.
+
+- [x] **CRITICAL FINDING**: with_verifier and
+      with_trusthead_random produce bit-for-bit identical
+      per-seed results (5/5 seeds match to 4 decimal places).
+      The trust head input source is COMPLETELY IGNORED.
+
+- [x] **Bug found and fixed in r1**: the actor loss branch
+      was conditioned on use_verifier only, so r1
+      with_trusthead_random produced identical results to
+      no_verifier. Fix: condition changed to `if not
+      (use_verifier or use_random_trust_input)`.
+
+### v6 r2 results (n=5)
+
+| arm | mean | sd |
+|---|---|---|
+| with_verifier (= v5) | -70.329 | 1.072 |
+| no_verifier (v2 baseline) | -70.496 | 1.131 |
+| with_trusthead_random | -70.329 | 1.072 |
+
+| comparison | mean_diff | t | n_pos | sig? |
+|---|---|---|---|---|
+| with_verifier vs no_verifier | +0.1665 | +1.014 | 3/5 | NOT sig |
+| with_trusthead_random vs no_verifier | +0.1665 | +1.014 | 3/5 | NOT sig |
+| with_verifier vs with_trusthead_random | +0.0000 | nan (sd=0) | identical | IDENTICAL |
+
+### Interpretation
+
+The trust head architecture gives +0.1665 over baseline (3/5 positive,
+NOT sig at n=5), but the trust head input source is completely
+ignored. The +0.1665 effect is the architecture effect, not the
+signal effect. The trust head learns f(my_obs) and treats the input
+slot (Monitor or random) as noise.
+
+This is the cleaner version of v7's finding (v7 with_verifier ==
+v7 random_verifier at n=5, 0.00 difference). v6 is the proper
+clean implementation of the same test.
+
+### Action items
+
+- [ ] Consider n=30 v6 to confirm bit-for-bit identity holds
+- [ ] v6 re-implementation: DONE

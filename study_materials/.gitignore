@@ -1,0 +1,25 @@
+# Source code for FlashKDA + Kimi K3 zips — kept locally for reference,
+# not committed. Only key human-readable docs (READMEs, deep-dive, STUDY_NOTES) are committed.
+/FlashKDA/FlashKDA-master/benchmarks/
+/FlashKDA/FlashKDA-master/csrc/
+/FlashKDA/FlashKDA-master/flash_kda/
+/FlashKDA/FlashKDA-master/tests/
+/FlashKDA/FlashKDA-master/docs/assets/
+/FlashKDA/FlashKDA-master/*.cu
+/FlashKDA/FlashKDA-master/*.cuh
+/FlashKDA/FlashKDA-master/*.cpp
+/FlashKDA/FlashKDA-master/*.h
+/FlashKDA/FlashKDA-master/.clangd.template
+/FlashKDA/FlashKDA-master/.gitignore
+/FlashKDA/FlashKDA-master/.gitmodules
+/FlashKDA/FlashKDA-master/setup.py
+/FlashKDA/FlashKDA-master/setup_clangd.sh
+/FlashKDA/FlashKDA-master/BENCHMARK_GB200.md
+/FlashKDA/FlashKDA-master/BENCHMARK_H20.md
+/FlashKDA/FlashKDA-master/LICENSE
+/FlashKDA/FlashKDA-master/*.png
+/FlashKDA/FlashKDA-master/setup_clangd.sh
+/FlashKDA/FlashKDA-master/config.yaml
+/Kimi-K3/Kimi-K3-main/k3_tech_report.pdf
+/Kimi-K3/Kimi-K3-main/LICENSE
+/Kimi-K3/Kimi-K3-main/assets/

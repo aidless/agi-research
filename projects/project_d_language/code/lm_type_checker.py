@@ -44,14 +44,75 @@ def state_to_str(state):
     return "[" + ", ".join(pairs) + "]"
 
 
-def build_prompt(state, predicate):
-    """Build the LM prompt for checking a predicate on a state."""
+# Worked examples for the few-shot prompt (H12c).
+# Examples use the same predicate definitions as PREDICATES below.
+FEW_SHOT_EXAMPLES = [
+    # (state, predicate, expected_label, reasoning)
+    (
+        [0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
+        "near_ground",
+        "FALSE",
+        "y_pos=0.5 is too high to be near ground (threshold 0.3).",
+    ),
+    (
+        [0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
+        "near_ground",
+        "TRUE",
+        "y_pos=0.1 is below the 0.3 threshold.",
+    ),
+    (
+        [0.0, 0.5, 0.0, 0.0, 0.2, 0.0, 1.0, 1.0],
+        "upright",
+        "FALSE",
+        "angle=0.2 is too large to be upright (threshold 0.1).",
+    ),
+]
+
+
+def build_zero_shot_prompt(state, predicate):
+    """Build the zero-shot LM prompt (H12 default)."""
     return (
         "You are a type checker for a robotics system.\n"
         f"Given the following state vector: {state_to_str(state)}\n"
         f'Is the predicate "{predicate}" TRUE, FALSE, or UNCERTAIN?\n'
         "Answer with exactly one of: TRUE / FALSE / UNCERTAIN."
     )
+
+
+def build_few_shot_prompt(state, predicate, examples=FEW_SHOT_EXAMPLES):
+    """Build the few-shot LM prompt (H12c).
+
+    Includes 3 worked examples before the actual query, so the LM has
+    explicit demonstrations of the expected output format.
+    """
+    parts = [
+        "You are a type checker for a robotics system. The state vector is:",
+        "[x_pos, y_pos, x_vel, y_vel, angle, ang_vel, leg_l, leg_r].",
+        "For each example, you are given a state and a predicate; answer",
+        "with exactly one of: TRUE / FALSE.",
+        "",
+    ]
+    for i, (ex_state, ex_pred, ex_label, ex_reason) in enumerate(examples):
+        parts.append(f"Example {i+1}:")
+        parts.append(f"  State: {state_to_str(ex_state)}")
+        parts.append(f'  Predicate: "{ex_pred}"')
+        parts.append(f"  Answer: {ex_label}  # {ex_reason}")
+        parts.append("")
+    parts.append("Now answer the new query:")
+    parts.append(f"  State: {state_to_str(state)}")
+    parts.append(f'  Predicate: "{predicate}"')
+    parts.append("  Answer:")
+    return "\n".join(parts)
+
+
+def build_prompt(state, predicate, prompt_style="zero_shot"):
+    """Build the LM prompt for checking a predicate on a state.
+
+    prompt_style: "zero_shot" (H12 default) or "few_shot" (H12c).
+    """
+    if prompt_style == "few_shot":
+        return build_few_shot_prompt(state, predicate)
+    return build_zero_shot_prompt(state, predicate)
 
 
 def load_lm(model_path=LOCAL_LM_PATH, device="cpu", dtype=torch.float16):
@@ -68,13 +129,15 @@ def load_lm(model_path=LOCAL_LM_PATH, device="cpu", dtype=torch.float16):
     return model, tokenizer
 
 
-def lm_check(model, tokenizer, state, predicate, device="cpu", max_new_tokens=10):
+def lm_check(model, tokenizer, state, predicate, device="cpu", max_new_tokens=10, prompt_style="zero_shot"):
     """Check a single (state, predicate) pair using the LM.
+
+    prompt_style: "zero_shot" (H12 default) or "few_shot" (H12c).
 
     Returns:
         label: "TRUE" / "FALSE" / "UNCERTAIN"
     """
-    prompt = build_prompt(state, predicate)
+    prompt = build_prompt(state, predicate, prompt_style=prompt_style)
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
     with torch.no_grad():
         outputs = model.generate(
@@ -111,13 +174,13 @@ def random_check(state, predicate, rng=None):
     return str(rng.choice(["TRUE", "FALSE", "UNCERTAIN"]))
 
 
-def evaluate_arm(check_fn, states, predicates, name="arm"):
+def evaluate_arm(check_fn, states, predicates, name="arm", **check_fn_kwargs):
     """Evaluate an arm (LM / DLR / Random) on a set of (state, predicate) pairs."""
     correct = 0
     total = 0
     per_pred = {p: {"correct": 0, "total": 0} for p in predicates}
     for state, pred in zip(states, predicates):
-        pred_label = check_fn(state, pred)
+        pred_label = check_fn(state, pred, **check_fn_kwargs)
         gt_label = ground_truth(state, pred)
         # Map UNCERTAIN to a 50/50 guess (counted as half-correct).
         if pred_label == "UNCERTAIN":
@@ -182,7 +245,7 @@ def main():
     print("NOTE: synthetic data, NOT the pre-reg H12 result.")
     print()
 
-    n_states = 1  # truly minimal: 1 LM call
+    n_states = int(os.environ.get("H12_N_STATES", "1"))  # number of states for smoke test
     states = make_synthetic_states(n_states=n_states, seed=42)
     predicates = ["upright"]
     # All (state, predicate) pairs.
@@ -202,7 +265,9 @@ def main():
     def lm_check_fn(state, predicate):
         return lm_check(model, tokenizer, state, predicate)
     print("Running LM type checker...")
-    lm_result = evaluate_arm(lm_check_fn, all_states, all_preds, name="LM")
+    prompt_style = os.environ.get("H12_PROMPT", "zero_shot")
+    lm_check_fn = lambda s, p: lm_check(model, tokenizer, s, p, prompt_style=prompt_style)
+    lm_result = evaluate_arm(lm_check_fn, all_states, all_preds, name=f"LM-{prompt_style}")
     print(f"LM accuracy: {lm_result['accuracy']:.3f}")
     print(f"  per-predicate: {lm_result['per_pred_acc']}")
     print()

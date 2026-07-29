@@ -1,0 +1,105 @@
+﻿
+=== v6 n=30 CLEAN RERUN (50 jobs: 30 with_verifier + 20 no_verifier s0-s19) start 20260729-194245 ===
+=== Explicit python path: pettingzoo 1.24.3 (mpe restored) ===
+=== Goal: remove env-inconsistency confound from n=30 r2/r3 batch ===
+LAUNCH  arm=with_verifier seed=0 pid=15052 start=2026-07-29 19:42:45
+LAUNCH  arm=with_verifier seed=1 pid=18776 start=2026-07-29 19:42:46
+LAUNCH  arm=with_verifier seed=2 pid=9676 start=2026-07-29 19:42:46
+LAUNCH  arm=with_verifier seed=3 pid=18544 start=2026-07-29 19:42:46
+DONE    arm=with_verifier seed=0 pid=15052 exit= end=2026-07-29 19:44:46
+DONE    arm=with_verifier seed=1 pid=18776 exit= end=2026-07-29 19:44:46
+DONE    arm=with_verifier seed=2 pid=9676 exit= end=2026-07-29 19:44:46
+DONE    arm=with_verifier seed=3 pid=18544 exit= end=2026-07-29 19:44:46
+LAUNCH  arm=with_verifier seed=4 pid=18668 start=2026-07-29 19:44:46
+LAUNCH  arm=with_verifier seed=5 pid=22620 start=2026-07-29 19:44:46
+LAUNCH  arm=with_verifier seed=6 pid=22240 start=2026-07-29 19:44:46
+LAUNCH  arm=with_verifier seed=7 pid=19164 start=2026-07-29 19:44:46
+DONE    arm=with_verifier seed=4 pid=18668 exit= end=2026-07-29 19:46:46
+DONE    arm=with_verifier seed=5 pid=22620 exit= end=2026-07-29 19:46:46
+DONE    arm=with_verifier seed=6 pid=22240 exit= end=2026-07-29 19:46:46
+DONE    arm=with_verifier seed=7 pid=19164 exit= end=2026-07-29 19:46:46
+LAUNCH  arm=with_verifier seed=8 pid=19400 start=2026-07-29 19:46:46
+LAUNCH  arm=with_verifier seed=9 pid=20680 start=2026-07-29 19:46:46
+LAUNCH  arm=with_verifier seed=10 pid=12948 start=2026-07-29 19:46:46
+LAUNCH  arm=with_verifier seed=11 pid=13268 start=2026-07-29 19:46:46
+DONE    arm=with_verifier seed=8 pid=19400 exit= end=2026-07-29 19:48:46
+DONE    arm=with_verifier seed=9 pid=20680 exit= end=2026-07-29 19:48:46
+DONE    arm=with_verifier seed=10 pid=12948 exit= end=2026-07-29 19:48:46
+DONE    arm=with_verifier seed=11 pid=13268 exit= end=2026-07-29 19:48:46
+LAUNCH  arm=with_verifier seed=12 pid=13236 start=2026-07-29 19:48:46
+LAUNCH  arm=with_verifier seed=13 pid=18060 start=2026-07-29 19:48:46
+LAUNCH  arm=with_verifier seed=14 pid=2868 start=2026-07-29 19:48:46
+LAUNCH  arm=with_verifier seed=15 pid=12808 start=2026-07-29 19:48:46
+DONE    arm=with_verifier seed=12 pid=13236 exit= end=2026-07-29 19:51:46
+DONE    arm=with_verifier seed=13 pid=18060 exit= end=2026-07-29 19:51:46
+DONE    arm=with_verifier seed=14 pid=2868 exit= end=2026-07-29 19:51:46
+DONE    arm=with_verifier seed=15 pid=12808 exit= end=2026-07-29 19:51:46
+LAUNCH  arm=with_verifier seed=16 pid=4328 start=2026-07-29 19:51:46
+LAUNCH  arm=with_verifier seed=17 pid=23616 start=2026-07-29 19:51:46
+LAUNCH  arm=with_verifier seed=18 pid=19248 start=2026-07-29 19:51:46
+LAUNCH  arm=with_verifier seed=19 pid=12804 start=2026-07-29 19:51:46
+DONE    arm=with_verifier seed=19 pid=12804 exit= end=2026-07-29 19:53:46
+LAUNCH  arm=with_verifier seed=20 pid=22812 start=2026-07-29 19:53:46
+DONE    arm=with_verifier seed=16 pid=4328 exit= end=2026-07-29 19:54:46
+DONE    arm=with_verifier seed=17 pid=23616 exit= end=2026-07-29 19:54:46
+DONE    arm=with_verifier seed=18 pid=19248 exit= end=2026-07-29 19:54:46
+LAUNCH  arm=with_verifier seed=21 pid=5236 start=2026-07-29 19:54:46
+LAUNCH  arm=with_verifier seed=22 pid=4204 start=2026-07-29 19:54:46
+LAUNCH  arm=with_verifier seed=23 pid=6532 start=2026-07-29 19:54:46
+DONE    arm=with_verifier seed=20 pid=22812 exit= end=2026-07-29 19:55:46
+LAUNCH  arm=with_verifier seed=24 pid=13872 start=2026-07-29 19:55:46
+DONE    arm=with_verifier seed=21 pid=5236 exit= end=2026-07-29 19:56:46
+DONE    arm=with_verifier seed=22 pid=4204 exit= end=2026-07-29 19:56:46
+DONE    arm=with_verifier seed=23 pid=6532 exit= end=2026-07-29 19:56:46
+LAUNCH  arm=with_verifier seed=25 pid=22444 start=2026-07-29 19:56:46
+LAUNCH  arm=with_verifier seed=26 pid=19096 start=2026-07-29 19:56:46
+LAUNCH  arm=with_verifier seed=27 pid=9456 start=2026-07-29 19:56:46
+DONE    arm=with_verifier seed=24 pid=13872 exit= end=2026-07-29 19:57:46
+LAUNCH  arm=with_verifier seed=28 pid=17784 start=2026-07-29 19:57:46
+DONE    arm=with_verifier seed=25 pid=22444 exit= end=2026-07-29 19:58:46
+DONE    arm=with_verifier seed=26 pid=19096 exit= end=2026-07-29 19:58:46
+DONE    arm=with_verifier seed=27 pid=9456 exit= end=2026-07-29 19:58:46
+LAUNCH  arm=with_verifier seed=29 pid=4976 start=2026-07-29 19:58:46
+LAUNCH  arm=no_verifier seed=0 pid=2740 start=2026-07-29 19:58:46
+LAUNCH  arm=no_verifier seed=1 pid=23804 start=2026-07-29 19:58:46
+DONE    arm=with_verifier seed=28 pid=17784 exit= end=2026-07-29 19:59:46
+LAUNCH  arm=no_verifier seed=2 pid=13932 start=2026-07-29 19:59:46
+DONE    arm=with_verifier seed=29 pid=4976 exit= end=2026-07-29 20:00:46
+DONE    arm=no_verifier seed=0 pid=2740 exit= end=2026-07-29 20:00:46
+DONE    arm=no_verifier seed=1 pid=23804 exit= end=2026-07-29 20:00:46
+LAUNCH  arm=no_verifier seed=3 pid=13608 start=2026-07-29 20:00:46
+LAUNCH  arm=no_verifier seed=4 pid=18904 start=2026-07-29 20:00:46
+LAUNCH  arm=no_verifier seed=5 pid=23484 start=2026-07-29 20:00:46
+DONE    arm=no_verifier seed=2 pid=13932 exit= end=2026-07-29 20:01:46
+LAUNCH  arm=no_verifier seed=6 pid=24556 start=2026-07-29 20:01:46
+DONE    arm=no_verifier seed=3 pid=13608 exit= end=2026-07-29 20:02:46
+DONE    arm=no_verifier seed=4 pid=18904 exit= end=2026-07-29 20:02:46
+DONE    arm=no_verifier seed=5 pid=23484 exit= end=2026-07-29 20:02:46
+LAUNCH  arm=no_verifier seed=7 pid=1888 start=2026-07-29 20:02:46
+LAUNCH  arm=no_verifier seed=8 pid=7748 start=2026-07-29 20:02:46
+LAUNCH  arm=no_verifier seed=9 pid=13036 start=2026-07-29 20:02:46
+DONE    arm=no_verifier seed=6 pid=24556 exit= end=2026-07-29 20:03:46
+LAUNCH  arm=no_verifier seed=10 pid=20948 start=2026-07-29 20:03:46
+DONE    arm=no_verifier seed=7 pid=1888 exit= end=2026-07-29 20:04:46
+DONE    arm=no_verifier seed=8 pid=7748 exit= end=2026-07-29 20:04:46
+DONE    arm=no_verifier seed=9 pid=13036 exit= end=2026-07-29 20:04:46
+LAUNCH  arm=no_verifier seed=11 pid=23848 start=2026-07-29 20:04:46
+LAUNCH  arm=no_verifier seed=12 pid=8940 start=2026-07-29 20:04:46
+LAUNCH  arm=no_verifier seed=13 pid=23000 start=2026-07-29 20:04:46
+DONE    arm=no_verifier seed=10 pid=20948 exit= end=2026-07-29 20:05:46
+LAUNCH  arm=no_verifier seed=14 pid=20488 start=2026-07-29 20:05:46
+DONE    arm=no_verifier seed=11 pid=23848 exit= end=2026-07-29 20:06:46
+DONE    arm=no_verifier seed=12 pid=8940 exit= end=2026-07-29 20:06:46
+DONE    arm=no_verifier seed=13 pid=23000 exit= end=2026-07-29 20:06:46
+DONE    arm=no_verifier seed=14 pid=20488 exit= end=2026-07-29 20:06:46
+LAUNCH  arm=no_verifier seed=15 pid=24136 start=2026-07-29 20:06:47
+LAUNCH  arm=no_verifier seed=16 pid=19824 start=2026-07-29 20:06:47
+LAUNCH  arm=no_verifier seed=17 pid=8388 start=2026-07-29 20:06:47
+LAUNCH  arm=no_verifier seed=18 pid=22132 start=2026-07-29 20:06:47
+DONE    arm=no_verifier seed=15 pid=24136 exit= end=2026-07-29 20:08:47
+DONE    arm=no_verifier seed=16 pid=19824 exit= end=2026-07-29 20:08:47
+DONE    arm=no_verifier seed=17 pid=8388 exit= end=2026-07-29 20:08:47
+DONE    arm=no_verifier seed=18 pid=22132 exit= end=2026-07-29 20:08:47
+LAUNCH  arm=no_verifier seed=19 pid=21892 start=2026-07-29 20:08:47
+DONE    arm=no_verifier seed=19 pid=21892 exit= end=2026-07-29 20:10:47
+All 50 jobs complete at 2026-07-29 20:10:47

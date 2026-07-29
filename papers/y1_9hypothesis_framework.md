@@ -227,36 +227,43 @@ Cohen d_z = 0.065; to reach p<0.05 would need n~2200. **Effect is too
 small to be practically meaningful.** Full log:
 `experiments_log/2026-07-29-y2a-n212-partial.md`.
 
-**v6 (trust head + random inputs, n=5 and n=30)**: rewritten as
-proper v5 ablation 2026-07-29 (identical architecture; only trust head
-input source differs -- Monitor broadcast vs `torch.rand`). Stage 0
-Monitor training is SKIPPED in the random arm.
+**v6 (trust head + random inputs, n=5 and n=30 CLEAN)**: rewritten
+as proper v5 ablation 2026-07-29 (identical architecture; only
+trust head input source differs -- Monitor broadcast vs `torch.rand`).
+Stage 0 Monitor training is SKIPPED in the random arm.
 
 **v6 n=5 (r2)**: with_verifier == with_trusthead_random BIT-FOR-BIT
-IDENTICAL (5/5 seeds, 0.0000 difference). Initially interpreted as
-"trust head ignores input" -- but at n=30 this does NOT hold.
+IDENTICAL (5/5 seeds, 0.0000 difference).
 
-**v6 n=30 (r3, after pettingzoo 1.24.3 fix)**: bit-for-bit identity
-BROKEN (0/30 seeds identical, max abs diff 9.55). with_trusthead_random
-mean = -69.17 vs with_verifier = -69.67 vs no_verifier = -69.73.
+**v6 n=30 (r4 CLEAN, with consistent pettingzoo 1.24.3)**: bit-for-
+bit identity RESTORED (30/30 seeds identical, max abs diff 0.00).
+with_verifier and with_trusthead_random produce the EXACT same
+per-seed results. The trust head's input slot is completely ignored.
+
+| arm | mean | sd |
+|---|---|---|
+| with_verifier (= v5) | -69.1715 | 1.9229 |
+| no_verifier (v2 baseline) | -69.1299 | 1.9066 |
+| with_trusthead_random | -69.1715 | 1.9229 |
+
+**v6 n=30 paired tests (clean)**:
 | comparison | mean_diff | t | sig? |
 |---|---|---|---|
-| with_verifier vs no_verifier | +0.059 | +0.202 | NOT sig |
-| with_trusthead_random vs no_verifier | +0.557 | +0.961 | NOT sig |
-| with_verifier vs with_trusthead_random | -0.498 | -0.776 | NOT sig |
+| with_verifier vs no_verifier | -0.0416 | -1.051 | NOT sig |
+| with_verifier vs with_trusthead_random | +0.0000 | nan | IDENTICAL |
 
-**v6 n=5 was a SHORT-TRAINING ARTIFACT.** With more training, the
-trust head does use its input slot, but the per-seed effects are
-large and noisy. The cleanest "trust head ignores signal" evidence
-is now v8 at n=30 (v8 trust head + DLR == dlr_only, 0.00 diff at
-n=30 across 30 paired seeds).
+**Bit-for-bit identity confirmed at n=5 (5/5) AND n=30 (30/30)**
+when the python environment is consistent. The trust head's input
+slot is COMPLETELY IGNORED. The n=30 r3 result (0/30) was
+contaminated by a python/pettingzoo env change mid-run and has
+been superseded by the r4 CLEAN result.
 
-Caveat: the n=30 batch had a python/pettingzoo environment
-inconsistency. The with_verifier and some no_verifier runs used the
-original n=30 batch python; the with_trusthead_random and remaining
-no_verifier runs were re-done in r3 with pettingzoo 1.24.3. The
-qualitative finding (trust head gives small non-significant effect,
-input source doesn't matter much) is robust to this confound.
+**The trust head architecture's effect is small and inconsistent**:
+- n=5 r2: +0.17 over baseline (3/5 pos, NOT sig)
+- n=30 r4 clean: -0.04 over baseline (14/30 pos, NOT sig, slightly negative)
+- n=212 v5: +0.055 over baseline (50.5% pos, NOT sig)
+
+The effect shrinks with n, consistent with the v5 n=212 finding.
 
 **v7 (trust head + Monitor, proper ablation = v5, n=5)**: CRITICAL
 FINDING -- **the trust head IGNORES the Monitor signal**.

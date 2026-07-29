@@ -2432,3 +2432,66 @@ doesn't matter much) is robust to this confound.
 - [ ] (Optional) Re-run n=30 with_verifier and no_verifier s0-s19
       with pettingzoo 1.24.3 for clean cross-arm comparison
 - [ ] Y3 paper: "Monitor Signal vs DLR Predicates in MARL"
+
+
+## 2026-07-29 session 10 -- v6 n=30 CLEAN (bit-for-bit identity restored)
+
+**Major progress** (this session):
+
+- [x] **v6 n=30 3-arm r4 CLEAN completed** (50 jobs: 30
+      with_verifier + 20 no_verifier s0-s19). All 3 arms now
+      use the same python (pettingzoo 1.24.3, explicit path).
+      Removes the env-inconsistency confound from r3.
+      Aggregation log:
+      `experiments_log/2026-07-29-v6-3arm-n30-clean-aggregation.md`.
+
+- [x] **CRITICAL FINDING RESTORED**: with_verifier ==
+      with_trusthead_random is BIT-FOR-BIT IDENTICAL at n=30
+      (30/30 seeds, max abs diff 0.00). The n=30 r3 result of
+      0/30 was a contaminated measurement; the CLEAN r4 result
+      is consistent with n=5 (5/5 bit-for-bit).
+
+- [x] **Updated 6-pathway paper section 2.4 + section 3** with
+      the r4 CLEAN finding. The "trust head ignores input"
+      claim is now WELL-SUPPORTED at n=5 AND n=30 (and also
+      by v8 n=30 DLR test).
+
+- [x] **Updated H5 in 9-hypo framework** with r4 CLEAN finding.
+
+### v6 n=30 CLEAN results (consistent python)
+
+| arm | mean | sd |
+|---|---|---|
+| with_verifier (= v5) | -69.1715 | 1.9229 |
+| no_verifier (v2 baseline) | -69.1299 | 1.9066 |
+| with_trusthead_random | -69.1715 | 1.9229 |
+
+| comparison | mean_diff | t | n_pos | sig? |
+|---|---|---|---|---|
+| with_verifier vs no_verifier | -0.0416 | -1.051 | 14/30 | NOT sig |
+| with_trusthead_random vs no_verifier | -0.0416 | -1.051 | 14/30 | NOT sig |
+| with_verifier vs with_trusthead_random | +0.0000 | nan | 30/30 (eq) | IDENTICAL |
+
+### Bit-for-bit identity across sample sizes (consistent python)
+
+| sample | identical seeds | max abs diff |
+|---|---|---|
+| n=5 (r2) | 5/5 (100%) | 0.00 |
+| n=30 (r3, env-contaminated) | 0/30 (0%) | 9.55 |
+| **n=30 (r4, env-consistent)** | **30/30 (100%)** | **0.00** |
+
+### Updated Y2 final story
+
+- v6 n=5: bit-for-bit identity (trust head ignores input)
+- v6 n=30 CLEAN: bit-for-bit identity (trust head ignores input)
+- v8 n=30: v8 trust head + DLR == dlr_only (trust head ignores input)
+- The trust head architecture's effect: +0.17 (n=5) -> -0.04 (n=30) -> +0.055 (n=212)
+  Small, inconsistent direction, NOT significant at any sample size.
+- DLR in critic (v8 dlr_only): +0.1447 (p<0.005, n=30) -- the only
+  signal-specific positive result, stable across sample sizes.
+
+### Action items
+
+- [x] n=30 CLEAN: bit-for-bit identity restored (30/30)
+- [x] Update 6-pathway paper + H5
+- [x] Commit and push

@@ -130,7 +130,7 @@ The effect is too small to be practically meaningful.
 
 Source: `experiments_log/2026-07-29-y2a-n212-partial.md`.
 
-### 2.4 v6 (trust head + random inputs) -- PROPER ABLATION (n=5, n=30)
+### 2.4 v6 (trust head + random inputs) -- PROPER ABLATION (n=5, n=30 clean)
 
 **Original v6** (committed at HEAD~) was a broken stub: `obs_b = torch.randn(...)`
 (random obs, not real rollouts) and `target = rew_b` (skipped Bellman update).
@@ -139,7 +139,8 @@ Re-implemented 2026-07-29 as a proper v5 ablation: identical architecture
 trust head input source swapped to `torch.rand(...)`. Stage 0 (Monitor
 training) is SKIPPED for the random arm to match compute on the 80 PPO
 updates. Source: `experiments_log/2026-07-29-v6-3arm-5seed-r2.md`,
-`experiments_log/2026-07-29-v6-3arm-n30-aggregation.md`.
+`experiments_log/2026-07-29-v6-3arm-n30-aggregation.md`,
+`experiments_log/2026-07-29-v6-3arm-n30-clean-aggregation.md`.
 
 **Initial run (r1) had a bug**: the actor loss branch was conditioned on
 `use_verifier` only, so `with_trusthead_random` produced IDENTICAL results
@@ -155,44 +156,48 @@ results below.
 | with_trusthead_random | -70.329 | 1.072 |
 
 **n=5 BIT-FOR-BIT IDENTITY: with_verifier == with_trusthead_random** (5/5
-seeds match to 4 decimal places). This was initially interpreted as "trust
-head ignores its input signal" -- but see n=30 below.
+seeds match to 4 decimal places).
 
-**n=30 3-arm (paired seeds 0-29, all 80 updates x 10 episodes = 800 ep)**:
+**n=30 3-arm r3 (first n=30 attempt)**: bit-for-bit identity BROKEN
+(0/30 seeds). Investigation revealed pettingzoo 1.26.1 had been
+released, which removed the `.mpe` submodule. 30/30 with_trusthead_random
++ 4 no_verifier s26-s29 jobs crashed with import error. Re-ran in r3
+batch with pettingzoo 1.24.3 fixed. The r3 result was suspect due to
+python/pettingzoo environment inconsistencies.
+
+**n=30 3-arm r4 CLEAN (this batch)**: 30 with_verifier + 20 no_verifier
+s0-s19 re-run with the EXPLICIT python path (pettingzoo 1.24.3, no
+env inconsistency). The no_verifier s20-s29 and with_trusthead_random
+s0-s29 from r3 are reused (they were already clean).
+
 | arm | mean | sd |
 |---|---|---|
-| with_verifier (= v5) | -69.669 | 1.876 |
-| no_verifier (baseline) | -69.729 | 1.839 |
-| with_trusthead_random | -69.172 | 1.923 |
+| with_verifier (= v5) | **-69.1715** | 1.9229 |
+| no_verifier (baseline) | -69.1299 | 1.9066 |
+| with_trusthead_random | **-69.1715** | 1.9229 |
 
-**n=30 paired tests**:
+**n=30 BIT-FOR-BIT IDENTITY (clean): with_verifier == with_trusthead_random
+30/30 seeds (100%)**. Max abs diff = 0.000000. Per-seed check confirms
+exact match.
+
+**n=30 paired tests (clean)**:
 | comparison | mean_diff | sd_diffs | t | n_pos | sig? |
 |---|---|---|---|---|---|
-| with_verifier vs no_verifier | +0.0592 | 1.6067 | +0.202 | 18/30 | NOT sig |
-| with_trusthead_random vs no_verifier | +0.5570 | 3.1763 | +0.961 | 14/30 | NOT sig |
-| with_verifier vs with_trusthead_random | -0.4978 | 3.5117 | -0.776 | 15/30 | NOT sig |
+| with_verifier vs no_verifier | -0.0416 | 0.2169 | -1.051 | 14/30 | NOT sig |
+| with_trusthead_random vs no_verifier | -0.0416 | 0.2169 | -1.051 | 14/30 | NOT sig |
+| with_verifier vs with_trusthead_random | +0.0000 | +0.0000 | nan | 30/30 (eq) | IDENTICAL |
 
-**n=30 BIT-FOR-BIT IDENTITY: 0/30 seeds** (max abs diff 9.55, mean 2.80).
-The n=5 bit-for-bit identity was a **SHORT-TRAINING ARTIFACT**, not a
-real finding. With 2 min of training, the trust head doesn't have time
-to learn to use its input slot, so the input source has no observable
-effect. With more training (n=30, ~2 hours), the trust head does use
-its input, but the per-seed differences are large (±3 sd_diffs) and
-not consistent in direction.
+**Bit-for-bit identity confirmed at n=5 (5/5) AND n=30 (30/30)** when
+the python environment is consistent. The trust head's input slot
+(whether Monitor broadcast or random uniform) is COMPLETELY IGNORED.
+The trust head learns f(my_obs) and treats the input slot as noise.
 
-**REVISED FINDING**: the "trust head ignores input" claim is BEST
-supported by v8 at n=30 (DLR in trust head == DLR in critic, 0.00 diff),
-NOT by v6 at n=5. The cleanest "trust head ignores signal" evidence
-is v8 dlr_only, not v6.
+**The trust head architecture's effect is small and inconsistent:**
+- n=5 r2: +0.17 mean over baseline (3/5 pos, NOT sig)
+- n=30 r4 clean: -0.04 mean over baseline (14/30 pos, NOT sig)
+- n=212 v5: +0.055 mean over baseline (50.5% pos, NOT sig)
 
-**Setup caveat**: the n=30 batch had a python/pettingzoo environment
-inconsistency (pettingzoo 1.26.1 broke the .mpe submodule). Some
-with_verifier and no_verifier runs used the original python; the
-with_trusthead_random and some no_verifier runs were re-done in r3
-batch with pettingzoo 1.24.3. The per-seed results may not be strictly
-comparable across arms. The qualitative finding (trust head gives small
-non-significant effect, input source doesn't matter much) is robust
-to this confound.
+The effect shrinks with n, consistent with the v5 n=212 finding.
 ### 2.5 v7 (trust head + Monitor, proper ablation = v5) -- Monitor IGNORED
 
 CRITICAL FINDING: `pz_maddpg_v7.py` was forked from v5 with the trust
@@ -274,14 +279,25 @@ ignored (v8 finding). Random input gives the same result as Monitor
 (v7 finding). The trust head appears to learn to use the obs space and
 treat the "signal" slot as noise.
 
-**At n=30** (v6 n=30 revision): the bit-for-bit identity from n=5 does
-NOT hold. The trust head with random input has slightly higher mean than
-the trust head with Monitor (-69.17 vs -69.67), and per-seed diffs are
-large (±3 sd_diffs). The "trust head ignores input" claim is BEST
-supported by v8 at n=30 (v8 trust head + DLR == dlr_only, mean_diff=0.00
-across 30 paired seeds), NOT by v6 at n=5. v6 n=5 was a short-training
-artifact: with 2 min of training the trust head doesn't have time to
-learn to use its input slot.
+**At n=30 (v6 n=30 r3 first attempt): the bit-for-bit identity from n=5
+appeared broken (0/30 seeds identical). Investigation revealed the
+n=30 r3 batch had a python/pettingzoo environment inconsistency
+(pettingzoo 1.26.1 had been installed mid-run, which broke the .mpe
+submodule). The n=30 r3 result was contaminated.
+
+**At n=30 CLEAN (r4 with consistent pettingzoo 1.24.3): the bit-for-
+bit identity IS RESTORED (30/30 seeds identical)**. with_verifier
+and with_trusthead_random produce bit-for-bit identical per-seed
+results at n=30, just as they did at n=5. The trust head's input
+slot (Monitor broadcast or random uniform) is COMPLETELY IGNORED.
+
+**The "trust head ignores input" claim is now WELL-SUPPORTED by:**
+- v6 n=5: 5/5 seeds bit-for-bit identical
+- v6 n=30 CLEAN: 30/30 seeds bit-for-bit identical
+- v8 n=30: v8 trust head + DLR == dlr_only, 0.00 diff at n=30
+
+The n=30 r3 result (0/30 bit-for-bit) was a contaminated measurement
+that has now been superseded by the r4 CLEAN result (30/30).
 
 ## 4. The one signal-specific finding (now confirmed at n=30)
 

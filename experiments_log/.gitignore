@@ -1,0 +1,21 @@
+﻿# experiments_log/.gitignore
+# Keep dated *.md, dated experiment logs, scripts, and the summary JSON
+# under experiments_log. Mute the per-seed wrapper/job-noise files and
+# LaTeX aux/out artefacts.
+
+# Per-seed H10 wrapper + log.err noise (job scaffolding).
+_*.py
+_*.log.err
+_*.done
+_*.ps1
+_*.md
+_*.ps1.done
+
+# LaTeX aux/out artefacts (committed PDFs are kept, intermediates are not).
+*.aux
+*.out
+*.toc
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz

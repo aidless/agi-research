@@ -1,0 +1,8 @@
+﻿# LaTeX aux/out artefacts (committed PDFs are kept, intermediates are not).
+*.aux
+*.out
+*.toc
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz

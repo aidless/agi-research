@@ -300,24 +300,46 @@ This is a single-seed rescue and is reported transparently.
 
 ### 7.2 Aggregate (n=19, seed 111 rebalanced)
 
-| Arm    | Mean | Std   |
-|--------|------|-------|
-| Frozen | 0.579 | 0.417 |
-| Joint  | 0.447 | 0.438 |
-| Random | 0.632 | 0.403 |
+| Arm    | Mean | Std   | 95% CI (bootstrap)  |
+|--------|------|-------|---------------------|
+| Frozen | 0.579 | 0.417 | [0.382, 0.776]      |
+| Joint  | 0.447 | 0.438 | [0.237, 0.658]      |
+| Random | 0.632 | 0.403 | [0.447, 0.816]      |
 
-Paired tests:
+Paired t-tests with 10,000-replicate bootstrap 95% CIs (resampling
+seed pairs; full JSON in `experiments_log/_h10_n20_bootstrap.json`,
+figure `experiments_log/_h10_n20_forest.png`):
 
-- Frozen vs Joint: mean diff +0.132, $t=+1.157$, $p=0.262$ (NOT
-  significant). Wilcoxon $W=16.0$, $p=0.222$.
-- Frozen vs Random: mean diff -0.053, $t=-0.438$, $p=0.667$ (NOT
-  significant).
-- Joint vs Random: mean diff -0.184, $t=-1.508$, $p=0.149$ (NOT
-  significant).
+| Contrast | $\Delta$AUROC | 95% CI (bootstrap) | t (df=18) | $p$ (paired t) | $p$ (bootstrap two-sided) | Cohen's $d$ | Sig. (Bonf. $\alpha$=0.0167)? |
+|---|---|---|---|---|---|---|---|
+| Frozen $-$ Joint | +0.132 | [-0.079, +0.368] | +1.157 | 0.262 | 0.280 | +0.27 | No  |
+| Frozen $-$ Random | -0.053 | [-0.290, +0.184] | -0.438 | 0.667 | 0.712 | -0.10 | No  |
+| Joint $-$ Random | -0.184 | [-0.421, +0.053] | -1.508 | 0.149 | 0.153 | -0.35 | No  |
 
-After Bonferroni correction ($\alpha/3 = 0.0167$): NONE of the three
-paired tests reach significance. Effect sizes: Cohen's $d = +0.27$
-(F-J), $-0.10$ (F-R), $-0.35$ (J-R).
+![H10 n=20 3-arm contrast Forest plot](../experiments_log/_h10_n20_forest.png){ width=80% }
+
+After Bonferroni correction ($\alpha/3 = 0.0167$): NONE of the
+three paired tests reach significance. Wilcoxon signed-rank
+results are consistent: F-J $W=16.0$ $p=0.222$, F-R
+$W=15.5$ $p=0.720$, J-R $W=8.0$ $p=0.149$.
+
+#### 7.2.1 Power re-analysis
+
+With the observed Cohen's $d \approx 0.27$ for the F-J contrast,
+a two-sided paired t-test at the family-wise $\alpha = 0.0167$
+threshold needs the following sample sizes for 80% power:
+
+| Contrast | Cohen's $d$ | Required n (Bonf. 0.0167, 80% power) |
+|---|---|---|
+| Frozen $-$ Joint | +0.27 | n $\approx$ 149 |
+| Frozen $-$ Random | -0.10 | n $\approx$ 1,039 |
+| Joint $-$ Random | -0.35 | n $\approx$ 88 |
+
+The n=20 follow-up is therefore well-powered to detect the J-R
+contrast direction (any value below 0.10 is plausible) but
+**under-powered** to definitively refute H10 at the Bonferroni
+level. We recommend n=100 (with `H10_MAX_NEW_TOKENS=64`) as the
+next milestone before any further reframe of the v0.5 conclusion.
 
 ### 7.3 Verdict at n=20
 

@@ -1,0 +1,16 @@
+{
+  "seed": 200,
+  "arm_dlr_only": {
+    "final_eval": -68.77,
+    "baseline_random": -79.63,
+    "sd": 20.66
+  },
+  "arm_no_verifier": {
+    "final_eval": -69.04,
+    "baseline_random": -84.91,
+    "sd": 20.83
+  },
+  "delta": 0.27000000000001023,
+  "expected_band": "+0.03 to +0.09 (n=100 estimate +0.0617; d=0.23)",
+  "note": "single-seed sanity check; dlr_only > no_verifier by +0.27 falls at the lower edge of the expected band."
+}

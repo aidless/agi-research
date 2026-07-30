@@ -134,6 +134,28 @@ The stratified split fixed the degenerate eval issue:
 - Simple arithmetic tasks (3+4=7, 12+5=17, etc.)
 - Small LM as Monitor backbone
 
+#### 4.1.1 Pre-registration reference
+
+The pre-registered protocol and decision rule referenced by this
+paper are documented in
+`experiments_log/2026-07-28-PRE-REGISTERED-H10.md`. The n=5
+pilot in this section follows that protocol exactly. The n=20
+follow-up in Section 7 is a *replication* of the same protocol
+with two declared deviations:
+
+1. **Token cap reduced to 16** (vs. 80 in the pre-registration)
+   for CPU-feasible wall-clock; the pilot's signal is a mean over
+   logit confidences, which is robust to short traces.
+2. **MAX_PARALLEL=1** (vs. 6) after observing 6-way CPU thrash
+   on the 1.5B model; sequential execution keeps per-job wall
+   time bounded.
+
+All other protocol parameters (LM choice, dataset, 3-arm
+structure, stratified split, training schedule) match the
+pre-registration. The full set of pilot scripts is preserved in
+`experiments_log/_h10_n20_*.log` and `experiments_log/_h10_n20_*.done`
+for reproducibility.
+
 ### 4.2 Per-seed results
 
 | Seed | Frozen | Joint | Random |
@@ -146,19 +168,20 @@ The stratified split fixed the degenerate eval issue:
 
 ### 4.3 Aggregate (n=5)
 
-| Arm    | Mean | Std   |
-|--------|------|-------|
-| Frozen | 0.550 | 0.371 |
-| Joint  | **0.650** | 0.224 |
-| Random | 0.250 | 0.354 |
+| Arm    | Mean $\pm$ SD |
+|--------|----------------|
+| Frozen | $0.550 \pm 0.371$ |
+| Joint  | $\mathbf{0.650} \pm 0.224$ |
+| Random | $0.250 \pm 0.354$ |
 
 **Joint > Frozen by 0.10 mean.**
 
 Welch t-tests:
-- Frozen vs Joint: $t=-0.516$, $df=6.57$ (Joint > Frozen, NOT
-  significant at $t>2.0$)
-- Frozen vs Random: $t=+1.309$, $df=7.98$ (Frozen > Random by
-  0.30, NOT significant)
+
+| Contrast | Welch $t$ | $df$ | $p$ | Sig. (Bonf. $\alpha=0.0167$)? |
+|---|---|---|---|---|
+| Frozen vs Joint | $-0.516$ | 6.57 | $\approx 0.62$ | No |
+| Frozen vs Random | $+1.309$ | 7.98 | $\approx 0.23$ | No |
 
 ### 4.4 Verdict per H10 pre-reg decision rule
 

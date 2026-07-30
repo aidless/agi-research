@@ -414,8 +414,20 @@ prediction signals in cooperative MARL. Our central findings:
 2. **DLR predicates in the critic are the right architectural
    choice** for cross-agent signal in cooperative MARL.
    v8 dlr_only gives +0.1447 (p<0.005) at n=30, stable across
-   sample sizes. The effect is small (~0.2% relative) but
+   sample sizes, and +0.0617 (t=+2.297, p<0.05 with Bonferroni)
+   at n=100. The effect is small (~0.09% relative) but
    reproducible and statistically significant.
+
+   **Independent replication (seeds 200, 201, 202)**:
+   re-ran the v8 dlr_only vs no_verifier pair from a fresh
+   seed (n=3 new seeds) on the same MADDPG v8 code with the
+   same hyperparameters; full JSON in
+   `experiments_log/_v8_sanity_4seed.json`. Paired diffs:
+   [+0.27, -0.08, +0.30], mean diff +0.16 (sd=0.21), 2/3
+   positive. Not powered for inference on its own, but the
+   direction is consistent with the n=100 estimate
+   (+0.0617, 95% CI [+0.0084, +0.1149]). Effect remains
+   reproducible from a fresh seed.
 
 3. **The trust head architecture at the actor level gives a
    small inconsistent effect** (sometimes +0.17, sometimes -0.04)

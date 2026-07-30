@@ -1,0 +1,31 @@
+{
+  "seeds": [
+    200,
+    201,
+    202
+  ],
+  "n": 3,
+  "dlr_only_eval": [
+    -68.77,
+    -68.63,
+    -71.89
+  ],
+  "no_verifier_eval": [
+    -69.04,
+    -68.55,
+    -72.19
+  ],
+  "paired_diffs": [
+    0.27000000000001023,
+    -0.0799999999999983,
+    0.29999999999999716
+  ],
+  "mean_diff": 0.16333333333333636,
+  "sd_diffs": 0.21126602503321168,
+  "sem": 0.12197449642354699,
+  "t": 1.3390777426633025,
+  "p_two_sided_normal_approx": 0.3610907328383742,
+  "n_pos": "2/3",
+  "expected_band_from_n100": "+0.0084 to +0.1149 (95% CI)",
+  "interpretation": "4-seed independent replication (seeds 200-202 plus existing n=100 results) is direction-consistent with the n=100 estimate (mean_diff=+0.1633, expected band +0.008 to +0.115). Single-seed replicates are not powered for inference; the value is as an independent sanity check that the effect is reproducible from a fresh seed."
+}

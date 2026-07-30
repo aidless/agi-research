@@ -136,6 +136,7 @@ def main():
             n_train_label = max(1, int(n_label * n_train_frac))
             train_indices.extend([label_idx[p] for p in perm[:n_train_label]])
             eval_indices.extend([label_idx[p] for p in perm[n_train_label:]])
+
         # Shuffle combined indices.
         combined_perm = torch.randperm(len(train_indices), generator=rng_split).tolist()
         train_indices = [train_indices[i] for i in combined_perm]
@@ -146,6 +147,19 @@ def main():
         eval_features = torch.stack([trace_features[i] for i in eval_indices])
         eval_labels = torch.tensor([labels[i] for i in eval_indices], dtype=torch.float32)
         print(f"Train: {tuple(train_features.shape)}, eval: {tuple(eval_features.shape)} (stratified)")
+        if (train_labels.sum().item() in (0, len(train_labels))) or (eval_labels.sum().item() in (0, len(eval_labels))):
+            print("Stratified split collapsed to a single class; rebalancing eval set.")
+            # Move one of the failures into eval to guarantee both classes.
+            failure_indices = [i for i, l in enumerate(labels) if l == 1.0]
+            success_indices = [i for i, l in enumerate(labels) if l == 0.0]
+            if failure_indices and success_indices:
+                eval_indices = [failure_indices[0], success_indices[0]]
+                train_indices = [i for i in range(n_total_collected) if i not in eval_indices]
+                train_features = torch.stack([trace_features[i] for i in train_indices])
+                train_labels = torch.tensor([labels[i] for i in train_indices], dtype=torch.float32)
+                eval_features = torch.stack([trace_features[i] for i in eval_indices])
+                eval_labels = torch.tensor([labels[i] for i in eval_indices], dtype=torch.float32)
+                print(f"Train: {tuple(train_features.shape)}, eval: {tuple(eval_features.shape)} (rebalanced)")
     else:
         # Deterministic (legacy) split.
         n_train = int(n_total_collected * n_train_frac)

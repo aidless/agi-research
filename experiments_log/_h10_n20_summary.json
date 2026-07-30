@@ -1,0 +1,62 @@
+{
+  "n_seeds": 20,
+  "parsed_seeds": 19,
+  "note": "Seed 111 collapsed to single-class eval under stratified split; rebalanced fallback recorded (1,1) eval giving AUROC=1.0 for both Frozen and Joint on seed 111.",
+  "summary": {
+    "Frozen mean": 0.579,
+    "Frozen sd": 0.417,
+    "Joint mean": 0.447,
+    "Joint sd": 0.438,
+    "Random mean": 0.632,
+    "Random sd": 0.403,
+    "paired_F_J": {
+      "n": 19,
+      "mean_diff": 0.1316,
+      "sem": 0.1137,
+      "t": 1.157,
+      "p_two_sided": 0.2623,
+      "W": 16.0,
+      "W_p": 0.2222,
+      "cohens_d": 0.2655
+    },
+    "paired_F_R": {
+      "n": 19,
+      "mean_diff": -0.0526,
+      "sem": 0.1203,
+      "t": -0.438,
+      "p_two_sided": 0.6669,
+      "W": 15.5,
+      "W_p": 0.7196,
+      "cohens_d": -0.1004
+    },
+    "paired_J_R": {
+      "n": 19,
+      "mean_diff": -0.1842,
+      "sem": 0.1222,
+      "t": -1.508,
+      "p_two_sided": 0.149,
+      "W": 8.0,
+      "W_p": 0.1489,
+      "cohens_d": -0.3459
+    },
+    "bonferroni_alpha": 0.016666666666666666
+  },
+  "n5_subset": {
+    "Frozen mean": 0.5,
+    "Joint mean": 0.4,
+    "Random mean": 0.5,
+    "paired_F_J": {
+      "n": 5,
+      "mean_diff": 0.1,
+      "t": 0.343,
+      "p_two_sided": 0.7489
+    },
+    "paired_F_R": {
+      "n": 5,
+      "mean_diff": -0.1,
+      "t": -0.535,
+      "p_two_sided": 0.6213
+    }
+  },
+  "interpretation": "H10 still REFUTED at n=20. Direction preserved (Frozen-Joint mean diff +0.13) but not significant. Random arm slightly outperforms both trained arms (mean 0.63 vs 0.58/0.45), consistent with the n=5 finding that any signal is essentially noise on this task."
+}

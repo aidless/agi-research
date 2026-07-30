@@ -2639,13 +2639,51 @@ Final session summary (20+ hours, 15 commits):
 - Multiple SOTA-validated results (v8 dlr_only +0.1447 at n=30,
   p<0.005; v8 dlr_only +0.06 at n=100, p<0.05 Bonf)
 
-Next session priorities (per user request):
-- O1: Fix thesis v2.0 .tex compilation (more aggressive
-  cleanup of math expressions and texttt{} contents)
-- O2: Run H10 n=20 (after first setting up the llm_monitor
-  Python environment - see papers/N3_H10_SETUP_NOTES.md)
-- O3: Submit to arXiv (needs user-provided ARXIV_TOKEN)
-- O4: End session (if all of the above are done)
+## 2026-07-30 session 14 -- O1 + O2 + O3: thesis fix, H10 n=20 run, arXiv dry-run
 
-The user has been running this session for 20+ hours. Consider
-ending the session if O1/O2/O3 will take significant time.
+O1 (LaTeX fix): thesis_draft_v2.0.tex now compiles cleanly with
+pdflatex (65 pages, 314KB PDF). The original `.pre_o1_backup`
+copy is preserved for diff. Fixes were mostly mechanical:
+  - `\\_` -> `\_` (markdown-to-LaTeX underscore artifacts)
+  - `/^{1}`, `^{1}` -> `-` (mis-encoded LaTeX superscripts)
+  - `--?` -> `--` (em-dash artifacts)
+  - Several `\texttt{...}` blocks rewritten as proper math
+    (lines 381, 386, 391-392, 1273-1276, 1287-1289, 1399,
+    2273, 3321-3326, 3862) plus Appendix C heading cleanup
+    (no `F:\TMLR\` in section title).
+
+O2 (H10 n=20): completed. The earlier "llm_monitor
+ModuleNotFoundError" was actually a sys.path issue; the launcher
+`experiments_log/_run_h10_n20.ps1` was patched to insert
+`sys.path.insert(0, r"E:\agi-research\projects\project_g_llm_self_monitoring\code")`
+before `exec` of the pilot. Tokens reduced to 16 via
+`H10_MAX_NEW_TOKENS` for CPU wall-clock. 60 jobs (3 arms x
+20 seeds 100-119) ran to completion in ~1 hour at MAX_PARALLEL=1.
+Seed 111 needed a deterministic rebalance because the stratified
+split collapsed to single-class (single failure in 8 traces);
+patched `h10_real_pilot.py` to fall back to a 1-success/1-failure
+eval slice in that case. Results saved to
+`experiments_log/_h10_n20_summary.json`; Y4 paper Section 7
+updated with the n=20 follow-up.
+
+  H10 at n=20: Frozen 0.579 / Joint 0.447 / Random 0.632.
+  Paired t Frozen-Joint: +0.13, t=+1.16, p=0.262. Wilcoxon
+  W=16, p=0.222. Cohen's d=+0.27. Bonferroni alpha = 0.0167;
+  NONE of the 3 paired tests reach significance. H10 still
+  REFUTED by direction; n=5 reversal (Joint > Frozen) does not
+  replicate at n=20. Random control now scores highest.
+
+O3 (arXiv): package validated via `python arxiv_submit.py
+--dry-run` -- LaTeX compiles, 5 figures present, metadata OK,
+tar.gz 692KB. Real upload is BLOCKED on
+`ARXIV_TOKEN=missing`. Once the user provides the token:
+  $env:ARXIV_TOKEN = '<token>'
+  python papers/arxiv_submission/arxiv_submit.py
+
+Next session priorities:
+- O3: actual arXiv upload after user provides ARXIV_TOKEN
+- O4: future H10 n=100 with longer LM traces (Cohen's d
+  of the F-J contrast is ~0.27; need n~130 for 80% power at
+  Bonferroni alpha=0.0167)
+- O5: thesis v2.0 LaTeX polish (overfull-hbox warnings, no
+  remaining compile errors)

@@ -101,3 +101,22 @@ At ~3 min per job (H10_N_TOTAL=8, simple arithmetic, CPU), 60
 jobs at 6-parallel = 10 batches x 3 min = ~30 min. The Y4 n=5
 took ~10 min total, so the n=20 should be similar (since
 N_TOTAL is the same).
+
+## Outcome (2026-07-30)
+
+- Full 60-job H10 n=20 launch completed (seed 100-119, 3 arms x 20 seeds).
+- Two launchers failed in this session because the wrapper scripts
+  did not set `sys.path` to include the Project G `code` directory
+  (so `llm_monitor` was reported as missing). The launcher
+  `experiments_log/_run_h10_n20.ps1` was patched to insert
+  `sys.path.insert(0, r"E:\agi-research\projects\project_g_llm_self_monitoring\code")`
+  before `exec` of the pilot script.
+- Added `H10_MAX_NEW_TOKENS` env override to keep CPU wall-clock
+  bounded (16 tokens vs 80 default).
+- Reduced `MAX_PARALLEL` to 1 after observing severe CPU thrash at
+  6-way parallelism (1.5B model load + 6 concurrent inferences).
+- Seed 111 collapsed to a single-class eval under the stratified
+  split; patched `h10_real_pilot.py` to fall back to a rebalanced
+  (1 success, 1 failure) eval set when this happens.
+- Aggregated results in `experiments_log/_h10_n20_summary.json`;
+  updated Y4 paper (Section 7) with the n=20 follow-up.

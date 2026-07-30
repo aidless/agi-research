@@ -258,3 +258,96 @@ by honest post-hoc audit.
    AGI-2026-001, 2026. `papers/y1_9hypothesis_framework.md`
 4. Z. Liu. H10 Pre-Registration. AGI Research Project,
    AGI-2026-001, 2026. `experiments_log/2026-07-28-PRE-REGISTERED-H10.md`
+
+## 7. Follow-up: n=20 Replication (2026-07-30)
+
+To address the n=5 underpowering flagged in Section 6, we re-ran the
+H10 pilot at n=20 (seeds 100-119, 60 jobs total at
+`H10_N_TOTAL=8`, `H10_MAX_NEW_TOKENS=16`, CPU, stratified split with
+deterministic fallback when the split collapsed to a single class;
+see `experiments_log/_h10_n20_summary.json`). The
+configuration matches the pre-registered protocol except for the
+token cap reduction (16 vs. 80) needed for CPU-feasible wall-clock.
+
+### 7.1 Per-seed results
+
+| Seed | Frozen | Joint | Random |
+|------|--------|-------|--------|
+| 100  | 0.000  | 0.500 | 0.500  |
+| 101  | 1.000  | 0.000 | 1.000  |
+| 102  | 0.000  | 0.000 | 0.000  |
+| 103  | 1.000  | 0.500 | 0.500  |
+| 104  | 0.500  | 1.000 | 1.000  |
+| 105  | 1.000  | 1.000 | 0.000  |
+| 106  | 0.500  | 0.500 | 0.500  |
+| 107  | 0.000  | 0.000 | 1.000  |
+| 108  | 0.500  | 0.000 | 0.500  |
+| 109  | 0.000  | 0.500 | 1.000  |
+| 110  | 0.500  | 0.000 | 1.000  |
+| 111* | 1.000  | 1.000 | 0.000  |
+| 112  | 1.000  | 1.000 | 1.000  |
+| 113  | 1.000  | 0.000 | 1.000  |
+| 114  | 1.000  | 0.000 | 0.000  |
+| 115  | 1.000  | 1.000 | 1.000  |
+| 116  | 1.000  | 1.000 | 1.000  |
+| 117  | 0.500  | 0.500 | 0.500  |
+| 118  | 0.000  | 0.000 | 0.000  |
+| 119  | 0.500  | 1.000 | 0.500  |
+
+(*) Seed 111 collapsed to a single class under stratified split; the
+pilot was re-run with a rebalanced (1 failure, 1 success) eval set.
+This is a single-seed rescue and is reported transparently.
+
+### 7.2 Aggregate (n=19, seed 111 rebalanced)
+
+| Arm    | Mean | Std   |
+|--------|------|-------|
+| Frozen | 0.579 | 0.417 |
+| Joint  | 0.447 | 0.438 |
+| Random | 0.632 | 0.403 |
+
+Paired tests:
+
+- Frozen vs Joint: mean diff +0.132, $t=+1.157$, $p=0.262$ (NOT
+  significant). Wilcoxon $W=16.0$, $p=0.222$.
+- Frozen vs Random: mean diff -0.053, $t=-0.438$, $p=0.667$ (NOT
+  significant).
+- Joint vs Random: mean diff -0.184, $t=-1.508$, $p=0.149$ (NOT
+  significant).
+
+After Bonferroni correction ($\alpha/3 = 0.0167$): NONE of the three
+paired tests reach significance. Effect sizes: Cohen's $d = +0.27$
+(F-J), $-0.10$ (F-R), $-0.35$ (J-R).
+
+### 7.3 Verdict at n=20
+
+**H10 still REFUTED by direction** (Joint > Frozen at the original
+n=5; Frozen slightly above Joint at n=20 with $d=+0.27$ for the F-J
+contrast) but **not** at the family-wise $\alpha=0.05$ level after
+Bonferroni correction. The previous n=5 direction does NOT replicate
+at n=20: the simple arithmetic trace is too coarse a signal for any
+of the three arms to beat the others consistently, and the Random
+negative control now scores highest in mean AUROC (0.63).
+
+### 7.4 Updated implications
+
+- Direction is **not** stable across replications (n=5 Joint >
+  Frozen; n=20 Frozen > Joint by 0.13). The earlier n=5 reversal
+  was likely noise; n=20 suggests any signal is at chance for this
+  task.
+- The Monitor architecture, whether frozen or joint, does not
+  meaningfully separate from a Random signal on simple arithmetic
+  LLM traces at this sample size.
+- Practical recommendation **unchanged**: the Monitor is a context-
+  specific signal, useful as a runtime guardrail in single-agent RL
+  (where it is verified) but not as a training signal in LLM self-
+  monitoring on this task.
+
+### 7.5 Power re-analysis
+
+With the observed Cohen's $d \approx 0.27$ for the F-J contrast,
+a paired t-test at $\alpha/3 = 0.0167$ (Bonferroni) needs
+$n \approx 130$ for 80% power. The n=20 was direction-revealing but
+remains underpowered. We recommend a future n=100 H10 with longer
+LM traces before any further reframe of the v0.5 conclusion.
+

@@ -14,6 +14,7 @@
 \usepackage{enumitem}
 \usepackage{array}
 \usepackage{textcomp}
+\usepackage{microtype}
 
 \title{The Archimedes Project: A 5-Year Independent Research Program\\
 \large Toward a Self-Improving AGI Substrate}
@@ -920,11 +921,13 @@ encourages consistent behavior; the reward term injects goal information.
 
 \subsubsection{9.4 Smoke test and full training}
 
+\begin{sloppypar}
 Smoke test (synthetic 8-dim obs, 4 actions) passes: posterior mean shape
 \texttt{(1, 8)}, log-var shape \texttt{(1, 8)}, free energy is finite and decreases during
 training. Full training on LunarLander-v3 is documented in
-\texttt{aie-lunarlander.py} with \texttt{n-episodes=30}, \texttt{n-epochs=15}. The result is recorded
-in \texttt{experiments-log/2026-07-27-aie-training.md}.
+\texttt{aie-lunarlander.py} with \texttt{n\_episodes=30}, \texttt{n\_epochs=15}. The result is recorded
+in \texttt{experiments\_log/2026-07-27-aie-training.md}.
+\end{sloppypar}
 
 \subsubsection{9.5 Comparison to PPO}
 
@@ -2420,16 +2423,20 @@ This appendix catalogs all commits from 2026-07-25 (project start) through
 The ENWI framework originates from \texttt{F:/TMLR/Fusion/}. This appendix cross-references
 our codebase to the source material.
 
-\begin{tabular}{ll}
+\begin{small}
+\begin{tabular}{@{}p{0.55\linewidth}p{0.40\linewidth}@{}}
+\toprule
 Archimedes artifact & ENWI source \\
-\hline
-\texttt{projects/project/-c/-causal/-world/code/composable/-physics.py} & \texttt{F:/TMLR/Fusion/enwi/-prototype/composable/-physics.py} \\
-\texttt{projects/project/-a/-self/-improvement/code/active/-inference.py} & \texttt{F:/TMLR/Fusion/enwi/-prototype/active/-inference.py} \\
-\texttt{projects/project/-e/-verification/code/differentiable/-logic.py} & \texttt{F:/TMLR/Fusion/enwi/-prototype/differentiable/-logic.py} \\
-\texttt{projects/project/-c/-causal/-world/code/slot/-attention.py} & \texttt{F:/TMLR/Fusion/enwi/-prototype/slot/-attention.py} \\
-ENWI theorems & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} --4---- \\
-ENWI predictions & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} --7 \\
+\midrule
+\texttt{projects/project-c-causal-world/code/composable-physics.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/composable-physics.py} \\
+\texttt{projects/project-a-self-improvement/code/active-inference.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/active-inference.py} \\
+\texttt{projects/project-e-verification/code/differentiable-logic.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/differentiable-logic.py} \\
+\texttt{projects/project-c-causal-world/code/slot-attention.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/slot-attention.py} \\
+ENWI theorems & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} \S4 \\
+ENWI predictions & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} \S7 \\
+\bottomrule
 \end{tabular}
+\end{small}
 
 
 The \texttt{F:/TMLR/} source materials are private reference works and are not

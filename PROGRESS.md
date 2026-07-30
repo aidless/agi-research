@@ -2602,3 +2602,50 @@ to arXiv (just needs the ARXIV_TOKEN env var, see
 | 0186857 | H2: power analysis + practical implications + 10K longer training |
 | 93cb1ec | I1-I3: arXiv improvements + Y4 paper + 10K n=20 |
 | 75ddb8f | J1-J3: arXiv guide + Y5 synthesis + 10K n=50 |
+
+
+## 2026-07-30 session 13 -- N2 + N3 + final session wrap-up
+
+N2: thesis v2.0 LaTeX PARTIAL cleanup
+- .tex file generated (150KB) but does NOT fully compile
+- Issues remain with texttt{} math chars, corrupted em-dashes,
+  and broken math expressions
+- The markdown v2.0 (130KB) is the primary artifact; .tex is
+  best-effort
+- See thesis_draft_v2.0.tex for the partial cleanup; the user
+  can do additional fixes in next session
+
+N3: H10 n=20 SKIPPED (env issues)
+- h10_real_pilot.py requires llm_monitor module
+- llm_monitor not available in any of the current Python envs
+  (ModuleNotFoundError when imported)
+- The Y4 n=5 results were run in a specific env that we cannot
+  access now
+- Documented setup notes in papers/N3_H10_SETUP_NOTES.md for
+  next session
+
+Final session summary (20+ hours, 15 commits):
+- Y1 paper (single-agent RL Monitor verified)
+- Y3 paper (6-pathway MA investigation, 14 pages, 5 figures,
+  all reviewer feedback integrated)
+- Y4 paper (Project G LLM self-monitoring, H10 REFUTED,
+  reviewer feedback integrated)
+- Y5 paper (cross-context synthesis, Monitor is context-specific)
+- 4-pathway lessons-learned v2
+- arXiv submission package (8 files + tar.gz, ready to submit)
+- Thesis v2.0 (markdown 130KB, LaTeX 150KB partial)
+- PROGRESS.md (15 sessions of work)
+- ~14,000 training episodes across all 6-pathway experiments
+- Multiple SOTA-validated results (v8 dlr_only +0.1447 at n=30,
+  p<0.005; v8 dlr_only +0.06 at n=100, p<0.05 Bonf)
+
+Next session priorities (per user request):
+- O1: Fix thesis v2.0 .tex compilation (more aggressive
+  cleanup of math expressions and texttt{} contents)
+- O2: Run H10 n=20 (after first setting up the llm_monitor
+  Python environment - see papers/N3_H10_SETUP_NOTES.md)
+- O3: Submit to arXiv (needs user-provided ARXIV_TOKEN)
+- O4: End session (if all of the above are done)
+
+The user has been running this session for 20+ hours. Consider
+ending the session if O1/O2/O3 will take significant time.

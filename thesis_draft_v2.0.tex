@@ -286,7 +286,7 @@ verification.
 \subsubsection{2.1 ENWI in one paragraph}
 
 \textbf{ENWI} (Embodied Neurosymbolic World-model Intelligence) is a unified AGI
-architecture proposed in the 1482-line paper at \texttt{F:/TMLR/Fusion/ENWI/\_PAPER.md}. It
+architecture proposed in the 1482-line paper at \texttt{F:/TMLR/Fusion/ENWI\\_PAPER.md}. It
 posits that an intelligent system is best understood as an *active inference agent
 operating over composable physical simulations, with neurosymbolic differentiable
 logic reasoning, using its body as the interface to the world*.
@@ -331,65 +331,65 @@ sample complexity of active inference.
 
 \paragraph{Theorem 1 --?Differentiable Logic Soundness}
 
-> For any predicate `` defined as a product-t-norm combination of base predicates,
-> the value \texttt{[[]] ?[0, 1]} produced by the Differentiable Logic Reasoner
-> satisfies \texttt{lim\\_{} [[]] --?1} if and only if  is provably true in classical
-> logic.
+For any predicate `` defined as a product-t-norm combination of base predicates,
+the value $[[]] ?[0, 1]$ produced by the Differentiable Logic Reasoner
+satisfies \texttt{lim/\\1{} [[]] --?1} if and only if  is provably true in classical
+logic.
 
 \paragraph{Theorem 2 --?Differentiable Logic Completeness}
 
-> For any classical tautology ``, there exists a finite product-t-norm expression
-> `\texttt{ such that }[[]] ?1 ?\texttt{ for any } > 0`.
+For any classical tautology ``, there exists a finite product-t-norm expression
+`\texttt{ such that }[[]] ?1 ?\texttt{ for any } > 0`.
 
 \paragraph{Theorem 3 --?Classical Limit}
 
-> In the limit of infinite neural-network width, the Differentiable Logic Reasoner
-> converges to the classical propositional logic truth value.
+In the limit of infinite neural-network width, the Differentiable Logic Reasoner
+converges to the classical propositional logic truth value.
 
 \paragraph{Theorem 4 --?JEPA-Symbol Equivalence}
 
-> For any observation \texttt{o} and any symbolic state \texttt{s} in the JEPA representation,
-> there exists a predicate `\texttt{ such that }[[(o)]] = 1\texttt{ if and only if }s` is a
-> faithful abstraction of \texttt{o}.
+For any observation \texttt{o} and any symbolic state \texttt{s} in the JEPA representation,
+there exists a predicate `\texttt{ such that }[[(o)]] = 1\texttt{ if and only if }s` is a
+faithful abstraction of \texttt{o}.
 
 \paragraph{Theorem 5 --?Free Energy Decomposition}
 
-> The variational free energy \texttt{F} admits the decomposition
-> \texttt{F = D\\_KL(q(s) || p(s|o)) ?log p(o)}.
+The variational free energy \texttt{F} admits the decomposition
+\texttt{F = D/\\1KL(q(s) /textbar{}/textbar{} p(s/textbar{}o)) ?log p(o)}.
 
 \paragraph{Theorem 6 --?Expected Free Energy Decomposition}
 
-> For a candidate action \texttt{a}, the expected free energy is
-> \texttt{G(a) = E\\_{q(s|o,a)}[og p(o|C) ?KL(q(s|o,a) || q(s|o))]},
-> where the first term is pragmatic value and the second is epistemic value.
+For a candidate action \texttt{a}, the expected free energy is
+\texttt{G(a) = E/\\1{q(s/textbar{}o,a)}[og p(o|C) ?KL(q(s|o,a) || q(s|o))]},
+where the first term is pragmatic value and the second is epistemic value.
 
 \paragraph{Theorem 7 --?Composable Physics Sample Complexity}
 
-> If each physics module \texttt{M\\_i} is correct on its support set \texttt{S\\_i}, then the
-> Composer \texttt{C} learns the correct module-mixing weights with sample complexity
-> \texttt{O(\textbar{}S\textbar{}\^{}2 log(1/))} where \texttt{S = ?S\\_i}.
+If each physics module \texttt{M/\\1i} is correct on its support set \texttt{S/\\1i}, then the
+Composer \texttt{C} learns the correct module-mixing weights with sample complexity
+\texttt{O(/textbar{}S\textbar{}\^{}2 log(1/))} where $S = ?S/^{1}i$.
 
 \paragraph{Theorem 8 --?Composable Physics Generalization}
 
-> If \texttt{M\\_1, --? M\\_K} cover all reachable scenes with coverage \texttt{ > 0}, then the
-> Composer generalizes to held-out scenes with expected error \texttt{O((1 ?)\\^{}{}K)}.
+If $M_1, --? M_K$ cover all reachable scenes with coverage \texttt{ > 0}, then the
+Composer generalizes to held-out scenes with expected error $O((1 ?)^{K})$.
 
 \paragraph{Theorem 9 --?Monolith Lower Bound}
 
-> The best monolithic world model of parameter count \texttt{P} achieves worst-case error
-> at least \texttt{(P\\^{}{}{?/d})} on \texttt{d}-dimensional scenes, while a \texttt{K}-module Composer
-> with \texttt{P/K} parameters per module achieves worst-case error \texttt{O((P/K)\\^{}{}{?/d} / )}.
+The best monolithic world model of parameter count \texttt{P} achieves worst-case error
+at least $(P^{d}/d)$ on \texttt{d}-dimensional scenes, while a \texttt{K}-module Composer
+with \texttt{P/K} parameters per module achieves worst-case error $O((P/K)///^{${}{}{?/d} / )}.
 
 \paragraph{Theorem 10 --?Active Inference Data Efficiency}
 
-> An active inference agent achieves the same expected return as a PPO baseline
-> with \texttt{O(T log(1/))} samples where \texttt{T} is horizon, beating PPO''s \texttt{O(T\\^{}{}2 / )}
-> sample complexity for \texttt{ < 1/T}.
+An active inference agent achieves the same expected return as a PPO baseline
+with \texttt{O(T log(1/))} samples where \texttt{T} is horizon, beating PPO''s $O(T///^{${}{}2 / )}
+sample complexity for \texttt{ < 1/T}.
 
 \paragraph{Theorem 11 --?Active Inference Convergence}
 
-> Under regularity conditions, the expected free energy \texttt{G\\_t} decreases
-> monotonically with iteration \texttt{t}, and \texttt{lim\\_{t--} G\_t = G*}.
+Under regularity conditions, the expected free energy \texttt{G/^{1}t} decreases
+monotonically with iteration \texttt{t}, and \texttt{lim/^{1}{t--} G\_t = G*}.
 
 \subsubsection{2.3 The five ENWI predictions}
 
@@ -524,7 +524,7 @@ We model the agent''s interaction with an environment as a Markov Decision Proce
 \texttt{(S, A, P, r, )}. In LunarLander-v3 specifically:
 
 \begin{itemize}
-  \item \texttt{S ?R\\^{}{}8}: continuous state vector (position, velocity, angle, angular velocity,
+  \item $S \in \mathbb{R}^{8}$: continuous state vector (position, velocity, angle, angular velocity,
 \end{itemize}
 
   two leg-contact booleans).
@@ -534,7 +534,7 @@ We model the agent''s interaction with an environment as a Markov Decision Proce
 
   fire right).
 \begin{itemize}
-  \item \texttt{P(s''|s, a)}: deterministic transition function from the Box2D physics engine.
+  \item \texttt{P(s''/textbar{}s, a)}: deterministic transition function from the Box2D physics engine.
   \item \texttt{r(s, a, s'')}: shaped reward (?.3 per timestep + 100 per leg contact + 200 for
 \end{itemize}
 
@@ -548,27 +548,27 @@ An episode terminates on crash, landing, or timeout (1000 steps).
 
 \subsubsection{5.2 The Monitor}
 
-The Monitor \texttt{M\\_ : R\\^{}{}d --?[0, 1]} is a function approximator parameterized by ``
-that maps an episode history \texttt{h\\_t = (s\\_0, a\\_0, r\\_0, --? s\\_t)} to a predicted
+The Monitor $M : \mathbb{R}^{d} \to [0, 1]$ is a function approximator parameterized by ``
+that maps an episode history $h/\\1t = (s/\\10, a/\\10, r/\\10, --? s/\\1t)$ to a predicted
 probability that the episode will end in failure. Failure is defined as
-\texttt{terminal state is crash}, which corresponds to reward \texttt{< ?00} at termination.
+\texttt{terminal state is crash}, which corresponds to reward $< ?00$ at termination.
 
 The Monitor is evaluated by AUROC against the binary failure label on a held-out
 set of episodes. AUROC is invariant to calibration and depends only on ranking.
 
 \subsubsection{5.3 The H1 hypothesis}
 
-> \textbf{H1}: A Monitor trained on rollouts from a frozen policy \texttt{--\\_f} has higher
-> failure-prediction AUROC than a Monitor trained jointly with the policy being
-> improved, on the same PPO budget.
+\textbf{H1}: A Monitor trained on rollouts from a frozen policy \texttt{--/^{1}f} has higher
+failure-prediction AUROC than a Monitor trained jointly with the policy being
+improved, on the same PPO budget.
 
 \textbf{Operationalization}:
 
 \begin{itemize}
-  \item Frozen Monitor: PPO trains a policy \texttt{--\\_f} for 100K steps; the policy is then
+  \item Frozen Monitor: PPO trains a policy \texttt{--/^{1}f} for 100K steps; the policy is then
 \end{itemize}
 
-  frozen; 5000 additional episodes are collected from \texttt{--\\_f}; the Monitor is
+  frozen; 5000 additional episodes are collected from \texttt{--/^{1}f}; the Monitor is
   trained on these episodes for 50 epochs.
 \begin{itemize}
   \item Joint Monitor: PPO trains both the policy and the Monitor simultaneously for
@@ -591,7 +591,7 @@ problem. Decoupling breaks the loop.
 
 \paragraph{6.1.1 Environment}
 
-LunarLander-v3 from Gymnasium. We use \texttt{make\\_env(env\\_name, seed)} from \texttt{envs.py}
+LunarLander-v3 from Gymnasium. We use \texttt{make/^{1}env(env/^{1}name, seed)} from \texttt{envs.py}
 which wraps \texttt{gym.make} with deterministic seeding.
 
 \paragraph{6.1.2 PPO baseline}
@@ -610,7 +610,7 @@ PPO (Schulman et al. 2017) with:
 \paragraph{6.1.3 Monitor architecture}
 
 The Monitor is a 3-layer MLP with hidden sizes \texttt{(128, 64)}, ReLU activations,
-sigmoid output. Input is the flat history vector \texttt{h\\_t ?R\\^{}{}200} (50 timesteps 
+sigmoid output. Input is the flat history vector $h_t \in \mathbb{R}^{200}$ (50 timesteps 
 4 features: \texttt{(x, y, vx, vy)} flattened, with actions omitted).
 
 \paragraph{6.1.4 Training procedure}
@@ -670,15 +670,15 @@ two-sided level.
 \paragraph{6.2.3 Why decoupling helps}
 
 The frozen Monitor is trained on a stationary distribution of trajectories
-(those from \texttt{--\\_f}). The joint Monitor is trained on a non-stationary
-distribution (those from \texttt{--\\_t}, which changes every PPO update). This covariate
+(those from \texttt{--/^{1}f}). The joint Monitor is trained on a non-stationary
+distribution (those from \texttt{--/^{1}t}, which changes every PPO update). This covariate
 shift degrades the joint Monitor''s ability to generalize.
 
 Specifically, the joint Monitor sees two failure modes:
 
 1. \textit{True failures} from the current policy.
 2. \textit{Pseudo-failures} induced by the policy''s exploration: actions that are bad for
-   the current policy but would have been good for \texttt{--\\_f}.
+   the current policy but would have been good for \texttt{--/^{1}f}.
 
 The frozen Monitor sees only type 1 failures, which are easier to learn.
 
@@ -730,12 +730,12 @@ output: attended features per slot
 
 The slot attention module:
 
-1. Projects input and slots to a shared \texttt{key}/\texttt{query}/\texttt{value} space.
+1. Projects input and slots to a shared \texttt{key}^{1}texttt{query}^{1}texttt{value} space.
 2. Computes softmax attention from slots to input positions, normalized over
    slots (competition).
 3. Iteratively refines slots for \texttt{iters} rounds (default 3).
 
-In \texttt{slot\\_monitor.py}, the input history vector is reshaped into \texttt{(T, F)},
+In \texttt{slot/^{1}monitor.py}, the input history vector is reshaped into \texttt{(T, F)},
 projected, and decomposed into 4 slots via slot attention. Each slot is then
 processed by a per-slot MLP and concatenated for the Monitor.
 
@@ -872,20 +872,20 @@ exploratory* in a principled way.
 \subsubsection{9.2 The port}
 
 We port the ENWI Active Inference Engine (Layer 5) to Project A. The
-implementation is in \texttt{active\\_inference.py} and \texttt{aie\\_lunarlander.py}:
+implementation is in \texttt{active/^{1}inference.py} and \texttt{aie/^{1}lunarlander.py}:
 
 \begin{itemize}
-  \item \textbf{Encoder} \texttt{q(s|o)}: MLP producing posterior mean and log-variance over a
+  \item \textbf{Encoder} \texttt{q(s/textbar{}o)}: MLP producing posterior mean and log-variance over a
 \end{itemize}
 
   latent state.
 \begin{itemize}
-  \item \textbf{Generation model} \texttt{p(o|s)}: MLP decoding latent state to predicted
+  \item \textbf{Generation model} \texttt{p(o/textbar{}s)}: MLP decoding latent state to predicted
 \end{itemize}
 
   observation.
 \begin{itemize}
-  \item \textbf{Transition model} \texttt{p(s''|s, a)}: linear layer that takes the current state
+  \item \textbf{Transition model} \texttt{p(s''/textbar{}s, a)}: linear layer that takes the current state
 \end{itemize}
 
   and a one-hot action and outputs the next state.
@@ -893,10 +893,10 @@ implementation is in \texttt{active\\_inference.py} and \texttt{aie\\_lunarlande
   \item \textbf{Free energy computer}: variational free energy
 \end{itemize}
 
-  \texttt{F = E\\_q[log q(s) ?log p(o, s)]}.
+  $F = E/\\1q[log q(s) ?log p(o, s)]$.
 \begin{itemize}
   \item \textbf{Action sampler}: policy network mapping latent state to action logits.
-  \item \textbf{Preference model} \texttt{p(o|C)}: learnable parameter representing the goal in
+  \item \textbf{Preference model} \texttt{p(o/textbar{}C)}: learnable parameter representing the goal in
 \end{itemize}
 
   observation space.
@@ -923,8 +923,8 @@ encourages consistent behavior; the reward term injects goal information.
 Smoke test (synthetic 8-dim obs, 4 actions) passes: posterior mean shape
 \texttt{(1, 8)}, log-var shape \texttt{(1, 8)}, free energy is finite and decreases during
 training. Full training on LunarLander-v3 is documented in
-\texttt{aie\\_lunarlander.py} with \texttt{n\\_episodes=30}, \texttt{n\\_epochs=15}. The result is recorded
-in \texttt{experiments\\_log/2026-07-27-aie-training.md}.
+\texttt{aie/^{1}lunarlander.py} with \texttt{n/^{1}episodes=30}, \texttt{n/^{1}epochs=15}. The result is recorded
+in \texttt{experiments/^{1}log/2026-07-27-aie-training.md}.
 
 \subsubsection{9.5 Comparison to PPO}
 
@@ -988,13 +988,13 @@ stronger than visual signal.
 
 \subsubsection{10.3 Implementation}
 
-The slot attention module is in \texttt{projects/project\\_c\\_causal\\_world/code/}.
+The slot attention module is in \texttt{projects/project/^{1}c/^{1}causal/^{1}world/code/}.
 Key parameters:
 
 \begin{itemize}
-  \item \texttt{slot\\_dim = 32} (per-slot feature dimension)
-  \item \texttt{n\\_slots = 4} (matches LunarLander''s natural decomposition)
-  \item \texttt{n\\_iters = 3} (default; 1 suffices for 1-D inputs)
+  \item \texttt{slot/^{1}dim = 32} (per-slot feature dimension)
+  \item \texttt{n/^{1}slots = 4} (matches LunarLander''s natural decomposition)
+  \item \texttt{n/^{1}iters = 3} (default; 1 suffices for 1-D inputs)
   \item \texttt{hidden = 64} (slot update GRU hidden size)
 \end{itemize}
 
@@ -1008,7 +1008,7 @@ epochs (full).
 
 \subsubsection{11.1 Why dynamics}
 
-A \textit{world model} predicts \texttt{p(s''|s, a)}. With slot-structured states, we can learn
+A \textit{world model} predicts \texttt{p(s''/textbar{}s, a)}. With slot-structured states, we can learn
 \textit{per-slot} dynamics:
 
 \begin{verbatim}
@@ -1017,11 +1017,11 @@ slot_k' = f_k(slot_k, action)
 
 This decomposes the global transition into K independent transitions, each
 operating on a smaller state space. The benefit is sample efficiency: each
-\texttt{f\\_k} sees only the dynamics relevant to its slot.
+\texttt{f/^{1}k} sees only the dynamics relevant to its slot.
 
 \subsubsection{11.2 Architecture}
 
-The per-slot dynamics model in \texttt{slot\\_attention\\_dynamics.py}:
+The per-slot dynamics model in \texttt{slot/^{1}attention/^{1}dynamics.py}:
 
 \begin{verbatim}
 slot_k: R^D --?R^D
@@ -1105,16 +1105,16 @@ separately and combined by a Composer that learns per-state-action weights.
 
 \subsubsection{12.2 The four modules}
 
-We port the four physics modules from \texttt{F:/TMLR/Fusion/enwi/\_prototype/}:
+We port the four physics modules from \texttt{F:/TMLR/Fusion/enwi/^{1}prototype/}:
 
 \begin{itemize}
-  \item \textbf{Gravity}: \texttt{y'' = g ?drag * y'}. Implemented as a 2-layer MLP over \texttt{(y, v\\_y)}.
-  \item \textbf{Collision}: \texttt{v' = -- \textit{ v + (1 + e) } m\_other / (m\_self + m\_other) * v\_other}.
+  \item \textbf{Gravity}: $y'' = g ?drag * y'$. Implemented as a 2-layer MLP over \texttt{(y, v/^{1}y)}.
+  \item \textbf{Collision}: \texttt{v' = -- /textit{ v + (1 + e) } m\_other / (m\_self + m\_other) * v\_other}.
 \end{itemize}
 
-  Implemented as an MLP over \texttt{(v\\_self, v\\_other, m\\_self, m\\_other)}.
+  Implemented as an MLP over \texttt{(v/^{1}self, v/^{1}other, m/^{1}self, m/^{1}other)}.
 \begin{itemize}
-  \item \textbf{Friction}: \texttt{v' = v ?-- \textit{ g } sign(v)}. Implemented as an MLP over \texttt{(v, --)}.
+  \item \textbf{Friction}: $v' = v - \textit{g} \cdot \text{sign}(v)$. Implemented as an MLP over \texttt{(v, --)}.
   \item \textbf{Inertia}: \texttt{F = m * a}. Implemented as an MLP over \texttt{(F, m)}.
 \end{itemize}
 
@@ -1140,7 +1140,7 @@ a monolithic baseline by 94.22\% on five synthetic physics scenes:
 4. \textit{inertia}: F = m * a.
 5. \textit{compound}: all four mixed.
 
-We replicate this in \texttt{enwi\\_prediction2.py}:
+We replicate this in \texttt{enwi/^{1}prediction2.py}:
 
 \begin{verbatim}
 1. Generate 1000 train + 200 test scenes per type
@@ -1225,7 +1225,7 @@ human-interpretable natural language.
 
 \subsubsection{13.2 Template structure}
 
-The language interface in \texttt{code/language\\_interface.py} uses a small template:
+The language interface in \texttt{code/language/^{1}interface.py} uses a small template:
 
 \begin{verbatim}
 template = (
@@ -1262,7 +1262,7 @@ generation.
 
 \subsubsection{14.1 Types as state abstractions}
 
-The LunarLander state space \texttt{S ?R\\^{}{}8} admits a \textit{type lattice} that decomposes it
+The LunarLander state space $S \in \mathbb{R}^{8}$ admits a \textit{type lattice} that decomposes it
 into orthogonal subspaces:
 
 \begin{verbatim}
@@ -1270,10 +1270,10 @@ S = Position  Velocity  Rotation  Contact
 \end{verbatim}
 
 \begin{itemize}
-  \item \textbf{Position}: \texttt{(x, y) ?R--}. Describes where the lander is.
-  \item \textbf{Velocity}: \texttt{(vx, vy) ?R--}. Describes how the lander moves.
-  \item \textbf{Rotation}: \texttt{(angle, ang\\_vel) ?R  R}. Describes orientation.
-  \item \textbf{Contact}: \texttt{(leg\\_l, leg\\_r) ?{0, 1}--}. Describes ground contact.
+  \item \textbf{Position}: $(x, y) ?R--$. Describes where the lander is.
+  \item \textbf{Velocity}: $(vx, vy) ?R--$. Describes how the lander moves.
+  \item \textbf{Rotation}: $(angle, ang/\\1vel) ?R  R$. Describes orientation.
+  \item \textbf{Contact}: $(leg/\\1l, leg/\\1r) ?{0, 1$--}. Describes ground contact.
 \end{itemize}
 
 
@@ -1285,9 +1285,9 @@ touch).
 Operations on the state respect the type lattice:
 
 \begin{itemize}
-  \item \texttt{Position + Velocity * --t --?Position}: kinematic integration.
-  \item \texttt{Velocity --?Velocity}: thrust application.
-  \item \texttt{Contact --?{landed, crashed}}: terminal state derivation.
+  \item $Position + Velocity * --t --?Position$: kinematic integration.
+  \item $Velocity --?Velocity$: thrust application.
+  \item $Contact --?{landed, crashed$}: terminal state derivation.
 \end{itemize}
 
 
@@ -1331,12 +1331,12 @@ operators \texttt{, }╜, \texttt{--}, `----.
 Predicates are functions of the current observation:
 
 \begin{itemize}
-  \item \texttt{leg\\_contact(state)}: leg(s) touching ground.
-  \item \texttt{velocity\\_below(state, threshold)}: ------?< threshold.
-  \item \texttt{angle\\_below(state, threshold)}: |angle| < threshold.
+  \item \texttt{leg/^{1}contact(state)}: leg(s) touching ground.
+  \item \texttt{velocity/^{1}below(state, threshold)}: ------?< threshold.
+  \item \texttt{angle/^{1}below(state, threshold)}: |angle| < threshold.
   \item \texttt{landed(state)}: terminal state with reward ?100.
-  \item \texttt{in\\_pad(state)}: position within landing pad.
-  \item \texttt{distance\\_to\\_pad(state)}: ---- ?x\_pad--?
+  \item \texttt{in/^{1}pad(state)}: position within landing pad.
+  \item \texttt{distance/^{1}to/^{1}pad(state)}: ---- ?x\_pad--?
 \end{itemize}
 
 
@@ -1352,7 +1352,7 @@ ALWAYS (landed IMPLIES in_pad)
 
 \subsubsection{15.4 Implementation}
 
-The verifier in \texttt{code/ltl\\_verifier.py}:
+The verifier in \texttt{code/ltl/^{1}verifier.py}:
 
 1. Discretizes continuous observations into propositional symbols.
 2. Builds a B--chi automaton from the LTL formula.
@@ -1390,22 +1390,22 @@ We use the product t-norm for fuzzy logic operations:
 
 \begin{itemize}
   \item \texttt{AND(a, b) = a * b}
-  \item \texttt{OR(a, b) = a + b ?a*b}
-  \item \texttt{NOT(a) = 1 ?a}
+  \item $OR(a, b) = a + b ?a*b$
+  \item $NOT(a) = 1 ?a$
   \item \texttt{IMPLIES(a, b) = OR(NOT(a), b)}
 \end{itemize}
 
 
 These operations are smooth, bounded in \texttt{[0, 1]}, and reduce to classical logic
-in the limit \texttt{a, b ?{0, 1}}.
+in the limit $a, b ?{0, 1$}.
 
 \subsubsection{16.3 Quantifiers}
 
 Universal and existential quantifiers over a set of values:
 
 \begin{itemize}
-  \item \texttt{FORALL(values) = ?values}
-  \item \texttt{EXISTS(values) = 1 ??1 ?values)}
+  \item $FORALL(values) = ?values$
+  \item $EXISTS(values) = 1 ??1 ?values)$
 \end{itemize}
 
 
@@ -1426,18 +1426,18 @@ class SlotPredicateNet(nn.Module):
         return torch.sigmoid(self.net(x).squeeze(-1))
 \end{verbatim}
 
-For binary predicates (e.g., \texttt{left\\_of(x, y)}), the network takes the
+For binary predicates (e.g., \texttt{left/^{1}of(x, y)}), the network takes the
 concatenation of two slot features.
 
 \subsubsection{16.5 The LunarLander integration}
 
-\texttt{dlr\\_lunarlander.py} instantiates four LunarLander predicates:
+\texttt{dlr/^{1}lunarlander.py} instantiates four LunarLander predicates:
 
 \begin{itemize}
   \item \texttt{landed}: terminal state with reward ?100.
   \item \texttt{upright}: |angle| < 0.3.
-  \item \texttt{leg\\_l\\_contact}: leg\_l == 1.
-  \item \texttt{leg\\_r\\_contact}: leg\_r == 1.
+  \item \texttt{leg/^{1}l/^{1}contact}: leg\_l == 1.
+  \item \texttt{leg/^{1}r/^{1}contact}: leg\_r == 1.
 \end{itemize}
 
 
@@ -1487,9 +1487,9 @@ Where \texttt{formula} is a learned logical combination of slot-level predicates
 The gate network is a small MLP that takes:
 
 \begin{itemize}
-  \item \texttt{monitor\\_prob} (1-dim)
-  \item \texttt{slot\\_states} (4  32-dim = 128-dim)
-  \item \texttt{recent\\_rewards} (10-dim)
+  \item \texttt{monitor/^{1}prob} (1-dim)
+  \item \texttt{slot/^{1}states} (4  32-dim = 128-dim)
+  \item \texttt{recent/^{1}rewards} (10-dim)
 \end{itemize}
 
 
@@ -1554,7 +1554,7 @@ another.
 We sketch a decentralized Monitor coordination protocol:
 
 \begin{itemize}
-  \item Each agent \texttt{i} has its own Slot-Monitor \texttt{M\\_i}.
+  \item Each agent \texttt{i} has its own Slot-Monitor \texttt{M/^{1}i}.
   \item Agents share their slot representations over a low-bandwidth channel.
   \item A shared verifier \texttt{V} checks \textit{consistency} across agents (e.g., "do all agents
 \end{itemize}
@@ -1689,7 +1689,7 @@ safety), not training in MA.
 
 For the full Y3 paper including per-pathway details, power
 analysis, practical implications, and reviewer feedback, see
-\texttt{papers/monitor\\_signal\\_vs\\_dlr\\_6pathway.{md,tex,pdf}}.
+\texttt{papers/monitor/^{1}signal/^{1}vs/^{1}dlr/^{1}6pathway.{md,tex,pdf}}.
 
 \hrulefill
 
@@ -1747,7 +1747,7 @@ environments. Each game has procedurally varied levels, providing natural
 distribution shift. Procgen is the standard benchmark for sample-efficient
 RL in 2024--?026.
 
-Our Procgen baseline in \texttt{procgen\\_baseline.py} is ready but unrun: Procgen
+Our Procgen baseline in \texttt{procgen/^{1}baseline.py} is ready but unrun: Procgen
 requires \texttt{cmake} and Visual Studio build tools to compile the C++ backend. We
 do not currently have these installed.
 
@@ -2042,7 +2042,7 @@ Monitor's verified shipping use remains \textbf{verification}, not
 training. The Monitor is a \textbf{context-specific} signal that
 works only in the narrow regime where it was verified.
 
-For the full Y5 paper, see \texttt{papers/y5\\_monitor\\_transfer\\_synthesis.md}.
+For the full Y5 paper, see \texttt{papers/y5/^{1}monitor/^{1}transfer/^{1}synthesis.md}.
 
 \hrulefill
 
@@ -2238,7 +2238,7 @@ LLM self-monitoring & -0.10 (Joint > Frozen) & this paper \\
 The Monitor signal does not transfer from single-agent to
 either multi-agent or LLM self-monitoring.
 
-For the full Y4 paper, see \texttt{papers/project\\_g\\_v0\\_5\\_h10\\_paper.md}.
+For the full Y4 paper, see \texttt{papers/project/^{1}g/^{1}v0/^{1}5/^{1}h10/^{1}paper.md}.
 
 \subsubsection{26.6 Conclusion}
 
@@ -2266,18 +2266,18 @@ Chapter 24.
 \subsubsection{A.1 Theorem 1 --?Differentiable Logic Soundness (sketch)}
 
 \textbf{Statement}: For any predicate `` defined as a product-t-norm combination of
-base predicates, the value \texttt{[[]] ?[0, 1]} produced by the DLR satisfies
-\texttt{lim\\_{} [[]] --?1} iff  is provably true in classical logic.
+base predicates, the value $[[]] ?[0, 1]$ produced by the DLR satisfies
+\texttt{lim/^{1}{} [[]] --?1} iff  is provably true in classical logic.
 
 \textbf{Proof sketch}: The product t-norm is \textit{sound} with respect to classical
-propositional logic: in the crisp limit (\texttt{a, b ?{0, 1}}), the operations
+propositional logic: in the crisp limit ($a, b ?{0, 1$}), the operations
 reduce exactly to classical truth-functional semantics. The predicates are
 neural networks with sigmoid outputs; in the limit of infinite network width,
 sigmoid outputs become deterministic and approach \texttt{{0, 1}} for any given input.
 
-Formally: for any formula \texttt{(x)} over base predicates \texttt{p\\_i}, let \texttt{[[]]\\_} be the
+Formally: for any formula \texttt{(x)} over base predicates \texttt{p/^{1}i}, let \texttt{[[]]/^{1}} be the
 value computed by the DLR with parameters `\texttt{. As } --?*` (the limit of perfect
-predicate approximation), we have \texttt{[[]]\\_ --?[[]]\\_classical ?{0, 1}}.
+predicate approximation), we have $[[]]/\\1 --?[[]]/\\1classical ?{0, 1$}.
 
 The "if and only if" follows from the fact that the product t-norm is
 \textit{truth-functional}: for any assignment of truth values to base predicates, the
@@ -2289,7 +2289,7 @@ DLR computes the unique classical truth value.
 representation, there exists a predicate `\texttt{ such that }[[(o)]] = 1\texttt{ iff }s`
 is a faithful abstraction of \texttt{o}.
 
-\textbf{Proof sketch}: The JEPA encoder \texttt{E: O --?S} maps observations to symbolic
+\textbf{Proof sketch}: The JEPA encoder $E: O --?S$ maps observations to symbolic
 states. A faithful abstraction means \texttt{s} preserves all \textit{task-relevant} features
 of \texttt{o}. The predicate `` is constructed as:
 
@@ -2297,25 +2297,25 @@ of \texttt{o}. The predicate `` is constructed as:
 (o) := AND_k (p_k(E(o)) --?p_k(s))
 \end{verbatim}
 
-where \texttt{p\\_k} ranges over all task-relevant predicates. By construction,
-\texttt{[[(o)]] = 1} iff \texttt{s} agrees with \texttt{E(o)} on every \texttt{p\\_k}, which is the
+where \texttt{p/^{1}k} ranges over all task-relevant predicates. By construction,
+\texttt{[[(o)]] = 1} iff \texttt{s} agrees with \texttt{E(o)} on every \texttt{p/^{1}k}, which is the
 definition of faithful abstraction.
 
 \subsubsection{A.3 Theorem 7 --?Composable Physics Sample Complexity}
 
-\textbf{Statement}: If each physics module \texttt{M\\_i} is correct on its support set
-\texttt{S\\_i}, then the Composer \texttt{C} learns the correct module-mixing weights with
-sample complexity \texttt{O(\textbar{}S\textbar{}\^{}2 log(1/))} where \texttt{S = ?S\\_i}.
+\textbf{Statement}: If each physics module \texttt{M/^{1}i} is correct on its support set
+\texttt{S/^{1}i}, then the Composer \texttt{C} learns the correct module-mixing weights with
+sample complexity \texttt{O(/textbar{}S\textbar{}\^{}2 log(1/))} where $S = ?S/\\1i$.
 
 \textbf{Proof sketch}: The Composer is a softmax over \texttt{K} modules. With sufficient
 samples, the empirical loss converges to the population loss at rate
 \texttt{O(sqrt(log(1/) / n))}. Setting the bound to `` gives
-\texttt{n = O(log(1/) / --)}. For  = 1/|S|, we have \texttt{n = O(|S|-- log(1/))}.
+\texttt{n = O(log(1/) / --)}. For  = 1/|S|, we have \texttt{n = O(/textbar{}S/textbar{}-- log(1/))}.
 
 The key insight is that each module is \textit{correct on its support set}: the
 Composer''s job is to learn which module to apply where, not to learn the
-modules themselves. This reduces the effective complexity from \texttt{K * |S|} to
-\texttt{|S|}.
+modules themselves. This reduces the effective complexity from \texttt{K * /textbar{}S/textbar{}} to
+\texttt{/textbar{}S/textbar{}}.
 
 \subsubsection{A.4 Theorem 10 --?Active Inference Data Efficiency}
 
@@ -2423,12 +2423,12 @@ our codebase to the source material.
 \begin{tabular}{ll}
 Archimedes artifact & ENWI source \\
 \hline
-\texttt{projects/project\\_c\\_causal\\_world/code/composable\\_physics.py} & \texttt{F:/TMLR/Fusion/enwi/\_prototype/composable/\_physics.py} \\
-\texttt{projects/project\\_a\\_self\\_improvement/code/active\\_inference.py} & \texttt{F:/TMLR/Fusion/enwi/\_prototype/active/\_inference.py} \\
-\texttt{projects/project\\_e\\_verification/code/differentiable\\_logic.py} & \texttt{F:/TMLR/Fusion/enwi/\_prototype/differentiable/\_logic.py} \\
-\texttt{projects/project\\_c\\_causal\\_world/code/slot\\_attention.py} & \texttt{F:/TMLR/Fusion/enwi/\_prototype/slot/\_attention.py} \\
-ENWI theorems & \texttt{F:/TMLR/Fusion/ENWI/\_PAPER.md} --4----? \\
-ENWI predictions & \texttt{F:/TMLR/Fusion/ENWI/\_PAPER.md} --7 \\
+\texttt{projects/project/\\1c/\\1causal/\\1world/code/composable/\\1physics.py} & \texttt{F:/TMLR/Fusion/enwi/\\1prototype/composable/\\1physics.py} \\
+\texttt{projects/project/\\1a/\\1self/\\1improvement/code/active/\\1inference.py} & \texttt{F:/TMLR/Fusion/enwi/\\1prototype/active/\\1inference.py} \\
+\texttt{projects/project/\\1e/\\1verification/code/differentiable/\\1logic.py} & \texttt{F:/TMLR/Fusion/enwi/\\1prototype/differentiable/\\1logic.py} \\
+\texttt{projects/project/\\1c/\\1causal/\\1world/code/slot/\\1attention.py} & \texttt{F:/TMLR/Fusion/enwi/\\1prototype/slot/\\1attention.py} \\
+ENWI theorems & \texttt{F:/TMLR/Fusion/ENWI\\_PAPER.md} --4----? \\
+ENWI predictions & \texttt{F:/TMLR/Fusion/ENWI\\_PAPER.md} --7 \\
 \end{tabular}
 
 
@@ -2445,57 +2445,57 @@ description.
 \subsubsection{Project A --?Self-Improvement}
 
 \begin{itemize}
-  \item \texttt{active\\_inference.py} (7641 B): ENWI Active Inference Engine port.
-  \item \texttt{aie\\_lunarlander.py} (5197 B): AIE training on LunarLander.
+  \item \texttt{active/\\1inference.py} (7641 B): ENWI Active Inference Engine port.
+  \item \texttt{aie/\\1lunarlander.py} (5197 B): AIE training on LunarLander.
   \item \texttt{calibration.py} (4405 B): Monitor calibration (Platt scaling).
-  \item \texttt{classic\\_phase2.py} (8428 B): classic TTC loop.
+  \item \texttt{classic/\\1phase2.py} (8428 B): classic TTC loop.
   \item \texttt{encoders.py} (1104 B): shared encoder utilities.
-  \item \texttt{env\\_state\\_cloner.py} (4454 B): clone env state for batch eval.
+  \item \texttt{env/\\1state/\\1cloner.py} (4454 B): clone env state for batch eval.
   \item \texttt{envs.py} (9950 B): Gymnasium environment wrappers.
   \item \texttt{evaluate.py} (9864 B): evaluation utilities.
   \item \texttt{full\\_integration.py} (14631 B): 4-layer orchestrator (Phase 1.5).
-  \item \texttt{full\\_integration\\_v2.py} (20230 B): 4-layer orchestrator v2 with 5-seed sweep.
-  \item \texttt{joint\\_phase2.py} (9744 B): joint Monitor+policy training.
-  \item \texttt{lunarlander\\_phase2.py} (7688 B): LunarLander-specific Phase 2.
+  \item \texttt{full/\\1integration/\\1v2.py} (20230 B): 4-layer orchestrator v2 with 5-seed sweep.
+  \item \texttt{joint/\\1phase2.py} (9744 B): joint Monitor+policy training.
+  \item \texttt{lunarlander/\\1phase2.py} (7688 B): LunarLander-specific Phase 2.
   \item \texttt{main.py} (5301 B): PPO entry point.
   \item \texttt{monitor.py} (7048 B): Monitor definition.
   \item \texttt{orchestrator.py} (9382 B): TTC orchestrator.
-  \item \texttt{orchestrator\\_q.py} (11600 B): Q-BoN orchestrator.
-  \item \texttt{phase26\\_verifier\\_gating.py} (13871 B): Phase 2.6 verifier-aware gating.
-  \item \texttt{phase27\\_multiseed.py} (11103 B): Phase 2.7 multi-seed TTC.
-  \item \texttt{phase27\\_threshold\\_sweep.py} (12155 B): Phase 2.7 threshold sweep.
+  \item \texttt{orchestrator/\\1q.py} (11600 B): Q-BoN orchestrator.
+  \item \texttt{phase26/\\1verifier/\\1gating.py} (13871 B): Phase 2.6 verifier-aware gating.
+  \item \texttt{phase27/\\1multiseed.py} (11103 B): Phase 2.7 multi-seed TTC.
+  \item \texttt{phase27/\\1threshold/\\1sweep.py} (12155 B): Phase 2.7 threshold sweep.
   \item \texttt{ppo.py} (7951 B): PPO implementation.
-  \item \texttt{procgen\\_baseline.py} (6433 B): Procgen baseline (deferred).
-  \item \texttt{procgen\\_phase2.py} (8341 B): Procgen Phase 2 (deferred).
-  \item \texttt{q\\_bon.py} (11570 B): Q-function with Best-of-N selection.
-  \item \texttt{slot\\_monitor.py} (10418 B): Slot-attention Monitor.
-  \item \texttt{ttc\\_bon\\_monitor.py} (12147 B): TTC BoN+Monitor loop.
+  \item \texttt{procgen/\\1baseline.py} (6433 B): Procgen baseline (deferred).
+  \item \texttt{procgen/\\1phase2.py} (8341 B): Procgen Phase 2 (deferred).
+  \item \texttt{q/\\1bon.py} (11570 B): Q-function with Best-of-N selection.
+  \item \texttt{slot/\\1monitor.py} (10418 B): Slot-attention Monitor.
+  \item \texttt{ttc/\\1bon/\\1monitor.py} (12147 B): TTC BoN+Monitor loop.
 \end{itemize}
 
 
 \subsubsection{Project C --?Causal World Model}
 
 \begin{itemize}
-  \item \texttt{composable\\_physics.py} (11835 B): ENWI composable physics port.
-  \item \texttt{enwi\\_prediction2.py} (~5000 B): ENWI Prediction 2 replication.
-  \item \texttt{slot\\_attention.py}: slot attention module.
-  \item \texttt{slot\\_dynamics.py}: per-slot dynamics.
+  \item \texttt{composable/\\1physics.py} (11835 B): ENWI composable physics port.
+  \item \texttt{enwi/\\1prediction2.py} (~5000 B): ENWI Prediction 2 replication.
+  \item \texttt{slot/\\1attention.py}: slot attention module.
+  \item \texttt{slot/\\1dynamics.py}: per-slot dynamics.
 \end{itemize}
 
 
 \subsubsection{Project D --?Language Interface}
 
 \begin{itemize}
-  \item \texttt{language\\_interface.py} (4065 B): template-based generation.
+  \item \texttt{language/\\1interface.py} (4065 B): template-based generation.
 \end{itemize}
 
 
 \subsubsection{Project E --?Verification}
 
 \begin{itemize}
-  \item \texttt{differentiable\\_logic.py} (7407 B): ENWI DLR port.
-  \item \texttt{dlr\\_lunarlander.py} (5334 B): DLR LunarLander integration.
-  \item \texttt{ltl\\_verifier.py} (6000 B): LTL verifier.
+  \item \texttt{differentiable/\\1logic.py} (7407 B): ENWI DLR port.
+  \item \texttt{dlr/\\1lunarlander.py} (5334 B): DLR LunarLander integration.
+  \item \texttt{ltl/\\1verifier.py} (6000 B): LTL verifier.
 \end{itemize}
 
 
@@ -2633,16 +2633,16 @@ Product t-norm & yes &  \\
 \subsection{Appendix G: Data Availability}
 
 All experimental data, logs, and checkpoints are stored under
-\texttt{projects/*/code/checkpoints/} and \texttt{experiments\\_log/}. The checkpoints directory
+\texttt{projects/*/code/checkpoints/} and \texttt{experiments/\\1log/}. The checkpoints directory
 contains JSON logs of every training run with the following fields:
 
 \begin{itemize}
   \item \texttt{env}: environment name.
   \item \texttt{seed}: random seed.
   \item \texttt{mode}: training mode (PPO, AIE, frozen-Monitor, joint-Monitor, etc.).
-  \item \texttt{train\\_mean}: mean training return.
-  \item \texttt{eval\\_mean}: mean evaluation return.
-  \item \texttt{extra}: dict of mode-specific fields (e.g., \texttt{frozen\\_aurocs}, \texttt{gate\\_threshold}).
+  \item \texttt{train/\\1mean}: mean training return.
+  \item \texttt{eval/\\1mean}: mean evaluation return.
+  \item \texttt{extra}: dict of mode-specific fields (e.g., \texttt{frozen/\\1aurocs}, \texttt{gate/\\1threshold}).
 \end{itemize}
 
 
@@ -2695,7 +2695,7 @@ No external funding supported this work. Compute is a single CPU workstation
     \textit{World Scientific}.
 
 [10] ENWI Paper (2026). Embodied Neurosymbolic World-model Intelligence.
-    \texttt{F:/TMLR/Fusion/ENWI/\_PAPER.md}, 1482 lines.
+    \texttt{F:/TMLR/Fusion/ENWI\\_PAPER.md}, 1482 lines.
 
 [11] Pnueli, A. (1977). The temporal logic of programs. *18th Annual Symposium
     on Foundations of Computer Science*.
@@ -2876,7 +2876,7 @@ PPO with fewer samples).
 
 \subsubsection{A.2 Method}
 
-\texttt{projects/project\\_a\\_self\\_improvement/code/aie\\_train\\_full.py}:
+\texttt{projects/project/\\1a/\\1self/\\1improvement/code/aie/\\1train/\\1full.py}:
 
 \begin{itemize}
   \item 3 seeds (0, 1, 2) of iterative collect-train on LunarLander-v3.
@@ -2940,9 +2940,9 @@ replacement**. For Y1 work we will:
 \subsubsection{A.7 Artifacts}
 
 \begin{itemize}
-  \item \texttt{projects/project\\_a\\_self\\_improvement/code/aie\\_train\\_full.py} (new, ~7K bytes)
-  \item \texttt{projects/project\\_a\\_self\\_improvement/code/checkpoints/aie\\_full/seed{0,1,2}/phase2\_log.json}
-  \item \texttt{experiments\\_log/2026-07-27-aie-train-full.md}
+  \item \texttt{projects/project/\\1a/\\1self/\\1improvement/code/aie/\\1train/\\1full.py} (new, ~7K bytes)
+  \item \texttt{projects/project/\\1a/\\1self/\\1improvement/code/checkpoints/aie/\\1full/seed{0,1,2}/phase2\_log.json}
+  \item \texttt{experiments/\\1log/2026-07-27-aie-train-full.md}
   \item Compute: ~42 sec per seed on CPU (8 outer  8 episodes  ~150 steps/episode).
 \end{itemize}
 
@@ -2966,7 +2966,7 @@ The DLR approach generalizes LTL by:
 
 \subsubsection{B.2 Method}
 
-\texttt{projects/project\\_e\\_verification/code/dlr\\_train\\_full.py}:
+\texttt{projects/project/\\1e/\\1verification/code/dlr/\\1train/\\1full.py}:
 
 \begin{itemize}
   \item 7 ground-truth predicates derived from LunarLander observations.
@@ -3023,7 +3023,7 @@ G (landed -> in\_pad) & 38.9\% & 0.182 \\
 
 \subsubsection{B.5 Negative observation}
 
-The DLR verifier (Brier 0.582 on \texttt{F (leg\\_l AND leg\\_r)}) is \textit{worse} than LTL
+The DLR verifier (Brier 0.582 on \texttt{F (leg/\\1l AND leg/\\1r)}) is \textit{worse} than LTL
 (82.2\% accuracy). This is because DLR averages continuous truth values across
 slots, diluting the signal. Future work should use \textbf{learned aggregation}
 (e.g., attention over slots) rather than mean.
@@ -3042,9 +3042,9 @@ slots, diluting the signal. Future work should use \textbf{learned aggregation}
 \subsubsection{B.7 Artifacts}
 
 \begin{itemize}
-  \item \texttt{projects/project\\_e\\_verification/code/dlr\\_train\\_full.py} (new, ~13K bytes)
-  \item \texttt{projects/project\\_e\\_verification/code/checkpoints/dlr\\_full/seed{0,1,2}/phase2\_log.json}
-  \item \texttt{experiments\\_log/2026-07-27-dlr-train-full.md}
+  \item \texttt{projects/project/\\1e/\\1verification/code/dlr/\\1train/\\1full.py} (new, ~13K bytes)
+  \item \texttt{projects/project/\\1e/\\1verification/code/checkpoints/dlr/\\1full/seed{0,1,2}/phase2\_log.json}
+  \item \texttt{experiments/\\1log/2026-07-27-dlr-train-full.md}
   \item Compute: ~35 sec per seed on CPU.
 \end{itemize}
 
@@ -3083,7 +3083,7 @@ operating mode: report honestly, iterate, plan for Y1 follow-up.
 
 \subsubsection{D.1 The upright failure mode}
 
-The original DLR pipeline (\texttt{dlr\\_train\\_full.py}) had a critical failure:
+The original DLR pipeline (\texttt{dlr/\\1train/\\1full.py}) had a critical failure:
 the \texttt{upright} predicate (which depends on the lander's angle) reached only
 \textbf{45\% accuracy} --?essentially random. The root cause was:
 
@@ -3094,13 +3094,13 @@ the \texttt{upright} predicate (which depends on the lander's angle) reached onl
 
 \subsubsection{D.2 The fix}
 
-\texttt{projects/project\\_e\\_verification/code/dlr\\_attention.py}:
+\texttt{projects/project/\\1e/\\1verification/code/dlr/\\1attention.py}:
 
 \begin{itemize}
   \item \textbf{Learned obs --?slots projection} (\texttt{ObsToSlots}): a small MLP that maps
 \end{itemize}
 
-  8-dim observation to \texttt{(n\\_slots, slot\\_dim)}. Initialized to give each
+  8-dim observation to \texttt{(n/\\1slots, slot/\\1dim)}. Initialized to give each
   slot a distinct focus on a different observation feature.
 \begin{itemize}
   \item \textbf{Attention-based slot aggregation} (\texttt{AttnSlotPredicateNet}): for each
@@ -3157,9 +3157,9 @@ while remaining differentiable (the LTL advantage).
 \subsubsection{D.5 Artifacts}
 
 \begin{itemize}
-  \item \texttt{projects/project\\_e\\_verification/code/dlr\\_attention.py} (~270 lines)
-  \item \texttt{experiments\\_log/2026-07-27-dlr-attention.md} (formal log)
-  \item \texttt{checkpoints/dlr\\_attention/seed{0,1,2}/phase2\_log.json}
+  \item \texttt{projects/project/\\1e/\\1verification/code/dlr/\\1attention.py} (~270 lines)
+  \item \texttt{experiments/\\1log/2026-07-27-dlr-attention.md} (formal log)
+  \item \texttt{checkpoints/dlr/\\1attention/seed{0,1,2}/phase2\_log.json}
   \item Compute: ~30 sec per seed on CPU
 \end{itemize}
 
@@ -3185,7 +3185,7 @@ based on the failure analysis:
 
 \subsubsection{E.2 Code}
 
-\texttt{projects/project\\_a\\_self\\_improvement/code/full\\_integration\\_v3.py}:
+\texttt{projects/project/\\1a/\\1self/\\1improvement/code/full/\\1integration/\\1v3.py}:
 ~370 lines, implements the above pipeline.
 
 \subsubsection{E.3 Preliminary result (seed 0)}
@@ -3406,8 +3406,8 @@ techniques.
 
 \subsubsection{G.9 Public communication}
 
-Twitter / Discord drafts have been prepared (in \texttt{community/twitter\\_v0p4\\_halt.md}
-and \texttt{community/discord\\_v0p4\\_halt.md}) to announce the HALT decision publicly
+Twitter / Discord drafts have been prepared (in \texttt{community/twitter/\\1v0p4/\\1halt.md}
+and \texttt{community/discord/\\1v0p4/\\1halt.md}) to announce the HALT decision publicly
 with intellectual honesty. The tone is "rigorous engineering, not failure
 framing", emphasizing:
 
@@ -3423,11 +3423,11 @@ framing", emphasizing:
 \subsubsection{G.10 Artifacts}
 
 \begin{itemize}
-  \item \texttt{code/full\\_integration\\_v2.py} (with --imitation, --n-train-episodes flags)
-  \item \texttt{experiments\\_log/2026-07-27-phase15-v0p4-abc.md}
-  \item \texttt{experiments\\_log/phase15\\_6way\\_summary.json}
-  \item \texttt{community/twitter\\_v0p4\\_halt.md}
-  \item \texttt{community/discord\\_v0p4\\_halt.md}
+  \item \texttt{code/full/\\1integration/\\1v2.py} (with --imitation, --n-train-episodes flags)
+  \item \texttt{experiments/\\1log/2026-07-27-phase15-v0p4-abc.md}
+  \item \texttt{experiments/\\1log/phase15/\\16way/\\1summary.json}
+  \item \texttt{community/twitter/\\1v0p4/\\1halt.md}
+  \item \texttt{community/discord/\\1v0p4/\\1halt.md}
 \end{itemize}
 
 
@@ -3530,17 +3530,17 @@ choose actions at inference.
 \subsubsection{H.7 Y1 follow-up directions}
 
 From the Y1.3 paper author:
-1. Try \texttt{monitor\\_lambda} in {1.0, 2.0, 5.0} to find optimal regularizer strength.
+1. Try \texttt{monitor/\\1lambda} in {1.0, 2.0, 5.0} to find optimal regularizer strength.
 2. Try simpler Monitor architectures (raw-history vs slot).
 3. Run 10-20 seeds to make t-stat significant.
 
 \subsubsection{H.8 Artifacts}
 
 \begin{itemize}
-  \item \texttt{code/y13\\_monitor\\_regularizer.py} (~325 lines, by concurrent session)
-  \item \texttt{code/ppo\\_only\\_baseline.py} (~80 lines)
-  \item \texttt{experiments\\_log/2026-07-27-phase15-y13-monitor-regularizer.md}
-  \item \texttt{paper\\_v2\\_full.md} Sections 4.10.12-4.10.14
+  \item \texttt{code/y13/\\1monitor/\\1regularizer.py} (~325 lines, by concurrent session)
+  \item \texttt{code/ppo/\\1only/\\1baseline.py} (~80 lines)
+  \item \texttt{experiments/\\1log/2026-07-27-phase15-y13-monitor-regularizer.md}
+  \item \texttt{paper/\\1v2/\\1full.md} Sections 4.10.12-4.10.14
 \end{itemize}
 
 
@@ -3652,11 +3652,11 @@ sparse-reward benchmarks.
 \subsubsection{I.7 Artifacts}
 
 \begin{itemize}
-  \item \texttt{projects/project\\_a\\_self\\_improvement/code/h1\\_cross\\_env.py} (~270 lines)
-  \item \texttt{projects/project\\_a\\_self\\_improvement/code/h1\\_cross\\_env\\_v2.py} (~290 lines)
-  \item \texttt{projects/project\\_e\\_verification/code/dlr\\_cross\\_env.py} (~190 lines)
-  \item \texttt{experiments\\_log/2026-07-27-h1-cartpole-preliminary.md}
-  \item \texttt{experiments\\_log/2026-07-27-dlr-cross-env-cartpole.md}
+  \item \texttt{projects/project/\\1a/\\1self/\\1improvement/code/h1/\\1cross/\\1env.py} (~270 lines)
+  \item \texttt{projects/project/\\1a/\\1self/\\1improvement/code/h1/\\1cross/\\1env/\\1v2.py} (~290 lines)
+  \item \texttt{projects/project/\\1e/\\1verification/code/dlr/\\1cross/\\1env.py} (~190 lines)
+  \item \texttt{experiments/\\1log/2026-07-27-h1-cartpole-preliminary.md}
+  \item \texttt{experiments/\\1log/2026-07-27-dlr-cross-env-cartpole.md}
 \end{itemize}
 
 
@@ -3749,9 +3749,9 @@ MountainCar-v0 (n=5) & -200.0 +/- 0.0 & -200 (PPO doesn't converge) & --?PPO doe
 \subsubsection{J.6 Artifacts}
 
 \begin{itemize}
-  \item \texttt{experiments\\_log/2026-07-27-phase15-y13-extend.md}
-  \item \texttt{experiments\\_log/y13\\_extend\\_summary.json}
-  \item \texttt{projects/project\\_a\\_self\\_improvement/paper\\_v2\\_full.md} Sections 4.10.12-4.10.16
+  \item \texttt{experiments/\\1log/2026-07-27-phase15-y13-extend.md}
+  \item \texttt{experiments/\\1log/y13/\\1extend/\\1summary.json}
+  \item \texttt{projects/project/\\1a/\\1self/\\1improvement/paper/\\1v2/\\1full.md} Sections 4.10.12-4.10.16
 \end{itemize}
 
 
@@ -3779,8 +3779,8 @@ The Y1 paper is:
   Reinforcement Learning"
 \begin{itemize}
   \item Target: NeurIPS 2027 (May 2027)
-  \item File: \texttt{papers/y1\\_paper\\_draft.md} (~28 KB, 14+ pages with appendices)
-  \item Figures: 4 (PNG, reproducible via \texttt{papers/make\\_figures.py})
+  \item File: \texttt{papers/y1/\\1paper/\\1draft.md} (~28 KB, 14+ pages with appendices)
+  \item Figures: 4 (PNG, reproducible via \texttt{papers/make/\\1figures.py})
   \item Tables: 2 (LaTeX)
 \end{itemize}
 
@@ -3881,11 +3881,11 @@ This honest framing will apply to \textbf{all future results}, not just Y1.
 \subsubsection{K.8 Artifacts}
 
 \begin{itemize}
-  \item \texttt{papers/y1\\_paper\\_draft.md} (~28 KB, full --1-7 + 4 Appendices + 15 References)
-  \item \texttt{papers/y1\\_paper\\_outline.md} (8.8 KB planning doc)
-  \item \texttt{papers/make\\_figures.py} (reproducible figure generation)
-  \item \texttt{papers/y1\\_fig1-4\\_*.png} (4 figures)
-  \item \texttt{papers/y1\\_table1-2\\_*.tex} (2 LaTeX tables)
+  \item \texttt{papers/y1/\\1paper/\\1draft.md} (~28 KB, full --1-7 + 4 Appendices + 15 References)
+  \item \texttt{papers/y1/\\1paper/\\1outline.md} (8.8 KB planning doc)
+  \item \texttt{papers/make/\\1figures.py} (reproducible figure generation)
+  \item \texttt{papers/y1/\\1fig1-4/\\1*.png} (4 figures)
+  \item \texttt{papers/y1/\\1table1-2/\\1*.tex} (2 LaTeX tables)
 \end{itemize}
 
 
@@ -4049,7 +4049,7 @@ To execute Phase 2 in 2027:
 
 1. \textbf{Apply to GPU grant} (Lambda Labs / Hugging Face / Google Cloud)
 \begin{itemize}
-  \item We have drafts ready (\texttt{grant\\_applications/})
+  \item We have drafts ready (\texttt{grant/\\1applications/})
   \item Without GPU, 60 runs takes ~30 hours on CPU; with GPU, ~5 hours
 \end{itemize}
 
@@ -4072,8 +4072,8 @@ To execute Phase 2 in 2027:
 \subsubsection{L.11 Artifacts}
 
 \begin{itemize}
-  \item \texttt{papers/phase2\\_paper\\_outline.md} (~10 KB, full --1-9 outline)
-  \item \texttt{papers/y1\\_paper\\_draft.md} (Y1 paper, single-agent foundation)
+  \item \texttt{papers/phase2/\\1paper/\\1outline.md} (~10 KB, full --1-9 outline)
+  \item \texttt{papers/y1/\\1paper/\\1draft.md} (Y1 paper, single-agent foundation)
   \item This thesis (overall Archimedes context)
 \end{itemize}
 

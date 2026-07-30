@@ -210,9 +210,30 @@ multi-agent or LLM self-monitoring.
 We pre-registered H10 ("decoupling transfers to LLM self-
 monitoring") and ran an n=5 pilot. Result: **H10 REFUTED**.
 Joint Monitor achieves mean AUROC 0.650; Frozen Monitor achieves
-0.550 (Joint > Frozen by 0.10, $t=-0.516$ NOT sig). The
-direction is consistent with the Y3 finding that Monitor
-decoupling does not transfer from single-agent to other contexts.
+0.550 (Joint > Frozen by 0.10, $t=-0.516$ NOT sig, 95% CI of
+diff $[-0.245, +0.444]$). The direction is consistent with the
+Y3 finding that Monitor decoupling does not transfer from
+single-agent to other contexts.
+
+The $n=5$ result is direction-consistent but **underpowered**
+(power ~0.13 to detect the observed effect at $p<0.05$; need
+$n=36$ for 80% power). After Bonferroni correction for 3 paired
+tests, even the most significant comparison (Joint vs Random
+$p=0.043$) is not significant at the family-wise alpha=0.05
+level ($p_{bonf}=0.130$). The H10 verdict should be confirmed
+at larger n in future work.
+
+**Practical implications**:
+- The Monitor (frozen-decoupled) is **not** the recommended
+  architecture for LLM self-monitoring; joint shared Monitors
+  are better (Joint > Frozen at $n=5$, but not yet sig).
+- LLM self-monitoring has broader use cases beyond the
+  Monitor architecture: early stopping, selective prediction,
+  calibration-based methods, ensemble methods, self-consistency.
+  The Monitor is one tool among many.
+- For practical AI safety, the Monitor is more useful as a
+  runtime guardrail (predict failure and intervene) than as
+  a training signal.
 
 Project G v0.5 introduced a stratified train/eval split to fix
 the v0.4 degenerate eval issue. The stratified split is

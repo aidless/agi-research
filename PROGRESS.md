@@ -2542,3 +2542,63 @@ doesn't matter much) is robust to this confound.
 - [ ] Refine paper based on review (next session)
 - [ ] Convert to LaTeX format for submission
 - [ ] Decide final venue (workshop vs main track)
+
+
+## 2026-07-30 session 12 -- K2: Thesis v1.1 + K3 acknowledged (reviewer sim done)
+
+K2: Thesis v1.1 with Y3, Y4, Y5 new chapters:
+
+NEW FILES:
+1. `thesis_additions_v1_1.md` (22KB) -- the new chapters:
+   - Chapter 19: The 6-Pathway Multi-Agent Investigation (Y3)
+   - Chapter 20: Project G - LLM Self-Monitoring (Y4)
+   - Chapter 21: Cross-Context Monitor Transfer Synthesis (Y5)
+   - Plus integration instructions
+
+2. `thesis_draft_v1.1.md` (141KB) -- v1.0 + new chapters appended
+   (integration left to the author)
+
+INTEGRATION PLAN (per the additions file):
+- Chapter 19 (Y3) replaces/extends the Project F sketch
+  (Chapter 18 in v1.0); rename to "Project F: Multi-Agent"
+  and add the 6-pathway content
+- Chapter 20 (Y4) is a new Part IX: Project G - LLM Self-Monitoring
+- Chapter 21 (Y5) is a new chapter in Part VIII (Discussion and
+  Future Work), before the Conclusion
+- Update Abstract, Table of Contents, and Future Work sections
+  to reflect the new content
+- Update Appendix B (commit log) and Appendix C (cross-ref index)
+
+K3 ACKNOWLEDGED: The 3 simulated reviewers (R1, R2, R3) and
+their feedback have already been integrated into the Y3 paper
+in earlier sessions (commit `6cfaf00` and `b43a61c`). The
+reviewer feedback drove:
+- Multiple-comparison correction (Bonferroni, Holm)
+- Bayesian credible intervals
+- Softened "ignores input" claim
+- Power analysis and sample size justification
+- Practical implications discussion
+- Comparison to other MARL methods
+- 10K-episode longer training test (which showed the dlr_only
+  effect is NOT robust at longer training)
+
+Y3 paper is now at 14 pages, fully revised, with all reviewer
+feedback addressed. The paper is ready for the user to submit
+to arXiv (just needs the ARXIV_TOKEN env var, see
+`papers/arxiv_submission/SUBMISSION_GUIDE.md`).
+
+### Final session summary (12+ hours, 11 commits)
+
+| commit | what |
+|---|---|
+| fbe2a7b | Y2 6-pathway + v8 n=30 SIG |
+| 812d837 | v6 n=5 r2 bit-for-bit identity |
+| d7dd99d | v6 n=30 r3 (env-contaminated) |
+| 31d326a | v6 n=30 r4 CLEAN (30/30 bit-for-bit) |
+| d970f94 | Y3 paper draft (markdown) |
+| 0456817 | Y3 submission package (LaTeX + PDF + cover letter + supplementary) |
+| 6cfaf00 | Figures + refinements + reviewer simulator + arXiv |
+| b43a61c | Reviewer feedback + arXiv script + v8 n=100 |
+| 0186857 | H2: power analysis + practical implications + 10K longer training |
+| 93cb1ec | I1-I3: arXiv improvements + Y4 paper + 10K n=20 |
+| 75ddb8f | J1-J3: arXiv guide + Y5 synthesis + 10K n=50 |

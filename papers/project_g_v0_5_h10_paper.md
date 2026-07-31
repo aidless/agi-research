@@ -192,6 +192,8 @@ Welch t-tests:
 | Frozen vs Joint | $-0.516$ | 6.57 | $\approx 0.62$ | No |
 | Frozen vs Random | $+1.309$ | 7.98 | $\approx 0.23$ | No |
 
+![H10 n=5 3-arm contrast Forest plot](figures_v2/h10_n5_forest.png){ width=80% }
+
 ### 4.4 Verdict per H10 pre-reg decision rule
 
 **Result**:
@@ -463,6 +465,8 @@ from chance** on this task at n=100.
 | Joint $-$ Random | -0.025 | [-0.158, +0.097] | -0.040 | No  |
 
 ![H10 n=100 3-arm contrast Forest plot](../experiments_log/_h10_n100_forest.png){ width=80% }
+
+![H10 F-J effect-shrinkage trajectory (n=5 to n=20 to n=100)](figures_v2/h10_shrinkage_timeline.png){ width=80% }
 
 **Verdict at n=100**: H10 is now REFUTED **at the
 chance level**. None of the three arms (Frozen, Joint,

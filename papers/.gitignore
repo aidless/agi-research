@@ -1,8 +1,3 @@
-﻿# LaTeX aux/out artefacts (committed PDFs are kept, intermediates are not).
-*.aux
-*.out
-*.toc
-*.log
-*.fls
-*.fdb_latexmk
-*.synctex.gz
+﻿# papers/figure assets. arxiv submission figures live under
+# papers/arxiv_submission/figures and are committed.
+figures_v2/

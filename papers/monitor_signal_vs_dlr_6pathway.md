@@ -320,6 +320,10 @@ correction. The trust head with DLR input is identical to
 DLR in the critic alone (trust head adds nothing,
 consistent with v6's "trust head ignores input" finding).
 
+![Y3 6-pathway effect sizes summary](figures_v2/y3_6pathway_summary.png){ width=85% }
+
+![v5 vs v8 dlr_only shrinkage trajectories](figures_v2/v5_vs_v8_shrinkage.png){ width=85% }
+
 ## 4. Cross-Pathway Analysis
 
 ### 4.1 The one architectural lesson: trust head ignores its input

@@ -295,3 +295,80 @@ $d_z = \text{mean\_diff} / \text{sd\_diffs}$
       effect at higher statistical power.
 - [ ] Test on a harder environment (e.g., PettingZoo Simple
       Reference, where credit assignment is more challenging).
+
+## S6. Y3 paper supplementary figures and JSON data
+
+Figures (PNG, dpi=150) regenerated for the Y3 paper:
+
+- `papers/figures_v2/y3_6pathway_summary.png` -- bar chart of all 6
+  pathways with mean paired difference, n=5 to n=212.
+- `papers/figures_v2/v5_vs_v8_shrinkage.png` -- v5 (REFUTED) vs
+  v8 dlr_only (SIG) shrinkage trajectories on log scale.
+
+JSON data files (machine-readable) that drive the figures:
+
+- `experiments_log/_h10_n20_bootstrap.json` -- H10 n=20 paired
+  bootstrap (19 seeds after rebalance).
+- `experiments_log/_h10_n100_bootstrap.json` -- H10 n=100 paired
+  bootstrap (98 valid seeds).
+- `experiments_log/_v8_sanity_4seed.json` -- v8 dlr_only independent
+  replication on 3 fresh seeds (200, 201, 202).
+
+## S7. Y4 paper supplementary figures
+
+- `papers/figures_v2/h10_n5_forest.png` -- per-arm mean differences
+  for the n=5 pilot (Welch t, none significant at t>2.0).
+- `papers/figures_v2/h10_shrinkage_timeline.png` -- H10 F-J effect
+  trajectory from n=5 to n=20 to n=100; shows the 95% bootstrap
+  CI always includes zero.
+
+## S8. H10 pre-registration and protocol
+
+The H10 pre-registered protocol is documented in
+`experiments_log/2026-07-28-PRE-REGISTERED-H10.md` and is the
+single source of truth for what the n=5, n=20, and n=100
+experiments measure. Summary:
+
+- 3 arms: Frozen (decoupled), Joint (shared), Random (negative
+  control). 75/25 stratified train/eval split with rebalance
+  fallback.
+- H10_N_TOTAL=8 rollouts per arm. n=5 used H10_MAX_NEW_TOKENS=80
+  (pre-reg); n=20 used 16 for CPU wall-clock; n=100 used 64
+  (intermediate, declared deviation in Y4 paper Section 4.1.1).
+- Pre-reg decision rule: REFUTED if Frozen < Joint; VALIDATED if
+  Frozen > Joint by >0.05 AND Welch t > 2.0 AND Frozen > Random
+  by >0.10. At n=100 the contrast is Frozen > Joint by 0.015
+  (insignificant at any conventional alpha), so the rule is
+  "direction-consistent but not validated".
+
+## S9. v8 dlr_only independent replication (3 fresh seeds)
+
+Seeds 200, 201, 202 ran the dlr_only vs no_verifier pair on the
+same MADDPG v8 code with the same hyperparameters used in the
+n=100 follow-up. The replication is single-seed powered, so it is
+not a substitute for the n=100 estimate; the value is to confirm
+that the effect is reproducible from a fresh seed.
+
+| seed | dlr_only | no_verifier | diff |
+|---|---|---|---|
+| 200 | -68.77 | -69.04 | +0.27 |
+| 201 | -68.63 | -68.55 | -0.08 |
+| 202 | -71.89 | -72.19 | +0.30 |
+
+mean_diff = +0.16, sd = 0.21, t = +1.34 (df=2), 2/3 positive.
+Direction-consistent with the n=100 estimate (+0.0617, 95% CI
+[+0.0084, +0.1149]). Full data: `experiments_log/_v8_sanity_4seed.json`.
+
+## S10. Provenance of every reported number
+
+| Number | Source | File |
+|---|---|---|
+| v8 dlr_only n=30: +0.1447, p<0.005, t=+3.216, 20/30 pos | 30-seed sweep | `experiments_log/2026-07-29-v8-dlr-only-n30-aggregation.md` |
+| v8 dlr_only n=100: +0.0617, p_bonf=0.0433, 95% CI [+0.0084, +0.1149] | 100-seed sweep | `experiments_log/2026-07-29-v8-dlr-only-n100-aggregation.md` |
+| v8 dlr_only 3-seed replicate: mean +0.16, 2/3 pos | 3 fresh seeds | `experiments_log/_v8_sanity_4seed.json` |
+| v6 trust head BIT-FOR-BIT identity 30/30 | 30-seed r4 CLEAN | `experiments_log/2026-07-29-v6-3arm-n30-clean-aggregation.md` |
+| v5 effect-shrinkage trajectory: +0.17 -> +0.055 at n=212 | 212 partial sweep | `experiments_log/2026-07-29-y2a-n212-partial.md` |
+| H10 n=5: Joint > Frozen 0.10, t=-0.516 | 5-seed pilot | `experiments_log/2026-07-29-H10-stratified-n5-result.md` |
+| H10 n=20: Frozen > Joint 0.13, t=+1.157, d=+0.27 | 20-seed pilot | `experiments_log/_h10_n20_summary.json` + `_h10_n20_bootstrap.json` |
+| H10 n=100: Frozen - Joint +0.015, d=+0.030, 95% CI [-0.087, +0.117] | 100-seed pilot | `experiments_log/_h10_n100_bootstrap.json` |
+

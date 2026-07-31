@@ -92,13 +92,11 @@ echo.
 
 REM --- Step 5: compute SHA-256 + build tar.gz + write checklist ---
 echo [5/5] Computing SHA-256, building tar.gz, writing checklist
-where 7z > nul 2>&1
-if %errorlevel% neq 0 (
-    where tar > nul 2>&1
-    if %errorlevel% neq 0 (
-        echo ERROR: neither 7z nor tar found. Cannot build tar.gz.
-        exit /b 1
-    )
+REM Use Windows built-in tar (Win10 1803+/Server 2019+).
+set TAR=%SystemRoot%\System32\tar.exe
+if not exist "%TAR%" (
+    echo ERROR: tar.exe not found at %TAR%. Cannot build tar.gz.
+    exit /b 1
 )
 where certutil > nul 2>&1
 if %errorlevel% neq 0 (
@@ -106,52 +104,19 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-REM --- Compute SHA-256 of main artifacts ---
-certutil -hashfile "arxiv_main.pdf"  SHA256 > "_hash_main_pdf.tmp"
-certutil -hashfile "arxiv_main.docx" SHA256 > "_hash_main_docx.tmp"
-certutil -hashfile "arxiv_main.md"   SHA256 > "_hash_main_md.tmp"
-for /f "tokens=1 delims=" %%H in ('type "_hash_main_pdf.tmp"') do set HASH_PDF=%%H
-for /f "tokens=1 delims=" %%H in ('type "_hash_main_docx.tmp"') do set HASH_DOCX=%%H
-for /f "tokens=1 delims=" %%H in ('type "_hash_main_md.tmp"') do set HASH_MD=%%H
+REM --- Compute SHA-256 of main artifacts via dedicated Python helper ---
+set HASH_PY=C:\Users\Administrator\AppData\Roaming\TRAE SOLO CN\ModularData\ai-agent\vm\tools\python\python.exe
+if not exist "%HASH_PY%" set HASH_PY=py
+"%HASH_PY%" "%~dp0_arxiv_sha256.py"
 
-REM --- Write checklist ---
-> "arxiv_checklist.txt" (
-    echo OpenReview / arXiv submission package checklist
-    echo.
-    echo Generated: 2026-07-31 (v1.3 camera-ready)
-    echo Paper:     Y5 Master Synthesis (COLM 2026 submission)
-    echo Author:    Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
-    echo.
-    echo === SHA-256 of main artifacts ===
-    echo PDF:    %HASH_PDF%
-    echo DOCX:   %HASH_DOCX%
-    echo MD:     %HASH_MD%
-    echo.
-    echo === Camera-ready 14-item checklist (all green) ===
-    echo [x] All 18 cumulative reviewer items addressed
-    echo [x] Pre-Reg Proposition 3 with GPU reservation
-    echo [x] n=5 Hedges g row marked as post-hoc
-    echo [x] Pattern D cross-references Pre-Reg
-    echo [x] Bibliography complete with 7 new references
-    echo [x] Section 7.6.6 Monotonicity Lemma stated and proved
-    echo [x] Section 7.6.3 cost-weighted observation table
-    echo [x] Y4 v0.6.1 kill switch STOP-PAPER-REFUTED-REVERSE
-    echo [x] Cross-task meta-analysis (6 methods) converge on H10 REFUTATION
-    echo [x] Forest plot visualization
-    echo [x] Section 7.6 formal framework (7 Definitions + 4 Propositions + 4 Refutations)
-    echo [x] Section 7.5.5 first-principles motivation
-    echo [x] Section 7.6.2 Assumption A1 explicit
-    echo [x] Section 8.5 deployment patterns (4 patterns)
-    echo [x] Section 9.6 framework limitations
-)
-del /Q "_hash_main_pdf.tmp" "_hash_main_docx.tmp" "_hash_main_md.tmp"
+REM arxiv_checklist.txt already written by the Python helper above
 echo   - arxiv_checklist.txt
 
 REM --- Build tar.gz ---
 echo.
 echo Building tar.gz ...
-tar -czf "arxiv_submission.tar.gz" "arxiv_main.pdf" "arxiv_main.docx" "arxiv_main.md" "arxiv_cover_letter.md" "arxiv_reviewer_simulator.md" "arxiv_supplementary_S16.md"
-if exist "arxiv_supplementary_materials.md" tar -czf "arxiv_submission_supplementary.tar.gz" "arxiv_supplementary_materials.md" "figures_for_arxiv\*.png" "arxiv_h10_*.json" "arxiv_prereg_prop3_hybrid.md"
+"%TAR%" -czf "arxiv_submission.tar.gz" "arxiv_main.pdf" "arxiv_main.docx" "arxiv_main.md" "arxiv_cover_letter.md" "arxiv_reviewer_simulator.md" "arxiv_supplementary_S16.md"
+if exist "arxiv_supplementary_materials.md" "%TAR%" -czf "arxiv_submission_supplementary.tar.gz" "arxiv_supplementary_materials.md" "figures_for_arxiv\*.png" "arxiv_h10_*.json" "arxiv_prereg_prop3_hybrid.md"
 
 REM --- Clean up working copies ---
 del /Q "arxiv_main.pdf" "arxiv_main.docx" "arxiv_main.md" "arxiv_cover_letter.md" "arxiv_reviewer_simulator.md" "arxiv_reviewer_simulator_v1_0.md" "arxiv_reviewer_simulator_v1_2.md" "arxiv_supplementary_S16.md"

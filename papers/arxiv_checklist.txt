@@ -1,0 +1,27 @@
+OpenReview / arXiv submission package checklist
+
+Generated: 2026-08-01 (v1.3 camera-ready, P3 hybrid pre-reg day 1)
+Paper:     Y5 Master Synthesis (COLM 2026 submission)
+Author:    Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
+
+=== SHA-256 of main artifacts ===
+PDF : 72818bf54030588e50084ec46cc28dfd9be377e8607e710cf3a287f17c41505d
+DOCX: 5dfdbf19c4d59bd60d7b56b971e5662eca688708d727f906ea81fe91e4777b9e
+MD  : b23dd727f6f9e827751fe2e64d3a44f5dfac32985bd2c9ebda2a6687391fb569
+
+=== Camera-ready 14-item checklist (all green) ===
+[x] All 18 cumulative reviewer items addressed
+[x] Pre-Reg Proposition 3 with GPU reservation (2026-08-01 to 2026-08-15)
+[x] n=5 Hedges g row marked as post-hoc
+[x] Pattern D cross-references Pre-Reg
+[x] Bibliography complete with 7 new references
+[x] Section 7.6.6 Monotonicity Lemma stated and proved
+[x] Section 7.6.3 cost-weighted observation table
+[x] Y4 v0.6.1 kill switch STOP-PAPER-REFUTED-REVERSE
+[x] Cross-task meta-analysis (6 methods) converge on H10 REFUTATION
+[x] Forest plot visualization
+[x] Section 7.6 formal framework (7 Definitions + 4 Propositions + 4 Refutations)
+[x] Section 7.5.5 first-principles motivation
+[x] Section 7.6.2 Assumption A1 explicit
+[x] Section 8.5 deployment patterns (4 patterns)
+[x] Section 9.6 framework limitations

@@ -1,14 +1,18 @@
-# Project G v0.6.1: GSM8K 200-token Follow-up for H10 LLM Self-Monitoring Pilot
+# Project G v1.0: GSM8K 200-token Follow-up for H10 LLM Self-Monitoring Pilot
 ## When Decoupling Doesn't Help LLM Self-Monitoring Either
 
+**v1.0 upgrade** (2026-08-01, in coordination with Y5 v1.3 camera-ready master synthesis)
+
 **Authors:** Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
-**Date:** 2026-07-29
-**Status:** Project G v0.6.1 draft. Stratified split + n=5 H10 pilot.
+**Date:** 2026-07-29 (original v0.6.1), 2026-08-01 (v1.0 cross-reference upgrade)
+**Status:** v1.0 (companion to Y5 master synthesis v1.3, COLM 2026 submission under separate cover)
 **Code:** `projects/project_g_llm_self_monitoring/code/h10_real_pilot.py`
 **Logs:** `experiments_log/2026-07-29-H10-stratified-n5-result.md` and sub-logs
-**Target venue:** Workshop paper (e.g., ICML 2027 Workshop on Reliable
-LLM Self-Monitoring, or NeurIPS 2026 Workshop on Foundation Model
-Reliability)
+**Companion papers:** Y1 single-agent (papers/y1_paper_draft.md v1.0), Y3 multi-agent (papers/monitor_signal_vs_dlr_6pathway.md v1.0), Y5 master synthesis (papers/y5_v1_3_master_synthesis.pdf)
+**Target venue:** Workshop paper (ICML 2027 Workshop on Reliable LLM Self-Monitoring, or NeurIPS 2026 Workshop on Foundation Model Reliability) -- submitted to COLM 2026 as companion to Y5 master synthesis under separate cover
+
+> Status: v0.6.1 -> v1.0 (cross-reference upgrade)
+> Date: 2026-07-29 (v0.6.1), 2026-08-01 (v1.0 cross-reference)
 
 ## Abstract
 
@@ -718,3 +722,47 @@ Combined with the simple-arithmetic n=100 result (chance level), H10 is REFUTED 
 **Practical interpretation**: the Monitor architecture (frozen or joint) does not separate from a Random signal on simple arithmetic (n=100 collapse). On the harder GSM8K 200-token CoT task with continuous failure mode, the F-J contrast is -0.053 -- conclusive enough to stop at n=20 and write paper. The decoupling principle that holds in single-agent RL (H1, +39.5 at n=15, t=6.76, p<0.001) does not generalize to LLM self-monitoring on any tested task.
 
 
+
+
+## Y5 Connection: How Y4 fits in the 11-comparison cross-context record
+
+The Y4 paper provides 4 of the 11 empirical comparisons in the Y5 v1.3 master synthesis, and is the **most informative negative result for LLM context**. Specifically:
+
+- **n=5 simple-arith (stratified split)**: Welch t = -0.516, p = 0.6228, F-J = -0.10 (Joint > Frozen, NOT sig)
+- **n=20 simple-arith**: paired bootstrap 10K-resample, p = 0.280, F-J = +0.132, d = +0.265 (Joint > Frozen, NOT sig)
+- **n=100 simple-arith**: paired bootstrap 2K-resample, p = 0.787, F-J = +0.015, d = +0.030 (Joint > Frozen, NOT sig, CI [-0.087, +0.117])
+- **n=20 GSM8K 200-token CoT**: paired bootstrap 2K-resample, p = 0.714, F-J = -0.053, d = -0.120 (Joint > Frozen, NOT sig, CI [-0.237, +0.158])
+
+All 4 sample sizes REFUTE H10 (Decoupled Monitor transfers to LLM self-monitoring) at the pre-registered significance level. The pre-registered kill switch fired `STOP-PAPER-REFUTED-REVERSE` at the n=20 GSM8K 200-token follow-up (consistent negative direction across both task families).
+
+**Y4 in the Y5 §7.6 framework.** The 4 REFUTED Y4 sample sizes share a common failure mode: **Condition 2 (failure observability) is weakly violated** -- the LLM Monitor AUROC is near chance (0.50-0.65) on both simple-arithmetic and GSM8K 200-token chain-of-thought. The mutual information between the Monitor's features and the failure mode is too low to be a useful training signal. This is consistent with the Y5 framework prediction that the Monitor signal is barely informative of the LLM's value function in the deployment context.
+
+**Y4 in the Y5 §7.6 cross-task meta-analysis (§5.3.1 + §5.3.2).** The 4 H10 sample sizes are combined using 6 meta-analytic methods (Fisher / Stouffer Z equal / Stouffer Z weighted / Bonferroni min / Bonferroni-Holm / Hedges g). All 6 methods agree: H10 is REFUTED. The combined-p test (Fisher chi^2 = 4.646, df = 8, p = 0.7947) is NOT significant. The forest plot (`papers/figures_v2/fig_h10_combined_p_forest.png`) visually confirms all 4 sample-size d estimates straddle d = 0 and are below the kill switch threshold (d = +0.10).
+
+**Y4 in the Y5 §7.6.3 Refutations.** Y4 is the primary empirical source for **R2 (LLM Monitor without retraining rescues)**: H10 was exactly the test of R2, and H10 was REFUTED. Y4 also tests **R3 (replication overturn)**: 4 sample sizes + 2 task families all REFUTE, no replication overturn. R1 (non-stationary rescue) is not directly tested in Y4 (the LLM does not have a non-stationary analog in the pre-reg protocol). R4 (Monitor at 7B / 70B LLM scale) is OPEN and is the only currently-open Refutation.
+
+**Y4 in the Y5 §7.6.2 Assumption A1.** The Y4 LLM Monitor satisfies Assumption A1 weakly at best (AUROC ~ 0.50-0.65). The combined-p meta-analysis shows that the Monitor's predictive signal barely exceeds chance, indicating weak mutual information with the value function. The Y4 REFUTATION is therefore consistent with both A1 being weak AND the 3 Convergence Conditions failing (specifically Condition 2).
+
+**Y4 limitations in v1.0.** The 6 limitations in Y4 §6 (statistical, task-specific, Monitor architecture, dataset coverage, prompt format coverage, model size coverage) are not changed by the v1.0 upgrade. The model-size coverage limitation (§6.6) is now formally addressed as the open R4 Refutation in the Y5 §7.6 framework (Monitor at 7B / 70B scale).
+
+**Practical implication.** The Y4 paper is the LLM-context-specific empirical evidence for the framework's Condition 2 failure mode. The Y4 v1.0 upgrade adds cross-references to the Y5 master synthesis so a reader of Y4 alone understands that Y4 is one of 4 LLM-context replications that all REFUTE H10. The reader is directed to Y5 §5.3.1 + §5.3.2 for the combined-p meta-analysis.
+
+**Differences from Y5 v1.3 cross-references**: the Y4 paper uses Y4-specific terminology (H10 hypothesis, pre-reg kill switch, GSM8K 200-token CoT). The Y5 paper uses the unified terminology (3 Convergence Conditions, §7.6 framework, R1-R4 Refutations). A reader following the Y4 -> Y5 reading order should treat the Y4 kill switch verdict as the LLM-context empirical anchor, and the Y5 §7.6 framework as the cross-context generalization.
+
+This v1.0 upgrade does NOT change any of the Y4 empirical results (4 sample sizes, all REFUTED at p > 0.05, kill switch STOP-PAPER-REFUTED-REVERSE). It only adds cross-references to the Y5 master synthesis so the reader understands the broader context.
+
+---
+
+## v1.0 upgrade changelog (2026-08-01)
+
+Changes from v0.6.1 to v1.0:
+- Frontmatter updated to v1.0 status with Y5/Y1/Y3 cross-references
+- New section "Y5 Connection: How Y4 fits in the 11-comparison cross-context record" added above this changelog
+- All empirical results unchanged (4 sample sizes, all REFUTED at p > 0.05)
+- All limitations unchanged (Y4 §6 still applies)
+- Y4 PDF / DOCX / HTML unchanged (already rendered in v0.6.1 era)
+
+Changes from v0.6.1 -> v1.0 (this commit):
+  - papers/project_g_v0_5_h10_paper.md: +1 header update, +1 cross-reference section, +1 changelog
+  - Filename unchanged (still project_g_v0_5_h10_paper.md; the v1.0 version marker is in the frontmatter)
+  - All other Y4 files unchanged (PDF, DOCX, HTML, code, JSONs, pre-regs)

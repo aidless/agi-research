@@ -399,3 +399,55 @@ These pre-registration documents were written BEFORE any data
 collection, and the analysis in this paper follows the
 pre-registered pipeline without post-hoc modification.
 
+## S13. Y3 paper end-to-end reproduce script
+
+The script `papers/REPRODUCE.sh` is the canonical Y3 paper
+reproduction. Running it from the repo root will:
+
+1. Launch the 6-pathway n=5 launchers (v3, v4, v5, v6, v7, v8) in
+   order, each producing per-seed JSONs and `experiments_log/*.done`
+   markers.
+2. Launch the v8 dlr_only n=30 and n=100 launchers (the only
+   publishable positive result).
+3. Run the aggregator scripts to produce the per-arm means and
+   paired tests used in Sections 3.3, 3.4, 3.5, 3.6.
+
+The script is **idempotent**: re-running it overwrites previous
+outputs, so it is safe to use for re-running an experiment
+after a code change.
+
+Approximate wall-clock on CPU:
+- 6-pathway n=5 reproduction: ~80 minutes
+- v8 dlr_only n=30: ~30 minutes
+- v8 dlr_only n=100: ~70 minutes (4-parallel)
+- v5 n=212 partial: ~70 minutes per 100 jobs
+
+## S14. Y4 paper end-to-end reproduce script
+
+The Y4 H10 pilot has its own launchers
+(`experiments_log/_run_h10_n20.ps1`,
+`experiments_log/_run_h10_n100.ps1`).
+
+Running the n=100 launcher from a Windows PowerShell terminal:
+
+```powershell
+Start-Process powershell -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File","E:\agi-research\experiments_log\_run_h10_n100.ps1" -WindowStyle Hidden
+```
+
+This launches 300 jobs (3 arms x 100 seeds) sequentially. Each
+job takes ~60-100 seconds depending on `H10_MAX_NEW_TOKENS`.
+Total wall-clock for the n=100 run is approximately 8h51m on
+CPU (single-threaded).
+
+## S15. Known environment requirements
+
+- Python 3.10 or 3.11 (3.12+ may have pettingzoo API changes)
+- pettingzoo==1.24.3 (1.26.1 REMOVED the .mpe submodule; 1.24.3
+  is the latest version with mpe support)
+- torch >= 2.0
+- transformers >= 4.30 (for Qwen2.5-1.5B-Instruct)
+- numpy 1.26.4
+- gymnasium == 1.3.0
+- For arXiv submission: pdflatex (TeX Live 2026+) and
+  matplotlib >= 3.5
+

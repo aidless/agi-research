@@ -45,6 +45,10 @@ transfer to LLM self-monitoring, consistent with the Y3 finding
 that the Monitor signal does not transfer from single-agent RL to
 either multi-agent RL or LLM self-monitoring.
 
+![H10 per-arm AUROC across n=5/20/100](figures_v2/h10_three_sample_arms.png){ width=80% }
+
+![H10 paired contrast estimates across n=5/20/100](figures_v2/y4_three_sample_summary.png){ width=80% }
+
 ## 1. Introduction
 
 Failure-prediction Monitors have been shown to work in single-

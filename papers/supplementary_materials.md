@@ -372,3 +372,30 @@ Direction-consistent with the n=100 estimate (+0.0617, 95% CI
 | H10 n=20: Frozen > Joint 0.13, t=+1.157, d=+0.27 | 20-seed pilot | `experiments_log/_h10_n20_summary.json` + `_h10_n20_bootstrap.json` |
 | H10 n=100: Frozen - Joint +0.015, d=+0.030, 95% CI [-0.087, +0.117] | 100-seed pilot | `experiments_log/_h10_n100_bootstrap.json` |
 
+## S11. Pre-registration documents (full text)
+
+The pre-registration documents for the H10 (LLM self-monitoring) and
+v8 dlr_only (cooperative MARL) experiments are linked below as
+standalone reproducibility artifacts:
+
+- H10 pre-registration (LLM self-monitoring, written 2026-07-28):
+  `experiments_log/2026-07-28-PRE-REGISTERED-H10.md`
+  - States the H10 hypothesis (decoupled Monitor on LLM
+    self-rewarding traces)
+  - Pre-registers the decision rule (Frozen > Joint by >0.05 AND
+    Welch t > 2.0 AND Frozen > Random by >0.10)
+  - Pre-registers the planned sample size and analysis pipeline
+
+- v8 dlr_only pre-registration (cooperative MARL, written
+  2026-07-28, in the y2 follow-up log):
+  `experiments_log/2026-07-28-y2-pre-reg.md`
+  - States the dlr_only hypothesis (DLR predicates in critic give
+    a positive effect over no_verifier baseline)
+  - Pre-registers the Bonferroni correction (2 paired tests:
+    dlr_only vs no_verifier and v8 vs dlr_only)
+  - Pre-registers the staged extension plan (n=5, n=30, n=100)
+
+These pre-registration documents were written BEFORE any data
+collection, and the analysis in this paper follows the
+pre-registered pipeline without post-hoc modification.
+

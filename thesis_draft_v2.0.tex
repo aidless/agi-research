@@ -2115,6 +2115,23 @@ failure-prediction Monitor does not transfer to multi-agent RL.
 The natural question: does the Monitor transfer to LLM self-
 monitoring?
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{papers/figures_v2/h10_three_sample_arms.png}
+\caption{H10 3-arm pilot: per-arm mean AUROC across n=5, n=20, n=100. The H10
+decoupling hypothesis is REFUTED at every sample size. At n=100 all three arms
+(Frozen, Joint, Random) are within $\pm 0.02$ of 0.5 (chance).}
+\label{fig:h10-arms-three-sample}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{papers/figures_v2/h10_shrinkage_timeline.png}
+\caption{H10 F-J paired difference (mean $\pm 95\%$ bootstrap CI) across
+n=5 to n=20 to n=100. The 95\% CI includes zero at every sample size.}
+\label{fig:h10-fj-shrinkage}
+\end{figure}
+
 LLM self-monitoring is the task of predicting whether an LLM's
 trajectory (e.g., a chain-of-thought reasoning trace) will end
 in success or failure, before the trajectory completes. This is

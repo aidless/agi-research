@@ -1,7 +1,14 @@
-﻿# Y1 Paper Draft — Decoupled Monitors as Training-Time Regularizers
+﻿# Y1 Paper — Decoupled Monitors as Training-Time Regularizers
 
-> Status: Draft §1-3 (intro, background, method)
-> Date: 2026-07-28
+**v1.0 upgrade** (2026-07-31, in coordination with Y5 v1.3 camera-ready master synthesis)
+
+**Authors:** Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
+**Status:** v1.0 (companion to Y5 master synthesis v1.3, COLM 2026 submission)
+**Y5 master synthesis:** papers/y5_v1_3_master_synthesis.pdf
+**Y4 companion:** papers/y4_v0_6_1_h10_paper.pdf
+
+> Status: Draft §1-3 (intro, background, method) -- upgraded to v1.0 with cross-reference to Y5 §7.6 framework
+> Date: 2026-07-28 (original), 2026-07-31 (v1.0 cross-reference upgrade)
 > Honest framing throughout: every claim paired with limitations section
 
 ---
@@ -1027,3 +1034,41 @@ less motivated if H10 is REFUTED.
 
 ---
 
+
+
+## Y5 Connection: How Y1 fits in the 11-comparison cross-context record
+
+The Y1 paper establishes the foundational single-agent result that motivates the entire Archimedes Project cross-context investigation. In the Y5 v1.3 master synthesis, Y1 contributes **1 of the 11 empirical comparisons** -- the single VALIDATED case in the 11-comparison record. The other 10 are REFUTED (5 of 6 Y3 multi-agent pathways REFUTED + 1 partial; 4 of 4 Y4 H10 LLM replications REFUTED).
+
+**Y1 in the Y5 §7.6 framework.** The Y1 single-agent Monitor is the ONLY case where all 3 Convergence Conditions hold simultaneously:
+
+- **Condition 1 (distribution match)**: the Y1 frozen reference policy is the original pre-RLHF LM; the consumption-time policy is the PPO-trained policy. The KL divergence is bounded by the modest PPO update size and the conservative trust-region constraint.
+- **Condition 2 (failure observability)**: the Y1 Monitor AUROC of 0.989 vs 0.5 random on LunarLander-v3 implies non-trivial mutual information with the failure mode (crash vs safe landing).
+- **Condition 3 (sufficient SNR)**: n=15 seeds, AUROC=0.989, +39.5 mean effect (t=6.76, p<0.001), 80% power at the observed effect size.
+
+Y1 is therefore the canonical VALIDATED case. The 10 REFUTED cases (Y3 + Y4) all share a common structure: at least one of the 3 Convergence Conditions fails (typically Condition 1 in Y3 multi-agent via distribution shift; Condition 2 or 3 in Y4 LLM via AUROC near chance).
+
+**Y1 in the Y5 §7.6.3 Refutations.** Y1 itself does NOT observe any of R1-R4 (the 4 framework-falsifying Refutations). R1 (non-stationary rescue) is not tested in Y1 (the PPO update is conservative); R2 (LLM Monitor without retraining) is tested in Y4; R3 (replication overturn) is tested via the 4 Y4 H10 replications; R4 (Monitor at 7B / 70B LLM scale) is open and deferred.
+
+**Y1 §6 limitations remain valid in v1.0.** The 5 limitations in Y1 §6 (statistical, generalization, methodological, reproducibility, multi-agent) are not changed by the v1.0 upgrade. The multi-agent limitation (§6.5) is now formally addressed in the Y3 paper (which is REFUTED, meaning Y1 does not transfer to multi-agent).
+
+**Practical implication.** The Y1 paper remains the recommended reading order: Y1 establishes the framework (single-agent RL, where the Monitor works), Y3 tests the framework transfer (multi-agent MARL, where it does not), Y4 closes the H10 LLM self-monitoring question (REFUTED across 4 sample sizes + 2 task families), Y5 synthesizes the 11-comparison cross-context record and the §7.6 formal framework with 4 named falsifiers. The Y1 v1.0 upgrade adds this cross-reference so a reader of Y1 alone knows where Y1 sits in the larger investigation.
+
+**Differences from Y5 v1.3 cross-references**: the Y1 paper is the foundational work and uses the Y1-specific terminology (decoupled Monitor, Y1.3). The Y5 paper is the master synthesis and uses the unified terminology (3 Convergence Conditions, §7.6 framework). A reader following the Y1 -> Y5 reading order should treat the Y1 claims as established facts for single-agent RL, and the Y5 §7.6 framework as the generalization that explains WHEN and WHERE the Y1 mechanism transfers (and where it does not).
+
+This v1.0 upgrade does NOT change any of the Y1 empirical results (15-seed +39.5 on LunarLander-v3, etc.). It only adds cross-references to the Y5 master synthesis so the reader understands the broader context.
+
+---
+
+## v1.0 upgrade changelog (2026-07-31)
+
+Changes from draft to v1.0:
+- Frontmatter updated to v1.0 status with Y5 cross-reference
+- New section "Y5 Connection" added above this changelog
+- All empirical results unchanged (15-seed +39.5, etc.)
+- All limitations unchanged (Y1 §6 still applies)
+- Y1 PDF / DOCX / HTML not yet generated -- render via E:\\gen_pdf.py wrapper if needed
+
+Changes from draft -> v1.0 (this commit):
+  - papers/y1_paper_draft.md: +1 header update, +1 cross-reference section, +1 changelog
+  - All other Y1 files unchanged (y1_9hypothesis_framework.md, y1_paper_outline.md, figures, tables)

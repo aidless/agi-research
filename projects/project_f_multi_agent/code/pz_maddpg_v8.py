@@ -355,7 +355,7 @@ def main():
     p.add_argument("--batch-size", type=int, default=128)
     p.add_argument("--buffer-size", type=int, default=20000)
     p.add_argument("--arm", type=str, default="v8",
-                   choices=["v8", "no_verifier", "dlr_only"])
+                   choices=["v8", "no_verifier", "dlr_only", "monitor_only"])
     args = p.parse_args()
     print("=" * 60)
     print("MADDPG v8 - arm=" + args.arm)
@@ -364,8 +364,8 @@ def main():
     rnd_mean = float(np.mean(rnd_returns))
     rnd_std = float(np.std(rnd_returns))
     print("Phase 1: Random baseline = " + str(round(rnd_mean, 2)) + " +/- " + str(round(rnd_std, 2)))
-    use_dlr_trust = (args.arm == "v8")
-    use_dlr_critic = (args.arm in ("v8", "dlr_only"))
+    use_dlr_trust = args.arm in ("v8", "monitor_only")
+    use_dlr_critic = args.arm in ("v8", "dlr_only")
     actors, trust_heads, history = train_maddpg_v8(
         seed=args.seed, n_updates=args.n_updates, n_episodes=args.n_episodes_per_update,
         batch_size=args.batch_size, buffer_size=args.buffer_size,

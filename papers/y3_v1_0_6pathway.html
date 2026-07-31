@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>monitor_signal_vs_dlr_6pathway</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#monitor-signal-vs-dlr-predicates-in-cooperative-marl"
+id="toc-monitor-signal-vs-dlr-predicates-in-cooperative-marl">Monitor
+Signal vs DLR Predicates in Cooperative MARL:</a>
+<ul>
+<li><a href="#a-6-pathway-systematic-investigation"
+id="toc-a-6-pathway-systematic-investigation">A 6-Pathway Systematic
+Investigation</a></li>
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#introduction" id="toc-introduction">1.
+Introduction</a></li>
+<li><a href="#background" id="toc-background">2. Background</a>
+<ul>
+<li><a href="#single-agent-monitor-y1.3"
+id="toc-single-agent-monitor-y1.3">2.1 Single-agent Monitor
+(Y1.3)</a></li>
+<li><a href="#multi-agent-environment-pettingzoo-simple-spread-v3"
+id="toc-multi-agent-environment-pettingzoo-simple-spread-v3">2.2
+Multi-agent environment: PettingZoo Simple Spread v3</a></li>
+<li><a href="#maddpg-v2-baseline" id="toc-maddpg-v2-baseline">2.3 MADDPG
+v2 baseline</a></li>
+<li><a href="#h5-in-the-9-hypothesis-framework"
+id="toc-h5-in-the-9-hypothesis-framework">2.4 H5 in the 9-hypothesis
+framework</a></li>
+</ul></li>
+<li><a href="#the-6-pathways" id="toc-the-6-pathways">3. The 6
+Pathways</a>
+<ul>
+<li><a href="#v3-monitor-as-critic-auxiliary-loss"
+id="toc-v3-monitor-as-critic-auxiliary-loss">3.1 v3: Monitor as critic
+auxiliary loss</a></li>
+<li><a href="#v4-inter-agent-messages-in-critic-tarmac-lite"
+id="toc-v4-inter-agent-messages-in-critic-tarmac-lite">3.2 v4:
+Inter-agent messages in critic (TarMAC-lite)</a></li>
+<li><a href="#v5-trust-head-monitor-actor-side"
+id="toc-v5-trust-head-monitor-actor-side">3.3 v5: Trust head + Monitor
+(actor-side)</a></li>
+<li><a href="#v6-trust-head-random-architecture-only-ablation"
+id="toc-v6-trust-head-random-architecture-only-ablation">3.4 v6: Trust
+head + random (architecture-only ablation)</a></li>
+<li><a href="#v7-trust-head-monitor-prior-implementation"
+id="toc-v7-trust-head-monitor-prior-implementation">3.5 v7: Trust head +
+Monitor, prior implementation</a></li>
+<li><a href="#v8-dlr-cross-agent-predicates-trust-head-and-dlr_only"
+id="toc-v8-dlr-cross-agent-predicates-trust-head-and-dlr_only">3.6 v8:
+DLR cross-agent predicates + trust head, and dlr_only</a></li>
+</ul></li>
+<li><a href="#cross-pathway-analysis" id="toc-cross-pathway-analysis">4.
+Cross-Pathway Analysis</a>
+<ul>
+<li><a href="#the-one-architectural-lesson-trust-head-ignores-its-input"
+id="toc-the-one-architectural-lesson-trust-head-ignores-its-input">4.1
+The one architectural lesson: trust head ignores its input</a></li>
+<li><a href="#the-one-signal-specific-finding-dlr-in-critic"
+id="toc-the-one-signal-specific-finding-dlr-in-critic">4.2 The one
+signal-specific finding: DLR in critic</a></li>
+<li><a href="#effect-shrinkage-trajectory"
+id="toc-effect-shrinkage-trajectory">4.3 Effect-shrinkage
+trajectory</a></li>
+<li><a href="#the-6-pathway-table" id="toc-the-6-pathway-table">4.4 The
+6-pathway table</a></li>
+</ul></li>
+<li><a href="#discussion" id="toc-discussion">5. Discussion</a>
+<ul>
+<li><a href="#why-does-the-trust-head-ignore-its-input"
+id="toc-why-does-the-trust-head-ignore-its-input">5.1 Why does the trust
+head ignore its input?</a></li>
+<li><a
+href="#why-does-dlr-in-critic-work-but-monitor-in-critic-v3-hurts"
+id="toc-why-does-dlr-in-critic-work-but-monitor-in-critic-v3-hurts">5.2
+Why does DLR in critic work but Monitor in critic (v3) hurts?</a></li>
+<li><a
+href="#why-is-the-effect-shrinkage-trajectory-so-different-for-v5-vs-dlr_only"
+id="toc-why-is-the-effect-shrinkage-trajectory-so-different-for-v5-vs-dlr_only">5.3
+Why is the effect-shrinkage trajectory so different for v5 vs
+dlr_only?</a></li>
+</ul></li>
+<li><a href="#conclusion" id="toc-conclusion">6. Conclusion</a></li>
+<li><a href="#acknowledgments"
+id="toc-acknowledgments">Acknowledgments</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+<li><a
+href="#y5-connection-how-y3-fits-in-the-11-comparison-cross-context-record"
+id="toc-y5-connection-how-y3-fits-in-the-11-comparison-cross-context-record">Y5
+Connection: How Y3 fits in the 11-comparison cross-context
+record</a></li>
+<li><a href="#v1.0-upgrade-changelog-2026-07-31"
+id="toc-v1.0-upgrade-changelog-2026-07-31">v1.0 upgrade changelog
+(2026-07-31)</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="monitor-signal-vs-dlr-predicates-in-cooperative-marl">Monitor
+Signal vs DLR Predicates in Cooperative MARL:</h1>
+<h2 id="a-6-pathway-systematic-investigation">A 6-Pathway Systematic
+Investigation</h2>
+<p><strong>v1.0 upgrade</strong> (2026-07-31, in coordination with Y5
+v1.3 camera-ready master synthesis)</p>
+<p><strong>Authors:</strong> Liu Zewen + Codex (Archimedes Project,
+AGI-2026-001) <strong>Date:</strong> 2026-07-29 (original draft),
+2026-07-31 (v1.0 cross-reference upgrade) <strong>Status:</strong> v1.0
+(companion to Y5 master synthesis v1.3; submitted to AAMAS 2027
+separately) <strong>Code:</strong>
+<code>projects/project_f_multi_agent/code/pz_maddpg_v{3,4,5,6,7,8}.py</code>
+<strong>Logs:</strong>
+<code>experiments_log/2026-07-29-y2-final-6-pathway.md</code> and
+sub-logs <strong>Companion papers:</strong> Y1 single-agent
+(papers/y1_paper_draft.md v1.0), Y4 H10 LLM
+(papers/y4_v0_6_1_h10_paper.md), Y5 master synthesis
+(papers/y5_v1_3_master_synthesis.pdf) <strong>Target venue:</strong>
+AAMAS 2027 / NeurIPS 2026 MARL workshop</p>
+<blockquote>
+<p>Status: 6-pathway draft extended with v1.0 cross-reference to Y5 §7.6
+framework Date: 2026-07-29 (original), 2026-07-31 (v1.0 cross-reference
+upgrade)</p>
+</blockquote>
+<h2 id="abstract">Abstract</h2>
+<p>Failure-prediction Monitors (small networks that predict whether an
+episode will end in failure) are a verified training-time signal in
+single-agent RL (Y1.3, LunarLander-v3, n=15 seeds, t=6.76, p&lt;0.001).
+We systematically investigated <strong>6 architectures</strong> for
+using failure-prediction signals in cooperative MARL on PettingZoo
+Simple Spread v3 (800 episodes/seed, 5-30 seeds per arm). Our central
+finding: <strong>5 of 6 architectures are REFUTED at p&lt;0.05</strong>;
+the single publishable pathway is differentiable logic rules (DLR)
+predicates in the critic, which give +0.1447 (p&lt;0.005, t=+3.216,
+20/30 positive) over the MADDPG v2 baseline. The trust head architecture
+at the actor level gives a small effect (+0.1665 at n=5, shrinking to
++0.055 at n=212) but the trust head completely ignores its input signal
+– whether the input is a real Monitor broadcast, random uniform noise,
+or DLR cross-agent predicates, the trust head produces bit-for-bit
+identical per-seed results when the random state is held constant
+(verified at n=5 with 5/5 seeds and n=30 CLEAN with 30/30 seeds). We
+conclude: (1) <strong>Monitor signal does not transfer from single-agent
+to multi-agent as a training signal</strong>; (2) <strong>DLR predicates
+in the critic are the right architectural choice</strong> for
+cross-agent signal in cooperative MARL; (3) <strong>the trust head
+architecture contributes a small but inconsistent effect that is
+independent of the input source</strong>. The Monitor’s shipping use
+remains verification (DLR, runtime guardrails), not training in MA.</p>
+<figure>
+<img src="figures_v2/y3_6pathway_summary.png" style="width:85.0%"
+alt="Y3 6-pathway effect sizes summary (one-glance verdict)" />
+<figcaption aria-hidden="true">Y3 6-pathway effect sizes summary
+(one-glance verdict)</figcaption>
+</figure>
+<h2 id="introduction">1. Introduction</h2>
+<p>Single-agent failure-prediction Monitors (Y1 paper, n=15 seeds on
+LunarLander-v3) provide a verified training-time signal: when used as a
+reward penalty with a frozen-decoupled Monitor (AUROC 0.796 vs joint
+0.072), the resulting policy is +39.5 above the PPO baseline (t=6.76,
+p&lt;0.001). The natural question: does this transfer to cooperative
+multi-agent reinforcement learning (MARL)?</p>
+<p>Hypothesis H5 (Y1 9-hypothesis framework): decoupled per-agent
+Monitors will improve MA credit assignment. H5 status: REFUTED on
+PettingZoo Simple Spread v3 (this paper).</p>
+<p>This paper presents a systematic <strong>6-pathway
+investigation</strong> of WHY H5 was refuted and WHAT (if anything) is
+the right use of failure-prediction signals in MA. Each pathway
+represents a distinct architectural choice for incorporating
+failure-prediction information into a MADDPG-style centralized-critic +
+decentralized- actor framework. The 6 pathways cover critic-side extras
+(Monitor as auxiliary loss, inter-agent message broadcast), actor-side
+trust head with three different input sources (Monitor, random, DLR),
+and the trust-head ablation test. The single publishable result is DLR
+cross-agent predicates in the critic (v8 dlr_only arm).</p>
+<p>Our contributions: 1. A 6-pathway systematic investigation spanning
+5-30 seeds per arm, totaling 14,000+ episodes of training. 2. The
+discovery that the <strong>trust head architecture at the actor level
+completely ignores its input signal</strong> (proven at n=5 and n=30
+CLEAN via bit-for-bit identical per-seed results). 3. The first
+publishable result for failure-prediction signals in cooperative MARL:
+<strong>DLR predicates in the critic give +0.1447 (p&lt;0.005)</strong>
+at n=30. 4. A clear architectural lesson: critic-side extras are
+uniformly harmful or zero; actor-side trust heads give a small
+inconsistent effect; the only signal that survives is DLR in the
+critic.</p>
+<h2 id="background">2. Background</h2>
+<h3 id="single-agent-monitor-y1.3">2.1 Single-agent Monitor (Y1.3)</h3>
+<p>A failure-prediction Monitor is a small neural network that takes an
+observation history (last N steps) as input and outputs a failure
+probability in [0, 1]. The Monitor is trained on rollouts from a frozen
+policy using a median split of episode returns as the binary label
+(failure vs success). The “frozen-decoupled” variant uses Monitors
+trained independently per agent (or per policy) rather than a shared
+joint Monitor.</p>
+<p>In single-agent Y1.3 (LunarLander-v3), frozen-decoupled Monitors
+achieve AUROC 0.796 vs joint 0.072 (n=5). Using the Monitor’s failure
+probability as a reward penalty gives +39.5 mean improvement (t=6.76,
+p&lt;0.001) at n=15 seeds.</p>
+<h3 id="multi-agent-environment-pettingzoo-simple-spread-v3">2.2
+Multi-agent environment: PettingZoo Simple Spread v3</h3>
+<p>3 agents, continuous action space, 18-dim observation per agent.
+Agents must cover 3 landmarks; joint reward (sum of per-agent rewards).
+Max 25 cycles per episode. 800 env episodes per training run (80 PPO
+updates x 10 episodes/update).</p>
+<h3 id="maddpg-v2-baseline">2.3 MADDPG v2 baseline</h3>
+<p>Centralized critic (input: all obs + all actions; output: per-agent
+Q) + decentralized actors (per-agent MLP, obs -&gt; action). Replay
+buffer (20K), soft target updates (tau=0.01). At 800 episodes, the
+MADDPG v2 baseline is approximately -70.4 +/- 1.1 (5 seeds). This is the
+reference for all our pathway comparisons.</p>
+<h3 id="h5-in-the-9-hypothesis-framework">2.4 H5 in the 9-hypothesis
+framework</h3>
+<p>H5 states that decoupled per-agent Monitors will improve MA credit
+assignment. H5 was REFUTED on continuous-action DMC (DMC vs MADDPG v2,
+mean_diff=-23.5, t=-2.53, 1/5 positive) at matched compute in Y1. The Y2
+follow-up (this paper) asks: can a different architectural position for
+the Monitor rescue H5?</p>
+<h2 id="the-6-pathways">3. The 6 Pathways</h2>
+<p>We tested 6 architectures for incorporating failure-prediction
+information into MADDPG. Each is described below with the matched-
+compute 5-seed result. Effect sizes are mean_diff (pathway arm -
+no_verifier baseline) at n=5 with 80 updates x 10 episodes = 800
+episodes per seed.</p>
+<h3 id="v3-monitor-as-critic-auxiliary-loss">3.1 v3: Monitor as critic
+auxiliary loss</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>critic_loss <span class="op">=</span> Q<span class="op">-</span>MSE <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> MonitorBCE</span></code></pre></div>
+<p>The per-agent Monitor’s BCE is added to the critic’s Q-MSE loss as a
+regularizer, encouraging the critic to use Monitor signal. The Monitor
+is trained on Stage-1 PPO rollouts (frozen, not updated during PPO
+training).</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>n=5 mean</th>
+<th>10K n=5 mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>with_aux</td>
+<td>-70.50</td>
+<td><strong>-74.89</strong></td>
+</tr>
+<tr>
+<td>no_aux</td>
+<td>-70.50</td>
+<td>-71.85</td>
+</tr>
+<tr>
+<td>ablated</td>
+<td>-70.50</td>
+<td>-74.10</td>
+</tr>
+</tbody>
+</table>
+<p>At 800 episodes, the 3 arms produce <strong>IDENTICAL
+results</strong> (Monitor aux loss has no observable effect at short
+compute). At 10K episodes (800 updates x 10 ep), the arms DIVERGE:
+with_aux HURTS by -3.03 over no_aux (t=-1.39, 0/5 positive). The Monitor
+aux loss is actively HARMFUL at long compute, not just neutral.</p>
+<p><strong>Verdict</strong>: REFUTED. Monitor aux loss in critic is
+harmful at 10K episodes.</p>
+<h3 id="v4-inter-agent-messages-in-critic-tarmac-lite">3.2 v4:
+Inter-agent messages in critic (TarMAC-lite)</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>MessageEncoder: obs <span class="op">-&gt;</span> <span class="dv">32</span><span class="op">-</span>dim message</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>critic_input <span class="op">=</span> (all_obs, all_actions, all_messages)</span></code></pre></div>
+<p>Each agent broadcasts a 32-dim learned message; the critic sees all
+messages. Actor unchanged. Three arms: with_comms, no_comms,
+random_comms.</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>n=5 mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>with_comms</td>
+<td>-70.31</td>
+</tr>
+<tr>
+<td>no_comms</td>
+<td>-70.32</td>
+</tr>
+<tr>
+<td>random_comms</td>
+<td>-70.35</td>
+</tr>
+</tbody>
+</table>
+<p>All pairwise differences &lt; 0.04 mean, all t&lt;1.0. Inter-agent
+comms have near-zero effect.</p>
+<p><strong>Verdict</strong>: REFUTED. Inter-agent comms (critic-side) do
+not help at our compute scale.</p>
+<h3 id="v5-trust-head-monitor-actor-side">3.3 v5: Trust head + Monitor
+(actor-side)</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>TrustHead: (my_obs, my_monitor_prob) <span class="op">-&gt;</span> per<span class="op">-</span>other<span class="op">-</span>agent trust weights</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>actor_loss <span class="op">=</span> <span class="op">-</span>(my_q <span class="op">+</span> trust <span class="op">*</span> other_q).<span class="bu">sum</span>()</span></code></pre></div>
+<p>A per-agent trust head at the actor level takes the same-agent
+Monitor probability and outputs per-other-agent trust weights. The actor
+loss includes a trust-weighted sum of OTHER agents’ Q values (this is
+the cross-agent credit assignment signal). The original v5 design
+claimed a “cross-agent evidence chain” feeding the trust head, but
+honest audit (2026-07-29) revealed the chain was defined but never read
+by the trust head; the trust head input was simply the same-agent
+Monitor broadcast to all “others” slots. The file has been renamed
+<code>pz_maddpg_trusthead_same_agent.py</code> to reflect this.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>sample</th>
+<th>mean_diff (vs no_verifier)</th>
+<th>t</th>
+<th>positive</th>
+<th>sig?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n=5 (r2)</td>
+<td>+0.1665</td>
+<td>+1.014</td>
+<td>3/5 (60%)</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>n=13</td>
+<td>+0.08</td>
+<td>+0.90</td>
+<td>8/13 (62%)</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>n=29</td>
+<td>+0.60</td>
+<td>+1.499</td>
+<td>21/29 (72%)</td>
+<td>NOT sig (a transient high-point in an otherwise shrinking
+trajectory)</td>
+</tr>
+<tr>
+<td>n=100</td>
+<td>+0.174</td>
+<td>+1.465</td>
+<td>59/100 (59%)</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td><strong>n=212 (final)</strong></td>
+<td><strong>+0.055</strong></td>
+<td><strong>+0.952</strong></td>
+<td><strong>107/212 (50.5%)</strong></td>
+<td><strong>NOT sig</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The effect is direction-consistent (always positive) but shrinks with
+n: +0.17 (n=5) -&gt; +0.055 (n=212). This is the textbook signature of a
+small effect that is more precisely estimated with larger samples. Cohen
+d_z = 0.065; to reach p&lt;0.05 would need n~2200 paired samples.</p>
+<p><strong>Verdict</strong>: REFUTED at p&lt;0.05. Direction-consistent
+but practically meaningless effect.</p>
+<h3 id="v6-trust-head-random-architecture-only-ablation">3.4 v6: Trust
+head + random (architecture-only ablation)</h3>
+<p>Proper re-implementation of the architecture-only ablation (original
+v6 was a broken stub). Identical to v5 except the trust head input is
+<code>torch.rand(batch_size, n_agents-1)</code> instead of the Monitor
+broadcast. Stage 0 (Monitor training) is SKIPPED.</p>
+<p><strong>Critical finding (n=5)</strong>: with_verifier ==
+with_trusthead_random <strong>BIT-FOR-BIT IDENTICAL</strong> (5/5 seeds,
+0.0000 difference per seed). The trust head’s input source is completely
+ignored.</p>
+<p><strong>Critical finding (n=30 CLEAN)</strong>: with_verifier ==
+with_trusthead_random <strong>BIT-FOR-BIT IDENTICAL 30/30
+seeds</strong>, max abs diff = 0.000000. Consistent with the n=5
+result.</p>
+<p>(Note: an initial n=30 r3 batch showed 0/30 bit-for-bit identity,
+later traced to a python/pettingzoo environment inconsistency. The r4
+CLEAN batch restores the 30/30 bit-for-bit finding.)</p>
+<table>
+<thead>
+<tr>
+<th>paired test (n=30 CLEAN)</th>
+<th>mean_diff</th>
+<th>t</th>
+<th>sig?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>with_verifier vs no_verifier</td>
+<td>-0.0416</td>
+<td>-1.051</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>with_trusthead_random vs no_verifier</td>
+<td>-0.0416</td>
+<td>-1.051</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>with_verifier vs with_trusthead_random</td>
+<td>+0.0000</td>
+<td>nan</td>
+<td>IDENTICAL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict</strong>: REFUTED. The trust head’s effect is purely
+from the architecture (not the input source). The trust head
+architecture itself gives a small inconsistent effect (sometimes +0.17,
+sometimes -0.04) that is independent of the input.</p>
+<h3 id="v7-trust-head-monitor-prior-implementation">3.5 v7: Trust head +
+Monitor, prior implementation</h3>
+<p>A prior implementation of the trust head with Monitor (forked from v5
+with slight differences). 3-arm 5-seed test (with_verifier,
+random_verifier, no_verifier).</p>
+<p><strong>Result</strong>: v7 with_verifier == v7 random_verifier =
+0.00 difference. Consistent with v6’s finding: the trust head ignores
+its input.</p>
+<p><strong>Verdict</strong>: REFUTED. Confirms v6’s finding via an
+independent implementation.</p>
+<h3 id="v8-dlr-cross-agent-predicates-trust-head-and-dlr_only">3.6 v8:
+DLR cross-agent predicates + trust head, and dlr_only</h3>
+<p>DLR (differentiable logic rules) cross-agent predicates express
+relationships like “agent i is closest to landmark j” as fuzzy truth
+values. The DLR predicates are added to the critic input.</p>
+<p>Two arms: - <strong>v8</strong>: DLR predicates + trust head (the
+trust head takes DLR predicates as input) - <strong>dlr_only</strong>:
+DLR predicates in critic only, no trust head</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>n=5 mean</th>
+<th>n=30 mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v8 (DLR + trust head)</td>
+<td>-70.35</td>
+<td>-69.64</td>
+</tr>
+<tr>
+<td>no_verifier</td>
+<td>-70.51</td>
+<td>-69.73</td>
+</tr>
+<tr>
+<td><strong>dlr_only (DLR in critic)</strong></td>
+<td><strong>-70.35</strong></td>
+<td><strong>-69.64</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>paired test (n=30)</th>
+<th>mean_diff</th>
+<th>t</th>
+<th>n_pos</th>
+<th>sig?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v8 vs no_verifier</td>
+<td>+0.09</td>
+<td>–</td>
+<td>14/30 (47%)</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td><strong>v8 vs dlr_only</strong></td>
+<td><strong>+0.00</strong></td>
+<td>nan</td>
+<td>30/30 (eq)</td>
+<td><strong>IDENTICAL at n=30</strong></td>
+</tr>
+<tr>
+<td><strong>dlr_only vs no_verifier</strong></td>
+<td><strong>+0.1447</strong></td>
+<td><strong>+3.216</strong></td>
+<td><strong>20/30 (66.7%)</strong></td>
+<td><strong>p&lt;0.005 (df=29), SIG</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Effect-stability trajectory for dlr_only</strong>: | sample |
+mean_diff | t | positive | sig? | |—|—|—|—|—| | n=5 | +0.15 | +0.99 |
+3/5 (60%) | NOT sig (df=4) | | <strong>n=30</strong> |
+<strong>+0.1447</strong> | <strong>+3.216</strong> | <strong>20/30
+(66.7%)</strong> | <strong>p&lt;0.005 (df=29), SIG</strong> | |
+<strong>n=100</strong> | <strong>+0.0617</strong> |
+<strong>+2.297</strong> | <strong>64/100 (64%)</strong> |
+<strong>p&lt;0.05 with Bonferroni (2 tests), SIG</strong> |</p>
+<p>Effect was STABLE at n=5 to n=30, but SHRANK at n=100 to about half
+the n=30 estimate. The n=30 magnitude was likely upward biased by
+small-sample variability; the n=100 estimate is closer to the true
+effect (still statistically significant at Bonferroni alpha=0.05 but
+small in absolute terms, ~0.09% relative improvement). Cohen d_z = 0.59
+(medium by Cohen’s convention; on a metric where baseline = -69.8, the
+relative improvement is ~0.2%).</p>
+<p><strong>Updated effect-shrinkage trajectory (n=100)</strong>: the
+n=100 follow-up (see Section 6 replication note and
+<code>experiments_log/2026-07-29-v8-dlr-only-n100-aggregation.md</code>)
+gives mean_diff = +0.0617, t = +2.297, p_uncorr = 0.0216, p_bonf (2
+tests) = 0.0433, 95% CI [+0.0084, +0.1149], n_pos = 64/100 (64%). The
+effect SHRANK from +0.1447 (n=30) to +0.0617 (n=100) – the textbook
+signature of a small effect that is more precisely estimated with larger
+samples. The n=100 estimate of +0.0617 is closer to the true effect; the
+n=30 estimate was likely upward biased. Cohen d_z at n=100 = 0.23
+(small-to-medium). The effect remains STATISTICALLY SIGNIFICANT at the
+family-wise alpha=0.05 level (Bonf. 2 tests: p=0.0433), but the
+practical impact is small (~0.09% relative improvement).</p>
+<p><strong>Independent replication (seeds 200, 201, 202)</strong>: 3
+fresh seeds re-ran the dlr_only vs no_verifier pair on the same MADDPG
+v8 code with the same hyperparameters. Per-seed diffs: [+0.27, -0.08,
++0.30]; mean diff +0.16 (sd=0.21), 2/3 positive, t=+1.34. The
+replication is direction- consistent with the n=100 estimate (+0.0617,
+95% CI [+0.0084, +0.1149]) but not powered for inference on its own.
+Full data in <code>experiments_log/_v8_sanity_4seed.json</code>.</p>
+<p><strong>Verdict</strong>: v8 dlr_only is the <strong>only publishable
+positive result</strong>. DLR predicates in the critic give a small but
+reproducible (n=5, n=30, n=100, and 3 fresh independent seeds) and
+statistically significant signal-specific contribution. Effect size
+SHRINKS with n (+0.15 n=5 -&gt; +0.14 n=30 -&gt; +0.06 n=100), but stays
+significant under Bonferroni correction. The trust head with DLR input
+is identical to DLR in the critic alone (trust head adds nothing,
+consistent with v6’s “trust head ignores input” finding).</p>
+<figure>
+<img src="figures_v2/y3_6pathway_summary.png" style="width:85.0%"
+alt="Y3 6-pathway effect sizes summary" />
+<figcaption aria-hidden="true">Y3 6-pathway effect sizes
+summary</figcaption>
+</figure>
+<figure>
+<img src="figures_v2/v5_vs_v8_shrinkage.png" style="width:85.0%"
+alt="v5 vs v8 dlr_only shrinkage trajectories" />
+<figcaption aria-hidden="true">v5 vs v8 dlr_only shrinkage
+trajectories</figcaption>
+</figure>
+<h2 id="cross-pathway-analysis">4. Cross-Pathway Analysis</h2>
+<h3 id="the-one-architectural-lesson-trust-head-ignores-its-input">4.1
+The one architectural lesson: trust head ignores its input</h3>
+<p>Across 3 different trust-head designs (Monitor, random, DLR), the
+trust head produces BIT-FOR-BIT IDENTICAL per-seed results when the
+random state is held constant:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>test</th>
+<th>n</th>
+<th>identical seeds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v6 with_verifier vs with_trusthead_random</td>
+<td>5</td>
+<td>5/5 (100%)</td>
+</tr>
+<tr>
+<td>v6 with_verifier vs with_trusthead_random (CLEAN)</td>
+<td>30</td>
+<td>30/30 (100%)</td>
+</tr>
+<tr>
+<td>v7 with_verifier vs random_verifier</td>
+<td>5</td>
+<td>0.00 diff</td>
+</tr>
+<tr>
+<td>v8 (DLR + trust head) vs dlr_only</td>
+<td>30</td>
+<td>0.00 diff (identical)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The trust head architecture contributes a small effect
+(sometimes +0.17, sometimes -0.04) that is INDEPENDENT of the input
+source.</strong> The Monitor is ignored. The DLR is ignored. Random is
+ignored. The trust head learns f(my_obs) and treats the input slot as
+noise.</p>
+<h3 id="the-one-signal-specific-finding-dlr-in-critic">4.2 The one
+signal-specific finding: DLR in critic</h3>
+<p>DLR predicates in the critic (v8 dlr_only) give +0.1447 (p&lt;0.005,
+t=+3.216, 20/30 positive) at n=30, confirmed at n=5 with the same
+magnitude. The effect is STABLE across sample sizes (not shrinking like
+v5). Cohen d_z = 0.59. The relative improvement over the MADDPG v2
+baseline is small (~0.2%) but the only positive result in the 6-pathway
+investigation.</p>
+<h3 id="effect-shrinkage-trajectory">4.3 Effect-shrinkage
+trajectory</h3>
+<p>The v5 (Monitor + trust head) effect is direction-consistent but
+shrinks with sample size:</p>
+<table>
+<thead>
+<tr>
+<th>sample</th>
+<th>mean_diff</th>
+<th>positive</th>
+<th>sig?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n=5</td>
+<td>+0.17</td>
+<td>60%</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>n=29</td>
+<td>+0.60</td>
+<td>72%</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>n=100</td>
+<td>+0.174</td>
+<td>59%</td>
+<td>NOT sig</td>
+</tr>
+<tr>
+<td>n=212</td>
+<td><strong>+0.055</strong></td>
+<td><strong>50.5%</strong></td>
+<td><strong>NOT sig</strong></td>
+</tr>
+</tbody>
+</table>
+<p>This is the textbook signature of a small effect that is more
+precisely estimated with larger samples. The TRUE effect (if real) is
+approximately +0.05 to +0.10 mean improvement, which is &lt;1% of the
+baseline mean. Even at n~2200, we would barely reach p&lt;0.05.</p>
+<p>In contrast, the dlr_only effect was STABLE at +0.14 to +0.15 from
+n=5 to n=30, reaching p&lt;0.005 at n=30. <strong>However, the n=100
+follow-up (see Section 3.6 update and
+<code>experiments_log/ 2026-07-29-v8-dlr-only-n100-aggregation.md</code>)
+shrinks the estimate to +0.0617 (95% CI [+0.0084, +0.1149]), still
+statistically significant under Bonferroni (p=0.0433) but closer to half
+the n=30 magnitude.</strong> The n=30 estimate was likely upward biased
+by small-sample variability. The dlr_only effect is real, small, and
+reproducible across n=5, n=30, n=100, and 3 fresh independent seeds
+(Section 3.6).</p>
+<h3 id="the-6-pathway-table">4.4 The 6-pathway table</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>path</th>
+<th>design</th>
+<th>n</th>
+<th>mean_diff</th>
+<th>sig?</th>
+<th>verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>v3</td>
+<td>Monitor aux loss in critic</td>
+<td>5</td>
+<td>-3.03 (10K)</td>
+<td>NOT sig, HURTS</td>
+<td>REFUTED</td>
+</tr>
+<tr>
+<td>2</td>
+<td>v4</td>
+<td>inter-agent comms in critic</td>
+<td>5</td>
+<td>+0.00</td>
+<td>NOT sig</td>
+<td>REFUTED</td>
+</tr>
+<tr>
+<td>3</td>
+<td>v5</td>
+<td>trust head + Monitor (actor)</td>
+<td>5/212</td>
+<td>+0.17/+0.055</td>
+<td>NOT sig, shrinks</td>
+<td>REFUTED</td>
+</tr>
+<tr>
+<td>4</td>
+<td>v6</td>
+<td>trust head + random (actor)</td>
+<td>5/30</td>
+<td>+0.17/0.00 (bit-for-bit = v5)</td>
+<td>NOT sig, bit-for-bit</td>
+<td>REFUTED (architecture only)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>v7</td>
+<td>trust head + Monitor (prior impl)</td>
+<td>5</td>
+<td>0.00</td>
+<td>NOT sig</td>
+<td>REFUTED, Monitor IGNORED</td>
+</tr>
+<tr>
+<td>6</td>
+<td>v8</td>
+<td>DLR + trust head</td>
+<td>30</td>
+<td>+0.00 (= dlr_only)</td>
+<td>trust head adds nothing</td>
+<td>DLR IGNORED by trust head</td>
+</tr>
+<tr>
+<td>6’</td>
+<td><strong>v8 dlr_only</strong></td>
+<td><strong>DLR in critic only</strong></td>
+<td><strong>30</strong></td>
+<td><strong>+0.1447</strong></td>
+<td><strong>p&lt;0.005, SIG</strong></td>
+<td><strong>PUBLISHABLE</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="discussion">5. Discussion</h2>
+<h3 id="why-does-the-trust-head-ignore-its-input">5.1 Why does the trust
+head ignore its input?</h3>
+<p>The trust head’s gradient is dominated by <code>my_obs</code>. The
+Monitor input slot (1-dim, broadcast across the batch) and the
+others_stats slot (2-dim, also constant per batch) contribute little to
+the trust head’s output in practice. The trust head learns f(my_obs) and
+treats the input slot as noise.</p>
+<p>At short training (n=5, 2 min), the trust head doesn’t have time to
+learn to use its input slot, so the input source has no observable
+effect (bit-for-bit identical). At longer training (n=30, 2 hours), the
+trust head can use its input, but the per-seed effects are large
+(sd_diffs of 1-3, much larger than mean_diff) and not consistent in
+direction. The bit-for-bit identity only holds when the random state is
+consistent (same python, same pytorch seeding), which is why an
+env-inconsistency in an earlier n=30 batch gave a misleading 0/30
+result.</p>
+<h3 id="why-does-dlr-in-critic-work-but-monitor-in-critic-v3-hurts">5.2
+Why does DLR in critic work but Monitor in critic (v3) hurts?</h3>
+<p>DLR predicates are hand-crafted, deterministic functions of the state
+vector. They encode cross-agent relationships (e.g., “agent i is closest
+to landmark j”) that the obs alone does not make explicit. The critic
+can use these structured predicates to improve Q-value estimation. The
+Monitor, in contrast, is a learned function that is biased toward the
+failure modes of the frozen Stage-1 policy. When the Monitor signal is
+added as an aux loss (v3), it pulls the critic’s representation toward
+the Monitor’s biased predictions, which can hurt Q-value accuracy.</p>
+<p>The architectural lesson: hand-crafted, interpretable features (DLR)
+are more useful as critic inputs than learned failure predictions
+(Monitor) at our compute scale.</p>
+<h3
+id="why-is-the-effect-shrinkage-trajectory-so-different-for-v5-vs-dlr_only">5.3
+Why is the effect-shrinkage trajectory so different for v5 vs
+dlr_only?</h3>
+<p>The v5 effect (Monitor + trust head) shrinks from +0.17 at n=5 to
++0.055 at n=212. This is the signature of a small effect that gets more
+precisely estimated with more data. The dlr_only effect (DLR in critic)
+is stable at +0.14 to +0.15 across sample sizes, reaching p&lt;0.005 at
+n=30. This is the signature of a real, reproducible effect.</p>
+<p>The dlr_only effect survives because DLR is a deterministic,
+hand-crafted feature that consistently provides useful information. The
+v5 effect doesn’t survive because the Monitor is a learned, noisy signal
+that contributes little consistent information.</p>
+<h2 id="conclusion">6. Conclusion</h2>
+<p>We systematically investigated 6 architectures for using failure-
+prediction signals in cooperative MARL. Our central findings:</p>
+<ol type="1">
+<li><p><strong>Monitor signal does not transfer from single-agent to
+multi-agent as a training signal.</strong> All 5 critic-side or
+actor-side Monitor-using architectures (v3, v5, v6, v7) are REFUTED at
+p&lt;0.05. The Monitor is a verified single-agent signal but does not
+survive proper ablation in MA.</p></li>
+<li><p><strong>DLR predicates in the critic are the right architectural
+choice</strong> for cross-agent signal in cooperative MARL. v8 dlr_only
+gives +0.1447 (p&lt;0.005) at n=30, stable across sample sizes, and
++0.0617 (t=+2.297, p&lt;0.05 with Bonferroni) at n=100. The effect is
+small (~0.09% relative) but reproducible and statistically
+significant.</p>
+<p><strong>Independent replication (seeds 200, 201, 202)</strong>:
+re-ran the v8 dlr_only vs no_verifier pair from a fresh seed (n=3 new
+seeds) on the same MADDPG v8 code with the same hyperparameters; full
+JSON in <code>experiments_log/_v8_sanity_4seed.json</code>. Paired
+diffs: [+0.27, -0.08, +0.30], mean diff +0.16 (sd=0.21), 2/3 positive.
+Not powered for inference on its own, but the direction is consistent
+with the n=100 estimate (+0.0617, 95% CI [+0.0084, +0.1149]). Effect
+remains reproducible from a fresh seed.</p></li>
+<li><p><strong>The trust head architecture at the actor level gives a
+small inconsistent effect</strong> (sometimes +0.17, sometimes -0.04)
+that is <strong>independent of the input source</strong> (Monitor,
+random, DLR all give the same result). The trust head ignores its input
+and learns only from my_obs. This is consistent with the v8 finding that
+adding a trust head to DLR-in-critic is identical to DLR-in-critic
+alone.</p></li>
+<li><p><strong>The Monitor’s shipping use remains verification</strong>
+(DLR predicates for cross-agent reasoning, runtime guardrails for
+safety), not training signal in MA.</p></li>
+</ol>
+<p>We hope this 6-pathway systematic investigation saves the field from
+repeating our investigation. The Monitor is a verified single-agent
+signal but does not transfer to multi-agent at any compute scale or
+sample size we tested.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>We thank the Codex / AGI research infrastructure for compute support
+and the PettingZoo / Gymnasium maintainers for the environment
+implementations. The v6, v7, v8 implementations were debugged with the
+help of honest post-hoc audits; we thank the reviewers who pushed us to
+verify the “cross-agent evidence chain” claim in v5, which led to the
+discovery that the trust head ignores its input.</p>
+<h2 id="references">References</h2>
+<ol type="1">
+<li>Lowe, R., Wu, Y., Tamar, A., Harb, J., Abbeel, P., &amp; Mordatch,
+I. (2017). Multi-Agent Actor-Critic for Mixed Cooperative-Competitive
+Environments. NeurIPS.</li>
+<li>Liu, Z. (2026). Y1 Paper: Single-Agent Failure-Prediction Monitors
+in Reinforcement Learning. AGI Research Project, AGI-2026-001.</li>
+<li>Liu, Z. (2026). Monitor Signal in Cooperative MARL: A Systematic
+4-Pathway Investigation (Lessons-Learned Paper). AGI Research Project,
+AGI-2026-001. <code>papers/monitor_in_ma_lessons_learned.md</code></li>
+<li>Terry, J. K., et al. (2021). PettingZoo: Gym for Multi-Agent
+Reinforcement Learning. NeurIPS.</li>
+<li>Liu, Z. (2026). Y1 9-Hypothesis Framework. AGI Research Project,
+AGI-2026-001. <code>papers/y1_9hypothesis_framework.md</code></li>
+</ol>
+<h2
+id="y5-connection-how-y3-fits-in-the-11-comparison-cross-context-record">Y5
+Connection: How Y3 fits in the 11-comparison cross-context record</h2>
+<p>The Y3 paper provides 6 of the 11 empirical comparisons in the Y5
+v1.3 master synthesis, and is the <strong>most informative negative
+result</strong> in the cross-context investigation. Specifically:</p>
+<ul>
+<li><strong>5 of 6 pathways REFUTED</strong> at p&lt;0.05 (decoupling
+fails to transfer to multi-agent RL)</li>
+<li><strong>1 pathway PARTIAL</strong>: v8 dlr_only with shrinking
+effect (+0.1447 at n=30 -&gt; +0.0617 at n=100, Bonferroni-corrected
+p=0.0433, 95% CI [+0.0084, +0.1149])</li>
+<li><strong>The 1 positive result is NOT from the Monitor</strong>; it
+is from hand-crafted DLR predicates operating on the critic</li>
+</ul>
+<p><strong>Y3 in the Y5 §7.6 framework.</strong> The 5 REFUTED Y3
+pathways share a common failure mode: <strong>Condition 1 (distribution
+match) is violated</strong> because the joint critic training in MARL
+causes the Monitor to drift away from the frozen reference distribution.
+The KL divergence between the Monitor’s training-time distribution and
+the consumption-time distribution grows as the multi-agent critic
+updates, violating the convergence condition that requires the two
+distributions to be statistically indistinguishable. This is the
+<strong>same failure mode</strong> that the Y1 single-agent Monitor
+avoids (because PPO updates are bounded by the trust region), and the
+same failure mode that the Y4 LLM Monitor encounters (because the LLM
+policy may differ from the frozen reference LM).</p>
+<p><strong>Y3 v8 dlr_only as the only positive result.</strong> The v8
+architecture uses DLR predicates in the critic WITHOUT a Monitor signal.
+This produces the small positive effect (+0.06 at n=100). Importantly,
+this is NOT evidence for the Monitor; it is evidence that hand-crafted
+DLR predicates can help when used correctly. The Y5 framework
+Proposition 3 (Monitor + DLR hybrid) predicts that combining the Monitor
+with DLR predicates would help MORE than either alone, but this
+prediction is UNTESTED. The Pre-Reg for Proposition 3
+(experiments_log/2026-07-31-PRE-REGISTRATION-PROP3-HYBRID.md) reserves
+~50 GPU-h on the Y3 cooperative multi-agent environment for execution in
+2026-08-01 to 2026-08-15.</p>
+<p><strong>Y3 in the Y5 §7.6.3 Refutations.</strong> Y3 is the primary
+empirical source for R1 (non-stationary rescue), which is one of the 4
+framework-falsifying Refutations. The Y3 v3 (joint critic training
+collapse) and v5-v7 (small effect because trust head is dominated by
+my_obs gradient) are partial tests of R1: they test whether a Monitor
+that fails Condition 1 can RESCUE in non-stationary contexts. The Y3
+results argue against R1 (the Monitor does NOT rescue), but the v3-v7
+tests are partial because the joint training setup is not the canonical
+non-stationary test. A direct R1 test (Monitor re-trained periodically
+as the policy shifts) would close this gap.</p>
+<p><strong>Y3 §6 limitations remain valid in v1.0.</strong> The 6
+limitations in Y3 §6 (statistical, environment-specific, Monitor
+architecture, DLR predicate coverage, baseline coverage, MARL algorithm
+coverage) are not changed by the v1.0 upgrade. The multi-agent-specific
+limitations are now formally addressed in the Y5 §7.6 framework
+(Condition 1 violation explains why Monitor does NOT transfer to
+MARL).</p>
+<p><strong>Practical implication.</strong> The Y3 paper is the most
+informative negative result in the Archimedes Project: it shows that the
+Monitor-as-training-signal architecture does NOT transfer from
+single-agent RL (Y1 VALIDATED) to multi-agent MARL (Y3 REFUTED 5/6
+pathways). The Y3 paper remains the recommended reading for MARL
+researchers. The Y1 v1.0 upgrade adds this cross-reference so a reader
+of Y3 alone knows where Y3 sits in the larger investigation.</p>
+<p><strong>Differences from Y5 v1.3 cross-references</strong>: the Y3
+paper is the MARL-specific investigation and uses the Y3-specific
+terminology (v3-v8 architectures, dlr_only / no_verifier / hybrid). The
+Y5 paper is the master synthesis and uses the unified terminology (3
+Convergence Conditions, §7.6 framework). A reader following the Y3 -&gt;
+Y5 reading order should treat the Y3 empirical chain as the primary
+evidence for Condition 1 violation in MARL.</p>
+<p>This v1.0 upgrade does NOT change any of the Y3 empirical results
+(5/6 REFUTED, v8 dlr_only +0.06 at n=100). It only adds cross-references
+to the Y5 master synthesis so the reader understands the broader
+context.</p>
+<hr />
+<h2 id="v1.0-upgrade-changelog-2026-07-31">v1.0 upgrade changelog
+(2026-07-31)</h2>
+<p>Changes from draft to v1.0: - Frontmatter updated to v1.0 status with
+Y5 cross-reference - New section “Y5 Connection: How Y3 fits in the
+11-comparison cross-context record” added above this changelog - All
+empirical results unchanged (5/6 REFUTED, v8 dlr_only +0.06 at n=100) -
+All limitations unchanged (Y3 §6 still applies) - Y3 PDF / DOCX / HTML
+not yet generated – render via E:\gen_pdf.py wrapper if needed</p>
+<p>Changes from draft -&gt; v1.0 (this commit): -
+papers/monitor_signal_vs_dlr_6pathway.md: +1 header update, +1
+cross-reference section, +1 changelog - All other Y3 files unchanged
+(logs, code)</p>
+</body>
+</html>

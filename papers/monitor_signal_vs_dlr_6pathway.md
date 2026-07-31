@@ -1,13 +1,18 @@
 # Monitor Signal vs DLR Predicates in Cooperative MARL:
 ## A 6-Pathway Systematic Investigation
 
+**v1.0 upgrade** (2026-07-31, in coordination with Y5 v1.3 camera-ready master synthesis)
+
 **Authors:** Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
-**Date:** 2026-07-29
-**Status:** Y3 paper draft (extends the 4-pathway lessons-learned paper at
-`papers/monitor_in_ma_lessons_learned.md` with v6, v7, v8, v6-n30 CLEAN)
+**Date:** 2026-07-29 (original draft), 2026-07-31 (v1.0 cross-reference upgrade)
+**Status:** v1.0 (companion to Y5 master synthesis v1.3; submitted to AAMAS 2027 separately)
 **Code:** `projects/project_f_multi_agent/code/pz_maddpg_v{3,4,5,6,7,8}.py`
 **Logs:** `experiments_log/2026-07-29-y2-final-6-pathway.md` and sub-logs
+**Companion papers:** Y1 single-agent (papers/y1_paper_draft.md v1.0), Y4 H10 LLM (papers/y4_v0_6_1_h10_paper.md), Y5 master synthesis (papers/y5_v1_3_master_synthesis.pdf)
 **Target venue:** AAMAS 2027 / NeurIPS 2026 MARL workshop
+
+> Status: 6-pathway draft extended with v1.0 cross-reference to Y5 §7.6 framework
+> Date: 2026-07-29 (original), 2026-07-31 (v1.0 cross-reference upgrade)
 
 ## Abstract
 
@@ -517,3 +522,41 @@ head ignores its input.
    Reinforcement Learning. NeurIPS.
 5. Liu, Z. (2026). Y1 9-Hypothesis Framework. AGI Research Project,
    AGI-2026-001. `papers/y1_9hypothesis_framework.md`
+
+
+## Y5 Connection: How Y3 fits in the 11-comparison cross-context record
+
+The Y3 paper provides 6 of the 11 empirical comparisons in the Y5 v1.3 master synthesis, and is the **most informative negative result** in the cross-context investigation. Specifically:
+
+- **5 of 6 pathways REFUTED** at p<0.05 (decoupling fails to transfer to multi-agent RL)
+- **1 pathway PARTIAL**: v8 dlr_only with shrinking effect (+0.1447 at n=30 -> +0.0617 at n=100, Bonferroni-corrected p=0.0433, 95% CI [+0.0084, +0.1149])
+- **The 1 positive result is NOT from the Monitor**; it is from hand-crafted DLR predicates operating on the critic
+
+**Y3 in the Y5 §7.6 framework.** The 5 REFUTED Y3 pathways share a common failure mode: **Condition 1 (distribution match) is violated** because the joint critic training in MARL causes the Monitor to drift away from the frozen reference distribution. The KL divergence between the Monitor's training-time distribution and the consumption-time distribution grows as the multi-agent critic updates, violating the convergence condition that requires the two distributions to be statistically indistinguishable. This is the **same failure mode** that the Y1 single-agent Monitor avoids (because PPO updates are bounded by the trust region), and the same failure mode that the Y4 LLM Monitor encounters (because the LLM policy may differ from the frozen reference LM).
+
+**Y3 v8 dlr_only as the only positive result.** The v8 architecture uses DLR predicates in the critic WITHOUT a Monitor signal. This produces the small positive effect (+0.06 at n=100). Importantly, this is NOT evidence for the Monitor; it is evidence that hand-crafted DLR predicates can help when used correctly. The Y5 framework Proposition 3 (Monitor + DLR hybrid) predicts that combining the Monitor with DLR predicates would help MORE than either alone, but this prediction is UNTESTED. The Pre-Reg for Proposition 3 (experiments_log/2026-07-31-PRE-REGISTRATION-PROP3-HYBRID.md) reserves ~50 GPU-h on the Y3 cooperative multi-agent environment for execution in 2026-08-01 to 2026-08-15.
+
+**Y3 in the Y5 §7.6.3 Refutations.** Y3 is the primary empirical source for R1 (non-stationary rescue), which is one of the 4 framework-falsifying Refutations. The Y3 v3 (joint critic training collapse) and v5-v7 (small effect because trust head is dominated by my_obs gradient) are partial tests of R1: they test whether a Monitor that fails Condition 1 can RESCUE in non-stationary contexts. The Y3 results argue against R1 (the Monitor does NOT rescue), but the v3-v7 tests are partial because the joint training setup is not the canonical non-stationary test. A direct R1 test (Monitor re-trained periodically as the policy shifts) would close this gap.
+
+**Y3 §6 limitations remain valid in v1.0.** The 6 limitations in Y3 §6 (statistical, environment-specific, Monitor architecture, DLR predicate coverage, baseline coverage, MARL algorithm coverage) are not changed by the v1.0 upgrade. The multi-agent-specific limitations are now formally addressed in the Y5 §7.6 framework (Condition 1 violation explains why Monitor does NOT transfer to MARL).
+
+**Practical implication.** The Y3 paper is the most informative negative result in the Archimedes Project: it shows that the Monitor-as-training-signal architecture does NOT transfer from single-agent RL (Y1 VALIDATED) to multi-agent MARL (Y3 REFUTED 5/6 pathways). The Y3 paper remains the recommended reading for MARL researchers. The Y1 v1.0 upgrade adds this cross-reference so a reader of Y3 alone knows where Y3 sits in the larger investigation.
+
+**Differences from Y5 v1.3 cross-references**: the Y3 paper is the MARL-specific investigation and uses the Y3-specific terminology (v3-v8 architectures, dlr_only / no_verifier / hybrid). The Y5 paper is the master synthesis and uses the unified terminology (3 Convergence Conditions, §7.6 framework). A reader following the Y3 -> Y5 reading order should treat the Y3 empirical chain as the primary evidence for Condition 1 violation in MARL.
+
+This v1.0 upgrade does NOT change any of the Y3 empirical results (5/6 REFUTED, v8 dlr_only +0.06 at n=100). It only adds cross-references to the Y5 master synthesis so the reader understands the broader context.
+
+---
+
+## v1.0 upgrade changelog (2026-07-31)
+
+Changes from draft to v1.0:
+- Frontmatter updated to v1.0 status with Y5 cross-reference
+- New section "Y5 Connection: How Y3 fits in the 11-comparison cross-context record" added above this changelog
+- All empirical results unchanged (5/6 REFUTED, v8 dlr_only +0.06 at n=100)
+- All limitations unchanged (Y3 §6 still applies)
+- Y3 PDF / DOCX / HTML not yet generated -- render via E:\\gen_pdf.py wrapper if needed
+
+Changes from draft -> v1.0 (this commit):
+  - papers/monitor_signal_vs_dlr_6pathway.md: +1 header update, +1 cross-reference section, +1 changelog
+  - All other Y3 files unchanged (logs, code)

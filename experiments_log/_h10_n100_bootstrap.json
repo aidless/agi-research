@@ -1,0 +1,73 @@
+{
+  "n_seeds_total": 98,
+  "n_seeds_valid": 98,
+  "note": "H10 n=100 (300 jobs, 3 arms x 100 seeds). H10_MAX_NEW_TOKENS=64, CPU, stratified split with rebalance fallback.",
+  "mean_per_arm": {
+    "frozen": 0.5,
+    "joint": 0.4846938775510204,
+    "random": 0.5102040816326531
+  },
+  "sd_per_arm": {
+    "frozen": 0.4367168985561883,
+    "joint": 0.4622562418810648,
+    "random": 0.4246259229205846
+  },
+  "contrasts": {
+    "F-J": {
+      "n": 98,
+      "mean_a": 0.5,
+      "sd_a": 0.4367168985561883,
+      "mean_b": 0.4846938775510204,
+      "sd_b": 0.4622562418810648,
+      "mean_diff": 0.015306122448979591,
+      "sd_diffs": 0.5099731225616944,
+      "ci95": [
+        -0.08673469387755102,
+        0.11734693877551021
+      ],
+      "p_bootstrap_two_sided": 0.787,
+      "pos_share": 0.23469387755102042,
+      "cohens_d": 0.030013586543725983,
+      "sig_bonf": false,
+      "required_n_for_80pct_power": 8713.083649383569
+    },
+    "F-R": {
+      "n": 98,
+      "mean_a": 0.5,
+      "sd_a": 0.4367168985561883,
+      "mean_b": 0.5102040816326531,
+      "sd_b": 0.4246259229205846,
+      "mean_diff": -0.01020408163265306,
+      "sd_diffs": 0.6133379680697681,
+      "ci95": [
+        -0.12755102040816327,
+        0.11734693877551021
+      ],
+      "p_bootstrap_two_sided": 0.885,
+      "pos_share": 0.2857142857142857,
+      "cohens_d": -0.016636963898984208,
+      "sig_bonf": false,
+      "required_n_for_80pct_power": 28356.950568486278
+    },
+    "J-R": {
+      "n": 98,
+      "mean_a": 0.4846938775510204,
+      "sd_a": 0.4622562418810648,
+      "mean_b": 0.5102040816326531,
+      "sd_b": 0.4246259229205846,
+      "mean_diff": -0.025510204081632654,
+      "sd_diffs": 0.6355955441718357,
+      "ci95": [
+        -0.15816326530612246,
+        0.09693877551020408
+      ],
+      "p_bootstrap_two_sided": 0.699,
+      "pos_share": 0.29591836734693877,
+      "cohens_d": -0.04013590767832046,
+      "sig_bonf": false,
+      "required_n_for_80pct_power": 4872.38386669483
+    }
+  },
+  "alpha_bonferroni": 0.016666666666666666,
+  "method": "paired seed-level t-test + 2,000-replicate bootstrap 95% CI"
+}

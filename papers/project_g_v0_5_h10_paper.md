@@ -388,7 +388,71 @@ negative control now scores highest in mean AUROC (0.63).
   (where it is verified) but not as a training signal in LLM self-
   monitoring on this task.
 
-### 7.5 Power re-analysis
+### 7.5 n=100 follow-up (2026-07-31, 300 jobs)
+
+Following the n=20 power analysis (Section 7.2.1), we re-ran
+the H10 pilot at n=100 per arm (3 arms x 100 seeds = 300
+jobs, total wall-clock 8h51m on CPU). Configuration:
+`H10_N_TOTAL=8`, `H10_MAX_NEW_TOKENS=64` (restored from 16),
+stratified split with deterministic rebalance fallback when
+the split collapses to a single class. Two seeds (137, 144)
+triggered the rebalance path; the remaining 98 produced
+valid paired AUROC data. Aggregated statistics in
+`experiments_log/_h10_n100_bootstrap.json`; forest plot in
+`experiments_log/_h10_n100_forest.png`.
+
+**Per-arm means (n=98 valid)**:
+
+| Arm    | Mean  | SD    |
+|--------|-------|-------|
+| Frozen | 0.500 | 0.426 |
+| Joint  | 0.485 | 0.430 |
+| Random | 0.510 | 0.430 |
+
+All three arms are now within ~0.02 of 0.5 (random). The
+Monitor signal in any configuration is **indistinguishable
+from chance** on this task at n=100.
+
+**Paired contrasts (n=98, 2,000-replicate bootstrap)**:
+
+| Contrast | $\Delta$AUROC | 95% CI (bootstrap) | Cohen's $d$ | Sig. (Bonf. $\alpha$=0.0167)? |
+|---|---|---|---|---|
+| Frozen $-$ Joint | +0.015 | [-0.087, +0.117] | +0.030 | No  |
+| Frozen $-$ Random | -0.010 | [-0.128, +0.117] | -0.017 | No  |
+| Joint $-$ Random | -0.025 | [-0.158, +0.097] | -0.040 | No  |
+
+![H10 n=100 3-arm contrast Forest plot](../experiments_log/_h10_n100_forest.png){ width=80% }
+
+**Verdict at n=100**: H10 is now REFUTED **at the
+chance level**. None of the three arms (Frozen, Joint,
+Random) significantly exceeds the others. The n=20
+direction (Frozen slightly above Joint by +0.13) collapses
+at n=100 to a near-zero effect (+0.015, 95% CI includes 0).
+Cohen's $d$ of the F-J contrast is +0.030 -- at this effect
+size, detecting the effect at Bonferroni $\alpha=0.0167$
+with 80% power would require n $\approx$ 17,000 paired
+samples, which is clearly not warranted.
+
+**Practical interpretation**:
+- The simple arithmetic trace, with `H10_N_TOTAL=8`
+  rollouts and `H10_MAX_NEW_TOKENS=64`, produces a signal
+  too weak for the Monitor architecture to learn from
+  regardless of how the Monitor is trained (frozen vs joint).
+- The n=5 'Joint > Frozen' reversal (Section 4) and the n=20
+  'Frozen > Joint' finding (Section 7) are both consistent
+  with sampling noise on a near-zero effect.
+- H10 (decoupling transfers to LLM self-monitoring) is
+  **NOT supported** by any of n=5, n=20, or n=100 data;
+  the most defensible interpretation is that the Monitor
+  signal does not transfer from RL to LLM self-monitoring
+  on simple arithmetic tasks.
+- For a follow-up that *could* validate H10, the trace
+  task would need to be harder (e.g., GSM8K with 200+ token
+  rollouts) and the sample size would need to match the
+  observed effect size, not the n=5 'obvious difference'
+  one might expect.
+
+### 7.6 Power re-analysis
 
 With the observed Cohen's $d \approx 0.27$ for the F-J contrast,
 a paired t-test at $\alpha/3 = 0.0167$ (Bonferroni) needs

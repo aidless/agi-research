@@ -2760,4 +2760,111 @@ Next session priorities (after token is provided or not):
 - 2.h: thesis v2.0 full PDF integrating H10 n=100 numbers
 - 3.k: thesis overfull-hbox polish (last ~10 warnings)
 - 3.i: H10 with GSM8K 200+ token (the only path to potentially validate H10, 5-7h CPU)
+## 2026-07-31 session 17 -- B.2 review-fix + supplementary + figures v2
+
+E1-E6 review fixes (6 critical issues found in Y3/Y4 papers):
+- E1 thesis 26.7 F-J CI lower bound was +0.015 (typo); corrected to -0.079
+- E2 Y3 paper v5 n=29 row (+0.60) flagged as "transient high-point in
+  an otherwise shrinking trajectory" via footnote
+- E3 Y3 paper v8 n=30 mean table row was -69.94 (off by 0.30 from
+  the bit-for-bit-identical dlr_only value); corrected to -69.64
+  and the v8 vs no_verifier contrast updated from +0.21 to +0.09
+- E4 Y3 paper Section 4.3 "STABLE at +0.14 to +0.15" was contradicted
+  by the new n=100 shrinkage; softened to "STABLE at n=5 to n=30,
+  SHRANK at n=100 to +0.0617"
+- E5/E6 Y4 paper Section 5.1/5.2/7.6 were re-written to lead with
+  the n=100 chance-level conclusion instead of the n=5
+  underpowered narrative
+- Plus Y3 paper Section 3.6 trajectory table now includes the
+  n=100 row (+0.0617, t=+2.297, 64/100, p<0.05 Bonf)
+
+Supplementary materials expanded from S1-S5 to S1-S10:
+- S6: figures v2 + JSON data files manifest
+- S7: Y4 paper supplementary figures
+- S8: H10 pre-registration protocol
+- S9: v8 dlr_only 3-seed independent replication
+- S10: provenance table for every reported number in the papers
+
+Figures v2 (4 new PNGs):
+- h10_n5_forest.png (Y4 paper Section 4.3)
+- y3_6pathway_summary.png (Y3 paper Section 3.6 end)
+- h10_shrinkage_timeline.png (Y4 paper Section 7.5 end)
+- v5_vs_v8_shrinkage.png (Y3 paper Section 3.6 end)
+
+papers/figures_v2/README.md (61 lines) data source manifest.
+
+## 2026-07-31 session 18 -- All-add: figures + tar.gz + decoupling-across-contexts
+
+Y4 paper summary figures (after abstract):
+- h10_three_sample_arms.png: 3-arm AUROC at n=5/20/100 with SD bars
+- y4_three_sample_summary.png: 3-arm paired contrasts at n=5/20/100
+
+Supplementary S11: pre-registration document links
+- experiments_log/2026-07-28-PRE-REGISTERED-H10.md (H10 protocol)
+- experiments_log/2026-07-28-y2-pre-reg.md (v8 dlr_only protocol)
+
+thesis v2.0 Chapter 26.1 entry now has 2 inline figures:
+- 3-arm AUROC trajectory
+- F-J shrinkage timeline with 95% bootstrap CI
+
+Thesis intro: decoupling_across_contexts.png shows
+single-agent (+39.5) vs multi-agent (+0.06) vs LLM (chance)
+across the 3 empirical contexts in one glance.
+
+papers/figures_v2.tar.gz (298KB) ready for arXiv upload of
+Y4 paper: contains all 7 PNGs + README.md in a single archive.
+
+## 2026-07-31 session 19 -- Deep-dig: Y5, HYPOTHESIS_STATUS, covers, README
+
+Data audit: cross-referenced 18 key numbers across
+Y3/Y4/supplementary/thesis/JSON. All consistent. Raw
+floating-point values (which should not appear in markdown)
+identified but not present in any document.
+
+Y5 paper (cross-context synthesis) updated:
+- Section 2.3 H10: added n=5/20/100 table with all three
+  sample sizes
+- Section 2.2 v8 dlr_only: added 3-seed independent replication
+  note (seeds 200, 201, 202)
+
+papers/HYPOTHESIS_STATUS.md (3.3KB) created: H1-H10 status
+table aggregating Y1 framework + Y3 + Y4 + Y5 verdicts in
+one place. Replaces the older H1-H9 list in y1 framework.
+
+AAMAS cover letter (cover_letter_aamas2027.md) updated:
+- v8 dlr_only n=100 number + 3-seed replication noted
+- New "conclusive evidence" paragraph on replication
+- Shrinkage explicitly described as textbook small-effect
+
+COLM 2026 cover letter (cover_letter_colm2026.md) created:
+- Pre-registered negative result framing
+- Why this paper fits COLM (reproducibility track)
+- Conflict of interest / dual submission policy
+- Suggested program committee area
+
+README.md at repo root (4.5KB) created:
+- Project overview + status
+- Repository layout
+- Key results table
+- Reproducibility pointers
+- Citation format
+- License (MIT)
+
+## 2026-07-31 session 20 -- Final pass: REPRODUCE.sh, S13-S15, thesis 26.9
+
+papers/REPRODUCE.sh (2.4KB) created: canonical end-to-end
+reproduce script for the Y3 paper, calling all 6 launchers
+in order. Idempotent (re-run overwrites).
+
+Supplementary expanded to S1-S15:
+- S13: REPRODUCE.sh overview
+- S14: Y4 H10 reproduce commands
+- S15: known environment requirements
+
+thesis_draft_v2.0.tex Chapter 26.9 added: cross-references
+to all companion papers (Y3/Y4/Y5/Y1), status tables
+(HYPOTHESIS_STATUS), supplementary, venue plan, and
+reproduce scripts.
+
+Final session total: 17 commits pushed.
 

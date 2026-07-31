@@ -1,4 +1,4 @@
-# Project G v0.5: Stratified Split for H10 LLM Self-Monitoring Pilot
+﻿# Project G v0.5: Stratified Split for H10 LLM Self-Monitoring Pilot
 ## When Decoupling Doesn't Help LLM Self-Monitoring Either
 
 **Authors:** Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
@@ -255,8 +255,8 @@ effect.
 - **Sample size**: tested at n=5, n=20, and n=100 (300 jobs
   total, 8h51m CPU at the largest). At n=100 the F-J effect
   collapses to Cohen's $d=+0.030$; detecting this at Bonferroni
-  $\alpha=0.0167$ with 80% power would require n$\approx$17,000,
-  which is clearly not warranted. The result is well-powered
+  $alpha=0.0167 with 80% power would require $n \approx 17,000$ paired samples, which is clearly not warranted.
+  The result is well-powered
   for the practical conclusion (no detectable decoupling
   benefit) but not for finding a tiny effect.
 - **Task simplicity**: simple arithmetic only. The trace is too

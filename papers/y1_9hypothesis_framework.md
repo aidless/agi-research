@@ -20,7 +20,7 @@ Archimedes Project. Each hypothesis has:
 **frozen** policy has higher failure-prediction AUROC than a Monitor
 trained **jointly** with the policy, on the same PPO budget.
 
-**Status**: ✅ **VALIDATED** (5/5 seeds, LunarLander-v3, 100K PPO)
+**Status**: [VALIDATED] **VALIDATED** (5/5 seeds, LunarLander-v3, 100K PPO)
 
 **Evidence**:
 - Mean frozen AUROC: 0.796
@@ -68,11 +68,11 @@ rule out the too-strong explanation; pre-register first.
 produces a statistically significant policy gain, where inference-time
 intervention does not.
 
-**Status**: ✅ **VALIDATED** (n=15 seeds, p<0.001, LunarLander)
+**Status**: [VALIDATED] **VALIDATED** (n=15 seeds, p<0.001, LunarLander)
 
 **Evidence**:
-- Y1.3 (lambda=0.5) mean eval: 80.1 ± 45.9
-- PPO baseline: 40.6 ± 37.1
+- Y1.3 (lambda=0.5) mean eval: 80.1 +/- 45.9
+- PPO baseline: 40.6 +/- 37.1
 - **t=6.76, df=14, p<0.001**
 - 13/15 seeds positive
 - 6/6 inference-time interventions (DEC-0011 v0.1-v0.4C) failed
@@ -89,7 +89,7 @@ longer training + try MADDPG/QMIX as comparison baselines.
 projection + predicate networks) can learn hand-coded predicates
 across diverse classical-control environments with high accuracy.
 
-**Status**: ✅ **VALIDATED** (4 envs, 3 seeds each, 19 predicates)
+**Status**: [VALIDATED] **VALIDATED** (4 envs, 3 seeds each, 19 predicates)
 
 **Evidence**:
 | Env | Predicates | 3-seed mean acc |
@@ -110,7 +110,7 @@ hand-coded) predicates, OOD generalization.
 **Statement**: Replacing a Monitor's raw-history input with slot-attention
 features improves failure-prediction AUROC.
 
-**Status**: ✅ **VALIDATED** (single env, single seed)
+**Status**: [VALIDATED] **VALIDATED** (single env, single seed)
 
 **Evidence**:
 - Raw-history Monitor: AUROC 0.796
@@ -247,7 +247,7 @@ per-seed results. The trust head's input slot is completely ignored.
 | with_trusthead_random | -69.1715 | 1.9229 |
 
 **v6 n=30 paired tests (clean)**:
-| comparison | mean_diff | t | sig? |
+| comparison | mean_diff | t | sig**[REFUTED]** |
 |---|---|---|---|
 | with_verifier vs no_verifier | -0.0416 | -1.051 | NOT sig |
 | with_verifier vs with_trusthead_random | +0.0000 | nan | IDENTICAL |
@@ -289,7 +289,7 @@ DLR). The trust head ignores its input (v7, v8 both confirm this).
 
 **One signal-specific finding (CONFIRMED at n=30)**: DLR in critic
 (v8 dlr_only) gives:
-| sample | mean_diff | t | positive | sig? |
+| sample | mean_diff | t | positive | sig**[REFUTED]** |
 |---|---|---|---|---|
 | n=5 | +0.15 | +0.99 | 3/5 (60%) | NOT sig (df=4) |
 | **n=30** | **+0.1447** | **+3.216** | **20/30 (66.7%)** | **p<0.005 (df=29), SIG** |
@@ -365,9 +365,9 @@ Monitor's quality.
 hash-chained evidence log achieves >95% tamper-detection rate and zero
 execution of PEP-denied actions, on a deterministic scripted agent.
 
-**Status**: ✅ **VALIDATED** (GovBench H1+H2, 7 seeds)
+**Status**: [VALIDATED] **VALIDATED** (GovBench H1+H2, 7 seeds)
 
-**Evidence** (from F:\test\2026-07-28-10-36-48\govbench):
+**Evidence** (from experiments_log/2026-07-28-govbench):
 - H1: violation_rate 0.000 (with PEP) vs 1.000 (no PEP), n=7
 - H2: tamper_detected 1.000, n=7
 - Audit precision: 0.143 with PEP (limitation noted: more lures needed)
@@ -383,7 +383,7 @@ in evidence chain. Test on real LLM backend.
 (verified trust) instead of trusting the requester's *claimed* trust
 intercepts adversary A3 (impersonation, claims high trust).
 
-**Status**: ✅ **VALIDATED** (GovBench H3, 7 seeds)
+**Status**: [VALIDATED] **VALIDATED** (GovBench H3, 7 seeds)
 
 **Evidence** (from GovBench):
 - H3: intercept_rate 1.000 (with gate) vs 0.000 (no gate), n=7
@@ -402,13 +402,13 @@ feedback (not just shaped reward) demonstrates measurable improvement
 in failure prediction AUROC over training, without sacrificing task
 performance.
 
-**Status**: 🔄 **OPEN** (Y3 work — multi-step self-modification)
+**Status**: [OPEN] **OPEN** (Y3 work -- multi-step self-modification)
 
 **Evidence so far**:
-- Y1.3 is a 1-step self-modification: Monitor → reward shaping → PPO update
+- Y1.3 is a 1-step self-modification: Monitor -> reward shaping -> PPO update
 - After Y1.3 training, Monitor accuracy is not re-evaluated
 - 2-step self-modification (Monitor re-trained on Y1.3 policy) not tested
-- Full self-improvement loop (Y1.3 → new Monitor → new PPO → ...) not built
+- Full self-improvement loop (Y1.3 -> new Monitor -> new PPO -> ...) not built
 
 **Y2/Y3 follow-up**: implement 2-step self-improvement loop; verify
 Monitor accuracy improves without task regression.
@@ -419,29 +419,49 @@ Monitor accuracy improves without task regression.
 
 | H | Status | Key result | Y2 work |
 |---|--------|------------|---------|
-| H1 | ✅ VALIDATED | frozen > joint, delta=0.724 | cross-env |
-| H2 | ✅ VALIDATED | Y1.3 +50, p<0.001 | cross-env, longer training |
-| H3 | ✅ VALIDATED | DLR 97.8% 4-env mean | harder envs, learned predicates |
-| H4 | ✅ VALIDATED | Slot-Monitor 0.989 vs 0.796 | 5-seed validation |
+| H1 | [VALIDATED] VALIDATED | frozen > joint, delta=0.724 | cross-env |
+| H2 | [VALIDATED] VALIDATED | Y1.3 +50, p<0.001 | cross-env, longer training |
+| H3 | [VALIDATED] VALIDATED | DLR 97.8% 4-env mean | harder envs, learned predicates |
+| H4 | [VALIDATED] VALIDATED | Slot-Monitor 0.989 vs 0.796 | 5-seed validation |
 | H5 | partial-REFUTED | 5/6 REFUTED; v8 dlr_only (DLR in critic) +0.1447, t=+3.216, p<0.005, 20/30 pos at n=30; Monitor sub-H REFUTED, DLR sub-H VALIDATED | DONE (6-pathway + n=30 conf) |
 | H6 | REFUTED | joint AUROC does NOT decrease; 3/5 seeds increase (Spearman rho=+0.14 mean) | remove mechanism from H1 framing |
-| H7 | ✅ VALIDATED | PEP H1 + tamper H2 | DLR + real LLM |
-| H8 | ✅ VALIDATED | A2A gate intercepts A3 | DMC integration |
-| H9 | 🔄 OPEN | Y1.3 is 1-step | 2-step + loop |
+| H7 | [VALIDATED] VALIDATED | PEP H1 + tamper H2 | DLR + real LLM |
+| H8 | [VALIDATED] VALIDATED | A2A gate intercepts A3 | DMC integration |
+| H9 | [OPEN] OPEN | Y1.3 is 1-step | 2-step + loop |
 
 **4/9 hypotheses validated** (H1, H2, H3, H4, H7, H8 actually 6).
 **1/9 partial** (H6).
 **3/9 open** (H5, H6, H9, H7, H8, H9).
 
-Wait — re-counting: H1 ✓, H2 ✓, H3 ✓, H4 ✓, H7 ✓, H8 ✓ = **6 validated**.
-H6 △ = **1 partial**.
+Wait -- re-counting: H1 VALID, H2 VALID, H3 VALID, H4 VALID, H7 VALID, H8 VALID = **6 validated**.
+H6 [triangle] = **1 partial**.
 H9 = **1 open**. **Total: 6 validated, 2 partial, 1 open.**
 
 **Y2 priorities**:
-1. H5 (DMC) — most impactful, depends on working PPO baseline (have MADDPG)
-2. H9 (self-improvement loop) — long-term, depends on Y1.3
-3. H6 (instrumented logging) — easy, can do in Y1 cleanup
+1. H5 (DMC) -- most impactful, depends on working PPO baseline (have MADDPG)
+2. H9 (self-improvement loop) -- long-term, depends on Y1.3
+3. H6 (instrumented logging) -- easy, can do in Y1 cleanup
 
 ---
 
 *[End of 9-hypothesis framework. ~6 KB.]*
+
+## Cross-reference: H1-H10 status table
+
+This document covers H1-H9. H10 (LLM self-monitoring, Y4 paper)
+was added 2026-07-30 and is tracked in
+`papers/HYPOTHESIS_STATUS.md`, which supersedes this table by
+adding H10 and updating H5 with the n=100 follow-up data.
+
+For the Y3 paper (H5 multi-agent) and Y4 paper (H10 LLM
+self-monitoring) details, see:
+
+- `papers/monitor_signal_vs_dlr_6pathway.md` (Y3)
+- `papers/project_g_v0_5_h10_paper.md` (Y4)
+
+Status summary as of 2026-07-31:
+
+- H1, H2, H3, H4, H7, H8: VALIDATED (Y1)
+- H1.4, H5, H6, H10: REFUTED (Y1, Y3, Y4)
+- H9: OPEN (Y3 follow-up in progress)
+

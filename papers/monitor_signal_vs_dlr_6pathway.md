@@ -192,7 +192,7 @@ this.
 |---|---|---|---|---|
 | n=5 (r2) | +0.1665 | +1.014 | 3/5 (60%) | NOT sig |
 | n=13 | +0.08 | +0.90 | 8/13 (62%) | NOT sig |
-| n=29 | +0.60 | +1.499 | 21/29 (72%) | NOT sig |
+| n=29 | +0.60 | +1.499 | 21/29 (72%) | NOT sig (a transient high-point in an otherwise shrinking trajectory) |
 | n=100 | +0.174 | +1.465 | 59/100 (59%) | NOT sig |
 | **n=212 (final)** | **+0.055** | **+0.952** | **107/212 (50.5%)** | **NOT sig** |
 
@@ -260,13 +260,13 @@ Two arms:
 
 | arm | n=5 mean | n=30 mean |
 |---|---|---|
-| v8 (DLR + trust head) | -70.35 | -69.94 |
+| v8 (DLR + trust head) | -70.35 | -69.64 |
 | no_verifier | -70.51 | -69.73 |
 | **dlr_only (DLR in critic)** | **-70.35** | **-69.64** |
 
 | paired test (n=30) | mean_diff | t | n_pos | sig? |
 |---|---|---|---|---|
-| v8 vs no_verifier | +0.21 | -- | -- | (small) |
+| v8 vs no_verifier | +0.09 | -- | 14/30 (47%) | NOT sig |
 | **v8 vs dlr_only** | **+0.00** | nan | 30/30 (eq) | **IDENTICAL at n=30** |
 | **dlr_only vs no_verifier** | **+0.1447** | **+3.216** | **20/30 (66.7%)** | **p<0.005 (df=29), SIG** |
 
@@ -275,8 +275,14 @@ Two arms:
 |---|---|---|---|---|
 | n=5 | +0.15 | +0.99 | 3/5 (60%) | NOT sig (df=4) |
 | **n=30** | **+0.1447** | **+3.216** | **20/30 (66.7%)** | **p<0.005 (df=29), SIG** |
+| **n=100** | **+0.0617** | **+2.297** | **64/100 (64%)** | **p<0.05 with Bonferroni (2 tests), SIG** |
 
-Effect is STABLE across sample sizes (unlike v5 which shrinks).
+Effect was STABLE at n=5 to n=30, but SHRANK at n=100 to about
+half the n=30 estimate. The n=30 magnitude was likely upward
+biased by small-sample variability; the n=100 estimate is
+closer to the true effect (still statistically significant at
+Bonferroni alpha=0.05 but small in absolute terms, ~0.09%
+relative improvement).
 Cohen d_z = 0.59 (medium by Cohen's convention; on a metric where
 baseline = -69.8, the relative improvement is ~0.2%).
 
@@ -360,9 +366,16 @@ precisely estimated with larger samples. The TRUE effect (if real)
 is approximately +0.05 to +0.10 mean improvement, which is <1% of
 the baseline mean. Even at n~2200, we would barely reach p<0.05.
 
-In contrast, the dlr_only effect is STABLE at +0.14 to +0.15
-across n=5 and n=30, reaching p<0.005 at n=30. This is the
-signature of a real, reproducible small effect.
+In contrast, the dlr_only effect was STABLE at +0.14 to +0.15
+from n=5 to n=30, reaching p<0.005 at n=30. **However, the
+n=100 follow-up (see Section 3.6 update and `experiments_log/
+2026-07-29-v8-dlr-only-n100-aggregation.md`) shrinks the
+estimate to +0.0617 (95\% CI [+0.0084, +0.1149]), still
+statistically significant under Bonferroni (p=0.0433) but
+closer to half the n=30 magnitude.** The n=30 estimate was
+likely upward biased by small-sample variability. The dlr_only
+effect is real, small, and reproducible across n=5, n=30, n=100,
+and 3 fresh independent seeds (Section 3.6).
 
 ### 4.4 The 6-pathway table
 

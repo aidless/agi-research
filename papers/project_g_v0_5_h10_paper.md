@@ -213,29 +213,61 @@ significant one.
 ### 5.1 What this means for LLM self-monitoring
 
 The H10 pre-reg hypothesis (decoupling transfers to LLM self-
-monitoring) is **REFUTED** by direction (Joint > Frozen) but not
-by statistical significance ($t=-0.516$, $p \approx 0.62$).
+monitoring) is **REFUTED at all three sample sizes we tested**:
+
+- n=5: Joint > Frozen by 0.10 ($t=-0.516$, $p \approx 0.62$)
+- n=20: Frozen > Joint by 0.13 ($t=+1.157$, $p=0.262$)
+- n=100: Frozen $-$ Joint $\Delta = +0.015$ ($d=+0.030$, 95% CI
+  [-0.087, +0.117], $p_{boot}=0.787$)
+
+The direction is **not stable** across replications -- n=5 shows
+Joint > Frozen; n=20 and n=100 show Frozen > Joint, but with
+near-zero effect. All three arms (Frozen, Joint, Random) at
+n=100 are within $\pm 0.02$ of 0.5, i.e. indistinguishable from
+chance. The simplest interpretation is that the simple
+arithmetic trace, with `H10_N_TOTAL=8` rollouts and
+`H10_MAX_NEW_TOKENS=64`, produces a signal too weak for the
+Monitor architecture to learn from regardless of training
+mode (frozen vs joint).
 
 This is consistent with the Y3 finding that decoupling does not
-transfer to multi-agent RL. The pattern is:
+transfer to multi-agent RL. The cross-context pattern is:
 
 | context | decoupling effect | source |
 |---|---|---|
 | single-agent RL | $+39.5$ (Y1.3) | Y1 paper |
 | multi-agent RL | $-3.03$ (v3) to +0.06 (v8 dlr_only) | Y3 paper |
-| LLM self-monitoring | $-0.10$ (Joint > Frozen) | this paper |
+| LLM self-monitoring | $\approx 0$ at n=100 (chance) | this paper |
 
 The Monitor signal does not transfer from single-agent to either
-multi-agent or LLM self-monitoring.
+multi-agent or LLM self-monitoring. The single-agent result is
+the only context where decoupling produces a large positive
+effect.
 
 ### 5.2 Caveats and limitations
 
-- n=5 is small; Welch t does not meet $t>2.0$ threshold
-- Simple arithmetic tasks only; harder LLM tasks may behave
-  differently
-- The "Joint > Frozen" reversal is direction-consistent but
-  not statistically significant
-- Future work: larger n, harder tasks, different LLM sizes
+- **Sample size**: tested at n=5, n=20, and n=100 (300 jobs
+  total, 8h51m CPU at the largest). At n=100 the F-J effect
+  collapses to Cohen's $d=+0.030$; detecting this at Bonferroni
+  $\alpha=0.0167$ with 80% power would require n$\approx$17,000,
+  which is clearly not warranted. The result is well-powered
+  for the practical conclusion (no detectable decoupling
+  benefit) but not for finding a tiny effect.
+- **Task simplicity**: simple arithmetic only. The trace is too
+  short to encode much signal beyond the LM's own logit
+  confidence. Harder LLM tasks (e.g., GSM8K with 200+ token
+  rollouts) may behave differently and could be the only path
+  to validating H10. See Section 7.5 final paragraph.
+- **LM size**: only 1.5B parameters tested. Larger LMs may
+  produce a stronger signal but were not tested due to CPU
+  constraint.
+- **Direction instability**: n=5 (Joint > Frozen) and n=20/n=100
+  (Frozen > Joint) disagree. Both are consistent with sampling
+  noise on a near-zero effect (Section 7.5).
+- **Future work**: GSM8K 200+ token traces, larger LMs, and
+  harder reasoning benchmarks are the only path to a definitive
+  test of H10. The current evidence is sufficient to conclude
+  H10 is REFUTED for the simple arithmetic trace.
 
 ## 6. Conclusion
 
@@ -463,9 +495,22 @@ samples, which is clearly not warranted.
 
 ### 7.6 Power re-analysis
 
-With the observed Cohen's $d \approx 0.27$ for the F-J contrast,
-a paired t-test at $\alpha/3 = 0.0167$ (Bonferroni) needs
-$n \approx 130$ for 80% power. The n=20 was direction-revealing but
-remains underpowered. We recommend a future n=100 H10 with longer
-LM traces before any further reframe of the v0.5 conclusion.
+Three F-J effect size estimates, three different power conclusions:
+
+| Sample | Cohen's $d$ | Required n (Bonf. 0.0167, 80% power) |
+|---|---|---|
+| n=20 | +0.27 | n $\approx$ 149 |
+| **n=100** | **+0.030** | **n $\approx$ 17,000** |
+
+The n=20 estimate suggested an underpowered but detectable effect;
+the n=100 estimate collapses the effect to a near-zero value and
+makes further amplification economically unjustifiable. The
+n=100 H10 with longer LM traces (Section 7.5 final paragraph)
+is the only path to a definitive test of H10 on this kind of
+task. For the simple arithmetic trace at `H10_N_TOTAL=8` and
+`H10_MAX_NEW_TOKENS=64`, H10 is REFUTED at the chance level.
+
+We do not recommend further n amplification on this task. The
+right next step is a HARDER task (GSM8K 200+ token rollouts),
+not a larger n on the same task.
 

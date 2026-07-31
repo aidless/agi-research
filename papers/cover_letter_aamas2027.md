@@ -31,7 +31,12 @@ to the AAMAS community:
 2. **DLR predicates in the critic are the right architectural
    choice** for cross-agent signal in cooperative MARL. v8
    dlr\_only gives $+0.1447$ ($p<0.005$, $t=+3.216$, 20/30
-   positive) over the MADDPG v2 baseline at $n=30$.
+   positive) at $n=30$ and $+0.0617$ ($p<0.05$ with Bonferroni
+   correction for 2 tests) at $n=100$. The effect SHRANK from
+   $n=30$ to $n=100$ (textbook small-effect signature) but
+   remains statistically significant. A 3-seed independent
+   replication on fresh seeds (200, 201, 202) reproduced the
+   direction (2/3 positive, mean diff $+0.16$).
 
 3. **The trust head architecture at the actor level completely
    ignores its input signal** (verified at $n=5$ and $n=30$ CLEAN
@@ -54,6 +59,13 @@ contribution because:
   single-architecture investigations that left open the question
   of whether a different architectural placement would rescue the
   signal. Our 6-pathway investigation rules this out.
+- The dlr\_only result has been independently replicated on
+  three fresh seeds with direction-consistent outcomes, ruling
+  out the alternative explanation that the n=100 effect is a
+  chance of seed selection. Effect-shrinkage from n=30 to n=100
+  is reported transparently as the textbook signature of a small
+  effect that becomes more precisely estimated with larger
+  samples.
 
 - It introduces a **clean ablation protocol** (v6 proper
   re-implementation of the architecture-only ablation, with

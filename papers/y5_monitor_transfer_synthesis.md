@@ -109,6 +109,13 @@ The single positive result is v8 dlr_only: DLR cross-agent
 predicates in the critic (NOT the Monitor), +0.1447 at n=30
 (p<0.005), shrinking to +0.06 at n=100 (p_bonf=0.043).
 
+**v8 dlr_only 3-seed independent replication (seeds 200, 201, 202)**:
+Per-seed diffs [+0.27, -0.08, +0.30], mean +0.16 (sd=0.21),
+2/3 positive. Direction-consistent with the n=100 estimate
+(+0.0617, 95% CI [+0.0084, +0.1149]). Single-seed replicates are
+not powered for inference, but the effect is reproducible from
+a fresh seed. Full data: `experiments_log/_v8_sanity_4seed.json`.
+
 **Why the Monitor fails in MA**:
 1. The Monitor is trained on a single-agent frozen policy, but
    in MA the policy is multi-agent (joint training, non-
@@ -137,9 +144,21 @@ transfers from RL to LLM self-monitoring).
 train/eval split (Project G v0.5), 3 arms (Frozen, Joint,
 Random).
 
-**Result**: REFUTED. Joint Monitor AUROC 0.650 vs Frozen
-Monitor AUROC 0.550 (Joint > Frozen, t=-0.516, NOT sig).
-The direction is the OPPOSITE of the H10 prediction.
+**Result**: REFUTED at all three sample sizes tested.
+
+| Sample | Frozen | Joint | Random | F-J diff | sig (Bonf)? |
+|---|---|---|---|---|---|
+| n=5 | 0.550 | 0.650 | 0.250 | -0.10 (Joint > Frozen) | No (t=-0.516) |
+| n=20 | 0.579 | 0.447 | 0.632 | +0.13 (Frozen > Joint) | No (t=+1.16, p=0.262) |
+| n=100 | 0.500 | 0.485 | 0.510 | +0.015 | No (d=+0.030) |
+
+At n=5 the direction is the OPPOSITE of the H10 prediction
+(Joint > Frozen). At n=20 the direction flips back (Frozen >
+Joint) but with no statistical significance. At n=100 all
+three arms are within 0.02 of 0.5 (random), so the Monitor
+signal is indistinguishable from chance. Required n for 80%
+power at the observed d=+0.030 would be n~17,000, which is
+clearly not warranted.
 
 **Why the Monitor fails in LLM self-monitoring**:
 1. The Monitor is trained on a frozen reference LLM, but

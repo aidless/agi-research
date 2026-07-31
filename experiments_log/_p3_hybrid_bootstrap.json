@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-08-01T00:28:46.923719",
+  "per_arm": {
+    "monitor_only": [
+      {
+        "seed": 0,
+        "delta": 10.19
+      },
+      {
+        "seed": 1,
+        "delta": 12.37
+      },
+      {
+        "seed": 10,
+        "delta": 9.27
+      },
+      {
+        "seed": 11,
+        "delta": 8.76
+      },
+      {
+        "seed": 12,
+        "delta": 12.92
+      },
+      {
+        "seed": 14,
+        "delta": 2.93
+      },
+      {
+        "seed": 16,
+        "delta": 10.51
+      },
+      {
+        "seed": 2,
+        "delta": 5.95
+      },
+      {
+        "seed": 3,
+        "delta": 6.17
+      },
+      {
+        "seed": 4,
+        "delta": 8.84
+      },
+      {
+        "seed": 5,
+        "delta": 1.91
+      },
+      {
+        "seed": 6,
+        "delta": 16.95
+      },
+      {
+        "seed": 7,
+        "delta": 5.3
+      },
+      {
+        "seed": 8,
+        "delta": 11.66
+      },
+      {
+        "seed": 9,
+        "delta": 14.27
+      }
+    ],
+    "dlr_only": [],
+    "v8": []
+  },
+  "contrasts": {
+    "v8_vs_dlr_only": null,
+    "v8_vs_monitor_only": null,
+    "monitor_only_vs_dlr_only": null
+  },
+  "pre_reg_verdict": "INSUFFICIENT_DATA"
+}

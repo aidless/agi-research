@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-01T00:28:46.923719",
+  "timestamp": "2026-08-01T00:31:47.237279",
   "per_arm": {
     "monitor_only": [
       {
@@ -23,12 +23,24 @@
         "delta": 12.92
       },
       {
+        "seed": 13,
+        "delta": 4.09
+      },
+      {
         "seed": 14,
-        "delta": 2.93
+        "delta": 5.3
+      },
+      {
+        "seed": 15,
+        "delta": 4.17
       },
       {
         "seed": 16,
         "delta": 10.51
+      },
+      {
+        "seed": 17,
+        "delta": 1.6
       },
       {
         "seed": 2,

@@ -121,7 +121,7 @@ def extract_final_number(text):
     return None
 
 
-def generate_trace(model, tokenizer, question, max_new_tokens=80, device="cpu"):
+def generate_trace(model, tokenizer, question, max_new_tokens=80, device="cpu", prompt_style="simple_arith"):
     """Generate a single reasoning trace for a question.
 
     Returns:
@@ -130,7 +130,12 @@ def generate_trace(model, tokenizer, question, max_new_tokens=80, device="cpu"):
         text: the decoded generated text
     """
     # Build the prompt.
-    prompt = f"What is {question}? The answer is"
+    # - 'gsm8k': chain-of-thought prompt for word problems.
+    # - 'simple_arith': legacy "What is X? The answer is" form.
+    if prompt_style == "gsm8k":
+        prompt = f"Question: {question}\nLet's think step by step.\n"
+    else:
+        prompt = f"What is {question}? The answer is"
 
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
     input_ids = inputs.input_ids
@@ -156,7 +161,8 @@ def generate_trace(model, tokenizer, question, max_new_tokens=80, device="cpu"):
 
 
 def collect_real_rollouts(model, tokenizer, problems, ground_truths,
-                          max_new_tokens=80, device="cpu", seed=0):
+                          max_new_tokens=80, device="cpu", seed=0,
+                          prompt_style="simple_arith"):
     """Collect reasoning traces from the frozen LM on GSM8K problems.
 
     Returns:
@@ -176,6 +182,7 @@ def collect_real_rollouts(model, tokenizer, problems, ground_truths,
         tokens, confs, text = generate_trace(
             model, tokenizer, prob["question"],
             max_new_tokens=max_new_tokens, device=device,
+            prompt_style=prompt_style,
         )
         predicted = extract_final_number(text)
         is_failure = 1 if (predicted is None or abs(predicted - gt) > 1e-3) else 0
@@ -185,10 +192,10 @@ def collect_real_rollouts(model, tokenizer, problems, ground_truths,
         # Token IDs as floats in [-1, 1] (normalized by vocab_size).
         vocab_size = model.config.vocab_size
         feat_tokens = [
-            (tok / vocab_size) * 2.0 - 1.0 for tok in tokens[:window]
+            (tok / vocab_size) * 2.0 - 1.0 for tok in tokens[-window:]
         ]
         feat_logits = [1.0 / (1.0 + torch.sigmoid(torch.tensor(-c)).item() + 1e-6)
-                       for c in confs[:window]]
+                       for c in confs[-window:]]
         # Pad to window.
         while len(feat_tokens) < window:
             feat_tokens.append(0.0)

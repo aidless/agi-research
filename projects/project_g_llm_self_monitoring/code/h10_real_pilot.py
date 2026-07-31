@@ -88,19 +88,28 @@ def main():
         )
         print("Dataset: simple arithmetic (mixed-difficulty, CPU-friendly)")
     else:
-        from real_lm_rollout_collector import load_gsm8k
-        problems, ground_truths = load_gsm8k(split="test", n_samples=n_total)
-        difficulty_labels = ["unknown"] * len(problems)
-        print("Dataset: GSM8K (test set)")
+        # GSM8K mode (H10_PRE_REG_AMENDMENT_1 enabled).
+        # Use the local arrow loader because the `datasets` library is
+        # not installed in this environment. Seed-based sampling gives
+        # different seeds different problems so we get independent
+        # train/eval splits across the 3 arms.
+        from gsm8k_local_loader import load_gsm8k_local
+        problems, ground_truths, difficulty_labels = load_gsm8k_local(
+            split="test", n_samples=n_total, seed=seed,
+        )
+        print("Dataset: GSM8K (test set, local arrow loader, seed-stratified)")
     t_ds = time.time() - t0
     print(f"Dataset load time: {t_ds:.1f}s")
     print()
 
     # Step 3: Collect traces.
     t0 = time.time()
+    prompt_style = "simple_arith" if use_simple else "gsm8k"
     trace_features, labels, metadata = collect_real_rollouts(
         model, tokenizer, problems, ground_truths,
-        max_new_tokens=int(os.environ.get("H10_MAX_NEW_TOKENS", "64")), device="cpu", seed=seed,
+        max_new_tokens=int(os.environ.get("H10_MAX_NEW_TOKENS", "64")),
+        device="cpu", seed=seed,
+        prompt_style=prompt_style,
     )
     t_trace = time.time() - t0
     n_total_collected = len(trace_features)
@@ -243,9 +252,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    local_lm_path = os.environ.get(
-        "H10_LM_PATH",
-        r"F:\hf_cache\hub\models--Qwen--Qwen2.5-1.5B-Instruct\snapshots\989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
-    )
-    model, tokenizer = load_frozen_lm(model_name=local_lm_path, device="cpu", dtype=torch.float16)

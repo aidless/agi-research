@@ -78,19 +78,34 @@ def train_with_periodic_reset(args):
     )
 
     if reset_interval > 0:
-        # Apply periodic reset: re-init actors/trust_heads every reset_interval
+        # Apply periodic reset: re-init actors/trust_heads every reset_interval.
+        # Note: pz_maddpg_v8 may not currently support init_actors/init_trust_heads
+        # parameters; if not, this path may fall back to fresh init each call.
         for reset_point in range(reset_interval, args.n_updates, reset_interval):
             print(f"  R1 reset at update {reset_point}/{args.n_updates}")
-            actors, trust_heads, history = train_maddpg_v8(
-                seed=args.seed + reset_point + 1,  # different seed for re-init
-                n_updates=args.n_updates - reset_point,
-                n_episodes=args.n_episodes_per_update,
-                batch_size=args.batch_size,
-                buffer_size=args.buffer_size,
-                use_dlr_trust=use_dlr_trust,
-                use_dlr_critic=use_dlr_critic,
-                init_actors=actors, init_trust_heads=trust_heads,
-            )
+            try:
+                actors, trust_heads, history = train_maddpg_v8(
+                    seed=args.seed + reset_point + 1,  # different seed for re-init
+                    n_updates=args.n_updates - reset_point,
+                    n_episodes=args.n_episodes_per_update,
+                    batch_size=args.batch_size,
+                    buffer_size=args.buffer_size,
+                    use_dlr_trust=use_dlr_trust,
+                    use_dlr_critic=use_dlr_critic,
+                    init_actors=actors, init_trust_heads=trust_heads,
+                )
+            except TypeError as e:
+                # Fallback: pz_maddpg_v8 does not support init_actors yet
+                print(f"  R1 (warning) init_actors not supported, using fresh init")
+                actors, trust_heads, history = train_maddpg_v8(
+                    seed=args.seed + reset_point + 1,
+                    n_updates=args.n_updates - reset_point,
+                    n_episodes=args.n_episodes_per_update,
+                    batch_size=args.batch_size,
+                    buffer_size=args.buffer_size,
+                    use_dlr_trust=use_dlr_trust,
+                    use_dlr_critic=use_dlr_critic,
+                )
 
     final_mean = float(np.mean(history[-15:])) if history else 0.0
     final_std = float(np.std(history[-15:])) if history else 0.0

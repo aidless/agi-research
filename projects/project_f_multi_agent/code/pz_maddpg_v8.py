@@ -127,7 +127,8 @@ def make_env(max_cycles=25):
 
 
 def collect_episode_v8(actors, trust_heads, env, seed, noise_scale=0.1,
-                        use_dlr_trust=True, use_dlr_critic=False):
+                        use_dlr_trust=True, use_dlr_critic=False,
+                    init_actors=None, init_trust_heads=None, reset_at=None):
     """Collect one episode.
 
     Transition format:

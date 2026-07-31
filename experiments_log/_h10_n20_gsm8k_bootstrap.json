@@ -1,0 +1,76 @@
+{
+  "n_seeds_total": 20,
+  "n_seeds_valid": 19,
+  "note": "H10 n=20 GSM8K 200-token amendment (Pre-Reg Amendment 1, experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md). H10_MAX_NEW_TOKENS=200, dataset=GSM8K, prompt=CoT, feature=last-20-tokens, CPU, stratified split with rebalance fallback.",
+  "mean_per_arm": {
+    "frozen": 0.5,
+    "joint": 0.5526315789473685,
+    "random": 0.5789473684210527
+  },
+  "sd_per_arm": {
+    "frozen": 0.5,
+    "joint": 0.40465131911125596,
+    "random": 0.4171050325603067
+  },
+  "contrasts": {
+    "F-J": {
+      "n": 19,
+      "mean_a": 0.5,
+      "sd_a": 0.5,
+      "mean_b": 0.5526315789473685,
+      "sd_b": 0.40465131911125596,
+      "mean_diff": -0.05263157894736842,
+      "sd_diffs": 0.4376305152023306,
+      "ci95": [
+        -0.23684210526315788,
+        0.15789473684210525
+      ],
+      "p_bootstrap_two_sided": 0.714,
+      "pos_share": 0.15789473684210525,
+      "cohens_d": -0.12026487440674734,
+      "sig_bonf": false,
+      "required_n_for_80pct_power": 723.8229128802504
+    },
+    "F-R": {
+      "n": 19,
+      "mean_a": 0.5,
+      "sd_a": 0.5,
+      "mean_b": 0.5789473684210527,
+      "sd_b": 0.4171050325603067,
+      "mean_diff": -0.07894736842105263,
+      "sd_diffs": 0.5836465324610446,
+      "ci95": [
+        -0.3164473684210526,
+        0.18421052631578946
+      ],
+      "p_bootstrap_two_sided": 0.642,
+      "pos_share": 0.21052631578947367,
+      "cohens_d": -0.13526571996951248,
+      "sig_bonf": false,
+      "required_n_for_80pct_power": 572.1823195966017
+    },
+    "J-R": {
+      "n": 19,
+      "mean_a": 0.5526315789473685,
+      "sd_a": 0.40465131911125596,
+      "mean_b": 0.5789473684210527,
+      "sd_b": 0.4171050325603067,
+      "mean_diff": -0.02631578947368421,
+      "sd_diffs": 0.4851598880359591,
+      "ci95": [
+        -0.23684210526315788,
+        0.18421052631578946
+      ],
+      "p_bootstrap_two_sided": 0.923,
+      "pos_share": 0.21052631578947367,
+      "cohens_d": -0.05424147816551094,
+      "sig_bonf": false,
+      "required_n_for_80pct_power": 3558.3355411823013
+    }
+  },
+  "alpha_bonferroni": 0.016666666666666666,
+  "method": "paired seed-level t-test + 2,000-replicate bootstrap 95% CI",
+  "kill_switch_decision": "STOP-PAPER-REFUTED-REVERSE",
+  "kill_switch_rationale": "F-J = -0.053 < 0; write paper: H10 REFUTED with consistent negative direction across both tasks",
+  "amendment_reference": "experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md + experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1-ADDENDUM.md"
+}

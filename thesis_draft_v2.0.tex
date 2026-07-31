@@ -45,6 +45,19 @@ specific signal whose verified shipping use is verification, not training.
 \tableofcontents
 \newpage
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{papers/figures_v2/decoupling_across_contexts.png}
+\caption{Decoupling transfer across the three empirical contexts studied in this thesis.
+Single-agent RL: large positive effect (Y1.3, +39.5, t=6.76, p<0.001). Multi-agent RL: small but statistically
+significant positive effect (v8 dlr\_only, +0.06 at n=100, p<0.05 Bonferroni). LLM self-monitoring: no
+detectable effect at n=100 (H10, $\Delta = +0.015$, Cohen's $d=+0.030$, REFUTED at chance level). The Monitor
+decoupling architecture transfers only to the context in which it was originally verified.}
+\label{fig:decoupling-across-contexts}
+\end{figure}
+
+
+
 
 \textbf{A Doctoral-Level Thesis Draft, Version 1.0}
 

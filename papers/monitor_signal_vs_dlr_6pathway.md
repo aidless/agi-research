@@ -36,6 +36,8 @@ that is independent of the input source**. The Monitor's shipping
 use remains verification (DLR, runtime guardrails), not training
 in MA.
 
+![Y3 6-pathway effect sizes summary (one-glance verdict)](figures_v2/y3_6pathway_summary.png){ width=85% }
+
 ## 1. Introduction
 
 Single-agent failure-prediction Monitors (Y1 paper, n=15 seeds on

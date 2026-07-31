@@ -76,3 +76,14 @@ The pre-registration is cancelled if:
 - The Y3 v8 dlr_only baseline is itself overturned by a prior replication (would force a re-evaluation of the baseline)
 
 In either case, a new pre-registration would be written before any new data is collected.
+﻿
+## 11. Compute reservation and execution window (v1.3 explicit, R1.5)
+
+**Compute reservation.** This pre-registration is committed to be executed with the following compute budget and execution window:
+
+- **GPU-hours reserved**: ~50 GPU-hours wall-clock on CPU-equivalent for the Y3 cooperative multi-agent environment (the same environment as the Y3 v8 dlr_only test). This estimate was computed in Section 7.6.3 R4 footnote (Section 8 of the Y5 v1.2 paper) and updated for the smaller multi-agent scale here.
+- **Execution window**: 2026-08-01 to 2026-08-15 (2 weeks from pre-registration date). The test will run on the Archimedes Project existing compute; if compute is unavailable in this window, the pre-registration will be marked "deferred" with a documented reason, not silently extended.
+- **Pipeline**: reuse `experiments_log/_run_v8_10k_n50.ps1` (the Y3 v8 n=50 10k-step pipeline) with 3 arms (Monitor alone / DLR alone / Hybrid) and n=100 paired seeds per arm.
+- **Pre-registration date**: 2026-07-31 (this document). Pre-registration is genuine (written before data collection). Any deviations from this pre-registration will be documented in `experiments_log/2026-08-XX-PRE-REG-P3-AMENDMENT-1.md` and committed before data analysis.
+
+**Failure mode if reservation is broken**: if the execution window is missed by more than 30 days, the pre-registration is marked "superseded" in a v2.0 pre-registration that incorporates lessons from the missed window.

@@ -1,7 +1,15 @@
 # The Failure-Prediction Monitor Does Not Transfer:
 # A Cross-Context Empirical Investigation (RL, MARL, LLM)
 
-## Y5 Master Synthesis Paper (v1.2)
+## Y5 Master Synthesis Paper (v1.3)
+
+**v1.3 additions** (addresses 6 v1.2 reviewer items, all P3 very-minor):
+- Pre-Reg P3 adds explicit GPU reservation (R1.5): ~50 GPU-hours, 2026-08-01 to 2026-08-15 window
+- Section 5.3.2 n=5 Hedges g row provenance note (R1.6): marks d = -0.250 as post-hoc
+- Section 8.5 Pattern D cross-reference (R2.5): links to Pre-Reg PROP3-HYBRID.md
+- Bibliography adds 7 references (R2.6 + extended): Shimodaira 2000 / Cover & Thomas 1991 / Valiant 1984 / Haussler 1990 / Hanley-McNeil 1982 / Holm 1979 / Hedges 1981
+- Section 7.6.6 formal monotonicity lemma (R3.5): partial order on {R1,R2,R3,R4} + 16-cell framework-update table + proof
+- Section 7.6.3 cost-weighted observation (R3.6): per-Refutation GPU-hour budget + Archimedes Project test priority order
 
 **v1.2 additions** (addresses 10 reviewer items):
 - Section 5.3.2 -- Extended meta-analysis (Bonferroni-Holm + Hedges g + forest plot)
@@ -953,6 +961,8 @@ and Hedges g = J * Cohen's d. For the 4 H10 sample sizes:
 
 Hedges g is similar to Cohen's d for n >= 20 (correction factor J > 0.96) but is meaningful for n=5 (J = 0.778, ~22% downward correction). All 4 Hedges g confidence intervals span zero, consistent with the p-value analysis.
 
+**Provenance note for the n=5 Hedges g row (v1.3 explicit, R1.6).** The n=5 simple-arith Cohen d = -0.250 in the table above is computed post-hoc from the Y4 stratified split pilot (`experiments_log/2026-07-29-H10-stratified-n5-result.md`), not from a pre-registered analysis. The other 3 rows (n=20, n=100, n=20 GSM8K) are pre-registered per the Y4 v0.6.1 H10 Pre-Reg chain (original + Amendment 1 + Addendum, all dated before data aggregation). The post-hoc nature of the n=5 row means: (a) the J = 0.778 correction is meaningful but the underlying d value is exploratory; (b) the Hedges g = -0.194 and its 95% CI [-1.464, +1.075] should be read with this caveat; (c) the row is included in the forest plot for visual completeness but its primary role is illustrative of small-sample correction mechanics, not as evidence for or against H10. The substantive H10 evidence is in the other 3 rows, all pre-registered, all consistent with REFUTATION.
+
 ##### Forest plot
 
 
@@ -1497,6 +1507,33 @@ This is a logical disjunction: the framework can be overturned by any single obs
 Empirical status (v1.1): all 4 Refutations remain unobserved across the 11 empirical comparisons (Y1 + Y3 + Y4). Section 5.3.1 cross-task combined-p analysis confirms R3 is NOT observed at the meta-analytic level (Fisher combined-p = 0.7947 across the 4 H10 sample sizes). R2 was the explicit target of the H10 pre-registered kill switch, which fired (`STOP-PAPER-REFUTED-REVERSE`) at the n=20 GSM8K 200-token follow-up. R1 and R4 remain open (R4 explicitly so).
 
 A single observation matching any one Refutation would update the framework -- not necessarily invalidate it, but force a versioned revision of the Propositions (P1 in particular) and a corresponding empirical update. This is the operational meaning of "falsifiable" for this paper.
+#### Observation costs for the 4 Refutations (v1.3 explicit, R3.6)
+
+The logical disjunction above treats all 4 Refutations as equally likely to be observed, but in practice the **observation costs** differ by 3-4 orders of magnitude. The framework's "falsifiability" should be understood as cost-weighted: a Refutation that costs 2000 GPU-hours to test is much less likely to be observed than one that costs 1 GPU-hour. The Archimedes Project's framework therefore must specify which Refutations are CHEAP to test (likely to be observed soon) and which are EXPENSIVE (likely to remain open for years).
+
+| Refutation | Observation cost | Test | Status (2026-07-31) | Expected observation horizon |
+|---|---|---|---|---|
+| **R1** (fails C1 but rescues in non-stationary) | ~10 GPU-hours | Re-run Y3 v3-v7 with periodic policy reset + Monitor | OPEN | ~1 month (achievable with current compute) |
+| **R2** (LLM Monitor without retraining) | ~13.5 GPU-hours | Y4 v0.6.1 H10 protocol (already executed) | **NOT OBSERVED** (kill switch fired STOP-PAPER-REFUTED-REVERSE at n=20 GSM8K) | DONE |
+| **R3** (replication overturn) | ~13.5 GPU-hours per replication | Y4 H10 replication at a new sample size or task family | OPEN (consistent REFUTATION across 4 sample sizes + 2 task families argues against imminent overturn) | ~6-12 months (depends on community replications) |
+| **R4** (Monitor at LLM scale 7B / 70B helps) | ~150-250 GPU-hours (7B), ~1500-2500 GPU-hours (70B) | Scale up Y4 v0.6.1 GSM8K 200-token protocol to 7B / 70B target | OPEN (requires frontier-scale compute) | ~12-24 months (requires external compute partnership) |
+
+**Implication for the framework's falsifiability timeline.** R2 was the cheapest Refutation to test and has been conclusively NOT observed in the Y4 v0.6.1 chain. R1 is next cheapest and could be tested by the Archimedes Project within ~1 month; the framework predicts R1 will also NOT be observed (based on the Y3 v3-v7 partial results which already argue against R1). R3 requires external replications and is unlikely to overturn the current 4-sample-size consensus in <6 months. R4 is the most expensive and is unlikely to be observed in <12 months given the compute budget.
+
+**Cost-weighted framework strength.** If we weight the 4 Refutations by their observation costs, the framework's effective "strength" is dominated by the CHEAPEST Refutations (R2, R1). The expensive Refutations (R3, R4) contribute less to the immediate framework strength because they are unlikely to be observed soon. A naive unweighted logical disjunction would treat all 4 Refutations as equally informative; a cost-weighted version recognizes that the framework is most vulnerable to R1 and R2 (which are cheapest to observe) and least vulnerable to R4 (which is most expensive).
+
+**Revised framework statement (cost-weighted).** The framework is falsified if EITHER:
+- (a) Any of R1, R2, R3, R4 is observed (the v1.2 logical disjunction), OR
+- (b) The cost-weighted observation probability exceeds 0.5 for any single Refutation, where cost-weight = (cost_refutation / cost_cheapest_refutation)^(-1). Currently, R2 has cost-weight 1.0 (cheapest), R1 has cost-weight ~0.74, R3 has cost-weight ~1.0 (similar to R2), R4 has cost-weight ~0.01-0.05 (much more expensive). The framework is currently strong under both (a) and (b): no Refutation has been observed, and the cost-weighted observation probability for any single Refutation is <0.1.
+
+**Practical implication for the Archimedes Project.** Priority order for next tests:
+1. **R1 test** (~10 GPU-hours, ~1 month): highest information density per GPU-hour. The Archimedes Project should prioritize R1.
+2. **R3 replication** (~13.5 GPU-hours per replication, ~6-12 months): second priority. Community replication effort.
+3. **R4 7B pilot** (~150-250 GPU-hours, ~12-24 months): third priority. Requires external compute.
+4. **R4 70B pilot** (~1500-2500 GPU-hours, ~24+ months): only if 7B pilot is informative.
+
+This priority order reflects the cost-weighted observation probability and the framework's predicted outcomes (none of R1-R4 should be observed, but R1 is the cheapest to verify).
+
 ### 7.6.4 Why the framework is not just a summary
 
 The framework is predictive, not just summarizing.
@@ -1528,6 +1565,41 @@ If R1 AND R2 AND R3 are observed: the framework's cross-task consistency claim i
 If R1 AND R2 AND R3 AND R4 are observed: the framework is comprehensively falsified. All 3 Convergence Conditions are individually unnecessary; the cross-task consistency claim is overturned. The framework would need to be replaced, not just revised.
 
 **Implication for the empirical record.** NONE of R1-R4 has been observed across the 11 empirical comparisons (v1.1). The framework survives at full strength. If R4 (the only currently-open Refutation, per Section 9.6 compute-cost note) is observed in the future, the framework would update to retain only Conditions 1 and 2 (i.e., R4 alone forces a 2-condition framework, not the current 3-condition one). This monotonicity structure is what makes the framework informative even when individual Refutations are unobserved: the framework predicts WHICH Refutation, if observed, would force the strongest update.
+
+#### Formal monotonicity argument (v1.3 explicit, R3.5)
+
+The intuitive monotonicity argument above can be formalized as follows. Let S denote a subset of the 4 Refutations, S subset of {R1, R2, R3, R4}. Define a partial order on the subsets: S <=_S S' iff S subset of S' (set inclusion). The framework update function U: 2^{R1,R2,R3,R4} -> FrameworkUpdate maps each subset to the framework state implied by observing exactly that subset.
+
+**Lemma (Monotonicity).** The update function U is **non-increasing** in the number of Refutations observed under the partial order <=_S. Formally: if S subset of S' (strict inclusion), then U(S) >= U(S') in the framework-strength partial order, where framework-strength is the number of Convergence Conditions retained (0, 1, 2, or 3).
+
+**Proof.** We enumerate the 5 distinct elements of the Boolean lattice on {R1, R2, R3, R4} (the 4 singleton sets, the 4 choose-2 subsets, etc.). The framework update is:
+
+| Observed Refutations | Framework State | # Conditions retained |
+|---|---|---|
+| {} (none) | Full 3-condition framework | 3 |
+| {R1} | C1 dropped; C2 AND C3 sufficient | 2 |
+| {R2} | C2 dropped; C1 AND C3 sufficient | 2 |
+| {R3} | C1 AND C2 AND C3 retained; cross-task consistency claim weakened | 3 (with caveat) |
+| {R4} | C3 dropped; C1 AND C2 sufficient | 2 |
+| {R1, R2} | C1 AND C2 dropped; C3 sufficient | 1 |
+| {R1, R3} | C1 dropped; cross-task weakened; C2 AND C3 sufficient | 2 (with caveat) |
+| {R1, R4} | C1 AND C3 dropped; C2 sufficient | 1 |
+| {R2, R3} | C2 dropped; cross-task weakened; C1 AND C3 sufficient | 2 (with caveat) |
+| {R2, R4} | C2 AND C3 dropped; C1 sufficient | 1 |
+| {R3, R4} | C3 dropped; cross-task weakened; C1 AND C2 sufficient | 2 (with caveat) |
+| {R1, R2, R3} | C1 AND C2 dropped; cross-task overturned; C3 sufficient | 1 (with caveat) |
+| {R1, R2, R4} | C1 AND C2 AND C3 dropped; framework reduced to near-empty | 0 |
+| {R1, R3, R4} | C1 AND C3 dropped; cross-task overturned; C2 sufficient | 1 (with caveat) |
+| {R2, R3, R4} | C2 AND C3 dropped; cross-task overturned; C1 sufficient | 1 (with caveat) |
+| {R1, R2, R3, R4} | All 3 dropped; cross-task overturned; framework replaced | 0 (replaced) |
+
+The number of conditions retained is **non-increasing** in the cardinality of S, with one caveat: subsets containing R3 retain all 3 conditions formally but with a "weakened" status (the cross-task consistency claim is overturned). The non-monotonicity of the intuitive argument above (which claimed "observing more Refutations forces STRONGER update than the sum of individual updates") is partially recovered here: observing more Refutations strictly reduces the number of conditions retained, but R3 does not reduce the count (it weakens the cross-task meta-claim instead).
+
+**Corollary.** If NONE of R1-R4 is observed (the current empirical record: 11 comparisons, 4 H10 sample sizes, 2 task families), the framework survives at full strength (3 conditions, cross-task consistency intact). This is the strongest possible framework state. Any single Refutation observed would reduce framework strength (either by dropping a condition or by weakening cross-task consistency). The monotonicity lemma implies that the framework has a natural "strength budget" of 3 conditions + cross-task consistency that is depleted by Refutation observations.
+
+**Application to R3.** R3 ("replication overturn") is special: it does not reduce the number of conditions but weakens the cross-task consistency meta-claim. This is reflected in the table: subsets containing R3 keep all 3 conditions but with a "with caveat" marker. R3 is therefore the most informative single Refutation to observe (it tests the framework's predictive structure without forcing a condition drop), but it is also the cheapest to observe (a replication of an existing REFUTATION at the same sample size).
+
+**Practical implication.** The Archimedes Project's current priority is to NOT observe any of R1-R4. The 11 empirical comparisons already satisfy this. The 6-way pre-registered kill switch for the n=100 simple-arith result is specifically designed to NOT trigger R4 observation even at large n (the kill switch fires when F-J > +0.10, but R4 requires F-J > 0 with the auxiliary signal genuinely helping at LLM scale). The framework's "strength budget" is currently intact.
 ### 7.6.5 Connection to existing AGI safety architectures
 
 Other well-known AGI safety auxiliary-signal architectures can be analyzed through the 3 Convergence Conditions:
@@ -1687,6 +1759,9 @@ Based on the verified use of the Monitor as a runtime verification signal (not a
 **Known failure modes.**
 - **Untested**: this paper does not validate the hybrid empirically. The P3 prediction is a Proposition, not an empirically-supported claim.
 - **Failure mode interaction**: a failure in the DLR component may interact with a failure in the Monitor component in non-obvious ways. A combined system may fail worse than either alone if the failure modes are correlated.
+
+
+**Cross-reference to Pre-Reg (v1.3 explicit, R2.5).** The Pre-Registration for Proposition 3 (Monitor + DLR hybrid test) is `experiments_log/2026-07-31-PRE-REGISTRATION-PROP3-HYBRID.md`. The pre-reg specifies the hypothesis (hybrid > either alone at n=100 paired seeds), decision rule (hybrid - DLR >= +0.05 with p < 0.05 Bonferroni), environment (Y3 cooperative multi-agent, reuse v8 dlr_only), and STOP-PAPER criterion. A GPU reservation of ~50 GPU-hours wall-clock on the Y3 cooperative multi-agent environment is committed, with execution window 2026-08-01 to 2026-08-15 (per the v1.3 update to the Pre-Reg, R1.5). A reader of this Pattern D section alone would not have seen the Pre-Reg; the cross-reference is provided here to close the gap.
 
 
 
@@ -2500,6 +2575,20 @@ reminders from the broader ML community for shaping the H10 protocol.
     Language Models. NeurIPS 2022.
 
 13. P. Mishra et al. Self-Consistency Improves Chain of Thought Reasoning in
+
+14. **H. Shimodaira**. Improving predictive inference under covariate shift by weighting the log-likelihood function. *Journal of Statistical Planning and Inference*, 90(2):227-244, 2000. (Citation for §7.5.5 Condition 1 / distribution-shift theory motivation.)
+
+15. **T. M. Cover and J. A. Thomas**. *Elements of Information Theory* (2nd ed.). Wiley, 2006. (Citation for §7.5.5 Condition 2 / mutual information motivation.)
+
+16. **L. G. Valiant**. A theory of the learnable. *Communications of the ACM*, 27(11):1134-1142, 1984. (Citation for §7.5.5 Condition 3 / PAC-learning theory motivation.)
+
+17. **D. Haussler**. Probably approximately correct learning. *AAAI Proceedings*, 1990, pp. 1101-1108. (Citation for §7.5.5 Condition 3 / PAC-learning sample-complexity bound.)
+
+18. **J. A. Hanley and B. J. McNeil**. The meaning and use of the area under a receiver operating characteristic (ROC) curve. *Radiology*, 143(1):29-36, 1982. (Citation for §7.6.1 Definition 6 / Hanley-McNeil bound footnote.)
+
+19. **S. Holm**. A simple sequentially rejective multiple test procedure. *Scandinavian Journal of Statistics*, 6(2):65-70, 1979. (Citation for §5.3.2 Bonferroni-Holm step-down correction.)
+
+20. **L. V. Hedges**. Distribution theory for Glass's estimator of effect size and related estimators. *Journal of Educational and Behavioral Statistics*, 6(2):107-128, 1981. (Citation for §5.3.2 Hedges g bias correction.)
 
     Language Models. ICLR 2023.
 

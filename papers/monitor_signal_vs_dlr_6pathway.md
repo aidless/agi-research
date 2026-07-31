@@ -280,12 +280,39 @@ Effect is STABLE across sample sizes (unlike v5 which shrinks).
 Cohen d_z = 0.59 (medium by Cohen's convention; on a metric where
 baseline = -69.8, the relative improvement is ~0.2%).
 
+**Updated effect-shrinkage trajectory (n=100)**: the n=100
+follow-up (see Section 6 replication note and
+`experiments_log/2026-07-29-v8-dlr-only-n100-aggregation.md`)
+gives mean_diff = +0.0617, t = +2.297, p_uncorr = 0.0216,
+p_bonf (2 tests) = 0.0433, 95% CI [+0.0084, +0.1149],
+n_pos = 64/100 (64%). The effect SHRANK from +0.1447 (n=30)
+to +0.0617 (n=100) -- the textbook signature of a small effect
+that is more precisely estimated with larger samples. The n=100
+estimate of +0.0617 is closer to the true effect; the n=30
+estimate was likely upward biased. Cohen d_z at n=100 = 0.23
+(small-to-medium). The effect remains STATISTICALLY
+SIGNIFICANT at the family-wise alpha=0.05 level (Bonf. 2
+tests: p=0.0433), but the practical impact is small (~0.09%
+relative improvement).
+
+**Independent replication (seeds 200, 201, 202)**: 3 fresh
+seeds re-ran the dlr_only vs no_verifier pair on the same
+MADDPG v8 code with the same hyperparameters. Per-seed
+diffs: [+0.27, -0.08, +0.30]; mean diff +0.16 (sd=0.21),
+2/3 positive, t=+1.34. The replication is direction-
+consistent with the n=100 estimate (+0.0617, 95% CI
+[+0.0084, +0.1149]) but not powered for inference on its
+own. Full data in `experiments_log/_v8_sanity_4seed.json`.
+
 **Verdict**: v8 dlr_only is the **only publishable positive result**.
-DLR predicates in the critic give a small (~0.2% relative) but
-statistically significant (p<0.005) and reproducible (n=5 and n=30
-consistent) signal-specific contribution. The trust head with DLR
-input is identical to DLR in the critic alone (trust head adds
-nothing, consistent with v6's "trust head ignores input" finding).
+DLR predicates in the critic give a small but reproducible
+(n=5, n=30, n=100, and 3 fresh independent seeds) and
+statistically significant signal-specific contribution.
+Effect size SHRINKS with n (+0.15 n=5 -> +0.14 n=30 ->
++0.06 n=100), but stays significant under Bonferroni
+correction. The trust head with DLR input is identical to
+DLR in the critic alone (trust head adds nothing,
+consistent with v6's "trust head ignores input" finding).
 
 ## 4. Cross-Pathway Analysis
 

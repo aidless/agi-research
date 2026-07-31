@@ -2687,3 +2687,77 @@ Next session priorities:
   Bonferroni alpha=0.0167)
 - O5: thesis v2.0 LaTeX polish (overfull-hbox warnings, no
   remaining compile errors)
+## 2026-07-30 session 15 -- B.2 bootstrap CI + E gitignore + C thesis polish
+
+B.2 (H10 n=20 bootstrap CI): ran 10,000-replicate paired bootstrap
+on the n=20 seeds; updated Y4 paper Section 7.2 with bootstrap
+95% CIs, Wilcoxon signed-rank, Cohen's d, and a power re-analysis
+table. Forest plot in `experiments_log/_h10_n20_forest.png`. Key
+numbers: F-J mean diff +0.13, 95% CI [-0.079, +0.368], d=+0.27;
+J-R mean diff -0.18, 95% CI [-0.421, +0.053], d=-0.35. Power
+analysis: F-J needs n~149, J-R needs n~88, F-R needs n~1039
+to reach 80% power at Bonferroni alpha=0.0167.
+
+E (gitignore cleanup): added `experiments_log/.gitignore`,
+`experiments/.gitignore`, `papers/.gitignore`, and updated the
+top-level `.gitignore`. Untracked artifacts dropped from ~210
+to 5.
+
+C (thesis polish): added `microtype` package, re-flowed long
+`\texttt{...}` paragraphs, replaced the Appendix C
+cross-reference table with a booktabs `p{}/small` layout, and
+corrected a missing `\begin{verbatim}` that was lost in an
+earlier edit. PDF 335KB -> 343KB; pdflatex clean.
+
+## 2026-07-30/31 session 16 -- D Y4 polish + F v8 replicate + H10 n=100
+
+D (Y4 paper polish): added Section 4.1.1 'Pre-registration
+reference' (token 16 / MAX_PARALLEL=1 deviations declared);
+rewrote Section 4.3 with booktabs `Mean +/- SD` and a Bonf.
+significance column.
+
+F (v8 dlr_only independent replication): re-ran the dlr_only
+vs no_verifier pair on 3 fresh seeds (200, 201, 202). Per-seed
+diffs [+0.27, -0.08, +0.30], mean diff +0.16 (sd=0.21),
+2/3 positive, t=+1.34. Direction-consistent with the n=100
+estimate (+0.0617, 95% CI [+0.0084, +0.1149]). Full data in
+`experiments_log/_v8_sanity_4seed.json`.
+
+H10 n=100 (the main event): 300 jobs (3 arms x 100 seeds =
+seeds 100-199) ran to completion in 8h51m on CPU with
+`H10_MAX_NEW_TOKENS=64`. Aggregated statistics in
+`experiments_log/_h10_n100_bootstrap.json`; forest plot in
+`experiments_log/_h10_n100_forest.png`. 98 valid paired seeds
+(2 triggered the rebalance fallback).
+
+  Per-arm means (n=98): Frozen 0.500, Joint 0.485, Random 0.510.
+  All three within +/- 0.02 of 0.5 (chance). Paired contrasts
+  (Bonf. alpha=0.0167): F-J +0.015, CI [-0.087, +0.117],
+  d=+0.030, NOT sig. F-R -0.010, d=-0.017, NOT sig. J-R -0.025,
+  d=-0.040, NOT sig. H10 is now REFUTED at the chance level:
+  the Monitor signal in any configuration is indistinguishable
+  from chance on this task. Required n for 80% power at d=+0.03
+  is ~17,000 -- clearly not warranted.
+
+Y4 paper Section 7.5 (n=100 follow-up) added; Section 7.6
+rewritten as the new power re-analysis. Y4 abstract rewritten
+to lead with the n=100 conclusion. Y3 paper Section 3.6
+updated with the n=100 shrinkage trajectory and the 3-seed
+independent replication note. Y3 paper Section 6 already had a
+shorter replication note from earlier; both now consistent.
+
+Recent commits (last 5 in chronological order):
+- 7697656: D+F: Y4 paper polish (pre-reg + booktabs) and v8 dlr_only seed 200 sanity check
+- 19cc7a2: F-extension: v8 dlr_only 3-seed independent replication (200,201,202) + Y3 paper note
+- c14c643: H10 n=100 follow-up: 300 jobs (3 arms x 100 seeds), 8h51m CPU; H10 REFUTED at chance level (d=+0.03)
+- (pending) Y3 Section 3.6 updated with n=100 trajectory + 3-seed replicate table
+- (pending) Y4 abstract rewritten to lead with n=100 conclusion
+- (pending) PROGRESS.md session 15 + 16 block (this entry)
+
+Next session priorities (after token is provided or not):
+- A: actual arXiv upload once ARXIV_TOKEN is available
+- 2.g: pick venue for Y3 (AAMAS2027, already cover letter) and Y4 (COLM 2026 / NeurIPS workshop)
+- 2.h: thesis v2.0 full PDF integrating H10 n=100 numbers
+- 3.k: thesis overfull-hbox polish (last ~10 warnings)
+- 3.i: H10 with GSM8K 200+ token (the only path to potentially validate H10, 5-7h CPU)
+

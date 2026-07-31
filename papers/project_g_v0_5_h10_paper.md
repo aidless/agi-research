@@ -24,17 +24,26 @@ introduce Project G v0.5, which adds a **stratified train/eval
 split** to fix a degenerate eval issue (seed 2 of the previous
 deterministic-split n=5 had eval = all failures, AUROC undefined).
 The stratified split ensures eval always has both classes by
-splitting each class independently at 75/25. We run an n=5
-H10 pre-registered pilot on simple arithmetic tasks with a real
-small LM as the Monitor backbone. Result: **H10 REFUTED**.
-Joint Monitor achieves mean AUROC 0.650; Frozen (decoupled) Monitor
-achieves 0.550 (mean diff = -0.10, Joint > Frozen, $t=-0.516$
-NOT significant). Per the H10 pre-registered decision rule,
-REFUTATION criterion is met (Joint > Frozen), but the effect is
-not statistically significant at $t > 2.0$. We conclude: decoupling
-does not transfer to LLM self-monitoring either. The pattern is
-consistent with Y3 (Monitor signal does not transfer from
-single-agent to multi-agent or to LLM self-monitoring).
+splitting each class independently at 75/25, with a deterministic
+rebalance fallback for the rare cases where the split collapses
+to a single class.
+
+We run the H10 pre-registered protocol at three sample sizes:
+**n=5** (Section 4), **n=20** (Section 7, 60 jobs), and **n=100**
+(Section 7.5, 300 jobs; 8h51m CPU). At every sample size, the
+H10 hypothesis is REFUTED. At n=5 the direction is Joint >
+Frozen by 0.10 ($t=-0.516$ NOT significant); at n=20 the
+direction flips to Frozen > Joint by 0.13 ($d=+0.27$, still NOT
+significant after Bonferroni $\alpha=0.0167$); at n=100 all
+three arms (Frozen, Joint, Random) collapse to within $\pm 0.02$
+of 0.5 (random), with the Frozen $-$ Joint contrast at
+$\Delta = +0.015$ (Cohen's $d = +0.030$, 95% CI [-0.087, +0.117],
+NOT significant). The simplest interpretation is that the
+Monitor signal in any configuration is **indistinguishable from
+chance** on this task at n=100. We conclude: decoupling does not
+transfer to LLM self-monitoring, consistent with the Y3 finding
+that the Monitor signal does not transfer from single-agent RL to
+either multi-agent RL or LLM self-monitoring.
 
 ## 1. Introduction
 

@@ -6,7 +6,31 @@
 
 ## P3 hybrid pre-reg result (TBD)
 
-**Outcome:** [PENDING -- to be filled when P3 completes at ~01:00-01:30]
+**Outcome:** [PRELIMINARY -- will be updated when P3 v8 data arrives at ~01:30]
+
+**Per-arm preliminary results (2026-08-01 00:51, n=33/60 jobs done):**
+
+- monitor_only (DONE, n=20): mean delta = **+8.37** vs random (std 4.12)
+- dlr_only (in progress, n=13 done): mean delta = **+9.37** vs random (std 3.59)
+- v8 (Hybrid) (PENDING, n=0): (not yet run)
+
+**monitor_only - dlr_only contrast (n=13 paired, NOT significant):**
+- diff = +0.22, 95% CI [-2.22, +2.66]
+- The previously significant difference (n=6 paired, diff = -2.9) was a fluke
+  of small sample. With more data, the arms are statistically indistinguishable.
+
+**Provisional verdict (PENDING v8 data):**
+
+If v8 is similar to monitor_only or dlr_only (~+8 to +9), then:
+- v8 - dlr_only: ~ -1.0 (well below +0.05)
+- v8 - monitor_only: ~ +0.0 (well below +0.05)
+- P3 likely REFUTED.
+
+If v8 is materially larger than both (~+12 or more), then:
+- v8 - dlr_only: ~ +2.6 (above +0.05)
+- P3 would be VALIDATED.
+
+P3 verdict requires v8 data; ETA ~01:30.
 
 - If Proposition 3 VALIDATED (hybrid - DLR >= +0.05 with p<0.05 Bonferroni):
   - P3 promoted from Proposition to Theorem in Y5 Section 7.6.2

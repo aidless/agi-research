@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-01T00:31:47.237279",
+  "timestamp": "2026-08-01T00:43:18.349417",
   "per_arm": {
     "monitor_only": [
       {
@@ -32,15 +32,23 @@
       },
       {
         "seed": 15,
-        "delta": 4.17
+        "delta": 5.13
       },
       {
         "seed": 16,
-        "delta": 10.51
+        "delta": 11.8
       },
       {
         "seed": 17,
         "delta": 1.6
+      },
+      {
+        "seed": 18,
+        "delta": 8.53
+      },
+      {
+        "seed": 19,
+        "delta": 6.42
       },
       {
         "seed": 2,
@@ -75,13 +83,44 @@
         "delta": 14.27
       }
     ],
-    "dlr_only": [],
+    "dlr_only": [
+      {
+        "seed": 0,
+        "delta": 10.74
+      },
+      {
+        "seed": 1,
+        "delta": 16.09
+      },
+      {
+        "seed": 2,
+        "delta": 3.99
+      },
+      {
+        "seed": 3,
+        "delta": 11.45
+      },
+      {
+        "seed": 4,
+        "delta": 13.09
+      },
+      {
+        "seed": 5,
+        "delta": 7.54
+      }
+    ],
     "v8": []
   },
   "contrasts": {
     "v8_vs_dlr_only": null,
     "v8_vs_monitor_only": null,
-    "monitor_only_vs_dlr_only": null
+    "monitor_only_vs_dlr_only": {
+      "n_paired": 6,
+      "mean_diff": -2.9116666666666666,
+      "std_diff": 2.9917714930566914,
+      "ci95_lo": -5.305582437764537,
+      "ci95_hi": -0.5177508955687964
+    }
   },
   "pre_reg_verdict": "INSUFFICIENT_DATA"
 }

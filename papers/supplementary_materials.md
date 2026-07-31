@@ -371,6 +371,7 @@ Direction-consistent with the n=100 estimate (+0.0617, 95% CI
 | H10 n=5: Joint > Frozen 0.10, t=-0.516 | 5-seed pilot | `experiments_log/2026-07-29-H10-stratified-n5-result.md` |
 | H10 n=20: Frozen > Joint 0.13, t=+1.157, d=+0.27 | 20-seed pilot | `experiments_log/_h10_n20_summary.json` + `_h10_n20_bootstrap.json` |
 | H10 n=100: Frozen - Joint +0.015, d=+0.030, 95% CI [-0.087, +0.117] | 100-seed pilot | `experiments_log/_h10_n100_bootstrap.json` |
+| H10 GSM8K 200-token n=20 (v0.6.1 follow-up): Frozen - Joint -0.053, d=-0.120, 95% CI [-0.237, +0.158] (Joint > Frozen, REFUTED consistent negative direction) | 60 jobs (3 arms x 20 seeds), 19 valid paired seeds | `experiments_log/_h10_n20_gsm8k_bootstrap.json` |
 
 ## S11. Pre-registration documents (full text)
 
@@ -385,6 +386,28 @@ standalone reproducibility artifacts:
   - Pre-registers the decision rule (Frozen > Joint by >0.05 AND
     Welch t > 2.0 AND Frozen > Random by >0.10)
   - Pre-registers the planned sample size and analysis pipeline
+
+- H10 GSM8K 200-token Amendment 1 (pre-registered BEFORE 60-job
+  launch, 2026-07-31):
+  `experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md`
+  - Second-task extension of H10 to GSM8K 200-token chain-of-
+    thought (continuous-failure-mode task, n=20 seeds per arm)
+  - Pre-registers the kill switch (Frozen-Joint >= +0.05 -> extend
+    to n=50; in [0, +0.05) -> stop REFUTED; < 0 -> stop REFUTED
+    consistent negative)
+  - Pre-registers the additional analysis (paired bootstrap CIs over
+    19 valid paired seeds, Bonferroni alpha=0.0167 across 3 contrasts)
+  - Pre-registers the configuration change (H10_USE_SIMPLE=0,
+    H10_MAX_NEW_TOKENS=200, H10_N_TOTAL=8, CoT prompt)
+
+- H10 GSM8K 200-token Addendum (tightens kill switch BEFORE
+  aggregation, 2026-07-31 12:00):
+  `experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1-ADDENDUM.md`
+  - Tightens the "extend to n=50" threshold from +0.05 to +0.10
+    based on a power analysis re-check (n=20 has only 6.7% power
+    at d=+0.20)
+  - No other change to the protocol, arm set, exclusion criteria,
+    or analysis pipeline
 
 - v8 dlr_only pre-registration (cooperative MARL, written
   2026-07-28, in the y2 follow-up log):
@@ -426,7 +449,8 @@ Approximate wall-clock on CPU:
 
 The Y4 H10 pilot has its own launchers
 (`experiments_log/_run_h10_n20.ps1`,
-`experiments_log/_run_h10_n100.ps1`).
+`experiments_log/_run_h10_n100.ps1`,
+`experiments_log/_run_h10_n20_gsm8k.ps1`).
 
 Running the n=100 launcher from a Windows PowerShell terminal:
 
@@ -438,6 +462,38 @@ This launches 300 jobs (3 arms x 100 seeds) sequentially. Each
 job takes ~60-100 seconds depending on `H10_MAX_NEW_TOKENS`.
 Total wall-clock for the n=100 run is approximately 8h51m on
 CPU (single-threaded).
+
+### S14.1 H10 GSM8K 200-token follow-up (v0.6.1)
+
+The Y4 v0.6.1 GSM8K 200-token follow-up uses a dedicated launcher
+`experiments_log/_run_h10_n20_gsm8k.ps1` that runs 60 jobs (3 arms x
+20 seeds, seeds 100..119) sequentially with `H10_USE_SIMPLE=0`,
+`H10_MAX_NEW_TOKENS=200`, `H10_N_TOTAL=8`, and the CoT prompt.
+
+Running the GSM8K 200-token launcher from a Windows PowerShell terminal:
+
+```powershell
+Start-Process powershell -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File","E:gi-research\experiments_log\_run_h10_n20_gsm8k.ps1" -WindowStyle Hidden
+```
+
+This launches 60 jobs sequentially on CPU, each ~4-7 minutes depending
+on the model and trace length (GSM8K with 200-token CoT produces
+~250-token traces, which is longer than the simple-arithmetic 64-token
+case). Total wall-clock: ~5-7 hours on CPU.
+
+When 60/60 jobs are DONE, run the finalization pipeline:
+
+```powershell
+python papers\_finalize.py
+```
+
+This runs the aggregator (`_agg_h10_n20_gsm8k.py`), generates the
+forest plot and cross-task shrinkage timeline
+(`_make_figures_v06.py`), fills Y4 §7.7-7.9
+(`_fill_section_7_7.py`), fills Y5 synthesis
+(`_fill_y5.py`), updates HYPOTHESIS_STATUS, and fills the COLM
+2026 cover letter -- all in one pass.
+
 
 ## S15. Known environment requirements
 

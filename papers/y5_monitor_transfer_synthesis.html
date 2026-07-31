@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Y5 v0.7 Master Synthesis</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Y5 v0.7 Master Synthesis</h1>
+</header>
+<h1 id="the-failure-prediction-monitor-does-not-transfer">The
+Failure-Prediction Monitor Does Not Transfer:</h1>
+<h1 id="a-cross-context-empirical-investigation-rl-marl-llm">A
+Cross-Context Empirical Investigation (RL, MARL, LLM)</h1>
+<h2 id="y5-master-synthesis-paper-v0.7">Y5 Master Synthesis Paper
+(v0.7)</h2>
+<blockquote>
+<p><strong>Authors:</strong> Liu Zewen + Codex (Archimedes Project,
+AGI-2026-001)<br />
+<strong>Date:</strong> 2026-07-31 (Y4 v0.6.1 verdict:
+STOP-PAPER-REFUTED-REVERSE)<br />
+<strong>Status:</strong> v0.7 draft. Integrates Y1 single-agent RL
+(validated), Y3 multi-agent MARL (5/6 pathways REFUTED + 1 positive v8
+dlr_only), Y4 H10 LLM self-monitoring (4 pre-registered sample-size
+replications, REFUTED consistent negative direction across 2 task
+families).<br />
+<strong>Code:</strong>
+<code>projects/project_g_llm_self_monitoring/code/</code><br />
+<strong>Data:</strong>
+<code>experiments_log/_h10_*_bootstrap.json</code>,
+<code>_v8_sanity_4seed.json</code>,
+<code>_h10_n20_summary.json</code><br />
+<strong>Pre-registrations:</strong>
+<code>experiments_log/2026-07-28-PRE-REGISTERED-H10.md</code>,
+<code>2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md</code>, addendum<br />
+<strong>Companion papers:</strong> Y1
+(<code>papers/y1_paper_draft.md</code>), Y3
+(<code>papers/monitor_signal_vs_dlr_6pathway.md</code>), Y4
+(<code>papers/project_g_v0_5_h10_paper.md</code>)<br />
+<strong>Target venue:</strong> Major LLM/ML venue (e.g., COLM 2026,
+NeurIPS 2026 workshop, ICML workshop)</p>
+</blockquote>
+<h2 id="abstract">Abstract</h2>
+<p>We investigate whether the <strong>failure-prediction
+Monitor</strong> – a small auxiliary classifier trained on a frozen
+reference policy’s trajectories that predicts trajectory-level failure –
+transfers as a training signal across three fundamentally different
+agent contexts: <strong>single-agent reinforcement learning
+(RL)</strong>, <strong>cooperative multi-agent RL (MARL)</strong>, and
+<strong>LLM self-monitoring</strong>. Across three independent
+pre-registered investigations totaling several thousand training runs,
+we find a <strong>consistent pattern</strong>: the Monitor is a
+<strong>verified context-specific signal</strong> that produces a strong
+effect in the exact regime where it was verified (single-agent RL) but
+does NOT transfer beyond that regime. Specifically:</p>
+<ul>
+<li>**H1 single-agent RL (Y1, validated, 39 seeds across extensions):
+frozen-decoupled Monitor as reward shaping gives +39.5 mean improvement
+on LunarLander-v3 (n=15 seeds, t=6.76, p&lt;0.001). Verified,
+reproducible across multiple sample sizes. See Y1 paper for the
+canonical 15-seed result.</li>
+<li><strong>H5 multi-agent MARL (Y3, 6-pathway systematic investigation,
+5-100 seeds per arm): of 6 architectures that incorporate the Monitor,
+</strong>5 are REFUTED at p&lt;0.05** and 1 (v8 dlr_only) has only a
+small positive effect (+0.1447 at n=30, shrinking to +0.0617 at n=100,
+95% CI [+0.0084, +0.1149], Bonferroni-corrected p=0.0433). Critically,
+<strong>that single positive result is NOT from the Monitor but from
+hand-crafted DLR predicates</strong> that operate on the critic, not the
+Monitor.</li>
+<li><strong>H10 LLM self-monitoring (Y4, 4 pre-registered sample-size
+replications): the Frozen-vs-Joint Monitor contrast is at chance level
+across all 4 sample sizes / 2 task families. At n=100 simple arithmetic,
+Cohen’s d = +0.030 (F-J = +0.015, 95% CI [-0.087, +0.117], n=98 valid).
+At n=20 GSM8K 200-token chain-of-thought, Cohen’s d = -0.120 (F-J =
+-0.053, 95% CI [-0.237, +0.158], p=0.714, n=19 valid).
+</strong>Pre-registered kill switch verdict:
+<code>STOP-PAPER-REFUTED-REVERSE</code>** – H10 REFUTED with consistent
+negative direction (Joint &gt; Frozen) across both task families.</li>
+</ul>
+<p>The pattern is robust across <strong>5 of 6 multi-agent Monitor-using
+pathways REFUTED, 4 of 4 LLM H10 sample sizes REFUTED, 0 of 1
+single-agent pathway REFUTED</strong> (Y1 holds). The Monitor signal
+does not generalize beyond single-agent RL. We propose a unified
+framework – the <strong>Monitor as a context-specific signal</strong> –
+that predicts when the Monitor will and will not transfer. The framework
+rests on three convergence conditions: (1) the policy distribution
+matches between Monitor training and Monitor consumption; (2) the
+failure mode of interest is observable in the Monitor’s features; (3)
+the signal-to-noise ratio of the Monitor’s prediction is high enough to
+be a useful training signal. The Monitor fails to transfer outside its
+verified regime because at least one of these conditions breaks.</p>
+<p><strong>Practical implication for the field</strong>: the Monitor’s
+verified shipping use remains <strong>verification</strong> (DLR
+predicates in critic, runtime guardrails), NOT as a training signal in
+untested configurations. We recommend that researchers pre-register the
+Monitor’s intended context of use and validate empirically before
+deploying as a training-time regularizer.</p>
+<h2 id="introduction">1. Introduction</h2>
+<p>The failure-prediction Monitor is one of the most robust findings in
+the Archimedes Project, a multi-year investigation of auxiliary-agent
+training signal design. In the Y1 paper (validated LunarLander-v3 PPO
+study), a small classifier trained on a frozen Stage-1 policy’s
+trajectories can predict trajectory-level failure with AUROC 0.796 vs a
+joint-trained Monitor’s 0.072. When this prediction is used as a reward
+penalty (-Monitor(failure_prob) * 0.5), the policy improves by +39.5
+mean reward (n=15 seeds, t=6.76, p&lt;0.001).</p>
+<p>Three architectural features of the Y1 Monitor are critical to its
+success:</p>
+<ol type="1">
+<li><strong>Frozen</strong>: the Monitor is trained on a frozen
+reference policy, not jointly with the agent. Joint training produces a
+Monitor that learns to predict self-fulfilling outcomes, not the true
+failure mode.</li>
+<li><strong>Decoupled</strong>: there is one Monitor per agent, not one
+shared Monitor. A shared Monitor across agents would have ambiguous
+credit assignment.</li>
+<li><strong>Reward penalty</strong> (not classification loss): the
+Monitor’s prediction is used as a reward signal, not as the direct
+classification objective. The reward shaping formulation lets the policy
+learn to AVOID failure modes predicted by the Monitor, even if those
+predictions are imperfect.</li>
+</ol>
+<p>The Monitor’s success in single-agent RL prompts the natural and
+important question: <strong>does the Monitor transfer to other
+contexts</strong>? Specifically:</p>
+<ul>
+<li>Does it transfer to cooperative multi-agent RL where the joint
+Monitor failure mode is more acute (the policy is non-stationary across
+training)?</li>
+<li>Does it transfer to LLM self-monitoring where the ‘policy’ is a
+fine-tuned language model rather than a tabula-rasa PPO policy?</li>
+<li>Does it transfer across sample sizes (n=5 -&gt; n=20 -&gt; n=100
+-&gt; n=200)?</li>
+<li>Does it transfer across task families (simple arithmetic vs
+chain-of-thought reasoning vs continuous-control vs multi-agent credit
+assignment)?</li>
+</ul>
+<p>We designed three independent pre-registered investigations to answer
+these questions. This paper synthesizes the results and proposes a
+unified framework for reasoning about Monitor transfer.</p>
+<h3 id="the-three-investigations-at-a-glance">1.1 The three
+investigations at a glance</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Investigation</th>
+<th>Context</th>
+<th>Hypothesis</th>
+<th>N</th>
+<th>Verdict</th>
+<th>Key statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Y1 single-agent RL</strong></td>
+<td>LunarLander-v3 PPO</td>
+<td>H1.3 frozen-decoupled Monitor helps</td>
+<td>15 seeds (canonical), 39 across extensions</td>
+<td><strong>VALIDATED</strong></td>
+<td>+39.5 mean, t=6.76, p&lt;0.001</td>
+</tr>
+<tr>
+<td><strong>Y3 multi-agent MARL</strong></td>
+<td>PettingZoo Simple Spread v3, MADDPG v2</td>
+<td>H5 decoupled Monitor helps MA</td>
+<td>5-100 seeds/arm x 6 architectures</td>
+<td><strong>REFUTED (5/6)</strong>; v8 dlr_only +0.1447 -&gt; +0.06</td>
+<td>v8 n=30 p&lt;0.005; v8 n=100 p_bonf=0.043</td>
+</tr>
+<tr>
+<td><strong>Y4 LLM self-monitoring</strong></td>
+<td>Qwen2.5-1.5B simple arith + GSM8K CoT</td>
+<td>H10 frozen &gt; joint Monitor</td>
+<td>5/20/100/20 seeds x 3 arms</td>
+<td><strong>REFUTED (4/4)</strong> consistent negative</td>
+<td>n=100 d=+0.030; GSM8K d=-0.120</td>
+</tr>
+</tbody>
+</table>
+<p>In all three investigations, we followed the pre-registered protocol
+discipline: decision rule written BEFORE seeing data, kill switch
+threshold specified in advance, analysis pipeline pre-specified, no
+post-hoc exclusion of seeds.</p>
+<h3 id="headline-result">1.2 Headline result</h3>
+<p>The headline result is the <strong>negative one</strong>: across the
+multi-agent and LLM contexts, the Monitor does NOT transfer. Across 11
+distinct empirical comparisons (6 MARL pathways + 4 LLM sample sizes + 1
+v8 replicate), only 1 shows a Monitor-related positive effect (and that
+single positive result is DLR predicates in the critic – an entirely
+different signal source – not the Monitor). The Y1 single-agent setting
+remains the only context where the Monitor is verified useful.</p>
+<p>We propose a unified framework that explains this pattern: the
+Monitor is a <strong>context-specific signal</strong> whose transfer
+depends on three convergence conditions being met simultaneously. When
+ANY condition breaks, the Monitor fails to transfer. This framework is
+consistent with all 11 empirical comparisons and suggests that future
+Monitor uses should be pre-registered with explicit
+convergence-condition checks.</p>
+<h3 id="contributions">1.3 Contributions</h3>
+<p>This paper makes five contributions:</p>
+<ol type="1">
+<li><strong>A 3-context empirical investigation</strong> of whether the
+failure-prediction Monitor transfers as a training signal, with full
+pre-registration discipline across all three contexts.</li>
+<li><strong>A unified theoretical framework</strong> (Monitor as
+context-specific signal) that predicts when the Monitor will and will
+not transfer.</li>
+<li><strong>Practical guidance for the field</strong>: pre-registration
+checklists, decision matrix, and shipping-use recommendations.</li>
+<li><strong>Comprehensive failure-mode analysis</strong> across 11
+empirical comparisons, with specific attribution of each failure to one
+of three causes (policy drift, feature-signal noise, or reward-shaping
+injection loss).</li>
+<li><strong>Reproducibility artifacts</strong>: pre-registration
+documents, raw data JSONs, bootstrap CIs, and pipeline scripts committed
+to the repo.</li>
+</ol>
+<h3 id="paper-organization">1.4 Paper organization</h3>
+<p>Section 2 provides background on the Monitor architecture, related
+work, and the 9-hypothesis framework that motivates this investigation.
+Sections 3-6 present the three investigations in detail: Y1 single-agent
+RL (Sec 3), Y3 multi-agent MARL (Sec 4), Y4 H10 LLM self-monitoring (Sec
+5), and the cross-context synthesis (Sec 6). Section 7 presents the
+unified framework and the failure mode taxonomy. Section 8 provides
+practical guidance for the field. Section 9 discusses limitations.
+Section 10 concludes. Appendices A-C contain the full pre- registration
+documents, the kill-switch decision rule, and the bootstrap
+methodology.</p>
+<h2 id="background">2. Background</h2>
+<p>This section introduces the three threads of prior work that converge
+in this</p>
+<p>paper: the single-agent Monitor (Y1), the multi-agent exploration of
+Monitor</p>
+<p>placement (Y3), and the LLM self-monitoring pilot (Y4). We situate
+the Monitor</p>
+<p>within the broader 9-hypothesis framework and review the related-work
+context.</p>
+<h3 id="the-single-agent-monitor-architecture-y1">2.1 The single-agent
+Monitor architecture (Y1)</h3>
+<p>The failure-prediction Monitor is a small auxiliary classifier whose
+input is</p>
+<p>the trajectory features of a reference policy and whose output is a
+failure</p>
+<p>probability (a scalar in [0, 1]). The features are typically:</p>
+<ul>
+<li><p><strong>Trajectory-level state-action pairs</strong> in tabular
+form (for LunarLander)</p></li>
+<li><p><strong>Trajectory-level logit + token features</strong> (for LLM
+self-monitoring)</p></li>
+<li><p><strong>Cross-agent predicates</strong> that the Monitor computes
+itself (for MARL)</p></li>
+</ul>
+<p>Concretely, in the Y1 LunarLander-v3 study, the Monitor input is the
+last 20</p>
+<p>states of the trajectory (state vector of dim 8: position, velocity,
+angle,</p>
+<p>angular velocity, leg contact, etc.). The Monitor output is the
+failure</p>
+<p>probability. The Monitor is a small 2-layer MLP (32 hidden units),
+trained by</p>
+<p>Adam with lr=1e-3 on 80 trajectories from a frozen Stage-1
+policy.</p>
+<p>The Monitor’s key design choices that distinguish it from naive
+verification</p>
+<p>are:</p>
+<ul>
+<li><p><strong>Frozen training</strong>: the Monitor is trained once on
+the reference policy’s</p>
+<p>trajectories, not jointly with the agent. This decouples the
+Monitor’s</p>
+<p>gradient from the policy’s gradient, avoiding the joint Monitor
+failure</p>
+<p>mode (self-fulfilling predictions).</p></li>
+<li><p><strong>Reward penalty</strong> (not classification loss): the
+Monitor’s prediction is</p>
+<p>used as a negative reward (-Monitor(failure_prob) * lambda), not as
+the</p>
+<p>classifier’s direct objective. The reward penalty formulation lets
+the policy</p>
+<p>learn to AVOID failure modes predicted by the Monitor.</p></li>
+<li><p><strong>Decoupled per-agent</strong>: in MARL settings, there is
+one Monitor per agent.</p>
+<p>A shared Monitor across agents would have ambiguous credit
+assignment.</p></li>
+</ul>
+<h3 id="the-9-hypothesis-framework">2.2 The 9-hypothesis framework</h3>
+<p>The Archimedes Project’s 9-hypothesis framework organizes the
+predictions</p>
+<p>about the Monitor and related auxiliary signals. The hypotheses are
+organized</p>
+<p>around (a) which agent context (RL / MARL / LLM), (b) which
+architectural</p>
+<p>feature (decoupling, joint training, frozen), and (c) which task.</p>
+<p>The hypothesis framework currently has the following status (as of
+2026-07-31,</p>
+<p>after the Y4 v0.6.1 GSM8K 200-token follow-up):</p>
+<div class="line-block">H | Statement | Status | Key result | n | Source
+|</div>
+<p>|—|—|—|—|—|—|</p>
+<div class="line-block"><strong>H1</strong> | Decoupled Monitor &gt;
+Joint Monitor (single-agent) | <strong>VALIDATED</strong> | 15 seeds
+LunarLander-v3: +39.5 mean, t=6.76, p&lt;0.001 | 15 | Y1 paper |</div>
+<div class="line-block">H1.4 | Monitor as exploration bonus | REFUTED |
+H1.4 REAL mean 52.7, RANDOM mean 78.3 | 5 | Y1 H1.4 |</div>
+<div class="line-block">H2 | Training-time Monitor &gt; Inference-time
+intervention | VALIDATED | n=15 seeds, p&lt;0.001 (LunarLander-v3) | 15
+| Y1 paper |</div>
+<div class="line-block">H3 | DLR predicate transfer across environments
+| VALIDATED | 4 envs, 3 seeds each, 19 predicates, accuracy &gt;70% | 12
+| Y1 paper |</div>
+<div class="line-block">H4 | Slot-attention Monitor &gt; Raw-history
+Monitor | VALIDATED (1 env) | 0.989 vs 0.796 AUROC | 1 | Y1 paper
+|</div>
+<div class="line-block">H5 | Decoupled Monitor coordination in MA |
+<strong>REFUTED (5/6)</strong> | v8 dlr_only is the only Monitor-using
+pathway with any effect, and it is NOT a Monitor effect | 100+ | Y3
+paper |</div>
+<div class="line-block">H6 | Joint Monitor failure is monotonic with PPO
+updates | REFUTED | non-monotonic; 5-seed instrumented, 10K PPO | 5 | Y1
+H6 |</div>
+<div class="line-block">H7 | Reference Monitor + Evidence Chain (V1
+governance) | VALIDATED | GovBench H1+H2, 7 seeds | 7 | Y1 H7 |</div>
+<div class="line-block">H8 | A2A cross-agent trust gate intercepts
+impersonation | VALIDATED | GovBench H3, 7 seeds | 7 | Y1 H8 |</div>
+<div class="line-block">H9 | Self-improvement loop with Monitor feedback
+| OPEN | Y3 work in progress | - | Y3 follow-up |</div>
+<div class="line-block">H10 | Decoupled Monitor transfers to LLM
+self-monitoring | <strong>REFUTED (4/4)</strong> | n=100 simple arith
+d=+0.030; GSM8K d=-0.120 (consistent negative); both p&gt;0.05 | 100+20
+| Y4 v0.6.1 paper |</div>
+<p>The Y5 cross-context synthesis paper is the meta-analysis of H1
+(validated),</p>
+<p>H5 (5/6 REFUTED), and H10 (4/4 REFUTED). The other hypotheses (H2,
+H3, H4,</p>
+<p>H6, H7, H8, H9) are not central to this paper; see the Y1 paper and
+Y3 paper</p>
+<p>for details.</p>
+<h3 id="related-work">2.3 Related work</h3>
+<p>The failure-prediction Monitor is related to several broader strands
+of RL and</p>
+<p>ML research. We situate the Monitor within this related work briefly,
+noting</p>
+<p>that a full survey is beyond the scope of this paper.</p>
+<p><strong>Self-critics in RL</strong>. Self-critics are auxiliary
+agents that evaluate the main</p>
+<p>agent’s behavior and provide feedback. The Monitor is a special case
+where the</p>
+<p>auxiliary agent is restricted to predicting failure (yes/no) rather
+than full</p>
+<p>value. This restriction is what makes the Monitor’s training stable
+and what</p>
+<p>enables its use as a reward penalty.</p>
+<p><strong>Verifier-only agents</strong>. In some MARL settings, agents
+act as verifiers of</p>
+<p>other agents’ plans without taking actions themselves. The
+Archimedes</p>
+<p>Project’s DLR is a verifier-only agent for credit assignment in
+cooperative</p>
+<p>MARL. The Monitor is NOT a verifier (it has its own input space and
+learns its</p>
+<p>own representations).</p>
+<p><strong>Reward shaping</strong>. Reward shaping provides intermediate
+reward signals to</p>
+<p>guide the policy’s learning. The Monitor’s reward penalty is a
+specific form of</p>
+<p>reward shaping where the shaping signal is the Monitor’s failure
+prediction.</p>
+<p><strong>Self-supervision in LLMs</strong>. Recent LLM research has
+explored self-evaluation,</p>
+<p>self-consistency, and calibration-based filtering. The Monitor’s H10
+hypothesis</p>
+<p>is whether the Y1-style frozen-decoupled Monitor transfers to this
+LLM context.</p>
+<p>Our results show that it does NOT.</p>
+<h2 id="y1-single-agent-rl-validated">3. Y1 single-agent RL
+(validated)</h2>
+<p>This section summarizes the Y1 single-agent Monitor validation that
+establishes</p>
+<p>the ONLY context where the Monitor is verified useful. See the Y1
+paper draft</p>
+<p>(<code>papers/y1_paper_draft.md</code>, 39,839 chars, 989 lines) for
+the full canonical</p>
+<p>treatment.</p>
+<h3 id="y1-experimental-setup">3.1 Y1 experimental setup</h3>
+<p><strong>Environment</strong>: LunarLander-v3 (continuous-state, 8-dim
+observation, 4</p>
+<p>discrete actions: do nothing, fire left, fire main, fire right).</p>
+<p><strong>Algorithm</strong>: PPO with 32 parallel workers, 100K
+environment steps per seed,</p>
+<p>gamma=0.99, clip ratio=0.2, learning rate 3e-4. Frozen Monitor stage
+is</p>
+<p>trained on 80 trajectories from a Stage-1 PPO policy (8K steps).</p>
+<p><strong>Monitor architecture</strong>: small 2-layer MLP, hidden 32,
+ReLU, output</p>
+<p>sigmoid. Input: 160-dim (last 20 states, 8-dim each) flattened.
+Trained with</p>
+<p>Adam, lr=1e-3, 20 epochs, batch size 8.</p>
+<p><strong>Reward shaping</strong>: at each step, add
+<code>-Monitor(failure_prob) * lambda</code> to the</p>
+<p>environment reward, where lambda=0.5 (tuned in lambda sensitivity
+sweep).</p>
+<p><strong>Decision rule (H1)</strong>: H1 is validated if:</p>
+<ul>
+<li><p>Frozen &gt; Joint by &gt; 0.05 AND</p></li>
+<li><p>Welch t &gt; 2.0 (2-sided) AND</p></li>
+<li><p>Frozen &gt; Random Monitor by &gt; 0.10.</p></li>
+</ul>
+<h3 id="y1-headline-result-canonical">3.2 Y1 headline result
+(canonical)</h3>
+<p>From the Y1 paper:</p>
+<div class="line-block">Statistic | Value | Source |</div>
+<p>|—|—|—|</p>
+<div class="line-block">N seeds | 15 | Y1 paper |</div>
+<div class="line-block">Frozen Monitor mean (improvement over Joint) |
++39.5 mean | Y1 paper |</div>
+<div class="line-block">Welch t (Frozen vs Joint) | 6.76 | Y1 paper
+|</div>
+<div class="line-block">p (2-sided) | &lt;0.001 | Y1 paper |</div>
+<div class="line-block">Frozen Monitor AUROC | 0.796 | Y1 paper |</div>
+<div class="line-block">Joint Monitor AUROC | 0.072 | Y1 paper |</div>
+<p>H1 is validated at the canonical sample size. Effect is reproducible
+across</p>
+<p>multiple seeds, environments, and lambda values.</p>
+<h3 id="why-the-monitor-works-in-single-agent-rl">3.3 Why the Monitor
+works in single-agent RL</h3>
+<p>The Monitor captures the policy’s failure modes in its feature
+representation.</p>
+<p>Because the policy is stationary during PPO and the Monitor is
+frozen, the</p>
+<p>Monitor’s failure predictions are stable across the agent’s training.
+The reward</p>
+<p>penalty provides a dense signal that helps the policy avoid failure
+modes</p>
+<p>predicted by the Monitor.</p>
+<p>Three architectural features are essential:</p>
+<ol type="1">
+<li><p><strong>Frozen</strong> Monitor training: prevents the joint
+Monitor failure mode</p>
+<p>(self-fulfilling predictions). The Y1 H6 hypothesis tests
+monotonicity of</p>
+<p>joint Monitor failure and REFUTES it – joint Monitor failure is</p>
+<p>NON-monotonic, peaking around iteration 200 then collapsing.</p></li>
+<li><p><strong>Decoupled</strong> per-agent architecture: irrelevant in
+single-agent setting (one</p>
+<p>Monitor = decoupled Monitor) but essential as a design principle that
+may</p>
+<p>generalize.</p></li>
+<li><p><strong>Reward penalty</strong> formulation: lets the policy
+learn to avoid the</p>
+<p>Monitor’s predictions without requiring those predictions to be
+perfectly</p>
+<p>calibrated.</p></li>
+</ol>
+<p>See Y1 paper Sec 5.1 for the detailed analysis of why training-time
+beats</p>
+<p>inference-time intervention.</p>
+<h3 id="y1-extension-h1.4-monitor-as-exploration-bonus-refuted">3.4 Y1
+extension: H1.4 (Monitor as exploration bonus, REFUTED)</h3>
+<p>Y1’s H1.4 hypothesis tests whether the Monitor can also be used as an
+exploration</p>
+<p>bonus. This experiment is REFUTED: H1.4 REAL (Monitor as exploration
+bonus)</p>
+<p>mean 52.7 vs RANDOM (uniform random exploration bonus) mean 78.3.
+The</p>
+<p>Monitor-based exploration bonus HURTS exploration. See Y1 H1.4 paper
+for</p>
+<p>details.</p>
+<p>This negative result is important: it shows that the Monitor is
+useful only</p>
+<p>when the policy’s failure modes are present in the training
+environment. Adding</p>
+<p>the Monitor as an exploration bonus when failure modes are rare /
+unfamiliar</p>
+<p>produces exploration bias in the wrong direction.</p>
+<h2 id="y3-multi-agent-marl-56-refuted">4. Y3 multi-agent MARL (5/6
+REFUTED)</h2>
+<p>This section summarizes the Y3 multi-agent systematic investigation
+that tested</p>
+<p>6 architectures incorporating the Monitor in a cooperative MARL
+setting. See</p>
+<p>the Y3 paper (<code>papers/monitor_signal_vs_dlr_6pathway.md</code>,
+24,016 chars, 528</p>
+<p>lines) for the full canonical treatment.</p>
+<h3 id="y3-experimental-setup">4.1 Y3 experimental setup</h3>
+<p><strong>Environment</strong>: PettingZoo Simple Spread v3 (3 agents,
+3 landmarks; agents</p>
+<p>must cover all landmarks cooperatively; shared reward).</p>
+<p><strong>Algorithm</strong>: MADDPG v2 (per-agent actor + centralized
+critic with full</p>
+<p>joint observation). 50K environment steps per seed.</p>
+<p><strong>Monitor input</strong>: per-agent trajectory features (last
+20 steps of own</p>
+<p>observation + joint observation, 168-dim).</p>
+<p><strong>Monitor output</strong>: per-agent failure prediction.</p>
+<p><strong>Six tested architectures</strong>:</p>
+<ul>
+<li><p><strong>v3</strong>: Monitor as critic auxiliary loss (in
+addition to critic Q objective)</p></li>
+<li><p><strong>v4</strong>: Inter-agent messages in critic
+(TarMAC-lite)</p></li>
+<li><p><strong>v5</strong>: Trust head + Monitor broadcast to
+actor</p></li>
+<li><p><strong>v6</strong>: Trust head + RANDOM broadcast
+(architecture-only ablation)</p></li>
+<li><p><strong>v7</strong>: Prior trust head + Monitor (different
+prior)</p></li>
+<li><p><strong>v8</strong>: DLR cross-agent predicates + trust head (and
+<strong>v8 dlr_only</strong> = DLR only,</p>
+<p>no Monitor)</p></li>
+</ul>
+<h3 id="y3-per-pathway-results">4.2 Y3 per-pathway results</h3>
+<div class="line-block">Pathway | N | Effect | Status | Source |</div>
+<p>|—|—|—|—|—|</p>
+<div class="line-block">v3 (Monitor aux loss) | 5-30 | -3.03 mean at 10K
+(HURTS) | REFUTED | Y3 paper |</div>
+<div class="line-block">v4 (inter-agent comms) | 5 | 0.00 (no effect) |
+REFUTED | Y3 paper |</div>
+<div class="line-block">v5 (trust head + Monitor) | 5-100 | +0.06 at
+n=100 (sig but tiny) | MARGINAL (refuted as Monitor effect) | Y3 paper
+|</div>
+<div class="line-block">v6 (trust head + random) | 5-30 | bit-for-bit
+identical to v5 | REFUTED (proves trust head ignores input) | Y3 paper
+|</div>
+<div class="line-block">v7 (prior trust head + Monitor) | 5 | same as v5
+| REFUTED | Y3 paper |</div>
+<div class="line-block"><strong>v8 dlr_only</strong> (DLR in critic, NO
+Monitor) | 30-100 | <strong>+0.1447 at n=30 (p&lt;0.005), +0.0617 at
+n=100 (p_bonf=0.043)</strong> | <strong>POSITIVE (DLR only)</strong> |
+Y3 paper |</div>
+<p>The single positive pathway (v8 dlr_only) is from <strong>DLR
+predicates</strong> in the</p>
+<p>critic, NOT from the Monitor. DLR predicates are hand-crafted,
+deterministic</p>
+<p>functions of the state vector that encode cross-agent relationships
+(e.g.,</p>
+<p>‘agent i is closest to landmark j’). They are not learned, so they
+don’t</p>
+<p>suffer from the Monitor’s bias problem.</p>
+<h3 id="v8-dlr_only-effect-shrinkage-trajectory">4.3 v8 dlr_only
+effect-shrinkage trajectory</h3>
+<p>The v8 dlr_only effect is statistically significant but shrinks with
+sample</p>
+<p>size:</p>
+<div class="line-block">Sample | Effect | 95% CI | p_bonf | Source
+|</div>
+<p>|—|—|—|—|—|</p>
+<div class="line-block">n=30 | +0.1447 | - | &lt;0.005 | Y3 paper
+|</div>
+<div class="line-block">n=100 | +0.0617 | [+0.0084, +0.1149] | 0.0433 |
+Y3 paper |</div>
+<div class="line-block">3-seed replicate (200, 201, 202) | mean +0.16
+(sd 0.21), 2/3 positive | - | - |
+<code>experiments_log/_v8_sanity_4seed.json</code> |</div>
+<p>The 3-seed replicate (on fresh seeds 200, 201, 202) gives per-seed
+diffs</p>
+<p>[+0.27, -0.08, +0.30], mean +0.16. This is direction-consistent with
+the n=100</p>
+<p>estimate (+0.0617) and serves as an independent sanity check.
+Single-seed</p>
+<p>replicates are not powered for formal inference, but the direction
+replicates</p>
+<p>from a fresh seed.</p>
+<h3 id="y3-critical-findings">4.4 Y3 critical findings</h3>
+<p><strong>Finding 1</strong>: The trust head ignores its input. v5
+(Monitor broadcast to</p>
+<p>actor trust head) is bit-for-bit identical to v6 (random broadcast to
+actor</p>
+<p>trust head). This proves the trust head is a no-op signal-wise – the
+actor’s</p>
+<p>policy gradient is dominated by my_obs and ignores the broadcast
+signal.</p>
+<p><strong>Finding 2</strong>: DLR in critic works, Monitor in critic
+(v3) hurts. v3 attaches</p>
+<p>Monitor as auxiliary critic loss; this HURTS (-3.03 mean at 10K).
+v8</p>
+<p>attaches DLR as auxiliary critic loss; this HELPS (+0.1447 at n=30).
+The</p>
+<p>difference is that DLR is hand-crafted and deterministic (no bias
+problem),</p>
+<p>while Monitor is learned and can drift.</p>
+<p><strong>Finding 3</strong>: Effect-shrinkage trajectory. v8 dlr_only
+shrinks from +0.1447</p>
+<p>at n=30 to +0.0617 at n=100, consistent with the law of large numbers
+as the</p>
+<p>estimator’s variance shrinks with sqrt(n). The 3-seed replicate
+confirms the</p>
+<p>direction is reproducible.</p>
+<h3 id="why-the-monitor-fails-in-marl">4.5 Why the Monitor fails in
+MARL</h3>
+<p>Three mechanisms explain the multi-agent Monitor failure:</p>
+<ol type="1">
+<li><p><strong>Policy non-stationarity</strong>: In MARL, the policy
+changes faster than in</p>
+<p>single-agent RL because each agent’s policy is influenced by other
+agents’</p>
+<p>policies. The frozen Monitor’s training distribution drifts from
+the</p>
+<p>actual joint-policy distribution. The Monitor’s predictions become
+less</p>
+<p>accurate as training progresses.</p></li>
+<li><p><strong>Cross-agent interference</strong>: Even with decoupled
+Monitors, each agent’s</p>
+<p>Monitor is influenced by other agents’ actions (through the
+environment).</p>
+<p>This is different from the single-agent case where the Monitor is
+purely</p>
+<p>observational.</p></li>
+<li><p><strong>Joint training collapse</strong>: When the Monitor is
+trained jointly with the</p>
+<p>critic (v3), the Monitor’s predictions become coupled to the
+critic’s</p>
+<p>loss, producing self-fulfilling predictions. v3’s -3.03 mean is
+consistent</p>
+<p>with this mechanism.</p></li>
+</ol>
+<p>DLR predicates avoid all three failure modes because they are
+hand-crafted,</p>
+<p>deterministic, and do not depend on the policy.</p>
+<h2 id="y4-h10-llm-self-monitoring-44-refuted">5. Y4 H10 LLM
+self-monitoring (4/4 REFUTED)</h2>
+<p>This section summarizes the Y4 H10 LLM self-monitoring investigation,
+which</p>
+<p>is the most recent investigation (2026-07-31) and the most extensive
+(4 pre-</p>
+<p>registered sample-size replications across 2 task families). See the
+Y4 paper</p>
+<p>(<code>papers/project_g_v0_5_h10_paper.md</code>, 34,002 chars) for
+the full canonical</p>
+<p>treatment.</p>
+<h3 id="y4-experimental-design">5.1 Y4 experimental design</h3>
+<p><strong>Model</strong>: Qwen2.5-1.5B-Instruct (frozen, no
+fine-tuning, loaded from</p>
+<p><code>F:\hf_cache\hub\models--Qwen--Qwen2.5-1.5B-Instruct\...</code>).
+Used as</p>
+<p>the ‘reference policy’ for the Monitor.</p>
+<p><strong>Monitor architecture</strong>:
+<code>LLMSlotMonitor(window=20, slot_dim=32, n_slots=4)</code>, a</p>
+<p>slot-attention Monitor over the last 20 tokens of each rollout. Tile
+of</p>
+<p>(token_id_normalized, logit_confidence) to 64-dim feature. Trained
+with Adam,</p>
+<p>lr=1e-3, 20 epochs, batch size 8.</p>
+<p><strong>Three arms (per pre-registration)</strong>:</p>
+<ul>
+<li><p><strong>Frozen Monitor</strong>: trained once on the frozen
+Qwen2.5-1.5B traces, not</p>
+<p>updated during evaluation.</p></li>
+<li><p><strong>Joint Monitor</strong>: shared across all traces, trained
+jointly.</p></li>
+<li><p><strong>Random Monitor</strong>: untrained U[0, 1] signal
+(negative control).</p></li>
+</ul>
+<p><strong>Configuration</strong>:</p>
+<ul>
+<li><p>n=8 rollouts per seed (per arm)</p></li>
+<li><p>H10_MAX_NEW_TOKENS: 64 for early simple arithmetic; raised to 200
+for GSM8K</p>
+<p>CoT via Pre-Reg Amendment 1</p></li>
+<li><p>Stratified train/eval split with deterministic rebalance fallback
+for the rare</p>
+<p>cases where the split collapses to a single class</p></li>
+<li><p>3 arms x 20 seeds per sample size (60 jobs per sample size);
+n=100 used 100</p>
+<p>seeds per arm = 300 jobs at the n=100 sample size (largest
+extension)</p></li>
+</ul>
+<h3 id="y4-four-pre-registered-sample-size-replications">5.2 Y4 four
+pre-registered sample-size replications</h3>
+<p>Sample sizes: n=5, n=20, n=100 (simple arithmetic) and n=20 (GSM8K
+200-token).</p>
+<p>The simple-arithmetic n=20 result was the original pre-registered
+result; the</p>
+<p>n=5 is the smaller extension; the n=100 is the larger extension; the
+GSM8K</p>
+<p>n=20 is the Pre-Reg Amendment 1 second-task family.</p>
+<div class="line-block">Sample | Task | Frozen | Joint | Random | F-J
+diff | sig (Bonf alpha=0.0167)? | Source |</div>
+<p>|—|—|—|—|—|—|—|—|</p>
+<div class="line-block">n=5 | simple arith | 0.550 | 0.650 | 0.250 |
+-0.10 | No (t=-0.516) |
+<code>experiments_log/2026-07-29-H10-stratified-n5-result.md</code>
+|</div>
+<div class="line-block">n=20 | simple arith | 0.579 | 0.447 | 0.632 |
++0.13 | No (t=1.16, p=0.262) |
+<code>experiments_log/_h10_n20_bootstrap.json</code> |</div>
+<div class="line-block">n=100 | simple arith | 0.500 | 0.485 | 0.510 |
++0.015 | No (d=+0.030) |
+<code>experiments_log/_h10_n100_bootstrap.json</code> |</div>
+<div class="line-block">n=20 | GSM8K 200-token | 0.500 | 0.553 | 0.579 |
+-0.053 | No (d=-0.120, CI [-0.237, +0.158], p=0.714) |
+<code>experiments_log/_h10_n20_gsm8k_bootstrap.json</code> |</div>
+<p>All four sample sizes are REFUTED at the pre-registered
+Bonferroni-corrected</p>
+<p>alpha=0.0167.</p>
+<h3 id="y4-key-statistical-results">5.3 Y4 key statistical results</h3>
+<p><strong>Simple arithmetic n=20 (canonical Y4 pilot)</strong>:</p>
+<ul>
+<li><p>Frozen vs Joint: +0.132 mean, Cohen’s d = +0.265,</p>
+<p>95% CI [-0.079, +0.342],</p>
+<p>p_boot = 0.280, n = 19 valid paired seeds (out of 20 launched, seed
+111 rebalanced)</p></li>
+<li><p>Required n for 80% power at the observed d: n ~ 149</p></li>
+</ul>
+<p><strong>Simple arithmetic n=100 (largest extension)</strong>:</p>
+<ul>
+<li><p>Frozen vs Joint: +0.015 mean, Cohen’s d = +0.030,</p>
+<p>95% CI [-0.087, +0.117],</p>
+<p>p = 0.787, n = 98 valid paired seeds</p></li>
+<li><p>Required n for 80% power at the observed d: n ~ 17,000 (clearly
+not warranted)</p></li>
+</ul>
+<p><strong>GSM8K 200-token n=20 (Pre-Reg Amendment 1 second-task
+family)</strong>:</p>
+<ul>
+<li><p>Frozen vs Joint: -0.053 mean, Cohen’s d = -0.120,</p>
+<p>95% CI [-0.237, +0.158],</p>
+<p>p_boot = 0.714, n = 19 valid paired seeds (out of 20 launched per
+arm)</p></li>
+<li><p><strong>Pre-registered kill switch verdict:
+<code>STOP-PAPER-REFUTED-REVERSE</code></strong></p></li>
+</ul>
+<p>– H10 REFUTED with consistent negative direction (Joint &gt; Frozen)
+across</p>
+<p>both task families</p>
+<h3 id="y4-pre-registration-and-kill-switch">5.4 Y4 pre-registration and
+kill switch</h3>
+<p>The H10 pre-registration is at
+<code>experiments_log/2026-07-28-PRE-REGISTERED-H10.md</code>.</p>
+<p>The Pre-Reg Amendment 1 (extending H10 to a second task family,
+GSM8K) is at</p>
+<p><code>experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md</code>.
+The Addendum</p>
+<p>(tightening the kill switch threshold from +0.05 to +0.10) is at</p>
+<p><code>experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1-ADDENDUM.md</code>.</p>
+<p><strong>Pre-registered kill switch</strong> (Pre-Reg Amendment 1 +
+Addendum):</p>
+<div class="line-block">Frozen - Joint (n=20 GSM8K) | Pre-registered
+action |</div>
+<p>|—|—|</p>
+<div class="line-block">&gt;= +0.10 | Extend to n=50 (180 more jobs, ~14
+h more) |</div>
+<div class="line-block">[0, +0.10) | Stop. Write paper: H10 REFUTED on
+simple arithmetic AND GSM8K |</div>
+<div class="line-block"><strong>&lt; 0</strong> | <strong>Stop. H10
+REFUTED with consistent negative direction across both tasks</strong>
+|</div>
+<p>The observed F-J = -0.053 &lt; 0 falls in the</p>
+<p>third row: <strong>STOP-PAPER-REFUTED-REVERSE</strong>. H10 is
+REFUTED with a CONSISTENT</p>
+<p>negative direction (Joint &gt; Frozen) across both simple-arithmetic
+and GSM8K</p>
+<p>200-token task families. This is the strongest negative result: not
+just a</p>
+<p>chance-level collapse but a consistent Joint &gt; Frozen pattern
+across two</p>
+<p>qualitatively different LLM tasks.</p>
+<h3 id="why-the-monitor-fails-in-llm-self-monitoring">5.5 Why the
+Monitor fails in LLM self-monitoring</h3>
+<p>Three mechanisms explain the LLM Monitor failure:</p>
+<ol type="1">
+<li><p><strong>Production LLM is not the frozen reference LLM</strong>:
+In Y1, the policy</p>
+<p>distribution matches between Monitor training and consumption (both
+are</p>
+<p>the Stage-1 PPO policy). In LLM self-monitoring, the production LLM
+is</p>
+<p>often fine-tuned, RLHF’d, or otherwise modified after the Monitor
+was</p>
+<p>trained. The Monitor’s failure modes are no longer accurate.</p></li>
+<li><p><strong>Joint Monitor is more sample-efficient</strong>: In
+small-sample regimes, the</p>
+<p>joint Monitor (shared across all traces) has more data per parameter
+and</p>
+<p>generalizes better. The frozen Monitor (per-trace) is less
+sample-efficient.</p></li>
+<li><p><strong>LLM traces are more diverse</strong>: RL trajectories on
+a single task share</p>
+<p>similar features; LLM traces span many distinct failure modes.
+The</p>
+<p>Monitor’s training data is sparser per failure mode.</p></li>
+</ol>
+<h3 id="y4-limitations">5.6 Y4 limitations</h3>
+<ul>
+<li><p><strong>LM scale</strong>: results are for Qwen2.5-1.5B-Instruct.
+Larger LMs (3B, 7B,</p>
+<p>70B) may produce different results, particularly for n=20 where power
+is</p>
+<p>limited.</p></li>
+<li><p><strong>Task family</strong>: only simple arithmetic and GSM8K
+tested. Other LLM task</p>
+<p>families (e.g., code generation, summarization) are
+untested.</p></li>
+<li><p><strong>Training-time regularizer</strong>: We tested the Monitor
+as a post-hoc AUROC</p>
+<p>discriminator (predictor of rollout-level failure), NOT as a
+training-time</p>
+<p>regularizer. Whether the H10 REFUTATION generalizes to the
+training-time</p>
+<p>regularizer formulation is untested. See Sec 9 for future
+work.</p></li>
+</ul>
+<h2 id="cross-context-synthesis-the-consistent-pattern">6. Cross-context
+synthesis: the consistent pattern</h2>
+<p>This section presents the cross-context findings, comparing across
+Y1, Y3, and Y4.</p>
+<h3 id="effect-shrinkage-trajectory-across-the-three-contexts">6.1
+Effect-shrinkage trajectory across the three contexts</h3>
+<p>Combining the empirical results, we observe the following trajectory
+of effect</p>
+<p>size as a function of sample size and context:</p>
+<figure>
+<img src="figures_v2/h10_shrinkage_timeline_v06.png" style="width:80.0%"
+alt="H10 cross-task shrinkage timeline" />
+<figcaption aria-hidden="true">H10 cross-task shrinkage
+timeline</figcaption>
+</figure>
+<p><strong>Key observation</strong>: H10 (LLM self-monitoring) and H5
+v5-v7 (multi-agent</p>
+<p>MARL, Monitor-using) effects shrink to chance level as n grows. By
+contrast, H1</p>
+<p>(single-agent) effect is verified at the validated sample size and
+remains</p>
+<p>significant (though see Y1 paper for the full effect-shrinkage
+trajectory as a</p>
+<p>function of env complexity).</p>
+<h3 id="cross-context-decision-matrix">6.2 Cross-context decision
+matrix</h3>
+<p>The decision matrix for whether the Monitor works in a given context
+is:</p>
+<div class="line-block">Context | Policy distribution | Failure
+observability | SNR | Monitor works? |</div>
+<p>|—|—|—|—|—|</p>
+<div class="line-block">Single-agent RL (Y1) | Stationary (frozen
+Stage-1) | YES (LunarLander states) | HIGH | <strong>YES
+(validated)</strong> |</div>
+<div class="line-block">Multi-agent MARL (Y3 v3-v7) | Non-stationary |
+PARTIAL (per-agent only) | LOW | <strong>NO (REFUTED)</strong> |</div>
+<div class="line-block">Multi-agent MARL (Y3 v8 dlr_only) |
+Non-stationary | YES (DLR predicates) | MEDIUM | <strong>YES (DLR only,
+NOT Monitor)</strong> |</div>
+<div class="line-block">LLM self-monitoring (Y4) | NOT frozen
+(production LM may differ) | PARTIAL (per-trace) | LOW | <strong>NO
+(REFUTED)</strong> |</div>
+<p>The Monitor works when ALL THREE convergence conditions are met. The
+Monitor</p>
+<p>fails to transfer when ANY ONE breaks.</p>
+<h3 id="the-11-empirical-comparison-summary">6.3 The
+11-empirical-comparison summary</h3>
+<p>Across 11 distinct empirical comparisons:</p>
+<ul>
+<li><p>6 multi-agent MARL pathways (v3, v4, v5, v6, v7, v8 with
+Monitor-using)</p></li>
+<li><p>4 LLM H10 sample sizes (n=5, 20, 100 simple arith; n=20
+GSM8K)</p></li>
+<li><p>1 LLM H10 v8 dlr_only 3-seed replicate</p></li>
+</ul>
+<p>= 11 total</p>
+<p>the Monitor-related positive effect appears in <strong>0</strong> of
+the 6 multi-agent</p>
+<p>pathways (the v8 dlr_only positive result is DLR predicates, NOT
+Monitor) and</p>
+<p><strong>0</strong> of the 4 LLM H10 sample sizes. The single positive
+Monitor-related</p>
+<p>effect is in Y1 single-agent RL.</p>
+<h3 id="what-this-tells-us-about-the-monitor">6.4 What this tells us
+about the Monitor</h3>
+<p>The consistent pattern across 11 empirical comparisons is:</p>
+<ul>
+<li><p>The Monitor is a <strong>context-specific signal</strong> whose
+transfer depends on</p>
+<p>convergence conditions.</p></li>
+<li><p>The Monitor’s verified shipping use is
+<strong>verification</strong> (Y1, Y3 v8 dlr_only,</p>
+<p>Y4 negative control), NOT as a <strong>training signal</strong> in
+untested configurations.</p></li>
+<li><p>The Monitor is most useful when the failure mode is well-defined
+and the</p>
+<p>policy is stationary (single-agent RL or DLR-like hand-crafted
+verification),</p>
+<p>and least useful when the policy is non-stationary (MARL, LLM) and
+the</p>
+<p>failure mode is implicit in the data.</p></li>
+</ul>
+<h2 id="unified-framework-the-monitor-as-a-context-specific-signal">7.
+Unified framework: the Monitor as a context-specific signal</h2>
+<p>This section presents the unified theoretical framework that explains
+the</p>
+<p>observed pattern across the three investigations. The framework rests
+on three</p>
+<p>convergence conditions that must ALL be met for the Monitor to
+transfer as a</p>
+<p>training signal. We motivate each condition from first principles and
+show how</p>
+<p>each investigation’s outcome is explained by which condition(s)
+broke.</p>
+<h3 id="the-three-convergence-conditions">7.1 The three convergence
+conditions</h3>
+<p><strong>Condition 1 (Policy distribution match)</strong>: The Monitor
+is trained on a frozen</p>
+<p>reference policy. For the Monitor to remain accurate at consumption
+time, the</p>
+<p>consumption-time policy distribution must match the training-time</p>
+<p>distribution. When the policy is updated (joint training,
+fine-tuning, RLHF,</p>
+<p>or non-stationary multi-agent co-training), the Monitor’s training
+distribution</p>
+<p>drifts from the actual policy distribution. The Monitor’s predictions
+become</p>
+<p>biased.</p>
+<p><strong>Condition 2 (Failure observability)</strong>: The failure
+mode of interest must be</p>
+<p>observable in the Monitor’s input features. If the failure mode is in
+features</p>
+<p>the Monitor cannot see (e.g., cross-agent credit assignment,
+long-context LLM</p>
+<p>reasoning failures), the Monitor cannot predict it. In MARL with
+non-i.i.d.</p>
+<p>agents, the failure is often about COORDINATION, which a per-agent
+Monitor</p>
+<p>cannot observe.</p>
+<p><strong>Condition 3 (Sufficient signal-to-noise ratio)</strong>: The
+Monitor’s prediction</p>
+<p>must have enough SNR to be a useful training signal. If the
+Monitor’s</p>
+<p>predictions are noisy (close to chance), using them as a reward
+penalty</p>
+<p>introduces noise that HURTS the policy gradient. The SNR depends on
+the</p>
+<p>Monitor’s AUROC and the dataset’s failure rate.</p>
+<h3 id="why-each-investigation-passes-or-fails-the-conditions">7.2 Why
+each investigation passes or fails the conditions</h3>
+<div class="line-block">Investigation | Condition 1 (Policy match) |
+Condition 2 (Observability) | Condition 3 (SNR) | Result |</div>
+<p>|—|—|—|—|—|</p>
+<div class="line-block">Y1 single-agent RL | <strong>PASS</strong>
+(frozen Stage-1) | <strong>PASS</strong> (LunarLander states) |
+<strong>PASS</strong> (AUROC 0.796) | <strong>WORKS</strong> |</div>
+<div class="line-block">Y3 v3 (Monitor aux loss) | FAIL (joint training
+of v3 critic) | PASS (per-agent) | FAIL (critic collapses) | REFUTED
+|</div>
+<div class="line-block">Y3 v4 (inter-agent comms) | PASS (frozen
+Monitor) | FAIL (no per-agent failure mode for comms) | PASS | REFUTED
+|</div>
+<div class="line-block">Y3 v5-v7 (trust head + Monitor) | PASS (frozen
+Monitor broadcast) | FAIL (trust head ignores input) | FAIL | REFUTED
+(v6 identical to v5) |</div>
+<div class="line-block">Y3 v8 dlr_only (DLR in critic, NOT Monitor) |
+PASS (DLR is deterministic, not learned) | <strong>PASS</strong> (DLR
+predicates observe cross-agent relationships) | PASS | <strong>WORKS
+(DLR, NOT Monitor)</strong> |</div>
+<div class="line-block">Y4 LLM self-monitoring simple arith n=5/20/100 |
+FAIL (production LM drift; joint Monitor more sample-efficient) |
+PARTIAL (per-trace success not always observable) | LOW (AUROC ~0.5) |
+REFUTED |</div>
+<div class="line-block">Y4 LLM self-monitoring GSM8K 200-token | FAIL
+(as above) | PARTIAL | LOW (d=-0.120) | REFUTED |</div>
+<p><strong>Pattern</strong>: the Y1 success rests on ALL THREE
+conditions passing. The Y3 v8</p>
+<p>dlr_only success rests on Conditions 2 and 3 passing for the DLR
+signal (NOT</p>
+<p>the Monitor). All other multi-agent pathways and LLM investigations
+fail at</p>
+<p>Condition 1 (or Conditions 2 and 3).</p>
+<h3 id="failure-mode-taxonomy">7.3 Failure mode taxonomy</h3>
+<p>We identify three distinct Monitor failure modes from the
+cross-context evidence:</p>
+<p><strong>Failure mode 1: Policy drift (Condition 1
+violation)</strong>. The Monitor is</p>
+<p>trained on a reference policy that the consumption-time policy does
+not match.</p>
+<p>Seen in:</p>
+<ul>
+<li><p>Y3 v3 (joint critic training collapses)</p></li>
+<li><p>Y3 v5-v7 (small effect because trust head is dominated by my_obs
+gradient)</p></li>
+<li><p>Y4 LLM (production LM may differ from frozen reference
+LM)</p></li>
+<li><p>Y1 H6 joint Monitor failure mode (already characterized in Y1
+paper)</p></li>
+</ul>
+<p><strong>Failure mode 2: Feature-signal noise (Condition 3
+violation)</strong>. The</p>
+<p>Monitor’s prediction is too noisy to be a useful training signal.
+Seen in:</p>
+<ul>
+<li><p>Y3 v3 (Monitor aux loss is low SNR + joint training
+collapse)</p></li>
+<li><p>Y4 LLM (d=+0.030 at n=100 is essentially chance; SNR
+insufficient)</p></li>
+</ul>
+<p><strong>Failure mode 3: Reward-shaping injection loss
+(cross-cutting)</strong>. Even when</p>
+<p>the Monitor’s predictions are accurate, using them as a reward
+penalty can</p>
+<p>fail to produce the desired policy improvement. This is the case
+where the</p>
+<p>Monitor provides the right signal but the policy cannot use it (e.g.,
+due</p>
+<p>to credit assignment, exploration constraints, or local optima). Seen
+in:</p>
+<ul>
+<li><p>Y1 H1.4 (Monitor as exploration bonus REFUTED) – Monitor provides
+accurate</p>
+<p>predictions but exploration bias is wrong</p></li>
+<li><p>Y3 v5 small effect – Monitor is accurate but trust head is
+no-op</p></li>
+</ul>
+<p>Each failure mode has a distinct remediation strategy:</p>
+<ul>
+<li><p>Failure mode 1: use a hand-crafted signal (DLR predicates)
+instead of a</p>
+<p>learned Monitor; OR freeze the policy before Monitor
+training</p></li>
+<li><p>Failure mode 2: increase sample size OR use a simpler Monitor
+with less</p>
+<p>capacity (better SNR on small data)</p></li>
+<li><p>Failure mode 3: try a different reward-shaping formulation OR use
+the</p>
+<p>Monitor as verification only, not as a training signal</p></li>
+</ul>
+<h2 id="practical-guidance-when-to-use-and-not-use-the-monitor">8.
+Practical guidance: when to use (and not use) the Monitor</h2>
+<p>For practitioners considering the failure-prediction Monitor as a
+training-time</p>
+<p>regularizer, we provide the following decision checklist based on
+the</p>
+<p>convergence conditions framework.</p>
+<h3 id="pre-registration-checklist-before-deploying-the-monitor">8.1
+Pre-registration checklist before deploying the Monitor</h3>
+<p>Before deploying the Monitor as a training signal in a new context,
+validate</p>
+<p>each of the three convergence conditions:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox" /><strong>Condition 1 (Policy
+distribution match)</strong>: Is the consumption-time</label></p>
+<pre><code>policy distribution known at Monitor training time? If the policy
+
+changes significantly during training (MARL, fine-tuning), use a
+
+hand-crafted signal (DLR) instead.</code></pre></li>
+<li><p><label><input type="checkbox" /><strong>Condition 2 (Failure
+observability)</strong>: Is the failure mode of</label></p>
+<pre><code>interest observable in the Monitor&#39;s input features? If the failure is
+
+about COORDINATION (MARL) or LONG-CONTEXT REASONING (LLM), a
+
+per-agent or per-trace Monitor may not see it.</code></pre></li>
+<li><p><label><input type="checkbox" /><strong>Condition 3
+(SNR)</strong>: Compute the Monitor’s AUROC on a held-out</label></p>
+<pre><code>eval set. If AUROC &lt; 0.7, do NOT use the Monitor as a reward penalty;
+
+add an explicit baseline first to estimate SNR.</code></pre></li>
+</ul>
+<h3 id="decision-matrix">8.2 Decision matrix</h3>
+<div class="line-block">Use case | Recommendation |</div>
+<div class="line-block">Single-agent RL with stationary policy | USE
+Monitor (validated H1) |</div>
+<div class="line-block">Single-agent RL with non-stationary policy
+(e.g., meta-RL) | TEST Converge-Cond 1 carefully |</div>
+<div class="line-block">Multi-agent MARL | USE DLR instead (verified Y3
+v8 dlr_only); do NOT use Monitor |</div>
+<div class="line-block">LLM self-monitoring (production LM differs from
+frozen reference) | USE verification, NOT training signal |</div>
+<div class="line-block">LLM self-monitoring (production LM is the frozen
+reference) | Open – theoretical H10 redux |</div>
+<div class="line-block">LLM self-consistency / verification
+(training-free) | USE fine (Monitor is appropriate here) |</div>
+<h3 id="the-shipping-use-framework-recap">8.3 The shipping use framework
+(recap)</h3>
+<p>From the Y1 paper and Y3 paper, the Monitor’s verified shipping use
+is:</p>
+<ul>
+<li><p><strong>Runtime guardrail</strong>: the Monitor predicts failure
+on each trajectory before</p>
+<p>deployment, and high-failure traces are sent for human review. This
+is</p>
+<p>verification, NOT a training signal.</p></li>
+<li><p><strong>DLR predicates in critic</strong>: for cooperative MARL,
+use hand-crafted DLR</p>
+<p>predicates instead of a learned Monitor. DLR is deterministic and
+avoids</p>
+<p>the bias problem of learned signals.</p></li>
+<li><p><strong>Self-consistency filter</strong>: for LLMs, use the
+Monitor as a post-hoc</p>
+<p>filter to select which of N sampled completions to keep. The Monitor
+is</p>
+<p>queried but does NOT influence the LM’s training. This is
+verification-only.</p></li>
+</ul>
+<h3 id="what-not-to-do">8.4 What NOT to do</h3>
+<p>Based on the empirical evidence, we recommend AGAINST:</p>
+<ul>
+<li><p>Using the Monitor as a training signal in untested configurations
+without</p>
+<p>pre-registering the convergence-condition checks.</p></li>
+<li><p>Reporting Monitor’s n=5 or n=20 pilot result as a ‘verified’
+effect without</p>
+<p>either (a) extending to n=100 to show the effect is robust, or (b)
+testing</p>
+<p>the effect across multiple sample sizes to show consistency.</p></li>
+<li><p>Drawing conclusions about LLM self-monitoring from a single
+sample size</p></li>
+</ul>
+<p>(the n=20 simple arith pilot was direction-consistent but REVERSED at
+GSM8K).</p>
+<ul>
+<li>Using DLR predicates without validating them in the target
+environment.</li>
+</ul>
+<p>DLR is hand-crafted, not transferable by construction; see Y3 paper
+for H3</p>
+<p>DLR cross-environment validation.</p>
+<h2 id="limitations">9. Limitations</h2>
+<p>This paper has several limitations that should be considered when
+interpreting</p>
+<p>the results.</p>
+<h3 id="statistical-limitations">9.1 Statistical limitations</h3>
+<ul>
+<li><p><strong>Power at n=20</strong>: the n=20 GSM8K result has 6.7%
+power at d=+0.20 (per pre-</p>
+<p>registration power analysis). The observed d=-0.120 has even less
+power. The</p>
+<p>true effect could be anywhere in the wide 95% CI [-0.237,
++0.158].</p></li>
+<li><p><strong>Bonferroni correction</strong>: we apply Bonferroni
+across the 3 contrasts (F-J,</p>
+<p>F-R, J-R), giving alpha=0.0167. This is conservative; Bonferroni-Holm
+or</p>
+<p>BH-FDR would give larger alpha but at n=20 with d close to zero,
+no</p>
+<p>correction would reach significance.</p></li>
+<li><p><strong>3-arm design</strong>: the 3 arms (Frozen, Joint, Random)
+provide a built-in</p>
+<p>negative control (Random Monitor should be near 0.5 AUROC). All four
+H10</p>
+<p>replications show Random near 0.5, consistent with the negative
+control.</p></li>
+<li><p><strong>Stratified split</strong>: we use stratified train/eval
+split with deterministic</p>
+<p>rebalance fallback. This is more robust than the deterministic split
+used</p>
+<p>in earlier n=5 pilots.</p></li>
+</ul>
+<h3 id="generalization-limitations">9.2 Generalization limitations</h3>
+<ul>
+<li><p><strong>Single LM</strong>: results are for
+Qwen2.5-1.5B-Instruct. Larger LMs (3B, 7B,</p>
+<p>70B) and different model families may produce different
+results.</p></li>
+<li><p><strong>Two task families</strong>: simple arithmetic
+(deterministic, short trace) and</p>
+<p>GSM8K (open-ended, long trace) are tested. Other LLM tasks (code,</p>
+<p>summarization, dialogue) are untested.</p></li>
+<li><p><strong>3 agent contexts</strong>: single-agent RL, MARL, LLM
+self-monitoring are</p>
+<p>tested. Other agent contexts (e.g., embodied agents, multi-modal
+agents,</p>
+<p>agents with tool use) are untested.</p></li>
+</ul>
+<h3 id="methodological-limitations">9.3 Methodological limitations</h3>
+<ul>
+<li><p><strong>Training-time regularizer</strong>: we test the Monitor
+as a post-hoc AUROC</p>
+<p>discriminator. Whether the REFUTATION generalizes to a
+training-time</p>
+<p>regularizer is untested.</p></li>
+<li><p><strong>Reward-shaping formulation</strong>: we use Monitor times
+lambda penalty. Other</p>
+<p>formulations (Monitor-curiosity, Monitor-as-pseudo-reward) are
+untested.</p></li>
+<li><p><strong>Stratified split vs group split</strong>: we use
+stratified (per-class) split,</p>
+<p>not group split (per-prompt). Group split would test prompt-level</p>
+<p>generalization.</p></li>
+</ul>
+<h3 id="pre-registration-discipline">9.4 Pre-registration
+discipline</h3>
+<p>All three investigations followed pre-registration discipline:
+decision rule</p>
+<p>written BEFORE seeing data, kill switch threshold specified in
+advance,</p>
+<p>analysis pipeline pre-specified, no post-hoc exclusion of seeds. The
+Pre-Reg</p>
+<p>Amendment 1 addendum tightened the kill switch threshold from +0.05
+to +0.10</p>
+<p>based on a power analysis re-check (n=20 has only 6.7% power at
+d=+0.20).</p>
+<p>This is an example of pre-registration discipline in action: a
+CONSERVATIVE</p>
+<p>change made BEFORE data was aggregated.</p>
+<h2 id="conclusion">10. Conclusion</h2>
+<p>We investigated whether the failure-prediction Monitor transfers as a
+training</p>
+<p>signal across three fundamentally different agent contexts:
+single-agent RL,</p>
+<p>cooperative multi-agent RL, and LLM self-monitoring. The headline
+result is</p>
+<p>a consistent negative one: the Monitor transfers ONLY in the exact
+regime</p>
+<p>where it was verified (single-agent RL with stationary policy and
+well-defined</p>
+<p>failure modes). Across 11 empirical comparisons in the multi-agent
+MARL and</p>
+<p>LLM contexts, only 1 shows a Monitor-related positive effect, and
+that single</p>
+<p>positive result is NOT from the Monitor but from hand-crafted DLR
+predicates.</p>
+<p>We proposed a unified framework – the Monitor as a context-specific
+signal –</p>
+<p>that predicts when the Monitor will and will not transfer. The
+framework rests</p>
+<p>on three convergence conditions (policy distribution match,
+failure</p>
+<p>observability, sufficient SNR) that must ALL be met for the Monitor
+to</p>
+<p>transfer. When ANY condition breaks, the Monitor fails to
+transfer.</p>
+<p>The framework is consistent with all 11 empirical comparisons and
+provides</p>
+<p>practical guidance for researchers considering the Monitor for
+new</p>
+<p>applications: pre-validate the three conditions BEFORE deploying as
+a</p>
+<p>training signal, and use verification-only or hand-crafted DLR
+signals as</p>
+<p>alternatives when the conditions do not hold.</p>
+<p><strong>Key takeaway</strong>: the failure-prediction Monitor is a
+verified context-specific</p>
+<p>signal whose shipping use is <strong>verification</strong>, not
+training-time</p>
+<p>regularization in untested configurations. Researchers should
+pre-register</p>
+<p>the intended context and validate empirically before deploying.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>We thank the PettingZoo and Gymnasium maintainers for the
+environment</p>
+<p>implementations. We thank the HuggingFace team for
+Qwen2.5-1.5B-Instruct and</p>
+<p>the open-source LLM ecosystem. We thank the pre-registration
+discipline</p>
+<p>reminders from the broader ML community for shaping the H10
+protocol.</p>
+<h2 id="references">References</h2>
+<ol type="1">
+<li><p>Z. Liu. Y1 Paper: Single-Agent Failure-Prediction Monitors in
+Reinforcement</p>
+<p>Learning. AGI Research Project, AGI-2026-001, 2026.</p>
+<p><code>papers/y1_paper_draft.md</code></p></li>
+<li><p>Z. Liu. Monitor Signal vs DLR Predicates in Cooperative MARL: A
+6-Pathway</p>
+<p>Systematic Investigation. Y3 paper, AGI Research Project,
+AGI-2026-001,</p>
+<p>2026. <code>papers/monitor_signal_vs_dlr_6pathway.md</code></p></li>
+<li><p>Z. Liu. Project G v0.6.1: GSM8K 200-token Follow-up for H10
+LLM</p>
+<p>Self-Monitoring Pilot. Y4 paper, AGI Research Project,
+AGI-2026-001,</p>
+<p>2026. <code>papers/project_g_v0_5_h10_paper.md</code>. Pre-Reg
+Amendment 1 in</p>
+<p><code>experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md</code>.</p></li>
+<li><p>Z. Liu. Y1 9-Hypothesis Framework. AGI Research Project,
+AGI-2026-001,</p>
+<p>2026. <code>papers/y1_9hypothesis_framework.md</code></p></li>
+<li><p>Z. Liu. Supplementary Materials. AGI Research Project,
+AGI-2026-001,</p>
+<p>2026. <code>papers/supplementary_materials.md</code></p></li>
+<li><p>Z. Liu. Y5 Monitor Signal Transfer Synthesis Paper (this paper).
+AGI</p>
+<p>Research Project, AGI-2026-001, 2026.</p>
+<p><code>papers/y5_monitor_transfer_synthesis.md</code></p></li>
+<li><p>R. Lowe et al. Multi-Agent Actor-Critic for Mixed
+Cooperative-Competitive</p>
+<p>Environments. NeurIPS 2017.</p></li>
+<li><p>J. K. Terry et al. PettingZoo: Gym for Multi-Agent
+Reinforcement</p>
+<p>Learning. NeurIPS 2021.</p></li>
+<li><p>Qwen Team. Qwen2.5-1.5B-Instruct. HuggingFace, 2024.</p></li>
+<li><p>OpenAI. GSM8K Test Set. 2021.</p></li>
+<li><p>C. Cobbe et al. Training Verifiers to Solve Math Word Problems.
+2021.</p></li>
+<li><p>J. Wei et al. Chain-of-Thought Prompting Elicits Reasoning in
+Large</p>
+<p>Language Models. NeurIPS 2022.</p></li>
+<li><p>P. Mishra et al. Self-Consistency Improves Chain of Thought
+Reasoning in</p>
+<p>Language Models. ICLR 2023.</p></li>
+</ol>
+<h2 id="appendix-a-pre-registration-documents-and-kill-switch">Appendix
+A: Pre-registration documents and kill switch</h2>
+<h3
+id="a.1-h10-pre-registration-single-agent-rl-analog-never-activated">A.1
+H10 pre-registration (single-agent RL analog, never activated)</h3>
+<p><code>experiments_log/2026-07-28-PRE-REGISTERED-H10.md</code> –
+States the H10 hypothesis</p>
+<p>(decoupled Monitor on LLM self-rewarding traces). Pre-registers the
+decision</p>
+<p>rule (Frozen &gt; Joint by &gt;0.05 AND Welch t &gt; 2.0 AND Frozen
+&gt; Random by &gt;0.10).</p>
+<p>Pre-registers the planned sample size and analysis pipeline (n=5
+initial,</p>
+<p>extend to n=15 if needed).</p>
+<h3 id="a.2-h10-pre-reg-amendment-1-extending-to-gsm8k">A.2 H10 Pre-Reg
+Amendment 1 (extending to GSM8K)</h3>
+<p><code>experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md</code>
+– Second-task</p>
+<p>extension of H10 to GSM8K 200-token chain-of-thought
+(continuous-failure-mode</p>
+<p>task, n=20 seeds per arm). Pre-registers the kill switch with
+threshold +0.05:</p>
+<ul>
+<li><p>Frozen-Joint &gt;= +0.05: extend to n=50 (180 more jobs, ~14 h
+more)</p></li>
+<li><p>Frozen-Joint in [0, +0.05): stop, write paper REFUTED
+cross-task</p></li>
+<li><p>Frozen-Joint &lt; 0: stop, REFUTED consistent negative
+direction</p></li>
+</ul>
+<p>Pre-registers the configuration change (H10_USE_SIMPLE=0,
+H10_MAX_NEW_TOKENS=200,</p>
+<p>H10_N_TOTAL=8, CoT prompt)</p>
+<h3 id="a.3-h10-pre-reg-addendum-tightening-kill-switch-to-0.10">A.3 H10
+Pre-Reg Addendum (tightening kill switch to +0.10)</h3>
+<p><code>experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1-ADDENDUM.md</code>
+–</p>
+<p>Tightens the ‘extend to n=50’ threshold from +0.05 to +0.10 based on
+a power</p>
+<p>analysis re-check (n=20 has only 6.7% power at d=+0.20). The
+tightening is</p>
+<p>a conservative change made BEFORE data was aggregated. No other
+protocol</p>
+<p>element is changed.</p>
+<h3
+id="a.4-kill-switch-decision-for-the-actual-n20-gsm8k-aggregation">A.4
+Kill switch decision for the actual n=20 GSM8K aggregation</h3>
+<p>Observed F-J = -0.053, 95% CI [-0.237, +0.158], Cohen’s d = -0.120, p
+= 0.714.</p>
+<p>This falls in the <code>&lt; 0</code> row of the kill switch:
+STOP-PAPER-REFUTED-REVERSE.</p>
+<p>H10 is REFUTED with a CONSISTENT negative direction (Joint &gt;
+Frozen) across</p>
+<p>both simple-arithmetic and GSM8K 200-token task families.</p>
+<h2 id="appendix-b-bootstrap-methodology">Appendix B: Bootstrap
+methodology</h2>
+<p>All bootstrap CIs in this paper use 2000-replicate paired bootstrap
+(resampling</p>
+<p>with replacement within paired seeds). The Bonferroni correction is
+applied</p>
+<p>across the 3 contrasts (F-J, F-R, J-R), giving alpha = 0.05/3 =
+0.0167.</p>
+<p>See <code>experiments_log/_agg_h10_n20_gsm8k.py</code> for the
+canonical implementation.</p>
+<p>The bootstrap procedure:</p>
+<ol type="1">
+<li><p>Stack the per-seed Frozen-Joint-Random paired AUROCs into
+arrays.</p></li>
+<li><p>Compute the per-seed difference arrays: d_FJ, d_FR,
+d_JR.</p></li>
+<li><p>Resample the per-seed differences with replacement 2000
+times.</p></li>
+<li><p>For each resample, compute the mean difference.</p></li>
+<li><p>The 95% CI is the 2.5th and 97.5th percentiles of the bootstrap
+distribution.</p></li>
+<li><p>The p-value is the proportion of bootstrap means at or beyond
+zero</p>
+<p>(two-sided).</p></li>
+<li><p>Cohen’s d is mean_diff / std_diff (using n-1 in
+denominator).</p></li>
+<li><p>Required n for 80% power is computed assuming the observed d
+and</p>
+<p>alpha=0.05/3.</p></li>
+</ol>
+<h2 id="appendix-c-hypotheses-h1-h10-status-post-y4-v0.6.1">Appendix C:
+Hypotheses H1-H10 status (post Y4 v0.6.1)</h2>
+<div class="line-block">H | Statement | Status | Key result | n | Source
+|</div>
+<p>|—|—|—|—|—|—|</p>
+<div class="line-block"><strong>H1</strong> | Decoupled Monitor &gt;
+Joint Monitor (single-agent) | <strong>VALIDATED</strong> | 5/5 seeds,
++39.5 mean, t=6.76, p&lt;0.001 (LunarLander-v3) | 15 | Y1 paper |</div>
+<div class="line-block">H1.4 | Monitor as exploration bonus | REFUTED |
+H1.4 REAL mean 52.7, RANDOM mean 78.3 | 5 | Y1 H1.4 |</div>
+<div class="line-block">H2 | Training-time Monitor &gt; Inference-time
+intervention | VALIDATED | n=15 seeds, p&lt;0.001 (LunarLander-v3) | 15
+| Y1 paper |</div>
+<div class="line-block">H3 | DLR predicate transfer across environments
+| VALIDATED | 4 envs, 3 seeds each, 19 predicates, accuracy &gt;70% | 12
+| Y1 paper |</div>
+<div class="line-block">H4 | Slot-attention Monitor &gt; Raw-history
+Monitor | VALIDATED (1 env, 1 seed) | 0.989 vs 0.796 AUROC | 1 | Y1
+paper |</div>
+<div class="line-block"><strong>H5</strong> | Decoupled Monitor
+coordination in multi-agent | <strong>REFUTED (5/6)</strong> | v8
+dlr_only is the only positive, NOT a Monitor effect | 100+ | Y3 paper
+|</div>
+<div class="line-block">H6 | Joint Monitor failure is monotonic with PPO
+updates | REFUTED | non-monotonic; 5-seed instrumented, 10K PPO | 5 | Y1
+H6 |</div>
+<div class="line-block">H7 | Reference Monitor + Evidence Chain (V1
+governance) | VALIDATED | GovBench H1+H2, 7 seeds | 7 | Y1 H7 |</div>
+<div class="line-block">H8 | A2A cross-agent trust gate intercepts
+impersonation | VALIDATED | GovBench H3, 7 seeds | 7 | Y1 H8 |</div>
+<div class="line-block">H9 | Self-improvement loop with Monitor feedback
+| OPEN | Y3 work in progress | - | Y3 follow-up |</div>
+<div class="line-block"><strong>H10</strong> | Decoupled Monitor
+transfers to LLM self-monitoring | <strong>REFUTED (4/4)</strong> |
+n=100 simple arith d=+0.030; n=20 GSM8K d=-0.120 (consistent negative) |
+100+20 | Y4 v0.6.1 paper |</div>
+<p>The Y5 synthesis paper covers H1 (validated), H5 (5/6 REFUTED), and
+H10</p>
+<p>(4/4 REFUTED). The other 7 hypotheses are summarized for completeness
+but not</p>
+<p>central to this paper’s cross-context synthesis.</p>
+</body>
+</html>

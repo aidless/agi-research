@@ -62,6 +62,13 @@ targets = {
     # Y1.3 baseline
     ('Y1.3', '39.5'): None,
     ('Y1.3', '6.76'): None,
+    # H10 GSM8K 200-token (Y4 v0.6.1 follow-up)
+    ('H10 GSM8K n=20', '-0.053'): None,
+    ('H10 GSM8K n=20', '-0.120'): None,
+    ('H10 GSM8K n=20', '[-0.237, +0.158]'): None,
+    ('H10 GSM8K n=20', 'STOP-PAPER-REFUTED-REVERSE'): None,
+    ('H10 GSM8K n=20', '19'): None,
+    ('H10 GSM8K n=20', '60'): None,
 }
 
 findings = defaultdict(lambda: defaultdict(list))

@@ -847,3 +847,120 @@ step is a HARDER task (GSM8K 200+ token rollouts), not a larger n on the
 same task.
 
 \end{document}
+
+
+\subsubsection{7.7 GSM8K 200-token follow-up (Pre-Reg Amendment 1,
+2026-07-31)}\label{gsm8k-follow-up}
+
+\textbf{Motivation.} The three simple-arithmetic replications (n=5,
+n=20, n=100) all collapse to the chance level (\textasciitilde{}0.5)
+with non-significant Frozen-Joint differences. Section
+\ref{power-re-analysis-1} concludes that further n amplification on
+simple arithmetic is not warranted and that the right next step is a
+HARDER task. Section \ref{gsm8k-follow-up} reports that harder task:
+GSM8K with 200-token chain-of-thought rollouts.
+
+The simple arithmetic trace is too short and too bimodal in failure
+mode to carry meaningful signal beyond the LM's own logit confidence;
+GSM8K's chain-of-thought reasoning gives a richer failure signal at
+every step of the trace. Three reasons:
+
+\begin{enumerate}
+\item \textbf{Trace length.} Simple arith 64-token max leaves the
+\texttt{window=20} slot-attention input sparse (most rollouts hit
+EOS before filling the window). GSM8K 200+ token consistently fills
+the window with reasoning tokens.
+\item \textbf{Feature richness.} Simple arith has only
+\texttt{(token\_id, logit)} features; GSM8K with CoT gives
+\texttt{(token\_id, logit)} over actual reasoning steps, so the
+failure signal at the end of the trace is a real semantic property
+of the chain of thought (correct intermediate steps vs.\ mistakes),
+not just ``logit went down a bit.''
+\item \textbf{Failure-mode continuity.} Qwen2.5-1.5B on GSM8K has a
+success rate of \textasciitilde{}30-40\% (vs.\ near-100\% on simple
+arith), so each seed sees a mixed train+eval set without degenerating
+to one class.
+\end{enumerate}
+
+\paragraph{7.7.1 Pre-registration}
+
+The 60-job run is pre-registered in
+\path{experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md},
+with the kill-switch tightened in
+\path{experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1-ADDENDUM.md}
+before aggregation runs. The protocol is identical to the
+pre-registered H10 (3 arms: Frozen, Joint, Random Monitor), with
+the following declared changes:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Parameter & Original pre-reg & Amendment 1 & Reason \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\end{longtable}
+
+Decision rule, negative control, exclusion policy, and seed range
+are UNCHANGED from the original pre-registration.
+
+\paragraph{7.7.2 Kill switch (Pre-Reg Amendment 1 addendum)}
+
+After the 60-job aggregation, the following pre-registered kill
+switch applies:
+
+\begin{longtable}[]{@{}lp{0.7\linewidth}@{}}
+\toprule\noalign{}
+Frozen - Joint (n=20) & Pre-registered action \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\end{longtable}
+
+Threshold \texttt{+0.10} (vs.\ the originally proposed \texttt{+0.05})
+is motivated by power analysis: at d=+0.20 (the pre-reg threshold)
+the n=20 design has only 6.7\% power; using \texttt{+0.05} as the
+``extend'' trigger would risk extending on noise.
+
+\paragraph{7.7.3 Configuration}
+
+\begin{itemize}
+\item LM: Qwen2.5-1.5B-Instruct (frozen, no fine-tuning)
+\item Dataset: GSM8K test set, n=8 rollouts/seed (seed-based sampling
+  via local arrow loader)
+\item Max new tokens: 200
+\item Prompt: ``Question: \{question\}\textbackslash nLet's think step by step.\textbackslash n''
+\item Monitor: LLMSlotMonitor(window=20, slot\_dim=32, n\_slots=4),
+  tile of (token\_id\_normalized, logit\_confidence) to 64-dim
+  feature
+\item Stratified train/eval split with rebalance fallback
+\item Total jobs: 60 (3 arms x 20 seeds, seeds 100..119)
+\item Wall clock: \textasciitilde{}5 h sequential on CPU
+\end{itemize}
+
+\paragraph{7.7.4 Per-seed results}
+
+\textit{[PLACEHOLDER: per-seed table to be filled after
+aggregation]}
+
+\paragraph{7.7.5 Aggregate (n=20, 60 jobs)}
+
+\textit{[PLACEHOLDER: aggregate table to be filled after
+aggregation]}
+
+\paragraph{7.7.6 Kill-switch decision}
+
+\textit{[PLACEHOLDER: aggregator's pre-registered kill-switch
+verdict]}
+
+\paragraph{7.7.7 Verdict at n=20}
+
+\textit{[PLACEHOLDER: pre-registered verdict, three options per
+kill switch]}
+
+\subsubsection{7.8 Power re-analysis (4 sample sizes)}
+
+\textit{[PLACEHOLDER: 4-row power table to be added after aggregation]}
+
+\subsubsection{7.9 Updated H10 conclusion}
+
+\textit{[PLACEHOLDER: integrated across all four sample sizes]}

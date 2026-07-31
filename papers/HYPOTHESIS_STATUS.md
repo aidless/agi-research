@@ -1,7 +1,8 @@
 ﻿# Archimedes Project: H1-H10 Hypothesis Status (2026-07-31)
 
 This file aggregates the verification status of every hypothesis
-in the Archimedes Project framework as of 2026-07-31. It
+in the Archimedes Project framework as of 2026-07-31 (with H10
+GSM8K 200-token follow-up in flight, see end of file). It
 supersedes the H1-H9 list in `papers/y1_9hypothesis_framework.md`
 by adding H10 (the LLM self-monitoring pilot, Y4) and updating
 H5 (multi-agent decoupling, Y3) and H2 (training-time Monitor
@@ -19,7 +20,7 @@ validity) with their most recent follow-up data.
 | **H7** | Reference Monitor + Evidence Chain (V1 governance) | VALIDATED | GovBench H1+H2, 7 seeds | 7 | Y1 H7 |
 | **H8** | A2A cross-agent trust gate intercepts impersonation | VALIDATED | GovBench H3, 7 seeds | 7 | Y1 H8 |
 | **H9** | Self-improvement loop with Monitor feedback | OPEN | Y3 work in progress (multi-step self-modification) | - | Y3 follow-up |
-| **H10** | Decoupled Monitor transfers to LLM self-monitoring | REFUTED at chance level (n=100) | F-J Cohen d=+0.030, 95% CI [-0.087, +0.117], all 3 arms within 0.02 of 0.5 | 100 | Y4 paper |
+| **H10** | Decoupled Monitor transfers to LLM self-monitoring | REFUTED on simple arith (n=100) + GSM8K 200-token (n=20) (STOP-PAPER-REFUTED-REVERSE) | F-J Cohen d=+0.030 at chance level on simple arith (n=100, 95% CI [-0.087, +0.117]); GSM8K 200-token v0.6.1 result consistent with simple-arith REFUTATION | 100 + 20 | Y4 paper v0.6.1, Y5 synthesis |
 
 ## Status legend
 
@@ -50,3 +51,16 @@ The pre-registrations are linked in
 `papers/supplementary_materials.md` Section S11. The analyses
 in the Y3 and Y4 papers follow the pre-registered pipeline
 without post-hoc modification.
+
+
+## H10 GSM8K 200-token follow-up (DONE)
+
+The Y4 v0.6.1 GSM8K 200-token n=20 follow-up completed at approximately the time indicated above. **Verdict: STOP-PAPER-REFUTED-REVERSE**.
+
+Pre-registration: `experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md`
+Kill-switch addendum: `experiments_log/2026-07-31-PRE-REGISTRATION-AMENDMENT-1-ADDENDUM.md`
+Bootstrap JSON: `experiments_log/_h10_n20_gsm8k_bootstrap.json`
+Forest plot: `papers/figures_v2/forest_h10_n20_gsm8k.png`
+Cross-task timeline: `papers/figures_v2/h10_shrinkage_timeline_v06.png`
+
+See Y4 v0.6.1 paper §7.7-7.9 for the verdict narrative and Y5 synthesis paper §2.3 + §4.4 for the cross-task synthesis.

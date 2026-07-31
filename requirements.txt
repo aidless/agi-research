@@ -1,0 +1,26 @@
+﻿# Archimedes Project: Python dependencies for the H10 and v8 dlr_only
+# experiments. Tested on Python 3.10.11 and 3.11.
+#
+# To install:
+#   pip install -r requirements.txt
+#
+# Note: pettingzoo 1.26.1+ removed the .mpe submodule; pin to 1.24.3
+# for compatibility with the v8 dlr_only experiments.
+
+# Core
+numpy==1.26.4
+torch>=2.0,<2.14
+
+# v8 dlr_only (cooperative MARL)
+pettingzoo==1.24.3
+gymnasium==1.3.0
+
+# H10 (LLM self-monitoring)
+transformers>=4.30,<5
+
+# Paper / figure generation
+matplotlib>=3.5
+pypandoc-binary  # for pandoc, used to build the paper PDFs
+
+# Pre-registered analysis (the data audit script)
+scipy>=1.10

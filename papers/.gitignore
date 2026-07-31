@@ -1,3 +1,10 @@
-﻿# papers/figure assets. arxiv submission figures live under
-# papers/arxiv_submission/figures and are committed.
-figures_v2/
+﻿# LaTeX aux/out artefacts (committed PDFs are kept, intermediates are not).
+*.aux
+*.out
+*.toc
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+# papers/figure assets: figures_v2/ is committed (excluded below only if we
+# need to; for the Y3/Y4 papers we explicitly want these PNGs in git).

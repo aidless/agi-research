@@ -872,6 +872,7 @@ exploratory* in a principled way.
 
 \subsubsection{9.2 The port}
 
+
 We port the ENWI Active Inference Engine (Layer 5) to Project A. The
 implementation is in \texttt{active-inference.py} and \texttt{aie-lunarlander.py}:
 
@@ -907,7 +908,8 @@ implementation is in \texttt{active-inference.py} and \texttt{aie-lunarlander.py
 We replace the PPO update with a free-energy minimization update:
 
 \begin{verbatim}
-loss = F.mean() + cross_entropy(action_logits, taken_action) + 0.1 * MSE(reward_pred, observed_reward)
+loss = F.mean() + cross_entropy(action_logits,
+taken_action) + 0.1 * MSE(reward_pred, observed_reward)
 \end{verbatim}
 
 This is a \textbf{multi-task loss} combining:
@@ -985,9 +987,11 @@ slots: s ?R^{K  D}            # K=4 slots (horizontal, rotation, vertical, resid
 output: per-slot trajectory features
 \end{verbatim}
 
+\begin{sloppypar}
 The rest of the algorithm is unchanged. Empirically, the 1-D adaptation
 converges in 1-- iterations rather than 3, because the temporal signal is
 stronger than visual signal.
+\end{sloppypar}
 
 \subsubsection{10.3 Implementation}
 
@@ -1670,6 +1674,16 @@ work, but Monitor signal in any critic/actor position does not.**
 The dlr\_only effect at n=100 is +0.06 (p<0.05 with Bonferroni),
 comparable to typical ablation effects in MARL papers.
 
+**Independent replication (3 fresh seeds)**: the dlr\_only vs
+no\_verifier pair was re-run on 3 fresh seeds (200, 201, 202) on
+the same MADDPG v8 code with the same hyperparameters. Per-seed
+diffs: [+0.27, -0.08, +0.30]; mean diff +0.16 (sd=0.21), 2/3
+positive, t=+1.34. Direction-consistent with the n=100 estimate
+(+0.0617, 95\% CI [+0.0084, +0.1149]). Single-seed replicates are
+not powered for inference, but the direction is reproducible
+from a fresh seed. Full data in
+`experiments\_log/\_v8\_sanity\_4seed.json`.
+
 \subsubsection{19.5 Y3 verdict on H5}
 
 **H5 (decoupled per-agent Monitors improve MA credit
@@ -2259,6 +2273,57 @@ recommended for all future H10 (and H-related) pilots.
 
 The cross-context synthesis (Y5 paper) is discussed in
 Chapter 24.
+
+\subsubsection{26.7 n=20 follow-up (2026-07-30, 60 jobs)}
+
+To address n=5 underpowering, we re-ran the H10 pilot at n=20
+(3 arms x 20 seeds = 60 jobs, H10\_MAX\_NEW\_TOKENS=16 for CPU
+feasibility, stratified split with rebalance fallback). At
+n=20 the direction reversed: Frozen 0.579, Joint 0.447, Random
+0.632. Paired t Frozen-Joint: +0.13, t=+1.157, p=0.262. Wilcoxon
+W=16, p=0.222. Cohen's d=+0.27. Bonferroni alpha = 0.0167;
+NONE of the 3 paired tests reach significance. H10 still
+REFUTED by direction; n=5 reversal (Joint > Frozen) does not
+replicate at n=20. Random control now scores highest. Bootstrap
+95\% CIs: F-J [+0.015, +0.368], F-R [-0.290, +0.184], J-R [-0.421,
++0.053]. Required n for 80\% power at Bonf. alpha=0.0167 with
+d=+0.27: n$\approx$149.
+
+\subsubsection{26.8 n=100 follow-up (2026-07-31, 300 jobs)}
+
+Per the n=20 power analysis, we extended to n=100 (3 arms x 100
+seeds = 300 jobs, H10\_MAX\_NEW\_TOKENS=64 restored, 8h51m
+wall-clock on CPU). 98 valid paired seeds (2 triggered the
+rebalance fallback).
+
+**Per-arm means (n=98)**: Frozen 0.500, Joint 0.485, Random
+0.510. All three arms are within $\pm 0.02$ of 0.5 (random).
+
+**Paired contrasts (Bonf. $\alpha=0.0167$)**:
+
+\begin{tabular}{lccc}
+\toprule
+Contrast & $\Delta$AUROC & 95\% CI & Cohen's $d$ \\
+\midrule
+Frozen -- Joint & +0.015 & [-0.087, +0.117] & +0.030 \\
+Frozen -- Random & -0.010 & [-0.128, +0.117] & -0.017 \\
+Joint -- Random & -0.025 & [-0.158, +0.097] & -0.040 \\
+\bottomrule
+\end{tabular}
+
+NONE of the three contrasts reach Bonferroni significance. The
+Monitor signal in any configuration is indistinguishable from
+chance at n=100 on this task. At Cohen's $d=+0.030$, 80\% power
+at Bonf. $\alpha=0.0167$ would require n$\approx$17,000 --
+clearly not warranted.
+
+**Final H10 verdict**: REFUTED at chance level. The Monitor
+decoupling hypothesis does not transfer to LLM self-monitoring
+on simple arithmetic tasks at any sample size we have tested
+(n=5, n=20, n=100). The pattern is consistent with the Y3
+finding (5/6 pathways REFUTED) and the Y5 synthesis (Monitor
+is a context-specific signal whose verified shipping use is
+single-agent verification, not transfer to other contexts).
 
 \hrulefill
 

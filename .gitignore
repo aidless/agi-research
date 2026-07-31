@@ -48,3 +48,8 @@ _*.txt
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+# Backup files
+*.pre_o1_backup
+*.bak
+

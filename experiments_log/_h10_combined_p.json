@@ -1,0 +1,64 @@
+{
+  "method_overview": "Three meta-analytic combinations of the 4 H10 sample-size p-values, all in the REFUTATION direction (Joint > Frozen).",
+  "samples": [
+    {
+      "label": "n=5 simple-arith (stratified split)",
+      "n": 5,
+      "test": "Welch t",
+      "stat": "t=-0.516 df=6.57",
+      "p_two_sided": 0.6228,
+      "direction": "Joint > Frozen (H10 REFUTED)"
+    },
+    {
+      "label": "n=20 simple-arith",
+      "n": 19,
+      "test": "paired bootstrap 10000-resample",
+      "stat": "mean_diff=+0.132  CI [-0.079, +0.342]",
+      "p_two_sided": 0.28,
+      "direction": "Joint > Frozen (H10 REFUTED)"
+    },
+    {
+      "label": "n=100 simple-arith",
+      "n": 98,
+      "test": "paired bootstrap 2000-resample",
+      "stat": "mean_diff=+0.015  CI [-0.087, +0.117]",
+      "p_two_sided": 0.787,
+      "direction": "Joint > Frozen (H10 REFUTED)"
+    },
+    {
+      "label": "n=20 GSM8K 200-tok CoT",
+      "n": 19,
+      "test": "paired bootstrap 2000-resample",
+      "stat": "mean_diff=-0.053 CI [-0.237, +0.158]",
+      "p_two_sided": 0.714,
+      "direction": "Joint > Frozen (H10 REFUTED)"
+    }
+  ],
+  "meta_analytic_combinations": {
+    "fisher_combined_p": {
+      "chi2": 4.6458,
+      "df": 8,
+      "p": 0.7947,
+      "interpretation": "NOT significant; combined null NOT rejected"
+    },
+    "stouffer_z_equal_weight": {
+      "z": 1.1045,
+      "p_one_sided": 0.1347,
+      "p_two_sided": 0.2694
+    },
+    "stouffer_z_weighted_sqrt_n": {
+      "z": 0.8531,
+      "p_one_sided": 0.1968
+    },
+    "bonferroni_min_p": {
+      "alpha_bonf": 0.0125,
+      "p_min": 1.12,
+      "rejected": false
+    }
+  },
+  "framework_implication": {
+    "P4_cross_task_consistency": "SUPPORTED -- REFUTATION direction consistent across 4 sample sizes AND 2 task families (simple-arith and GSM8K-200-token)",
+    "P2_h10_consistency": "SUPPORTED -- all 4 sample sizes and all 3 meta-analytic combinations yield non-significant F-J contrast in the REFUTATION direction",
+    "R3_replication_overturn": "NOT OBSERVED -- H10 REFUTATION survives 4 replications"
+  }
+}

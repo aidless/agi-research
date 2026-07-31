@@ -43,9 +43,21 @@ run, not the final hybrid verdict.
 
 | Arm | n seeds | Mean delta vs random | Status |
 |---|---|---|---|
-| monitor_only | 6 / 20 | **+5 to +9** (positive) | IN PROGRESS |
-| dlr_only | 0 / 20 | (not yet run) | PENDING |
+| monitor_only | 20 / 20 | **+8.4 to +9.2** (POSITIVE) | DONE |
+| dlr_only | 7 / 20 | (in progress) | IN PROGRESS |
 | v8 (Hybrid) | 0 / 20 | (not yet run) | PENDING |
+
+**Preliminary observation** (2026-08-01 00:42): monitor_only produces a
+**+8.4 to +9.2 mean improvement** over the random baseline across
+20 paired seeds. This is a POSITIVE signal for the Monitor architecture
+in the Y3 cooperative multi-agent setting.
+
+**Implication for P3 verdict**: if v8 (Hybrid) is also +8 or higher,
+then v8 - dlr_only < +0.05 (since dlr_only is historically +6 in
+similar settings) and P3 is REFUTED. If v8 is +13 or higher, P3
+could be VALIDATED.
+
+Full verdict requires all 60 jobs to complete (~01:25 on 2026-08-01).
 
 Note: these deltas are for individual arms vs random baseline, NOT the
 hybrid - DLR contrast that the pre-reg verdict is based on. The final

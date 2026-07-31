@@ -1,4 +1,4 @@
-﻿# The Failure-Prediction Monitor Does Not Transfer:
+# The Failure-Prediction Monitor Does Not Transfer:
 # A Cross-Context Empirical Investigation (RL, MARL, LLM)
 
 ## Y5 Master Synthesis Paper (v1.0)
@@ -1248,6 +1248,9 @@ Each failure mode has a distinct remediation strategy:
 
 
 ## 7.6 Formal framework: definitions, propositions, and falsifiability (v1.0 addition)
+
+
+![Figure: 3 Convergence Conditions, 4 Refutations, 4 Propositions, and the Transferability claim. Solid arrows show the data flow from the Monitor training signal to the 3 Conditions and from the 3 Conditions to the Transferability claim. Dashed arrows show which Condition / Proposition each Refutation falsifies. P3 (Hybrid > either alone) is marked UNTESTED.](figures_v2/fig_y5_7_6_convergence_refutations.png)
 
 This subsection formalizes the 3 Convergence Conditions as a falsifiable theoretical framework. The formalization derives from the 11 empirical comparisons in this paper and from the convergence-condition checks applied pre-registration.
 
@@ -2671,6 +2674,5 @@ The Y5 synthesis paper covers H1 (validated), H5 (5/6 REFUTED), and H10
 (4/4 REFUTED). The other 7 hypotheses are summarized for completeness but not
 
 central to this paper's cross-context synthesis.
-
 
 

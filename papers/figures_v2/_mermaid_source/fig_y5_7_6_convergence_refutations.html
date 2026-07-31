@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Y5 v1.0 section 7.6 -- 3 Convergence Conditions and 4 Refutations</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+  body { margin: 0; padding: 24px; background: white; font-family: 'Helvetica', 'Arial', sans-serif; }
+  .title { font-size: 18px; font-weight: bold; margin-bottom: 6px; color: #1a1a1a; }
+  .subtitle { font-size: 12px; color: #555; margin-bottom: 18px; }
+  .mermaid { background: white; }
+</style>
+</head>
+<body>
+<div class="title">Y5 v1.0 &sect;7.6: 3 Convergence Conditions and 4 Refutations</div>
+<div class="subtitle">Monitor transferable C1 -&gt; C2 iff all 3 conditions hold in both contexts. Framework falsified iff any of R1-R4 observed.</div>
+<div class="mermaid">
+flowchart TB
+    M["Monitor training signal<br/>(auxiliary signal)"]:::main
+    T["Transferability claim<br/>(C1 -&gt; C2)"]:::claim
+
+    C1["Condition 1<br/>Policy distribution match<br/>(KL divergence &le; threshold)"]:::cond
+    C2["Condition 2<br/>Failure observability<br/>(MI with f &gt; 0)"]:::cond
+    C3["Condition 3<br/>Sufficient SNR<br/>(AUROC &gt; chance AND<br/>80% power at Bonf alpha)"]:::cond
+
+    R1["R1: Policy-drift rescue<br/>(fails C1 but rescues<br/>in non-stationary)"]:::refute
+    R2["R2: LLM Monitor without<br/>retraining / constitution /<br/>per-step features"]:::refute
+    R3["R3: Replication overturn<br/>(pre-reg REFUTATION<br/>reversed by replication)"]:::refute
+    R4["R4: Monitor at 7B / 70B<br/>LLM scale helps"]:::refute
+
+    P1["P1 Main theorem:<br/>Transferable IFF<br/>all 3 hold in C1 and C2"]:::prop
+    P2["P2 H10 consistency:<br/>near-zero effect -&gt;<br/>F-J at chance level"]:::prop
+    P3["P3 Hybrid &gt; either alone<br/>(UNTESTED)"]:::prop
+    P4["P4 Cross-task consistency<br/>strengthens REFUTATION"]:::prop
+
+    M -- "trained in C1" --> C1
+    M -- "used in C2" --> C2
+    M -- "predicts failure" --> C3
+
+    C1 --> T
+    C2 --> T
+    C3 --> T
+
+    R1 -. "falsifies P1" .-> C1
+    R2 -. "falsifies P1 (H10 attempt)" .-> C2
+    R3 -. "falsifies cross-task" .-> P4
+    R4 -. "falsifies scale-up" .-> C3
+
+    P1 --- C1
+    P1 --- C2
+    P1 --- C3
+    P2 --- C3
+    P4 --- C2
+
+    classDef main fill:#fef3c7,stroke:#92400e,stroke-width:2px,color:#1a1a1a
+    classDef claim fill:#dbeafe,stroke:#1e40af,stroke-width:2px,color:#1a1a1a
+    classDef cond fill:#dcfce7,stroke:#166534,stroke-width:2px,color:#1a1a1a
+    classDef refute fill:#fee2e2,stroke:#991b1b,stroke-width:2px,color:#1a1a1a
+    classDef prop fill:#ede9fe,stroke:#5b21b6,stroke-width:2px,color:#1a1a1a
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    flowchart: { htmlLabels: true, curve: 'basis', nodeSpacing: 50, rankSpacing: 50 },
+    securityLevel: 'loose',
+    fontFamily: 'Helvetica, Arial, sans-serif'
+  });
+</script>
+</body>
+</html>

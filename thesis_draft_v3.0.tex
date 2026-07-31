@@ -1,4 +1,4 @@
-\documentclass[11pt]{report}
+\documentclass[11pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -13,57 +13,15 @@
 \usepackage{longtable}
 \usepackage{enumitem}
 \usepackage{array}
-\usepackage{multirow}
-\usepackage{bookmark}
+\usepackage{textcomp}
+\usepackage{microtype}
 
-\title{The Archimedes Project: A Cross-Context Investigation\
-       \large Thesis v3.0 (2026-08-01)\
-       \large Y5 v1.3 master synthesis + Y1/Y3/Y4 v1.0 companion papers}
-\author{Liu Zewen + Codex (Archimedes Project, AGI-2026-001)}
-\date{2026-08-01}
+\title{The Archimedes Project: A 5-Year Independent Research Program\\
+\large Toward a Self-Improving AGI Substrate}
+\author{Liu Zewen \\ Archimedes Project (AGI-2026-001) \\ \texttt{[email protected]}}
+\date{July 30, 2026}
 
 \begin{document}
-
-\maketitle
-
-\tableofcontents
-
-\begin{abstract}
-This thesis (v3.0) presents the Archimedes Project cross-context investigation
-of the failure-prediction Monitor training signal. Across 11 independent
-pre-registered empirical comparisons in three agent contexts (single-agent
-RL, multi-agent MARL, LLM self-monitoring), the Monitor produces a positive
-training-time effect in exactly 1 cell, and that single positive result is
-from hand-crafted DLR predicates, not the learned Monitor.
-
-The thesis integrates four papers at v1.0/v1.3:
-- Y1 v1.0: Single-agent RL (LunarLander-v3, n=15, VALIDATED +39.5)
-- Y3 v1.0: Multi-agent MARL (6 pathways, 5/6 REFUTED + 1 partial v8 dlr\_only)
-- Y4 v1.0: LLM H10 self-monitoring (4 sample sizes + 2 task families, 4/4 REFUTED)
-- Y5 v1.3: Cross-context synthesis (Part X of this thesis) with 6-method
-  meta-analysis and the formal Section 7.6 framework (3 Convergence
-  Conditions, 4 Propositions, 4 named Refutations, formal Monotonicity Lemma)
-
-Key empirical contribution: a 6-method cross-task meta-analysis (Fisher /
-Stouffer Z / Bonferroni min / Bonferroni-Holm / Hedges g / forest plot)
-all agree the H10 LLM self-monitoring REFUTATION is robust across 4 sample
-sizes and 2 task families (Fisher combined-p = 0.7947, NOT significant).
-
-Key theoretical contribution: a predictive framework with 4 named
-falsifiers. The framework is falsified iff any of R1-R4 is observed. NONE
-has been observed across 11 empirical comparisons, supporting the
-framework predictive validity claim.
-
-Key practical contribution: 4 concrete deployment patterns (Runtime
-guardrail / DLR-in-critic / Pre-commit review / Monitor+DLR hybrid) that
-match the verified shipping use of the Monitor as verification, not as
-training signal.
-
-Open Research: the Proposition 3 hybrid test is pre-registered with GPU
-reservation 2026-08-01 to 2026-08-15. After execution, the result will
-be incorporated as v1.3.1.
-\end{abstract}
-
 
 
 \maketitle
@@ -218,13 +176,13 @@ As of mid-2026, we identify five principal research paths pursued by both academ
 and industrial labs:
 
 \begin{tabular}{llll}
-Path & Description & Estimated share & Representative systems \
+Path & Description & Estimated share & Representative systems \\
 \hline
-1 & LLM System 2 (test-time reasoning) & ~35\% & OpenAI o-series, Anthropic Claude, Gemini Deep Think \
-2 & Hybrid architectures (SSM + MoE) & ~15\% & Mamba-3, Jamba, Mixtral \
-3 & World models (JEPA, Cosmos, Marble) & ~15\% & Meta JEPA-2, NVIDIA Cosmos, DeepMind Marble \
-4 & Neurosymbolic (differentiable logic, ILP) & ~15\% & DeepProbLog, Logic Tensor Networks, ENWI \
-5 & First principles (active inference) & ~10\% & Friston lab, Helmholtz, pymdp, ENWI \
+1 & LLM System 2 (test-time reasoning) & ~35\% & OpenAI o-series, Anthropic Claude, Gemini Deep Think \\
+2 & Hybrid architectures (SSM + MoE) & ~15\% & Mamba-3, Jamba, Mixtral \\
+3 & World models (JEPA, Cosmos, Marble) & ~15\% & Meta JEPA-2, NVIDIA Cosmos, DeepMind Marble \\
+4 & Neurosymbolic (differentiable logic, ILP) & ~15\% & DeepProbLog, Logic Tensor Networks, ENWI \\
+5 & First principles (active inference) & ~10\% & Friston lab, Helmholtz, pymdp, ENWI \\
 \end{tabular}
 
 
@@ -412,19 +370,19 @@ faithful abstraction of \texttt{o}.
 \paragraph{Theorem 5 --Free Energy Decomposition}
 
 The variational free energy \texttt{F} admits the decomposition
-\texttt{F = D/-KL(q(s) \mid \mid  p(s\mid o)) ?log p(o)}.
+\texttt{F = D/-KL(q(s) \\mid \\mid  p(s\\mid o)) ?log p(o)}.
 
 \paragraph{Theorem 6 --Expected Free Energy Decomposition}
 
 For a candidate action \texttt{a}, the expected free energy is
-\texttt{G(a) = E/-{q(s\mid o,a)}[og p(o|C) ?KL(q(s|o,a) || q(s|o))]},
+\texttt{G(a) = E/-{q(s\\mid o,a)}[og p(o|C) ?KL(q(s|o,a) || q(s|o))]},
 where the first term is pragmatic value and the second is epistemic value.
 
 \paragraph{Theorem 7 --Composable Physics Sample Complexity}
 
 If each physics module \texttt{M/-i} is correct on its support set \texttt{S/-i}, then the
 Composer \texttt{C} learns the correct module-mixing weights with sample complexity
-\texttt{O(\mid S\textbar{}-2 log(1/))} where $S = ?S-i$.
+\texttt{O(\\mid S\textbar{}-2 log(1/))} where $S = ?S-i$.
 
 \paragraph{Theorem 8 --Composable Physics Generalization}
 
@@ -591,7 +549,7 @@ We model the agent''s interaction with an environment as a Markov Decision Proce
 
   fire right).
 \begin{itemize}
-  \item \texttt{P(s''\mid s, a)}: deterministic transition function from the Box2D physics engine.
+  \item \texttt{P(s''\\mid s, a)}: deterministic transition function from the Box2D physics engine.
   \item \texttt{r(s, a, s'')}: shaped reward (?.3 per timestep + 100 per leg contact + 200 for
 \end{itemize}
 
@@ -702,14 +660,14 @@ The Monitor loss is binary cross-entropy on the failure label.
 \paragraph{6.2.1 Five-seed ablation}
 
 \begin{tabular}{llll}
-seed & joint AUROC & frozen AUROC & delta \
+seed & joint AUROC & frozen AUROC & delta \\
 \hline
-0 & 0.103 & 0.98 & 0.877 \
-1 & 0.041 & 0.90 & 0.859 \
-2 & 0.044 & 0.21 (anomaly) & 0.166 \
-3 & 0.074 & 0.92 & 0.846 \
-4 & 0.099 & 0.97 & 0.871 \
-\textbf{mean} & \textbf{0.072} & \textbf{0.796} & \textbf{0.724} \
+0 & 0.103 & 0.98 & 0.877 \\
+1 & 0.041 & 0.90 & 0.859 \\
+2 & 0.044 & 0.21 (anomaly) & 0.166 \\
+3 & 0.074 & 0.92 & 0.846 \\
+4 & 0.099 & 0.97 & 0.871 \\
+\textbf{mean} & \textbf{0.072} & \textbf{0.796} & \textbf{0.724} \\
 \end{tabular}
 
 
@@ -799,10 +757,10 @@ processed by a per-slot MLP and concatenated for the Monitor.
 \subsubsection{7.3 Results}
 
 \begin{tabular}{lll}
-Configuration & AUROC & vs raw-history \
+Configuration & AUROC & vs raw-history \\
 \hline
-Raw-history Monitor (Chapter 6) & 0.796 & baseline \
-Slot-Monitor (K=4, D=32) & \textbf{0.989} & \textbf{+0.193} \
+Raw-history Monitor (Chapter 6) & 0.796 & baseline \\
+Slot-Monitor (K=4, D=32) & \textbf{0.989} & \textbf{+0.193} \\
 \end{tabular}
 
 
@@ -848,15 +806,15 @@ predicts failure probability > threshold, fall back to a safe action (do nothing
 We document seven attempts at making TTC BoN+Monitor work on LunarLander-v3:
 
 \begin{tabular}{llll}
-Phase & Design & 4K PPO & 100K PPO \
+Phase & Design & 4K PPO & 100K PPO \\
 \hline
-2.1 & Naive gating (always action 0) & ?92.3 & - \
-2.2 & Random gating & - & - \
-2.3 & Threshold gating (single value) & - & - \
-2.4 & Q-then-Monitor gating & - & - \
-2.5 & Smart Q-BoN + Monitor & -10.6 & - \
-2.6 & Verifier-aware gating & -364 & -61.8 \
-2.7 & 3-seed multi-seed (thresh=0.6) & - & \textbf{-26.6} \
+2.1 & Naive gating (always action 0) & ?92.3 & - \\
+2.2 & Random gating & - & - \\
+2.3 & Threshold gating (single value) & - & - \\
+2.4 & Q-then-Monitor gating & - & - \\
+2.5 & Smart Q-BoN + Monitor & -10.6 & - \\
+2.6 & Verifier-aware gating & -364 & -61.8 \\
+2.7 & 3-seed multi-seed (thresh=0.6) & - & \textbf{-26.6} \\
 \end{tabular}
 
 
@@ -933,17 +891,17 @@ We port the ENWI Active Inference Engine (Layer 5) to Project A. The
 implementation is in \texttt{active-inference.py} and \texttt{aie-lunarlander.py}:
 
 \begin{itemize}
-  \item \textbf{Encoder} \texttt{q(s\mid o)}: MLP producing posterior mean and log-variance over a
+  \item \textbf{Encoder} \texttt{q(s\\mid o)}: MLP producing posterior mean and log-variance over a
 \end{itemize}
 
   latent state.
 \begin{itemize}
-  \item \textbf{Generation model} \texttt{p(o\mid s)}: MLP decoding latent state to predicted
+  \item \textbf{Generation model} \texttt{p(o\\mid s)}: MLP decoding latent state to predicted
 \end{itemize}
 
   observation.
 \begin{itemize}
-  \item \textbf{Transition model} \texttt{p(s''\mid s, a)}: linear layer that takes the current state
+  \item \textbf{Transition model} \texttt{p(s''\\mid s, a)}: linear layer that takes the current state
 \end{itemize}
 
   and a one-hot action and outputs the next state.
@@ -954,7 +912,7 @@ implementation is in \texttt{active-inference.py} and \texttt{aie-lunarlander.py
   $F = E/-q[log q(s) ?log p(o, s)]$.
 \begin{itemize}
   \item \textbf{Action sampler}: policy network mapping latent state to action logits.
-  \item \textbf{Preference model} \texttt{p(o\mid C)}: learnable parameter representing the goal in
+  \item \textbf{Preference model} \texttt{p(o\\mid C)}: learnable parameter representing the goal in
 \end{itemize}
 
   observation space.
@@ -1071,7 +1029,7 @@ epochs (full).
 
 \subsubsection{11.1 Why dynamics}
 
-A \textit{world model} predicts \texttt{p(s''\mid s, a)}. With slot-structured states, we can learn
+A \textit{world model} predicts \texttt{p(s''\\mid s, a)}. With slot-structured states, we can learn
 \textit{per-slot} dynamics:
 
 \begin{verbatim}
@@ -1107,10 +1065,10 @@ loss = mean_k ||f_k(slot_k, a) ?slot'_k||^2
 \subsubsection{11.4 Results}
 
 \begin{tabular}{ll}
-Configuration & Next-step MSE \
+Configuration & Next-step MSE \\
 \hline
-Raw dynamics (no slots) & 2.1e-5 \
-Slot dynamics (K=4) & \textbf{0.000007} \
+Raw dynamics (no slots) & 2.1e-5 \\
+Slot dynamics (K=4) & \textbf{0.000007} \\
 \end{tabular}
 
 
@@ -1216,28 +1174,28 @@ We replicate this in \texttt{enwi-prediction2.py}:
 \paragraph{12.5.1 Smoke test (30 epochs, latent=32)}
 
 \begin{tabular}{llll}
-scene & monolithic MSE & composable MSE & ratio \
+scene & monolithic MSE & composable MSE & ratio \\
 \hline
-free\_fall & 2.09e-7 & 2.70e-6 & 10 worse \
-collision & 1.21e-6 & 3.70e-6 & 3 worse \
-friction & 6.69e-7 & 1.57e-6 & 2.5 worse \
-inertia & 2.25e-7 & 5.22e-7 & 2.3 worse \
-compound & 4.64e-7 & 1.25e-6 & 2.7 worse \
-\textbf{mean} & \textbf{5.55e-7} & \textbf{1.95e-6} & \textbf{3.5 worse} \
+free\_fall & 2.09e-7 & 2.70e-6 & 10 worse \\
+collision & 1.21e-6 & 3.70e-6 & 3 worse \\
+friction & 6.69e-7 & 1.57e-6 & 2.5 worse \\
+inertia & 2.25e-7 & 5.22e-7 & 2.3 worse \\
+compound & 4.64e-7 & 1.25e-6 & 2.7 worse \\
+\textbf{mean} & \textbf{5.55e-7} & \textbf{1.95e-6} & \textbf{3.5 worse} \\
 \end{tabular}
 
 
 \paragraph{12.5.2 Full test (100 epochs, latent=64)}
 
 \begin{tabular}{llll}
-scene & monolithic MSE & composable MSE & improvement \
+scene & monolithic MSE & composable MSE & improvement \\
 \hline
-free\_fall & 1.52e-7 & 3.42e-7 & -125\% \
-collision & 1.95e-7 & 6.53e-7 & -235\% \
-friction & 2.48e-7 & 2.85e-7 & -15\% \
-inertia & 1.51e-7 & 1.48e-7 & +2\% (tie) \
-compound & 1.18e-7 & 1.88e-7 & -59\% \
-\textbf{mean} & \textbf{1.73e-7} & \textbf{3.23e-7} & \textbf{-87\%} \
+free\_fall & 1.52e-7 & 3.42e-7 & -125\% \\
+collision & 1.95e-7 & 6.53e-7 & -235\% \\
+friction & 2.48e-7 & 2.85e-7 & -15\% \\
+inertia & 1.51e-7 & 1.48e-7 & +2\% (tie) \\
+compound & 1.18e-7 & 1.88e-7 & -59\% \\
+\textbf{mean} & \textbf{1.73e-7} & \textbf{3.23e-7} & \textbf{-87\%} \\
 \end{tabular}
 
 
@@ -1575,10 +1533,10 @@ Loss is binary cross-entropy.
 \subsubsection{17.4 Results}
 
 \begin{tabular}{lll}
-Configuration & 4K PPO & 100K PPO \
+Configuration & 4K PPO & 100K PPO \\
 \hline
-Phase 2.6: simple Monitor gating & -364 & -61.8 \
-Phase 2.6: DLR-aware gating (smoke) & - & \textbf{TBD} \
+Phase 2.6: simple Monitor gating & -364 & -61.8 \\
+Phase 2.6: DLR-aware gating (smoke) & - & \textbf{TBD} \\
 \end{tabular}
 
 
@@ -1678,15 +1636,15 @@ episodes). Each pathway represents a different architectural
 position for the Monitor signal.
 
 \begin{tabular}{llll}
-\# & path & design & position \
+\# & path & design & position \\
 \hline
-1 & v3 & Monitor aux loss in critic & critic-side \
-2 & v4 & inter-agent comms in critic & critic-side \
-3 & v5 & trust head + Monitor & actor-side \
-4 & v6 & trust head + random (architecture-only ablation) & actor-side \
-5 & v7 & trust head + Monitor (prior implementation) & actor-side \
-6 & v8 & DLR cross-agent predicates + trust head & actor-side + critic-side \
-6' & v8 dlr\_only & DLR cross-agent predicates in critic only (no trust head) & critic-side \
+1 & v3 & Monitor aux loss in critic & critic-side \\
+2 & v4 & inter-agent comms in critic & critic-side \\
+3 & v5 & trust head + Monitor & actor-side \\
+4 & v6 & trust head + random (architecture-only ablation) & actor-side \\
+5 & v7 & trust head + Monitor (prior implementation) & actor-side \\
+6 & v8 & DLR cross-agent predicates + trust head & actor-side + critic-side \\
+6' & v8 dlr\_only & DLR cross-agent predicates in critic only (no trust head) & critic-side \\
 \end{tabular}
 
 
@@ -2052,11 +2010,11 @@ proposes a unified framework for understanding Monitor transfer.
 \subsubsection{24.2 The three investigations (summary)}
 
 \begin{tabular}{llll}
-context & decoupling effect & source & sample \
+context & decoupling effect & source & sample \\
 \hline
-single-agent RL (LunarLander) & \textbf{+39.5} (VERIFIED) & Y1, n=15 & t=6.76, p<0.001 \
-multi-agent RL (Simple Spread) & -3.03 to +0.06 & Y3, n=5 to 212 & mostly NOT sig \
-LLM self-monitoring (arithmetic) & -0.10 (Joint > Frozen) & Y4, n=5 & t=-0.516, NOT sig \
+single-agent RL (LunarLander) & \textbf{+39.5} (VERIFIED) & Y1, n=15 & t=6.76, p<0.001 \\
+multi-agent RL (Simple Spread) & -3.03 to +0.06 & Y3, n=5 to 212 & mostly NOT sig \\
+LLM self-monitoring (arithmetic) & -0.10 (Joint > Frozen) & Y4, n=5 & t=-0.516, NOT sig \\
 \end{tabular}
 
 
@@ -2249,24 +2207,24 @@ classes, so AUROC is always defined.
 \paragraph{26.4.2 Per-seed results}
 
 \begin{tabular}{llll}
-Seed & Frozen & Joint & Random \
+Seed & Frozen & Joint & Random \\
 \hline
-100 & 0.750 & 0.750 & 0.750 \
-101 & 0.500 & 0.500 & 0.500 \
-102 & 1.000 & 0.500 & 0.000 \
-103 & 0.000 & 0.500 & 0.000 \
-104 & 0.500 & 1.000 & 0.000 \
+100 & 0.750 & 0.750 & 0.750 \\
+101 & 0.500 & 0.500 & 0.500 \\
+102 & 1.000 & 0.500 & 0.000 \\
+103 & 0.000 & 0.500 & 0.000 \\
+104 & 0.500 & 1.000 & 0.000 \\
 \end{tabular}
 
 
 \paragraph{26.4.3 Aggregate (n=5)}
 
 \begin{tabular}{lll}
-Arm & Mean & Std \
+Arm & Mean & Std \\
 \hline
-Frozen & 0.550 & 0.371 \
-Joint & \textbf{0.650} & 0.224 \
-Random & 0.250 & 0.354 \
+Frozen & 0.550 & 0.371 \\
+Joint & \textbf{0.650} & 0.224 \\
+Random & 0.250 & 0.354 \\
 \end{tabular}
 
 
@@ -2317,11 +2275,11 @@ This is consistent with the Y3 finding that decoupling does not
 transfer to multi-agent RL. The pattern is:
 
 \begin{tabular}{lll}
-context & decoupling effect & source \
+context & decoupling effect & source \\
 \hline
-single-agent RL & +39.5 (Y1.3) & Y1 paper \
-multi-agent RL & -3.03 (v3) to +0.06 (v8 dlr\_only) & Y3 paper \
-LLM self-monitoring & -0.10 (Joint > Frozen) & this paper \
+single-agent RL & +39.5 (Y1.3) & Y1 paper \\
+multi-agent RL & -3.03 (v3) to +0.06 (v8 dlr\_only) & Y3 paper \\
+LLM self-monitoring & -0.10 (Joint > Frozen) & this paper \\
 \end{tabular}
 
 
@@ -2376,11 +2334,11 @@ rebalance fallback).
 
 \begin{tabular}{lccc}
 \toprule
-Contrast & $\Delta$AUROC & 95\% CI & Cohen's $d$ \
+Contrast & $\Delta$AUROC & 95\% CI & Cohen's $d$ \\
 \midrule
-Frozen -- Joint & +0.015 & [-0.087, +0.117] & +0.030 \
-Frozen -- Random & -0.010 & [-0.128, +0.117] & -0.017 \
-Joint -- Random & -0.025 & [-0.158, +0.097] & -0.040 \
+Frozen -- Joint & +0.015 & [-0.087, +0.117] & +0.030 \\
+Frozen -- Random & -0.010 & [-0.128, +0.117] & -0.017 \\
+Joint -- Random & -0.025 & [-0.158, +0.097] & -0.040 \\
 \bottomrule
 \end{tabular}
 
@@ -2463,17 +2421,17 @@ definition of faithful abstraction.
 
 \textbf{Statement}: If each physics module \texttt{M-i} is correct on its support set
 \texttt{S-i}, then the Composer \texttt{C} learns the correct module-mixing weights with
-sample complexity \texttt{O(\mid S\textbar{}-2 log(1/))} where $S = ?S/-i$.
+sample complexity \texttt{O(\\mid S\textbar{}-2 log(1/))} where $S = ?S/-i$.
 
 \textbf{Proof sketch}: The Composer is a softmax over \texttt{K} modules. With sufficient
 samples, the empirical loss converges to the population loss at rate
 \texttt{O(sqrt(log(1/) / n))}. Setting the bound to `` gives
-\texttt{n = O(log(1/) / --)}. For  = 1/|S|, we have \texttt{n = O(\mid S\mid -- log(1/))}.
+\texttt{n = O(log(1/) / --)}. For  = 1/|S|, we have \texttt{n = O(\\mid S\\mid -- log(1/))}.
 
 The key insight is that each module is \textit{correct on its support set}: the
 Composer''s job is to learn which module to apply where, not to learn the
-modules themselves. This reduces the effective complexity from \texttt{K * \mid S\mid } to
-\texttt{\mid S\mid }.
+modules themselves. This reduces the effective complexity from \texttt{K * \\mid S\\mid } to
+\texttt{\\mid S\\mid }.
 
 \subsubsection{A.4 Theorem 10 --Active Inference Data Efficiency}
 
@@ -2581,14 +2539,14 @@ our codebase to the source material.
 \begin{small}
 \begin{tabular}{@{}p{0.55\linewidth}p{0.40\linewidth}@{}}
 \toprule
-Archimedes artifact & ENWI source \
+Archimedes artifact & ENWI source \\
 \midrule
-\texttt{projects/project-c-causal-world/code/composable-physics.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/composable-physics.py} \
-\texttt{projects/project-a-self-improvement/code/active-inference.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/active-inference.py} \
-\texttt{projects/project-e-verification/code/differentiable-logic.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/differentiable-logic.py} \
-\texttt{projects/project-c-causal-world/code/slot-attention.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/slot-attention.py} \
-ENWI theorems & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} \S4 \
-ENWI predictions & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} \S7 \
+\texttt{projects/project-c-causal-world/code/composable-physics.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/composable-physics.py} \\
+\texttt{projects/project-a-self-improvement/code/active-inference.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/active-inference.py} \\
+\texttt{projects/project-e-verification/code/differentiable-logic.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/differentiable-logic.py} \\
+\texttt{projects/project-c-causal-world/code/slot-attention.py} & \texttt{F:/TMLR/Fusion/enwi-prototype/slot-attention.py} \\
+ENWI theorems & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} \S4 \\
+ENWI predictions & \texttt{F:/TMLR/Fusion/ENWI\_PAPER.md} \S7 \\
 \bottomrule
 \end{tabular}
 \end{small}
@@ -2675,87 +2633,87 @@ description.
 \subsubsection{E.1 PPO hyperparameters}
 
 \begin{tabular}{lll}
-Hyperparameter & Value & Notes \
+Hyperparameter & Value & Notes \\
 \hline
-Actor-critic hidden size & 64 & shared trunk \
-Learning rate & 3e-4 & Adam \
-Clip ratio & 0.2 & PPO clip \
-Value loss coef & 0.5 &  \
-Entropy coef & 0.01 &  \
-Rollout steps & 2048 & per PPO update \
-PPO epochs & 10 & per rollout \
-Batch size & 64 & mini-batch \
-Total env steps & 100K & per training run \
+Actor-critic hidden size & 64 & shared trunk \\
+Learning rate & 3e-4 & Adam \\
+Clip ratio & 0.2 & PPO clip \\
+Value loss coef & 0.5 &  \\
+Entropy coef & 0.01 &  \\
+Rollout steps & 2048 & per PPO update \\
+PPO epochs & 10 & per rollout \\
+Batch size & 64 & mini-batch \\
+Total env steps & 100K & per training run \\
 \end{tabular}
 
 
 \subsubsection{E.2 Monitor hyperparameters}
 
 \begin{tabular}{lll}
-Hyperparameter & Value & Notes \
+Hyperparameter & Value & Notes \\
 \hline
-Hidden sizes & (128, 64) & MLP \
-Activation & ReLU &  \
-Output & sigmoid &  \
-Input dim & 200 & history vector \
-Training episodes & 5000 & from frozen policy \
-Monitor epochs & 50 &  \
-Batch size & 256 &  \
-Learning rate & 1e-3 & Adam \
+Hidden sizes & (128, 64) & MLP \\
+Activation & ReLU &  \\
+Output & sigmoid &  \\
+Input dim & 200 & history vector \\
+Training episodes & 5000 & from frozen policy \\
+Monitor epochs & 50 &  \\
+Batch size & 256 &  \\
+Learning rate & 1e-3 & Adam \\
 \end{tabular}
 
 
 \subsubsection{E.3 Slot-Monitor hyperparameters}
 
 \begin{tabular}{lll}
-Hyperparameter & Value & Notes \
+Hyperparameter & Value & Notes \\
 \hline
-n\_slots & 4 &  \
-slot\_dim & 32 &  \
-n\_iters & 3 & slot attention iterations \
-hidden & 64 &  \
+n\_slots & 4 &  \\
+slot\_dim & 32 &  \\
+n\_iters & 3 & slot attention iterations \\
+hidden & 64 &  \\
 \end{tabular}
 
 
 \subsubsection{E.4 Slot dynamics hyperparameters}
 
 \begin{tabular}{lll}
-Hyperparameter & Value & Notes \
+Hyperparameter & Value & Notes \\
 \hline
-n\_slots & 4 &  \
-slot\_dim & 32 &  \
-hidden & 128 & per-slot MLP \
-Training episodes & 10K &  \
-Epochs & 100 &  \
-Batch size & 32 &  \
-Learning rate & 3e-4 & Adam \
+n\_slots & 4 &  \\
+slot\_dim & 32 &  \\
+hidden & 128 & per-slot MLP \\
+Training episodes & 10K &  \\
+Epochs & 100 &  \\
+Batch size & 32 &  \\
+Learning rate & 3e-4 & Adam \\
 \end{tabular}
 
 
 \subsubsection{E.5 AIE hyperparameters}
 
 \begin{tabular}{lll}
-Hyperparameter & Value & Notes \
+Hyperparameter & Value & Notes \\
 \hline
-state\_dim & obs\_dim & = 8 for LunarLander \
-hidden & 64 & encoder / sampler \
-Learning rate & 3e-4 & Adam \
-n\_episodes & 30 & training collection \
-n\_epochs & 15 & post-collection \
-batch\_size & 32 &  \
-reward\_loss\_weight & 0.1 & in combined loss \
+state\_dim & obs\_dim & = 8 for LunarLander \\
+hidden & 64 & encoder / sampler \\
+Learning rate & 3e-4 & Adam \\
+n\_episodes & 30 & training collection \\
+n\_epochs & 15 & post-collection \\
+batch\_size & 32 &  \\
+reward\_loss\_weight & 0.1 & in combined loss \\
 \end{tabular}
 
 
 \subsubsection{E.6 DLR hyperparameters}
 
 \begin{tabular}{lll}
-Hyperparameter & Value & Notes \
+Hyperparameter & Value & Notes \\
 \hline
-slot\_dim & 32 & per-slot feature dim \
-Predicate hidden & 32 & MLP for unary predicates \
-Binary predicate hidden & 32 & MLP for binary predicates \
-Product t-norm & yes &  \
+slot\_dim & 32 & per-slot feature dim \\
+Predicate hidden & 32 & MLP for unary predicates \\
+Binary predicate hidden & 32 & MLP for binary predicates \\
+Product t-norm & yes &  \\
 \end{tabular}
 
 
@@ -3051,12 +3009,12 @@ PPO with fewer samples).
 \subsubsection{A.3 Results}
 
 \begin{tabular}{lll}
-seed & final eval mean & final eval std \
+seed & final eval mean & final eval std \\
 \hline
-0 & -127.7 & 44.7 \
-1 & -135.3 & 33.7 \
-2 & -154.8 & 52.5 \
-\textbf{mean} & \textbf{-139.3} & \textbf{~44} \
+0 & -127.7 & 44.7 \\
+1 & -135.3 & 33.7 \\
+2 & -154.8 & 52.5 \\
+\textbf{mean} & \textbf{-139.3} & \textbf{~44} \\
 \end{tabular}
 
 
@@ -3065,11 +3023,11 @@ Random policy baseline on LunarLander: -150 to -200.
 \subsubsection{A.4 Comparison}
 
 \begin{tabular}{lll}
-Method & Steps & Final return \
+Method & Steps & Final return \\
 \hline
-Random & N/A & -150 to -200 \
-AIE (this run) & ~10K & -139 \
-PPO baseline & 100K & -100 to +50 \
+Random & N/A & -150 to -200 \\
+AIE (this run) & ~10K & -139 \\
+PPO baseline & 100K & -100 to +50 \\
 \end{tabular}
 
 
@@ -3141,16 +3099,16 @@ The DLR approach generalizes LTL by:
 \subsubsection{B.3 Results --Predicate Accuracy}
 
 \begin{tabular}{lll}
-Predicate & Accuracy (3-seed mean) & Brier (3-seed mean) \
+Predicate & Accuracy (3-seed mean) & Brier (3-seed mean) \\
 \hline
-landed & 99.4\% & 0.022 \
-upright & 45.4\% & 0.29 \
-leg\_l\_contact & 98.8\% & 0.045 \
-leg\_r\_contact & 98.3\% & 0.040 \
-in\_pad & 93.2\% & 0.088 \
-low\_velocity & 92.6\% & 0.077 \
-safe\_approach & 75.1\% & 0.19 \
-\textbf{mean (6/7)} & \textbf{93.4\%} & \textbf{0.078} \
+landed & 99.4\% & 0.022 \\
+upright & 45.4\% & 0.29 \\
+leg\_l\_contact & 98.8\% & 0.045 \\
+leg\_r\_contact & 98.3\% & 0.040 \\
+in\_pad & 93.2\% & 0.088 \\
+low\_velocity & 92.6\% & 0.077 \\
+safe\_approach & 75.1\% & 0.19 \\
+\textbf{mean (6/7)} & \textbf{93.4\%} & \textbf{0.078} \\
 \end{tabular}
 
 
@@ -3162,11 +3120,11 @@ LTL verdict as loss) would close this gap.
 \subsubsection{B.4 Verification Comparison --DLR vs LTL}
 
 \begin{tabular}{lll}
-Formula & LTL accuracy & DLR Brier \
+Formula & LTL accuracy & DLR Brier \\
 \hline
-G upright AND F landed & 82.2\% & 0.189 \
-F (leg\_l AND leg\_r) & 82.2\% & 0.582 \
-G (landed -> in\_pad) & 38.9\% & 0.182 \
+G upright AND F landed & 82.2\% & 0.189 \\
+F (leg\_l AND leg\_r) & 82.2\% & 0.582 \\
+G (landed -> in\_pad) & 38.9\% & 0.182 \\
 \end{tabular}
 
 
@@ -3218,11 +3176,11 @@ slots, diluting the signal. Future work should use \textbf{learned aggregation}
 This evening's session produced three engineering outcomes:
 
 \begin{tabular}{lll}
-Outcome & Status & Honest assessment \
+Outcome & Status & Honest assessment \\
 \hline
-Thesis expansion v1.0 & --2050 lines, 77.7 KB, 8 parts + appendices & Significant growth from v0.1 (313 lines, 10.6 KB) \
-AIE full training & --3 seeds, loss decreases 21.7 --19.5 & Modest learning (-139 mean); not competitive with PPO \
-DLR full training & --3 seeds, 7 predicates trained & 94\% mean accuracy on 6/7 predicates; \texttt{upright} fails \
+Thesis expansion v1.0 & --2050 lines, 77.7 KB, 8 parts + appendices & Significant growth from v0.1 (313 lines, 10.6 KB) \\
+AIE full training & --3 seeds, loss decreases 21.7 --19.5 & Modest learning (-139 mean); not competitive with PPO \\
+DLR full training & --3 seeds, 7 predicates trained & 94\% mean accuracy on 6/7 predicates; \texttt{upright} fails \\
 \end{tabular}
 
 
@@ -3281,16 +3239,16 @@ the \texttt{upright} predicate (which depends on the lander's angle) reached onl
 3-seed mean predicate accuracy on LunarLander-v3:
 
 \begin{tabular}{llll}
-predicate & before (mean agg) & after (attention) & delta \
+predicate & before (mean agg) & after (attention) & delta \\
 \hline
-landed & 99.4\% & 99.8\% & +0.4 \
-\textbf{upright} & \textbf{45.4\%} & \textbf{89.0\%} & \textbf{+43.6} \
-leg\_l\_contact & 98.8\% & 99.7\% & +0.9 \
-leg\_r\_contact & 98.3\% & 99.9\% & +1.6 \
-in\_pad & 93.2\% & 96.3\% & +3.1 \
-low\_velocity & 92.6\% & 94.5\% & +1.9 \
-safe\_approach & 75.1\% & 89.0\% & +13.9 \
-\textbf{mean} & \textbf{86.7\%} & \textbf{95.5\%} & \textbf{+8.8} \
+landed & 99.4\% & 99.8\% & +0.4 \\
+\textbf{upright} & \textbf{45.4\%} & \textbf{89.0\%} & \textbf{+43.6} \\
+leg\_l\_contact & 98.8\% & 99.7\% & +0.9 \\
+leg\_r\_contact & 98.3\% & 99.9\% & +1.6 \\
+in\_pad & 93.2\% & 96.3\% & +3.1 \\
+low\_velocity & 92.6\% & 94.5\% & +1.9 \\
+safe\_approach & 75.1\% & 89.0\% & +13.9 \\
+\textbf{mean} & \textbf{86.7\%} & \textbf{95.5\%} & \textbf{+8.8} \\
 \end{tabular}
 
 
@@ -3470,14 +3428,14 @@ a statistically significant HELP on LunarLander?
 \subsubsection{G.2 Six-way comparison}
 
 \begin{tabular}{llllllll}
-Version & Setting & n\_train & n\_eval & Delta mean & Delta std & t-stat & Pos \
+Version & Setting & n\_train & n\_eval & Delta mean & Delta std & t-stat & Pos \\
 \hline
-v0.1 & Q-BoN, fixed thresh=0.5 & 200 & 5 & +21.5 & 67.1 & +0.72 & 3/5 \
-v0.2 & Q-BoN, calibrated & 200 & 50 & -158.1 & 208.6 & -1.69 & 0/5 \
-v0.3 & safe\_action=2, calibrated & 200 & 50 & -717.6 & 432.2 & -3.71 & 0/5 \
-\textbf{v0.4A} & Q-BoN, calibrated (5x data) & 1000 & 50 & \textbf{-1.8} & 16.5 & -0.25 & 3/5 \
-v0.4B & Q-BoN, calibrated [CartPole] & 200 & 50 & -270.4 & 173.9 & -3.48 & 0/5 \
-v0.4C & Imitation, top-25\%, calibrated & 200 & 50 & -33.7 & 28.5 & -2.64 & 0/5 \
+v0.1 & Q-BoN, fixed thresh=0.5 & 200 & 5 & +21.5 & 67.1 & +0.72 & 3/5 \\
+v0.2 & Q-BoN, calibrated & 200 & 50 & -158.1 & 208.6 & -1.69 & 0/5 \\
+v0.3 & safe\_action=2, calibrated & 200 & 50 & -717.6 & 432.2 & -3.71 & 0/5 \\
+\textbf{v0.4A} & Q-BoN, calibrated (5x data) & 1000 & 50 & \textbf{-1.8} & 16.5 & -0.25 & 3/5 \\
+v0.4B & Q-BoN, calibrated [CartPole] & 200 & 50 & -270.4 & 173.9 & -3.48 & 0/5 \\
+v0.4C & Imitation, top-25\%, calibrated & 200 & 50 & -33.7 & 28.5 & -2.64 & 0/5 \\
 \end{tabular}
 
 
@@ -3622,10 +3580,10 @@ overhead.
 \subsubsection{H.3 Result (5 seeds)}
 
 \begin{tabular}{llll}
-Method & Mean & Std & Notes \
+Method & Mean & Std & Notes \\
 \hline
-PPO-only baseline & 40.6 & 37.1 & control \
-\textbf{Y1.3 (Monitor regularizer)} & \textbf{90.5} & \textbf{56.3} & \textbf{3/5 wins, +50 over baseline} \
+PPO-only baseline & 40.6 & 37.1 & control \\
+\textbf{Y1.3 (Monitor regularizer)} & \textbf{90.5} & \textbf{56.3} & \textbf{3/5 wins, +50 over baseline} \\
 \end{tabular}
 
 
@@ -3665,11 +3623,11 @@ to take at inference. Y1.3 sidesteps this by using the signal as a
 \subsubsection{H.5 Updated H1 status}
 
 \begin{tabular}{lll}
-Aspect & Status & Evidence \
+Aspect & Status & Evidence \\
 \hline
-Monitor-prediction level & \textbf{SUPPORTED} & Sections 4.6-4.8, AUROC delta=0.793 \
-Policy action (inference-time gating) & \textbf{UNRESOLVED} & DEC-0011 v0.1-v0.4C, 6/6 failed \
-Policy action (training-time regularizer) & \textbf{POSITIVE} & Y1.3, +50 mean, 3/5 seeds \
+Monitor-prediction level & \textbf{SUPPORTED} & Sections 4.6-4.8, AUROC delta=0.793 \\
+Policy action (inference-time gating) & \textbf{UNRESOLVED} & DEC-0011 v0.1-v0.4C, 6/6 failed \\
+Policy action (training-time regularizer) & \textbf{POSITIVE} & Y1.3, +50 mean, 3/5 seeds \\
 \end{tabular}
 
 
@@ -3735,10 +3693,10 @@ generality. This addendum documents the first two cross-env experiments:
 We ran the H1 ablation on CartPole-v1 with two configurations:
 
 \begin{tabular}{lll}
-Configuration & Frozen AUROC & Joint AUROC \
+Configuration & Frozen AUROC & Joint AUROC \\
 \hline
-v1 (quick, 50 episodes) & 0.407 & incomplete \
-v2 (200 episodes, 30K PPO) & \textbf{0.999} & \textbf{NaN} \
+v1 (quick, 50 episodes) & 0.407 & incomplete \\
+v2 (200 episodes, 30K PPO) & \textbf{0.999} & \textbf{NaN} \\
 \end{tabular}
 
 
@@ -3759,13 +3717,13 @@ meaningful H1 test.
 \subsubsection{I.3 DLR on CartPole-v1 --STRONG POSITIVE}
 
 \begin{tabular}{lllll}
-Predicate & seed 0 & seed 1 & seed 2 & 3-seed mean \
+Predicate & seed 0 & seed 1 & seed 2 & 3-seed mean \\
 \hline
-upright & 0.984 & 0.986 & 0.978 & \textbf{0.983} \
-centered & 1.000 & 1.000 & 1.000 & \textbf{1.000} \
-low\_velocity & 0.976 & 0.941 & 0.971 & \textbf{0.963} \
-low\_ang\_vel & 0.990 & 0.971 & 0.976 & \textbf{0.979} \
-\textbf{mean} & \textbf{0.987} & \textbf{0.975} & \textbf{0.981} & \textbf{0.981} \
+upright & 0.984 & 0.986 & 0.978 & \textbf{0.983} \\
+centered & 1.000 & 1.000 & 1.000 & \textbf{1.000} \\
+low\_velocity & 0.976 & 0.941 & 0.971 & \textbf{0.963} \\
+low\_ang\_vel & 0.990 & 0.971 & 0.976 & \textbf{0.979} \\
+\textbf{mean} & \textbf{0.987} & \textbf{0.975} & \textbf{0.981} & \textbf{0.981} \\
 \end{tabular}
 
 
@@ -3779,12 +3737,12 @@ Why DLR works better on CartPole:
 \subsubsection{I.4 What cross-env validation tells us}
 
 \begin{tabular}{lll}
-Component & Cross-env verdict & Implication \
+Component & Cross-env verdict & Implication \\
 \hline
-\textbf{H1 decoupling} & Inconclusive on CartPole & Need sparse-reward env (MountainCar) \
-\textbf{DLR attention} & --Validated on CartPole & Architecture is env-agnostic \
-\textbf{Slot attention} & Validated on CartPole & Works on lower-dim too \
-\textbf{Joint Monitor} & CartPole NaN & Saturated env is fundamental limit \
+\textbf{H1 decoupling} & Inconclusive on CartPole & Need sparse-reward env (MountainCar) \\
+\textbf{DLR attention} & --Validated on CartPole & Architecture is env-agnostic \\
+\textbf{Slot attention} & Validated on CartPole & Works on lower-dim too \\
+\textbf{Joint Monitor} & CartPole NaN & Saturated env is fundamental limit \\
 \end{tabular}
 
 
@@ -3848,11 +3806,11 @@ was t=1.65 (n.s.); with 15 seeds it is t=6.76 (p<0.001).
 \subsubsection{J.2 Cross-env extension}
 
 \begin{tabular}{llll}
-Environment & Y1.3 result & PPO baseline & Verdict \
+Environment & Y1.3 result & PPO baseline & Verdict \\
 \hline
-LunarLander-v3 (n=15) & \textbf{80.1 +/- 45.9} & ~40 baseline & --\textbf{POSITIVE} (p<0.001) \
-Acrobot-v1 (n=5) & -88.7 +/- 8.3 & typical -80 to -100 & ------ NEUTRAL (similar to baseline) \
-MountainCar-v0 (n=5) & -200.0 +/- 0.0 & -200 (PPO doesn't converge) & --PPO doesn't converge; Y1.3 doesn't help \
+LunarLander-v3 (n=15) & \textbf{80.1 +/- 45.9} & ~40 baseline & --\textbf{POSITIVE} (p<0.001) \\
+Acrobot-v1 (n=5) & -88.7 +/- 8.3 & typical -80 to -100 & ------ NEUTRAL (similar to baseline) \\
+MountainCar-v0 (n=5) & -200.0 +/- 0.0 & -200 (PPO doesn't converge) & --PPO doesn't converge; Y1.3 doesn't help \\
 \end{tabular}
 
 
@@ -3961,13 +3919,13 @@ The Y1 paper, drafted 2026-07-28, makes **strong claims carefully paired
 with explicit limitations**:
 
 \begin{tabular}{ll}
-Claim & Honest disclaimer \
+Claim & Honest disclaimer \\
 \hline
-Y1.3 +39.5 on LunarLander (p<0.001) & PPO baseline is only n=5; cross-env only Acrobot + MountainCar; std=45.9 high \
-DLR 4-env 97.8\% mean & Predicates are hand-coded; same-distribution test; 30 train episodes per env is small \
-6 inference-time failures & All on LunarLander; cross-env validation limited \
-Slot-Monitor 0.989 AUROC & Single seed tested thoroughly; 5-seed ablation supports H1 \
-Decoupling as mechanism & Demonstrated on LunarLander; not yet validated on other envs \
+Y1.3 +39.5 on LunarLander (p<0.001) & PPO baseline is only n=5; cross-env only Acrobot + MountainCar; std=45.9 high \\
+DLR 4-env 97.8\% mean & Predicates are hand-coded; same-distribution test; 30 train episodes per env is small \\
+6 inference-time failures & All on LunarLander; cross-env validation limited \\
+Slot-Monitor 0.989 AUROC & Single seed tested thoroughly; 5-seed ablation supports H1 \\
+Decoupling as mechanism & Demonstrated on LunarLander; not yet validated on other envs \\
 \end{tabular}
 
 
@@ -3996,14 +3954,14 @@ The paper is \textbf{only}:
 \subsubsection{K.5 Reproducibility state}
 
 \begin{tabular}{ll}
-Resource & Status \
+Resource & Status \\
 \hline
-Code & MIT-licensed, github.com/aidless/agi-research \
-Data & All checkpoints JSON-serializable, committed \
-Compute & CPU-only, 100K PPO ~30 min per seed \
-Pre-registration & \textbf{NOT done} --honest gap \
-Peer review & \textbf{NOT done} --honest gap \
-Independent replication & \textbf{NOT done} --honest gap \
+Code & MIT-licensed, github.com/aidless/agi-research \\
+Data & All checkpoints JSON-serializable, committed \\
+Compute & CPU-only, 100K PPO ~30 min per seed \\
+Pre-registration & \textbf{NOT done} --honest gap \\
+Peer review & \textbf{NOT done} --honest gap \\
+Independent replication & \textbf{NOT done} --honest gap \\
 \end{tabular}
 
 
@@ -4025,12 +3983,12 @@ The user feedback (always be honest and avoid self-hype) prompted a reframe of h
 self-hype) prompted a reframe of how we present results. The change:
 
 \begin{tabular}{ll}
-Before & After \
+Before & After \\
 \hline
-"STRONG POSITIVE" without limits & "STRONG POSITIVE --4-env 97.8\% mean, predicates hand-coded, same-distribution test" \
-"BREAKTHROUGH" & "First statistically significant positive result in 7-attempt sequence; needs peer review" \
-"Y1.3 wins" & "Y1.3 wins on LunarLander; tie on Acrobot; undefined on MountainCar" \
-"publishable" & "submission-ready pending peer review and independent replication" \
+"STRONG POSITIVE" without limits & "STRONG POSITIVE --4-env 97.8\% mean, predicates hand-coded, same-distribution test" \\
+"BREAKTHROUGH" & "First statistically significant positive result in 7-attempt sequence; needs peer review" \\
+"Y1.3 wins" & "Y1.3 wins on LunarLander; tie on Acrobot; undefined on MountainCar" \\
+"publishable" & "submission-ready pending peer review and independent replication" \\
 \end{tabular}
 
 
@@ -4162,16 +4120,16 @@ coordination medium.
 \subsubsection{L.6 Y2 timeline}
 
 \begin{tabular}{ll}
-Month & Task \
+Month & Task \\
 \hline
-2027-01 & Implement DMC architecture \
-2027-02 & PettingZoo baselines \
-2027-03 & DMC vs baselines on 3 envs \
-2027-04 & Cross-agent symbolic knowledge transfer \
-2027-05 & Analysis + draft --1-3 \
-2027-06 & Draft --4-6 + appendix \
-2027-07 & Internal review + revisions \
-2027-08 & Submit to AAMAS 2028 \
+2027-01 & Implement DMC architecture \\
+2027-02 & PettingZoo baselines \\
+2027-03 & DMC vs baselines on 3 envs \\
+2027-04 & Cross-agent symbolic knowledge transfer \\
+2027-05 & Analysis + draft --1-3 \\
+2027-06 & Draft --4-6 + appendix \\
+2027-07 & Internal review + revisions \\
+2027-08 & Submit to AAMAS 2028 \\
 \end{tabular}
 
 
@@ -4242,11 +4200,11 @@ To execute Phase 2 in 2027:
 
 
 
-\section*{Part X -- Y5 v1.3 Master Synthesis (COLM 2026 submission)}
-\addcontentsline{toc}{section}{Part X -- Y5 v1.3 Master Synthesis}
+\newpage
+\section*{Appendix X: Y5 v1.3 Master Synthesis}
+\addcontentsline{toc}{section}{Appendix X}
 
-The Y5 v1.3 master synthesis paper is reproduced here in full as
-\textbf{Part X}, integrating with the existing Parts I-IX of this thesis.
+The Y5 v1.3 master synthesis paper (89 pages) is reproduced here as Appendix X.
 
 
 
@@ -4296,23 +4254,23 @@ Section 7.6 framework diagram (3 Convergence + 4 Refutations + 4
 Propositions) embedded as Figure 1
 
 \begin{quote}
-\textbf{Authors:} Liu Zewen + Codex (Archimedes Project, AGI-2026-001)\
+\textbf{Authors:} Liu Zewen + Codex (Archimedes Project, AGI-2026-001)\\
 \textbf{Date:} 2026-07-31 (Y4 v0.6.1 verdict:
-STOP-PAPER-REFUTED-REVERSE)\
+STOP-PAPER-REFUTED-REVERSE)\\
 \textbf{Status:} v0.8 draft. Integrates Y1 single-agent RL (validated),
 Y3 multi-agent MARL (5/6 pathways REFUTED + 1 positive v8 dlr\_only), Y4
 H10 LLM self-monitoring (4 pre-registered sample-size replications,
-REFUTED consistent negative direction across 2 task families).\
+REFUTED consistent negative direction across 2 task families).\\
 \textbf{Code:}
-\texttt{projects/project\_g\_llm\_self\_monitoring/code/}\
+\texttt{projects/project\_g\_llm\_self\_monitoring/code/}\\
 \textbf{Data:} \texttt{experiments\_log/\_h10\_*\_bootstrap.json},
-\texttt{\_v8\_sanity\_4seed.json}, \texttt{\_h10\_n20\_summary.json}\
+\texttt{\_v8\_sanity\_4seed.json}, \texttt{\_h10\_n20\_summary.json}\\
 \textbf{Pre-registrations:}
 \texttt{experiments\_log/2026-07-28-PRE-REGISTERED-H10.md},
-\texttt{2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md}, addendum\
+\texttt{2026-07-31-PRE-REGISTRATION-AMENDMENT-1.md}, addendum\\
 \textbf{Companion papers:} Y1 (\texttt{papers/y1\_paper\_draft.md}), Y3
 (\texttt{papers/monitor\_signal\_vs\_dlr\_6pathway.md}), Y4
-(\texttt{papers/project\_g\_v0\_5\_h10\_paper.md})\
+(\texttt{papers/project\_g\_v0\_5\_h10\_paper.md})\\
 \textbf{Target venue:} Major LLM/ML venue (e.g., COLM 2026, NeurIPS 2026
 workshop, ICML workshop)
 \end{quote}
@@ -4332,7 +4290,7 @@ in the exact regime where it was verified (single-agent RL) but does NOT
 transfer beyond that regime. Specifically:
 
 \begin{itemize}
-\tightlist
+
 \item
   **H1 single-agent RL (Y1, validated, 39 seeds across extensions):
   frozen-decoupled Monitor as reward shaping gives +39.5 mean
@@ -4397,7 +4355,7 @@ success:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
+
 \item
   \textbf{Frozen}: the Monitor is trained on a frozen reference policy,
   not jointly with the agent. Joint training produces a Monitor that
@@ -4419,7 +4377,7 @@ important question: \textbf{does the Monitor transfer to other
 contexts}? Specifically:
 
 \begin{itemize}
-\tightlist
+
 \item
   Does it transfer to cooperative multi-agent RL where the joint Monitor
   failure mode is more acute (the policy is non-stationary across
@@ -4464,22 +4422,22 @@ N
 Verdict
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Key statistic
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 \textbf{Y1 single-agent RL} & LunarLander-v3 PPO & H1.3 frozen-decoupled
 Monitor helps & 15 seeds (canonical), 39 across extensions &
-\textbf{VALIDATED} & +39.5 mean, t=6.76, p\textless0.001 \
+\textbf{VALIDATED} & +39.5 mean, t=6.76, p\textless0.001 \\
 \textbf{Y3 multi-agent MARL} & PettingZoo Simple Spread v3, MADDPG v2 &
 H5 decoupled Monitor helps MA & 5-100 seeds/arm x 6 architectures &
 \textbf{REFUTED (5/6)}; v8 dlr\_only +0.1447 -\textgreater{} +0.06 & v8
-n=30 p\textless0.005; v8 n=100 p\_bonf=0.043 \
+n=30 p\textless0.005; v8 n=100 p\_bonf=0.043 \\
 \textbf{Y4 LLM self-monitoring} & Qwen2.5-1.5B simple arith + GSM8K CoT
 & H10 frozen \textgreater{} joint Monitor & 5/20/100/20 seeds x 3 arms &
 \textbf{REFUTED (4/4)} consistent negative & n=100 d=+0.030; GSM8K
-d=-0.120 \
+d=-0.120 \\
 \end{longtable}
 }
 
@@ -4511,7 +4469,7 @@ This paper makes five contributions:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
+
 \item
   \textbf{A 3-context empirical investigation} of whether the
   failure-prediction Monitor transfers as a training signal, with full
@@ -4856,7 +4814,7 @@ The literature above suggests a taxonomy of auxiliary-signal designs:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
+
 \item
   \textbf{Static (hand-crafted)}: DLR predicates, dataset-specific
   rules. Pros: interpretable, no drift. Cons: requires manual design per
@@ -5465,19 +5423,19 @@ F-J mean
 p (two-sided)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Direction
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 n=5 simple-arith (stratified) & 5 & Welch t (df=6.57) & -0.10 &
-{[}-0.45, +0.25{]} & 0.6228 & Joint \textgreater{} Frozen \
+{[}-0.45, +0.25{]} & 0.6228 & Joint \textgreater{} Frozen \\
 n=20 simple-arith & 19 & paired bootstrap 10K & +0.132 & {[}-0.079,
-+0.342{]} & 0.2800 & Joint \textgreater{} Frozen \
++0.342{]} & 0.2800 & Joint \textgreater{} Frozen \\
 n=100 simple-arith & 98 & paired bootstrap 2K & +0.015 & {[}-0.087,
-+0.117{]} & 0.7870 & Joint \textgreater{} Frozen \
++0.117{]} & 0.7870 & Joint \textgreater{} Frozen \\
 n=20 GSM8K 200-tok CoT & 19 & paired bootstrap 2K & -0.053 & {[}-0.237,
-+0.158{]} & 0.7140 & Joint \textgreater{} Frozen \
++0.158{]} & 0.7140 & Joint \textgreater{} Frozen \\
 \end{longtable}
 }
 
@@ -5485,7 +5443,7 @@ n=20 GSM8K 200-tok CoT & 19 & paired bootstrap 2K & -0.053 & {[}-0.237,
 direction):
 
 \begin{itemize}
-\tightlist
+
 \item
   \textbf{Fisher combined-p} (chi\^{}2 = -2 * sum log p\_i, df = 2k =
   8): chi\^{}2 = 4.646, \textbf{p\_combined = 0.7947} (NOT significant
@@ -5507,7 +5465,7 @@ is rejected in all 4 sample sizes and across all 3 meta-analytic
 methods. This \textbf{strengthens} the framework prediction:
 
 \begin{itemize}
-\tightlist
+
 \item
   \textbf{P2 (H10 consistency, Proposition 2)} is empirically supported
   -- the consistent direction + consistent non-significance across all 4
@@ -5554,15 +5512,15 @@ tests at alpha = 0.05:
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
-k-i+1 & threshold & p\_(i) & reject? \
+k-i+1 & threshold & p\_(i) & reject? \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-4 & 0.0125 & 0.2800 (n=20 simple arith) & NO \
-3 & 0.0167 & 0.6228 (n=5 simple arith) & NO \
-2 & 0.0250 & 0.7140 (n=20 GSM8K) & NO \
-1 & 0.0500 & 0.7870 (n=100 simple arith) & NO \
+4 & 0.0125 & 0.2800 (n=20 simple arith) & NO \\
+3 & 0.0167 & 0.6228 (n=5 simple arith) & NO \\
+2 & 0.0250 & 0.7140 (n=20 GSM8K) & NO \\
+1 & 0.0500 & 0.7870 (n=100 simple arith) & NO \\
 \end{longtable}
 }
 
@@ -5604,19 +5562,19 @@ J
 Hedges g
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 95\% CI (g)
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 n=5 simple arith & 5 & -0.250 (post-hoc, NOT sig) & 0.778 & -0.194 &
-{[}-1.464, +1.075{]} \
+{[}-1.464, +1.075{]} \\
 n=20 simple arith & 19 & +0.265 & 0.960 & +0.254 & {[}-0.152,
-+0.661{]} \
++0.661{]} \\
 n=100 simple arith & 98 & +0.030 & 0.992 & +0.030 & {[}-0.243,
-+0.303{]} \
++0.303{]} \\
 n=20 GSM8K 200-tok & 19 & -0.120 & 0.960 & -0.115 & {[}-0.518,
-+0.288{]} \
++0.288{]} \\
 \end{longtable}
 }
 
@@ -5681,16 +5639,16 @@ Method
 Result
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Conclusion
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Bonferroni-Holm step-down & 0/4 reject at alpha=0.05 & NOT
-significant \
-Hedges g (bias-corrected) & 4/4 CIs span zero & NOT significant \
+significant \\
+Hedges g (bias-corrected) & 4/4 CIs span zero & NOT significant \\
 Forest plot visualization & All 4 d estimates straddle 0 & NOT
-significant \
+significant \\
 \end{longtable}
 }
 
@@ -6522,28 +6480,28 @@ Test
 Status (2026-07-31)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Expected observation horizon
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 \textbf{R1} (fails C1 but rescues in non-stationary) & \textasciitilde10
 GPU-hours & Re-run Y3 v3-v7 with periodic policy reset + Monitor & OPEN
-& \textasciitilde1 month (achievable with current compute) \
+& \textasciitilde1 month (achievable with current compute) \\
 \textbf{R2} (LLM Monitor without retraining) & \textasciitilde13.5
 GPU-hours & Y4 v0.6.1 H10 protocol (already executed) & \textbf{NOT
 OBSERVED} (kill switch fired STOP-PAPER-REFUTED-REVERSE at n=20 GSM8K) &
-DONE \
+DONE \\
 \textbf{R3} (replication overturn) & \textasciitilde13.5 GPU-hours per
 replication & Y4 H10 replication at a new sample size or task family &
 OPEN (consistent REFUTATION across 4 sample sizes + 2 task families
 argues against imminent overturn) & \textasciitilde6-12 months (depends
-on community replications) \
+on community replications) \\
 \textbf{R4} (Monitor at LLM scale 7B / 70B helps) &
 \textasciitilde150-250 GPU-hours (7B), \textasciitilde1500-2500
 GPU-hours (70B) & Scale up Y4 v0.6.1 GSM8K 200-token protocol to 7B /
 70B target & OPEN (requires frontier-scale compute) &
-\textasciitilde12-24 months (requires external compute partnership) \
+\textasciitilde12-24 months (requires external compute partnership) \\
 \end{longtable}
 }
 
@@ -6600,7 +6558,7 @@ summary}\label{why-the-framework-is-not-just-a-summary}
 The framework is predictive, not just summarizing.
 
 \begin{itemize}
-\tightlist
+
 \item
   Summarizing frameworks describe existing data without predicting new
   data
@@ -6699,36 +6657,36 @@ Observed Refutations
 Framework State
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \# Conditions retained
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\{\} (none) & Full 3-condition framework & 3 \
-\{R1\} & C1 dropped; C2 AND C3 sufficient & 2 \
-\{R2\} & C2 dropped; C1 AND C3 sufficient & 2 \
+\{\} (none) & Full 3-condition framework & 3 \\
+\{R1\} & C1 dropped; C2 AND C3 sufficient & 2 \\
+\{R2\} & C2 dropped; C1 AND C3 sufficient & 2 \\
 \{R3\} & C1 AND C2 AND C3 retained; cross-task consistency claim
-weakened & 3 (with caveat) \
-\{R4\} & C3 dropped; C1 AND C2 sufficient & 2 \
-\{R1, R2\} & C1 AND C2 dropped; C3 sufficient & 1 \
+weakened & 3 (with caveat) \\
+\{R4\} & C3 dropped; C1 AND C2 sufficient & 2 \\
+\{R1, R2\} & C1 AND C2 dropped; C3 sufficient & 1 \\
 \{R1, R3\} & C1 dropped; cross-task weakened; C2 AND C3 sufficient & 2
-(with caveat) \
-\{R1, R4\} & C1 AND C3 dropped; C2 sufficient & 1 \
+(with caveat) \\
+\{R1, R4\} & C1 AND C3 dropped; C2 sufficient & 1 \\
 \{R2, R3\} & C2 dropped; cross-task weakened; C1 AND C3 sufficient & 2
-(with caveat) \
-\{R2, R4\} & C2 AND C3 dropped; C1 sufficient & 1 \
+(with caveat) \\
+\{R2, R4\} & C2 AND C3 dropped; C1 sufficient & 1 \\
 \{R3, R4\} & C3 dropped; cross-task weakened; C1 AND C2 sufficient & 2
-(with caveat) \
+(with caveat) \\
 \{R1, R2, R3\} & C1 AND C2 dropped; cross-task overturned; C3 sufficient
-& 1 (with caveat) \
+& 1 (with caveat) \\
 \{R1, R2, R4\} & C1 AND C2 AND C3 dropped; framework reduced to
-near-empty & 0 \
+near-empty & 0 \\
 \{R1, R3, R4\} & C1 AND C3 dropped; cross-task overturned; C2 sufficient
-& 1 (with caveat) \
+& 1 (with caveat) \\
 \{R2, R3, R4\} & C2 AND C3 dropped; cross-task overturned; C1 sufficient
-& 1 (with caveat) \
+& 1 (with caveat) \\
 \{R1, R2, R3, R4\} & All 3 dropped; cross-task overturned; framework
-replaced & 0 (replaced) \
+replaced & 0 (replaced) \\
 \end{longtable}
 }
 
@@ -6775,7 +6733,7 @@ Other well-known AGI safety auxiliary-signal architectures can be
 analyzed through the 3 Convergence Conditions:
 
 \begin{itemize}
-\tightlist
+
 \item
   Constitutional AI architectures: hand-crafted constitution (Condition
   1: stable reference) but depends on human-defined rules
@@ -7054,7 +7012,7 @@ Based on the empirical evidence, we recommend AGAINST:
 GSM8K).
 
 \begin{itemize}
-\tightlist
+
 \item
   Using DLR predicates without validating them in the target
   environment.
@@ -7195,7 +7153,7 @@ This paper's headline numbers are all verifiable against the underlying
 data:
 
 \begin{itemize}
-\tightlist
+
 \item
   \textbf{Y1 +39.5}: re-verify with
   \texttt{experiments\_log/\_h10\_*\_bootstrap.json} and Y1 paper tables
@@ -7359,7 +7317,7 @@ properties:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
+
 \item
   \textbf{Decoupled}: a separate agent specialized for a specific
   sub-task (failure prediction), kept separate from the main agent.
@@ -7412,7 +7370,7 @@ self-evaluation, self-consistency, and calibration-based filtering.
   convergence conditions explicitly.} Possible mitigations include:
 
   \begin{itemize}
-  \tightlist
+  
   \item
     Frequent re-training of the Monitor to track the changing policy
     distribution (Condition 1 fix: explicit, frequent policy anchors)
@@ -7506,7 +7464,7 @@ Beyond the specific findings, this paper contributes a
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
+
 \item
   \textbf{Pre-registration discipline}: decision rules, kill switch
   thresholds, and analysis pipelines written BEFORE seeing data.
@@ -7578,7 +7536,7 @@ exhaustive?
 comparisons done so far. Other failure modes we have NOT tested:
 
 \begin{itemize}
-\tightlist
+
 \item
   \textbf{Catastrophic forgetting}: if the Monitor is too rigid, the
   policy may adapt around it. (untested)
@@ -7859,24 +7817,24 @@ Source
 Granularity
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Validated?
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Static (hand-crafted) DLR & human & per-rollout & Yes (Y3 v8) \
-Frozen learned & outcome & per-rollout & Yes (Y1) \
-Joint learned & outcome & per-rollout & REFUTED (v3) \
-Frozen-decoupled & outcome & per-rollout & Yes (Y1) \
-Periodic retraining & outcome & per-rollout & Untested \
-Ensemble & outcome & per-rollout & Untested \
-Debate-based & debate & per-argument & Open (Irving 2018) \
+Static (hand-crafted) DLR & human & per-rollout & Yes (Y3 v8) \\
+Frozen learned & outcome & per-rollout & Yes (Y1) \\
+Joint learned & outcome & per-rollout & REFUTED (v3) \\
+Frozen-decoupled & outcome & per-rollout & Yes (Y1) \\
+Periodic retraining & outcome & per-rollout & Untested \\
+Ensemble & outcome & per-rollout & Untested \\
+Debate-based & debate & per-argument & Open (Irving 2018) \\
 Self-play verification & self-critique & per-output & Yes
-(Constitutional AI) \
-Process-level & process label & per-step & Open (PRM valid) \
-Hybrid (multi-signal) & varies & varies & Open (H9) \
-Consensus / voting & multiple & per-output & Open \
-Process-supervised & process label & per-step & Yes (PRM) \
+(Constitutional AI) \\
+Process-level & process label & per-step & Open (PRM valid) \\
+Hybrid (multi-signal) & varies & varies & Open (H9) \\
+Consensus / voting & multiple & per-output & Open \\
+Process-supervised & process label & per-step & Yes (PRM) \\
 \end{longtable}
 }
 
@@ -7898,25 +7856,25 @@ Addresses Condition 1 (policy match)?
 Addresses Condition 2 (observability)?
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Addresses Condition 3 (SNR)?
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Static (hand-crafted) & YES (static, no policy) & YES (rule-based) &
-MEDIUM (rule precision) \
+MEDIUM (rule precision) \\
 Frozen learned & YES (frozen) & NO (last-20-tokens limited) & NO (small
-data) \
-Joint learned & NO (couples to policy) & NO & NO (collapses) \
-Frozen-decoupled & YES (frozen) & NO & NO \
-Periodic retraining & YES (tracks) & NO & NO \
-Ensemble & NO (each is frozen) & NO & YES (averages) \
+data) \\
+Joint learned & NO (couples to policy) & NO & NO (collapses) \\
+Frozen-decoupled & YES (frozen) & NO & NO \\
+Periodic retraining & YES (tracks) & NO & NO \\
+Ensemble & NO (each is frozen) & NO & YES (averages) \\
 Debate-based & YES (policy-agnostic) & YES (debate is observable) & YES
-(diverse agents) \
-Self-play verification & NO (B inherits A's bias) & YES & YES \
+(diverse agents) \\
+Self-play verification & NO (B inherits A's bias) & YES & YES \\
 Process-level (PRM) & YES (process labels stable) & YES (per-step
-features) & YES (dense signal) \
-Hybrid & YES (one layer addresses each) & YES & YES \
+features) & YES (dense signal) \\
+Hybrid & YES (one layer addresses each) & YES & YES \\
 \end{longtable}
 }
 
@@ -7941,25 +7899,25 @@ Use case
 Recommendation
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Justification
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Single-agent RL stationary & USE frozen-decoupled Monitor & VALIDATED in
-Y1 (+39.5) \
+Y1 (+39.5) \\
 Single-agent RL non-stationary & TEST periodic retraining & Open; not
-yet validated \
+yet validated \\
 Multi-agent MARL & USE DLR (hand-crafted) & VALIDATED in Y3 v8
-(+0.0617) \
+(+0.0617) \\
 LLM self-monitoring production LM drift & USE verification, NOT training
-& REFUTED in Y4 (-0.053) \
+& REFUTED in Y4 (-0.053) \\
 LLM self-monitoring frozen reference & Open (theoretical H10 redux) &
-Test if reference LM = production LM \
+Test if reference LM = production LM \\
 LLM self-consistency / verification & USE fine (training-free) & Avoids
-all 3 convergence issues \
+all 3 convergence issues \\
 AGI self-improvement & USE hybrid (Monitor + Constitutional + DLR +
-retraining) & Each layer addresses different condition \
+retraining) & Each layer addresses different condition \\
 \end{longtable}
 }
 
@@ -8008,26 +7966,26 @@ ID
 Question
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
-\end{minipage} \
+\end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-E1 & Does periodic Monitor retraining recover Condition 1? & Untested \
+E1 & Does periodic Monitor retraining recover Condition 1? & Untested \\
 E2 & Does ensemble of Monitors reduce per-sample uncertainty (Condition
-3)? & Untested \
+3)? & Untested \\
 E3 & Does Monitor feature engineering (full 200-token context) recover
-Condition 2? & Untested \
+Condition 2? & Untested \\
 E4 & Does the Monitor REFUTATION generalize to larger LMs (3B, 7B, 70B)?
-& Untested \
-E5 & Does the Monitor work in vision-language (V-L) agents? & Open \
-E6 & Does Monitor + DLR hybrid work in MA? & Untested \
-E7 & Does Monitor work in multi-modal agents? & Untested \
+& Untested \\
+E5 & Does the Monitor work in vision-language (V-L) agents? & Open \\
+E6 & Does Monitor + DLR hybrid work in MA? & Untested \\
+E7 & Does Monitor work in multi-modal agents? & Untested \\
 E8 & Does V2 governance (Monitor + Evidence Chain + Constitution + DLR)
-work as integrated AGI safety? & Untested \
-E9 & Does H9 self-improvement loop with Monitor feedback work? & Open \
+work as integrated AGI safety? & Untested \\
+E9 & Does H9 self-improvement loop with Monitor feedback work? & Open \\
 E10 & Can verification-only be a first-class AGI primitive (not training
-signal)? & Open \
+signal)? & Open \\
 \end{longtable}
 }
 
@@ -8057,7 +8015,7 @@ design in which context.
 \subsection{See also (this section)}\label{see-also-this-section}
 
 \begin{itemize}
-\tightlist
+
 \item
   {[}{[}Monitor as an AGI safety primitive (synthesis){]}{]} (Obsidian
   vault)
@@ -8219,16 +8177,16 @@ degenerate cases (all rollouts same class) for some seeds.
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule\noalign{}
-seed & Frozen & Joint & Random & F-J & F-R & J-R \
+seed & Frozen & Joint & Random & F-J & F-R & J-R \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-0 (n=5 first) & 0.550 & 0.650 & 0.250 & -0.100 & +0.300 & +0.400 \
-1 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-2 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
-3 & 1.000 & 0.500 & 1.000 & +0.500 & +0.000 & -0.500 \
-4 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
+0 (n=5 first) & 0.550 & 0.650 & 0.250 & -0.100 & +0.300 & +0.400 \\
+1 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+2 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
+3 & 1.000 & 0.500 & 1.000 & +0.500 & +0.000 & -0.500 \\
+4 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
 \end{longtable}
 }
 
@@ -8246,30 +8204,30 @@ both F and J on that seed).
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule\noalign{}
-seed & Frozen & Joint & Random & F-J & F-R & J-R \
+seed & Frozen & Joint & Random & F-J & F-R & J-R \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-100 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \
-101 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-102 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-103 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \
-104 & 0.500 & 1.000 & 1.000 & -0.500 & -0.500 & +0.000 \
-105 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-106 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \
-107 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-108 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \
-109 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \
-110 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \
-112 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-113 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-114 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \
-115 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-116 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-117 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \
-118 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-119 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
+100 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \\
+101 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+102 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+103 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \\
+104 & 0.500 & 1.000 & 1.000 & -0.500 & -0.500 & +0.000 \\
+105 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+106 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \\
+107 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+108 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \\
+109 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \\
+110 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \\
+112 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+113 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+114 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \\
+115 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+116 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+117 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \\
+118 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+119 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
 \end{longtable}
 }
 
@@ -8288,109 +8246,109 @@ to single-class eval sets and were rebalanced).
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule\noalign{}
-seed & Frozen & Joint & Random & F-J & F-R & J-R \
+seed & Frozen & Joint & Random & F-J & F-R & J-R \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-100 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \
-101 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-102 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-103 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \
-104 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-105 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-106 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-107 & 1.000 & 0.500 & 1.000 & +0.500 & +0.000 & -0.500 \
-108 & 1.000 & 0.000 & 0.500 & +1.000 & +0.500 & -0.500 \
-109 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-110 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \
-111 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-112 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-113 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \
-114 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-115 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \
-116 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-117 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-118 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-119 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-120 & 0.000 & 1.000 & 0.000 & -1.000 & +0.000 & +1.000 \
-121 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-122 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-123 & 0.500 & 0.500 & 1.000 & +0.000 & -0.500 & -0.500 \
-124 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-125 & 0.500 & 1.000 & 1.000 & -0.500 & -0.500 & +0.000 \
-126 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \
-127 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-128 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \
-129 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
-130 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-131 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-132 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \
-133 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-134 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-136 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-137 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-138 & 0.500 & 1.000 & 0.000 & -0.500 & +0.500 & +1.000 \
-139 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-140 & 1.000 & 0.500 & 0.000 & +0.500 & +1.000 & +0.500 \
-141 & 0.500 & 0.500 & 0.000 & +0.000 & +0.500 & +0.500 \
-142 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-143 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-144 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-145 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-146 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \
-147 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \
-148 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \
-149 & 0.000 & 1.000 & 0.500 & -1.000 & -0.500 & +0.500 \
-150 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \
-151 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \
-152 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-153 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \
-154 & 0.500 & 1.000 & 0.000 & -0.500 & +0.500 & +1.000 \
-155 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \
-156 & 1.000 & 0.000 & 0.500 & +1.000 & +0.500 & -0.500 \
-157 & 0.000 & 1.000 & 0.000 & -1.000 & +0.000 & +1.000 \
-158 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \
-159 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \
-160 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-161 & 0.500 & 0.500 & 1.000 & +0.000 & -0.500 & -0.500 \
-162 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-163 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
-164 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
-165 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \
-167 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-168 & 0.000 & 0.500 & 0.000 & -0.500 & +0.000 & +0.500 \
-169 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-170 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \
-171 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-172 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
-173 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \
-174 & 0.500 & 0.500 & 0.000 & +0.000 & +0.500 & +0.500 \
-175 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-176 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \
-177 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-178 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-179 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-180 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-181 & 0.000 & 1.000 & 0.000 & -1.000 & +0.000 & +1.000 \
-182 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \
-183 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-184 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-185 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \
-186 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \
-187 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-188 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-189 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-190 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-191 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-192 & 0.500 & 0.500 & 1.000 & +0.000 & -0.500 & -0.500 \
-193 & 0.500 & 0.000 & 0.000 & +0.500 & +0.500 & +0.000 \
-194 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \
-195 & 0.500 & 0.000 & 0.000 & +0.500 & +0.500 & +0.000 \
-196 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-197 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-198 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \
-199 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
+100 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \\
+101 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+102 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+103 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \\
+104 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+105 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+106 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+107 & 1.000 & 0.500 & 1.000 & +0.500 & +0.000 & -0.500 \\
+108 & 1.000 & 0.000 & 0.500 & +1.000 & +0.500 & -0.500 \\
+109 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+110 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \\
+111 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+112 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+113 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \\
+114 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+115 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \\
+116 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+117 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+118 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+119 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+120 & 0.000 & 1.000 & 0.000 & -1.000 & +0.000 & +1.000 \\
+121 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+122 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+123 & 0.500 & 0.500 & 1.000 & +0.000 & -0.500 & -0.500 \\
+124 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+125 & 0.500 & 1.000 & 1.000 & -0.500 & -0.500 & +0.000 \\
+126 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \\
+127 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+128 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \\
+129 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
+130 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+131 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+132 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \\
+133 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+134 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+136 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+137 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+138 & 0.500 & 1.000 & 0.000 & -0.500 & +0.500 & +1.000 \\
+139 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+140 & 1.000 & 0.500 & 0.000 & +0.500 & +1.000 & +0.500 \\
+141 & 0.500 & 0.500 & 0.000 & +0.000 & +0.500 & +0.500 \\
+142 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+143 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+144 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+145 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+146 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \\
+147 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \\
+148 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \\
+149 & 0.000 & 1.000 & 0.500 & -1.000 & -0.500 & +0.500 \\
+150 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \\
+151 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \\
+152 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+153 & 0.500 & 0.000 & 1.000 & +0.500 & -0.500 & -1.000 \\
+154 & 0.500 & 1.000 & 0.000 & -0.500 & +0.500 & +1.000 \\
+155 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \\
+156 & 1.000 & 0.000 & 0.500 & +1.000 & +0.500 & -0.500 \\
+157 & 0.000 & 1.000 & 0.000 & -1.000 & +0.000 & +1.000 \\
+158 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \\
+159 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \\
+160 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+161 & 0.500 & 0.500 & 1.000 & +0.000 & -0.500 & -0.500 \\
+162 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+163 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
+164 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
+165 & 1.000 & 0.000 & 0.000 & +1.000 & +1.000 & +0.000 \\
+167 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+168 & 0.000 & 0.500 & 0.000 & -0.500 & +0.000 & +0.500 \\
+169 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+170 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \\
+171 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+172 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
+173 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \\
+174 & 0.500 & 0.500 & 0.000 & +0.000 & +0.500 & +0.500 \\
+175 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+176 & 0.500 & 1.000 & 0.500 & -0.500 & +0.000 & +0.500 \\
+177 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+178 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+179 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+180 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+181 & 0.000 & 1.000 & 0.000 & -1.000 & +0.000 & +1.000 \\
+182 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \\
+183 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+184 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+185 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \\
+186 & 0.500 & 0.000 & 0.500 & +0.500 & +0.000 & -0.500 \\
+187 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+188 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+189 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+190 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+191 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+192 & 0.500 & 0.500 & 1.000 & +0.000 & -0.500 & -0.500 \\
+193 & 0.500 & 0.000 & 0.000 & +0.500 & +0.500 & +0.000 \\
+194 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \\
+195 & 0.500 & 0.000 & 0.000 & +0.500 & +0.500 & +0.000 \\
+196 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+197 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+198 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \\
+199 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
 \end{longtable}
 }
 
@@ -8409,30 +8367,30 @@ with stratified split + rebalance fallback produced many degenerate
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule\noalign{}
-seed & Frozen & Joint & Random & F-J & F-R & J-R \
+seed & Frozen & Joint & Random & F-J & F-R & J-R \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-100 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \
-101 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-102 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \
-103 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \
-104 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \
-105 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \
-106 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \
-107 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-108 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-109 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \
-111 & 0.000 & 0.500 & 0.000 & -0.500 & +0.000 & +0.500 \
-112 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-113 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \
-114 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \
-115 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \
-116 & 1.000 & 0.500 & 0.000 & +0.500 & +1.000 & +0.500 \
-117 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \
-118 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \
-119 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \
+100 & 1.000 & 1.000 & 0.000 & +0.000 & +1.000 & +1.000 \\
+101 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+102 & 0.000 & 1.000 & 1.000 & -1.000 & -1.000 & +0.000 \\
+103 & 1.000 & 0.500 & 0.500 & +0.500 & +0.500 & +0.000 \\
+104 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \\
+105 & 0.000 & 0.000 & 1.000 & +0.000 & -1.000 & -1.000 \\
+106 & 0.000 & 0.000 & 0.500 & +0.000 & -0.500 & -0.500 \\
+107 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+108 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+109 & 0.000 & 0.500 & 1.000 & -0.500 & -1.000 & -0.500 \\
+111 & 0.000 & 0.500 & 0.000 & -0.500 & +0.000 & +0.500 \\
+112 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+113 & 1.000 & 0.000 & 1.000 & +1.000 & +0.000 & -1.000 \\
+114 & 0.500 & 0.500 & 0.500 & +0.000 & +0.000 & +0.000 \\
+115 & 0.000 & 0.500 & 0.500 & -0.500 & -0.500 & +0.000 \\
+116 & 1.000 & 0.500 & 0.000 & +0.500 & +1.000 & +0.500 \\
+117 & 1.000 & 1.000 & 1.000 & +0.000 & +0.000 & +0.000 \\
+118 & 0.000 & 0.000 & 0.000 & +0.000 & +0.000 & +0.000 \\
+119 & 1.000 & 1.000 & 0.500 & +0.000 & +0.500 & +0.500 \\
 \end{longtable}
 }
 
@@ -8451,7 +8409,7 @@ Across \textbf{all 4} H10 replications (n=5, n=20, n=100 simple arith;
 n=20 GSM8K):
 
 \begin{itemize}
-\tightlist
+
 \item
   The Monitor signal at the per-seed level is \textbf{discrete} (AUROC
   閳?\{0.0, 0.5, 1.0\} due to rebalanced splits with 8 rollouts)
@@ -8519,14 +8477,14 @@ data}\label{e.1-per-seed-replication-data}
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
-Seed & dlr\_only eval & no\_verifier eval & paired diff (effect) \
+Seed & dlr\_only eval & no\_verifier eval & paired diff (effect) \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-200 & -68.77 & -69.04 & +0.270 \
-201 & -68.63 & -68.55 & -0.080 \
-202 & -71.89 & -72.19 & +0.300 \
+200 & -68.77 & -69.04 & +0.270 \\
+201 & -68.63 & -68.55 & -0.080 \\
+202 & -71.89 & -72.19 & +0.300 \\
 \end{longtable}
 }
 
@@ -8534,7 +8492,7 @@ Seed & dlr\_only eval & no\_verifier eval & paired diff (effect) \
 statistics}\label{e.2-replication-level-statistics}
 
 \begin{itemize}
-\tightlist
+
 \item
   \textbf{Per-seed diffs}: {[}+0.270, -0.080, +0.300{]}
 \item
@@ -8591,7 +8549,7 @@ framework in two ways:
   This is consistent with:
 
   \begin{itemize}
-  \tightlist
+  
   \item
     The 95\% CI of the n=100 estimate is wide enough to include +0.163
   \item

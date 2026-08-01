@@ -2681,7 +2681,7 @@ reminders from the broader ML community for shaping the H10 protocol.
 
     Language Models. NeurIPS 2022.
 
-13. P. Mishra et al. Self-Consistency Improves Chain of Thought Reasoning in
+13. P. Mishra et al. Self-Consistency Improves Chain of Thought Reasoning in Large Language Models. ICLR 2023.
 
 14. **H. Shimodaira**. Improving predictive inference under covariate shift by weighting the log-likelihood function. *Journal of Statistical Planning and Inference*, 90(2):227-244, 2000. (Citation for §7.5.5 Condition 1 / distribution-shift theory motivation.)
 
@@ -2697,7 +2697,6 @@ reminders from the broader ML community for shaping the H10 protocol.
 
 20. **L. V. Hedges**. Distribution theory for Glass's estimator of effect size and related estimators. *Journal of Educational and Behavioral Statistics*, 6(2):107-128, 1981. (Citation for §5.3.2 Hedges g bias correction.)
 
-    Language Models. ICLR 2023.
 
 
 
@@ -2896,7 +2895,7 @@ stratified split + rebalance fallback produced many degenerate (0.0, 0.5, 1.0) A
 
 Across **all 4** H10 replications (n=5, n=20, n=100 simple arith; n=20 GSM8K):
 
-- The Monitor signal at the per-seed level is **discrete** (AUROC 閳?{0.0, 0.5, 1.0} due to rebalanced splits with 8 rollouts)
+- The Monitor signal at the per-seed level is **discrete** (AUROC 闁�?{0.0, 0.5, 1.0} due to rebalanced splits with 8 rollouts)
 - The joint monitor is **never significantly better** than the random monitor at any sample size
 - The Frozen vs Joint contrast is **at chance level** at every sample size
 - The CIs span zero at every sample size
@@ -2923,7 +2922,7 @@ These are the canonical source for reproducibility.
 ### D.7 Caveats on per-seed interpretation
 
 The per-seed AUROC values are inherently **noisy** at small per-seed n (8 rollouts).
-A 95% Wilson CI for an AUROC at 8 rollouts is approximately 鍗?.4. This means:
+A 95% Wilson CI for an AUROC at 8 rollouts is approximately 閸�?.4. This means:
 - An observed F-J of +1.000 is consistent with the true F-J being anywhere in [-0.4, +1.0]
 - An observed F-J of 0.000 is consistent with the true F-J being in [0, +0.4] or [-0.4, 0]
 

@@ -11,7 +11,7 @@ def sha(p):
 out = []
 out.append('OpenReview / arXiv submission package checklist')
 out.append('')
-out.append('Generated: 2026-08-01 (v1.3 camera-ready, P3 hybrid pre-reg day 1)')
+out.append('Generated: 2026-08-01 (v1.3.1 camera-ready (P3 hybrid pre-reg completed 2026-08-01), P3 hybrid pre-reg day 1)')
 out.append('Paper:     Y5 Master Synthesis (COLM 2026 submission)')
 out.append('Author:    Liu Zewen + Codex (Archimedes Project, AGI-2026-001)')
 out.append('')

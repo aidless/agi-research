@@ -17,20 +17,20 @@ echo.
 
 REM --- Step 1: collect main paper artifacts ---
 echo [1/5] Collecting main paper artifacts (PDF, DOCX, MD, source generator)
-if not exist "y5_v1_3_master_synthesis.pdf"  (
-    echo ERROR: y5_v1_3_master_synthesis.pdf missing. Run gen_pdf.py first.
+if not exist "y5_v1_3_1_master_synthesis.pdf"  (
+    echo ERROR: y5_v1_3_1_master_synthesis.pdf missing. Run gen_pdf.py first.
     exit /b 1
 )
-if not exist "y5_v1_3_master_synthesis.docx" (
-    echo ERROR: y5_v1_3_master_synthesis.docx missing.
+if not exist "y5_v1_3_1_master_synthesis.docx" (
+    echo ERROR: y5_v1_3_1_master_synthesis.docx missing.
     exit /b 1
 )
-if not exist "y5_v1_3_master_synthesis.html" (
-    echo ERROR: y5_v1_3_master_synthesis.html missing.
+if not exist "y5_v1_3_1_master_synthesis.html" (
+    echo ERROR: y5_v1_3_1_master_synthesis.html missing.
     exit /b 1
 )
-copy /Y "y5_v1_3_master_synthesis.pdf"  "arxiv_main.pdf"  > nul
-copy /Y "y5_v1_3_master_synthesis.docx" "arxiv_main.docx" > nul
+copy /Y "y5_v1_3_1_master_synthesis.pdf"  "arxiv_main.pdf"  > nul
+copy /Y "y5_v1_3_1_master_synthesis.docx" "arxiv_main.docx" > nul
 copy /Y "y5_monitor_transfer_synthesis.md" "arxiv_main.md"  > nul
 echo   - arxiv_main.pdf    (1.59 MB)
 echo   - arxiv_main.docx   (229 KB)
@@ -39,7 +39,7 @@ echo.
 
 REM --- Step 2: collect cover letter + reviewer simulators ---
 echo [2/5] Collecting cover letter + reviewer simulators
-copy /Y "cover_letter_colm2026_v1_3.md" "arxiv_cover_letter.md" > nul
+copy /Y "cover_letter_colm2026_v1_3_1_draft.md" "arxiv_cover_letter.md" > nul
 copy /Y "reviewer_simulator_output_v1_3.md" "arxiv_reviewer_simulator.md" > nul
 copy /Y "reviewer_simulator_output_v1_2.md" "arxiv_reviewer_simulator_v1_2.md" > nul
 copy /Y "reviewer_simulator_output_v1_0.md" "arxiv_reviewer_simulator_v1_0.md" > nul

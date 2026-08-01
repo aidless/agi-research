@@ -1,13 +1,13 @@
 OpenReview / arXiv submission package checklist
 
-Generated: 2026-08-01 (v1.3 camera-ready, P3 hybrid pre-reg day 1)
+Generated: 2026-08-01 (v1.3.1 camera-ready (P3 hybrid pre-reg completed 2026-08-01), P3 hybrid pre-reg day 1)
 Paper:     Y5 Master Synthesis (COLM 2026 submission)
 Author:    Liu Zewen + Codex (Archimedes Project, AGI-2026-001)
 
 === SHA-256 of main artifacts ===
-PDF : 72818bf54030588e50084ec46cc28dfd9be377e8607e710cf3a287f17c41505d
-DOCX: 5dfdbf19c4d59bd60d7b56b971e5662eca688708d727f906ea81fe91e4777b9e
-MD  : b23dd727f6f9e827751fe2e64d3a44f5dfac32985bd2c9ebda2a6687391fb569
+PDF : baa4fa6b8ced836e6dad58ba74ac8f15038df4285fe21b7cf1123e7196784d1f
+DOCX: 91d6b1cc1ec80917ee231c54b8c8321775891754695862821666075e4750f654
+MD  : e57ff0267b6ac4a354fac2ea507beae8c7bbb712a30509a92ec576971e7f1b55
 
 === Camera-ready 14-item checklist (all green) ===
 [x] All 18 cumulative reviewer items addressed

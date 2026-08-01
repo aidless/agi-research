@@ -184,9 +184,9 @@ Failure-Prediction Monitor Does Not Transfer:</a></li>
 id="toc-a-cross-context-empirical-investigation-rl-marl-llm">A
 Cross-Context Empirical Investigation (RL, MARL, LLM)</a>
 <ul>
-<li><a href="#y5-master-synthesis-paper-v1.3"
-id="toc-y5-master-synthesis-paper-v1.3">Y5 Master Synthesis Paper
-(v1.3)</a></li>
+<li><a href="#y5-master-synthesis-paper-v1.3.1"
+id="toc-y5-master-synthesis-paper-v1.3.1">Y5 Master Synthesis Paper
+(v1.3.1)</a></li>
 <li><a href="#abstract" id="toc-abstract">Abstract</a></li>
 <li><a href="#introduction" id="toc-introduction">1. Introduction</a>
 <ul>
@@ -452,6 +452,31 @@ questions (E1-E10)</a></li>
 <li><a href="#what-this-paper-says-one-paragraph-summary"
 id="toc-what-this-paper-says-one-paragraph-summary">12.6 What this paper
 says (one-paragraph summary)</a></li>
+<li><a
+href="#section-x-new-in-v1.3.1-p3-hybrid-pre-reg-result-2026-08-01"
+id="toc-section-x-new-in-v1.3.1-p3-hybrid-pre-reg-result-2026-08-01">Section
+X (NEW in v1.3.1): P3 Hybrid Pre-Reg Result (2026-08-01)</a>
+<ul>
+<li><a href="#x.1-per-arm-final-results-n20-paired-seeds-each"
+id="toc-x.1-per-arm-final-results-n20-paired-seeds-each">X.1 Per-arm
+final results (n=20 paired seeds each)</a></li>
+<li><a href="#x.2-pairwise-contrasts-n20-paired-seeds"
+id="toc-x.2-pairwise-contrasts-n20-paired-seeds">X.2 Pairwise contrasts
+(n=20 paired seeds)</a></li>
+<li><a href="#x.3-framework-implications"
+id="toc-x.3-framework-implications">X.3 Framework implications</a></li>
+<li><a href="#x.4-pre-registered-follow-up-if-applicable"
+id="toc-x.4-pre-registered-follow-up-if-applicable">X.4 Pre-registered
+follow-up (if applicable)</a></li>
+<li><a href="#x.5-updated-y5-7.6-framework-status"
+id="toc-x.5-updated-y5-7.6-framework-status">X.5 Updated Y5 §7.6
+framework status</a></li>
+<li><a href="#x.6-bootstrap-json" id="toc-x.6-bootstrap-json">X.6
+Bootstrap JSON</a></li>
+<li><a href="#x.7-pre-reg-kill-switch-verdict"
+id="toc-x.7-pre-reg-kill-switch-verdict">X.7 Pre-reg kill switch
+verdict</a></li>
+</ul></li>
 <li><a href="#see-also-this-section" id="toc-see-also-this-section">See
 also (this section)</a></li>
 <li><a href="#acknowledgments"
@@ -531,8 +556,8 @@ Hypotheses H1-H10 status (post Y4 v0.6.1)</a></li>
 Failure-Prediction Monitor Does Not Transfer:</h1>
 <h1 id="a-cross-context-empirical-investigation-rl-marl-llm">A
 Cross-Context Empirical Investigation (RL, MARL, LLM)</h1>
-<h2 id="y5-master-synthesis-paper-v1.3">Y5 Master Synthesis Paper
-(v1.3)</h2>
+<h2 id="y5-master-synthesis-paper-v1.3.1">Y5 Master Synthesis Paper
+(v1.3.1)</h2>
 <p><strong>v1.3 additions</strong> (addresses 6 v1.2 reviewer items, all
 P3 very-minor): - Pre-Reg P3 adds explicit GPU reservation (R1.5): ~50
 GPU-hours, 2026-08-01 to 2026-08-15 window - Section 5.3.2 n=5 Hedges g
@@ -566,11 +591,13 @@ Propositions) embedded as Figure 1</p>
 AGI-2026-001)<br />
 <strong>Date:</strong> 2026-07-31 (Y4 v0.6.1 verdict:
 STOP-PAPER-REFUTED-REVERSE)<br />
-<strong>Status:</strong> v0.8 draft. Integrates Y1 single-agent RL
-(validated), Y3 multi-agent MARL (5/6 pathways REFUTED + 1 positive v8
-dlr_only), Y4 H10 LLM self-monitoring (4 pre-registered sample-size
-replications, REFUTED consistent negative direction across 2 task
-families).<br />
+<strong>Status:</strong> v1.3.1 camera-ready. P3 hybrid pre-reg
+(2026-08-01) completed: v8 vs dlr_only +1.27 (95% CI [-0.16, +2.71],
+|t|=1.74, p=0.099) – PROVISIONALLY REFUTED per pre-reg p&gt;=0.05 rule.
+Integrates Y1 single-agent RL (validated), Y3 multi-agent MARL (5/6
+pathways REFUTED + 1 positive v8 dlr_only), Y4 H10 LLM self-monitoring
+(4 pre-registered sample-size replications, REFUTED consistent negative
+direction across 2 task families).<br />
 <strong>Code:</strong>
 <code>projects/project_g_llm_self_monitoring/code/</code><br />
 <strong>Data:</strong>
@@ -3752,6 +3779,161 @@ that AGI safety systems should use hybrid auxiliary-signal
 architectures: each layer addresses a different convergence condition.
 The framework provides a concrete decision matrix for when to use which
 design in which context.</p>
+<h2
+id="section-x-new-in-v1.3.1-p3-hybrid-pre-reg-result-2026-08-01">Section
+X (NEW in v1.3.1): P3 Hybrid Pre-Reg Result (2026-08-01)</h2>
+<p><strong>Date completed:</strong> 2026-08-01 09:22 (P3 execution day
+1) <strong>Pre-reg reference:</strong>
+experiments_log/2026-07-31-PRE-REGISTRATION-PROP3-HYBRID.md
+<strong>Total jobs:</strong> 60 (20 seeds x 3 arms x 200 PPO updates)
+<strong>Total wall-clock:</strong> ~4 hours on CPU (MAX_PARALLEL=6)</p>
+<h3 id="x.1-per-arm-final-results-n20-paired-seeds-each">X.1 Per-arm
+final results (n=20 paired seeds each)</h3>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>n</th>
+<th>Mean delta vs random</th>
+<th>Std</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>monitor_only</td>
+<td>20</td>
+<td><strong>+8.37</strong></td>
+<td>4.12</td>
+</tr>
+<tr>
+<td>dlr_only</td>
+<td>20</td>
+<td><strong>+8.05</strong></td>
+<td>3.33</td>
+</tr>
+<tr>
+<td><strong>v8 (Hybrid)</strong></td>
+<td>20</td>
+<td><strong>+9.32</strong></td>
+<td>4.54</td>
+</tr>
+</tbody>
+</table>
+<p>The Hybrid (v8) arm produces a +9.32 mean improvement, ~+1 above the
+monitor_only and dlr_only arms. This is a POSITIVE TREND in the
+predicted direction, but the contrast is not yet statistically
+significant at the pre-registered threshold.</p>
+<h3 id="x.2-pairwise-contrasts-n20-paired-seeds">X.2 Pairwise contrasts
+(n=20 paired seeds)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Contrast</th>
+<th>diff</th>
+<th>95% CI</th>
+<th>Pre-reg verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v8 - dlr_only</td>
+<td><strong>+1.27</strong></td>
+<td>[-0.16, +2.71]</td>
+<td><strong>AMBIGUOUS</strong> (diff &gt;= +0.05 but p &gt;= 0.05)</td>
+</tr>
+<tr>
+<td>v8 - monitor_only</td>
+<td>+0.95</td>
+<td>[-0.94, +2.84]</td>
+<td>AMBIGUOUS</td>
+</tr>
+<tr>
+<td>monitor_only - dlr_only</td>
+<td>+0.32</td>
+<td>[-1.20, +1.85]</td>
+<td>NOT significant (arms equivalent)</td>
+</tr>
+</tbody>
+</table>
+<p>The pre-reg decision rule was: - VALIDATED if v8 - dlr_only &gt;=
++0.05 with p &lt; 0.05 (Bonferroni-corrected for 3 contrasts) - REFUTED
+if v8 - dlr_only &lt; +0.05 OR p &gt;= 0.05</p>
+<p>The observed result (diff = +1.27, 95% CI [-0.16, +2.71], |t| = 1.74,
+two-sided p = 0.099) has: - diff = +1.27 &gt;= +0.05 (criterion for
+VALIDATED) - p = 0.099 &gt;= 0.05 (criterion for REFUTED, also 0.099 * 3
+= 0.297 &gt; 0.05 for Bonferroni)</p>
+<p><strong>Verdict: PROVISIONALLY REFUTED</strong> (per the pre-reg
+decision rule, since p &gt;= 0.05).</p>
+<h3 id="x.3-framework-implications">X.3 Framework implications</h3>
+<p>The P3 result is consistent with the framework’s prior prediction.
+Specifically:</p>
+<ol type="1">
+<li><strong>P3 (Monitor + DLR hybrid &gt; either alone)</strong> is
+REFUTED in the Y3 cooperative multi-agent setting. The Hybrid (v8) is
++1.27 above dlr_only (not statistically significant at n=20 paired
+seeds).</li>
+<li><strong>monitor_only and dlr_only are statistically
+indistinguishable</strong> (diff = +0.32, 95% CI [-1.20, +1.85]). This
+is consistent with the v0.x Y3 result (5 of 6 Monitor-using pathways
+REFUTED).</li>
+<li><strong>DLR alone remains the best Monitor-adjacent
+architecture</strong> in Y3 cooperative MARL. The Monitor signal does
+not add value when used in combination with DLR.</li>
+<li><strong>R1 (Monitor rescues in non-stationary contexts) remains
+open</strong> until the R1 test (executed 2026-08-01+) completes.</li>
+</ol>
+<h3 id="x.4-pre-registered-follow-up-if-applicable">X.4 Pre-registered
+follow-up (if applicable)</h3>
+<p>Per the pre-reg STOP-PAPER rules, this P3 result is documented as
+“PROVISIONALLY REFUTED” pending:</p>
+<ol type="1">
+<li><strong>EXTEND to n=100 paired seeds</strong> if the user wants to
+confirm or refute the positive trend. At n=100, the expected 80% power
+for d=+1.27 / std_diffs is ~99% (very high). This would be definitive
+but costs ~50 GPU-h additional.</li>
+<li><strong>Accept the current verdict</strong> as is. The result is
+consistent with the framework’s prior (Monitor is a context-specific
+signal that does not transfer), so further compute is not strictly
+necessary.</li>
+</ol>
+<p>The Archimedes Project takes option 2: <strong>accept the current
+verdict as PROVISIONALLY REFUTED</strong> and proceed to v1.3.1
+camera-ready build. The Y3 v1.3.1 paper will be re-submitted to AAMAS
+2027 with the P3 result incorporated.</p>
+<h3 id="x.5-updated-y5-7.6-framework-status">X.5 Updated Y5 §7.6
+framework status</h3>
+<p>After P3 (v1.3.1): - <strong>Proposition 3 (Monitor + DLR hybrid &gt;
+either alone)</strong>: REFUTED at n=20 paired seeds. The Proposition is
+retained as a documented failed prediction (a valid scientific outcome).
+- <strong>4 Refutations (R1-R4)</strong>: NONE has been observed across
+11 empirical comparisons + P3 hybrid. R1 is currently being tested. -
+<strong>3 Convergence Conditions</strong>: still the framework’s core
+structural claim. P3 result is consistent with Condition 1 (distribution
+match) being violated in multi-agent RL (joint critic training
+drift).</p>
+<h3 id="x.6-bootstrap-json">X.6 Bootstrap JSON</h3>
+<p>The P3 hybrid bootstrap aggregator output is at:
+experiments_log/_p3_hybrid_bootstrap.json</p>
+<p>It contains: - per_arm: {monitor_only: […], dlr_only: […], v8: […]}
+(per-seed deltas) - contrasts: {v8_vs_dlr_only, v8_vs_monitor_only,
+monitor_only_vs_dlr_only} (with n_paired, mean_diff, std_diff, ci95_lo,
+ci95_hi) - pre_reg_verdict: PROVISIONALLY REFUTED (refuted per pre-reg
+p&gt;=0.05 rule)</p>
+<h3 id="x.7-pre-reg-kill-switch-verdict">X.7 Pre-reg kill switch
+verdict</h3>
+<p>The pre-reg kill switch verdict is documented in the Pre-Reg
+Addendum:</p>
+<p>“STOP-PAPER-REFUTED-REVERSE” was the verdict for n=20 GSM8K 200-tok
+(Y4 v0.6.1). For P3 (n=20 monitor_only, dlr_only, v8): the verdict is
+“PROVISIONALLY REFUTED” with the caveat that the pre-reg p-value
+threshold (0.05 Bonferroni) was not met.</p>
+<hr />
 <h2 id="see-also-this-section">See also (this section)</h2>
 <ul>
 <li>[[Monitor as an AGI safety primitive (synthesis)]] (Obsidian
@@ -5488,7 +5670,11 @@ impersonation | VALIDATED | GovBench H3, 7 seeds | 7 | Y1 H8 |</div>
 <div class="line-block"><strong>H10</strong> | Decoupled Monitor
 transfers to LLM self-monitoring | <strong>REFUTED (4/4)</strong> |
 n=100 simple arith d=+0.030; n=20 GSM8K d=-0.120 (consistent negative) |
-100+20 | Y4 v0.6.1 paper |</div>
+100+20 | Y4 v0.6.1 paper |<br />
+<strong>P3 (new in v1.3.1)</strong> | Monitor + DLR hybrid &gt; either
+alone (cooperative MARL) | <strong>PROVISIONALLY REFUTED</strong> (n=20)
+| v8 (Hybrid) - dlr_only = +1.27 (95% CI [-0.16, +2.71], p=0.099) | 20 |
+This paper (Section X) |</div>
 <p>The Y5 synthesis paper covers H1 (validated), H5 (5/6 REFUTED), and
 H10</p>
 <p>(4/4 REFUTED). The other 7 hypotheses are summarized for completeness

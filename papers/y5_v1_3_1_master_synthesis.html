@@ -4008,7 +4008,7 @@ Reinforcement</p>
 Large</p>
 <p>Language Models. NeurIPS 2022.</p></li>
 <li><p>P. Mishra et al. Self-Consistency Improves Chain of Thought
-Reasoning in</p></li>
+Reasoning in Large Language Models. ICLR 2023.</p></li>
 <li><p><strong>H. Shimodaira</strong>. Improving predictive inference
 under covariate shift by weighting the log-likelihood function.
 <em>Journal of Statistical Planning and Inference</em>, 90(2):227-244,
@@ -4034,8 +4034,7 @@ correction.)</p></li>
 <li><p><strong>L. V. Hedges</strong>. Distribution theory for Glass’s
 estimator of effect size and related estimators. <em>Journal of
 Educational and Behavioral Statistics</em>, 6(2):107-128, 1981.
-(Citation for §5.3.2 Hedges g bias correction.)</p>
-<p>Language Models. ICLR 2023.</p></li>
+(Citation for §5.3.2 Hedges g bias correction.)</p></li>
 </ol>
 <h2 id="appendix-d-per-seed-data-tables-full-reproducible-dump">Appendix
 D: Per-seed data tables (full reproducible dump)</h2>
@@ -5417,7 +5416,7 @@ across all 4 replications</h3>
 simple arith; n=20 GSM8K):</p>
 <ul>
 <li>The Monitor signal at the per-seed level is
-<strong>discrete</strong> (AUROC 閳?{0.0, 0.5, 1.0} due to rebalanced
+<strong>discrete</strong> (AUROC 闁�?{0.0, 0.5, 1.0} due to rebalanced
 splits with 8 rollouts)</li>
 <li>The joint monitor is <strong>never significantly better</strong>
 than the random monitor at any sample size</li>
@@ -5448,10 +5447,10 @@ collapsed)</p>
 interpretation</h3>
 <p>The per-seed AUROC values are inherently <strong>noisy</strong> at
 small per-seed n (8 rollouts). A 95% Wilson CI for an AUROC at 8
-rollouts is approximately 鍗?.4. This means: - An observed F-J of +1.000
-is consistent with the true F-J being anywhere in [-0.4, +1.0] - An
-observed F-J of 0.000 is consistent with the true F-J being in [0, +0.4]
-or [-0.4, 0]</p>
+rollouts is approximately 閸�?.4. This means: - An observed F-J of
++1.000 is consistent with the true F-J being anywhere in [-0.4, +1.0] -
+An observed F-J of 0.000 is consistent with the true F-J being in [0,
++0.4] or [-0.4, 0]</p>
 <p>This large per-seed uncertainty propagates to the seed-level mean but
 cancels out in the bootstrap CI (which uses 2000 replicates of the
 per-seed differences). The bootstrap CIs reported in Section 5 are

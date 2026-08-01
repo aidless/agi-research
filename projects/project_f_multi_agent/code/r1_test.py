@@ -107,8 +107,9 @@ def train_with_periodic_reset(args):
                     use_dlr_critic=use_dlr_critic,
                 )
 
-    final_mean = float(np.mean(history[-15:])) if history else 0.0
-    final_std = float(np.std(history[-15:])) if history else 0.0
+    final_returns = [h["mean_return"] for h in history[-15:]] if history else [0.0]
+    final_mean = float(np.mean(final_returns))
+    final_std = float(np.std(final_returns))
     delta = final_mean - rnd_mean
     print(f"  R1 ({args.arm}, reset_interval={reset_interval}) eval: "
           f"{final_mean:.2f} +/- {final_std:.2f}  (delta vs random: {delta:+.2f})")

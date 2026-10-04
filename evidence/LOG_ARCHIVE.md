@@ -24,7 +24,7 @@ sha256sum -c experiments_log_20260801.tar.gz.sha256
 tar -tzf evidence/experiments_log_20260801.tar.gz | head
 ```
 
-## 保留了��么
+## 保留了什么
 
 `experiments_log/` 下的实验记录**未做任何删改**：
 

@@ -1,4 +1,6 @@
-﻿# Archimedes Project (AGI-2026-001)
+# Archimedes Project (AGI-2026-001)
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)  [![Data](https://img.shields.io/badge/data-CC--BY--4.0-lightgrey.svg)](LICENSE)  [![CI](https://github.com/aidless/agi-research/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/agi-research/actions/workflows/ci.yml)
 
 A 5-year independent research program toward a self-improving
 AGI substrate. The central architectural claim: decoupling the

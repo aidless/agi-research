@@ -86,3 +86,6 @@ If you use this work, please cite both:
 ## License
 
 MIT -- see LICENSE for full attribution requirements.
+
+
+> **Dual license.** Archimedes releases the experiment records, results, and pre-registration documents under

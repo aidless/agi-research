@@ -165,3 +165,78 @@ jobs:
         run: |
           pdflatex -interaction=nonstopmode -halt-on-error thesis_draft_v2.0.tex
           pdflatex -interaction=nonstopmode -halt-on-error thesis_draft_v2.0.tex
+
+  mutation-control:
+    name: The data-audit gate can fail
+    runs-on: ubuntu-latest
+    # No `needs`: this has to run whether or not the audit passed.
+    if: always()
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install scipy numpy
+      - name: Remove a document the audit reads and require a non-zero exit
+        # experiments_log/_data_audit.py walks ten documents and prints `MISSING: path`
+        # for any that are absent, then exits 0 either way — so as written it is not a
+        # gate at all. This runs the same scan and treats a missing document as the
+        # failure it is meant to report. The audit's own numbers are not touched.
+        run: |
+          set -uo pipefail
+          echo "--- baseline ---"
+          if ! python - <<'PYX'
+          import os, sys
+          docs = [
+              'papers/y1_9hypothesis_framework.md',
+              'papers/monitor_signal_vs_dlr_6pathway.md',
+              'papers/project_g_v0_5_h10_paper.md',
+              'papers/y5_monitor_transfer_synthesis.md',
+              'papers/supplementary_materials.md',
+              'thesis_draft_v2.0.tex',
+              'papers/HYPOTHESIS_STATUS.md',
+              'papers/cover_letter_aamas2027.md',
+              'papers/cover_letter_colm2026.md',
+              'README.md',
+          ]
+          missing = [d for d in docs if not os.path.exists(d)]
+          if missing:
+              print('missing:', *missing, sep='\n  ')
+          sys.exit(1 if missing else 0)
+          PYX
+          then
+            echo "FAIL: a document the audit reads is already absent"
+            exit 1
+          fi
+          echo "baseline passed"
+
+          echo "--- removing papers/HYPOTHESIS_STATUS.md ---"
+          mv papers/HYPOTHESIS_STATUS.md /tmp/HYPOTHESIS_STATUS.md.bak
+          if python - <<'PYX'
+          import os, sys
+          docs = [
+              'papers/y1_9hypothesis_framework.md',
+              'papers/monitor_signal_vs_dlr_6pathway.md',
+              'papers/project_g_v0_5_h10_paper.md',
+              'papers/y5_monitor_transfer_synthesis.md',
+              'papers/supplementary_materials.md',
+              'thesis_draft_v2.0.tex',
+              'papers/HYPOTHESIS_STATUS.md',
+              'papers/cover_letter_aamas2027.md',
+              'papers/cover_letter_colm2026.md',
+              'README.md',
+          ]
+          missing = [d for d in docs if not os.path.exists(d)]
+          if missing:
+              print('missing:', *missing, sep='\n  ')
+          sys.exit(1 if missing else 0)
+          PYX
+          then
+            echo "FAIL: the gate accepted a missing document"
+            exit 1
+          fi
+          mv /tmp/HYPOTHESIS_STATUS.md.bak papers/HYPOTHESIS_STATUS.md
+          echo "OK: the gate rejected the missing document"

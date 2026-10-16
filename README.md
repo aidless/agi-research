@@ -16,6 +16,26 @@ monitoring (H10, REFUTED at n=100 with d=+0.030). One
 publishable positive result: v8 dlr_only (DLR in critic) gives
 +0.06 at n=100 (p<0.05 with Bonferroni).
 
+All numbers above are self-reported, in-progress results from a
+solo project; they have not been externally reviewed.
+
+## Publication status and scope
+
+**No manuscript from this repository is publicly released.** The
+project is under an active publication hold (`PUBLICATION_HOLD.md`):
+drafts stay internal until a single bundled, thesis-style write-up
+is ready. Venue names and cover letters under `papers/` are
+*targets*, not submitted artifacts.
+
+Scope of what is public here:
+
+- **Research artifact** — `papers/`, `projects/*/code/`,
+  `experiments_log/`, `thesis_draft_*.{tex,pdf}`, `ROADMAP.md`.
+- **Personal workspace material** — `phd_applications/`,
+  `grant_applications/`, `community/`, `study_materials/`. These are
+  drafts kept for convenience and are not part of the research
+  artifact; treat them as unmaintained notes.
+
 ## Repository layout
 
 ```
@@ -72,22 +92,27 @@ agi-research/
 
 The Y3 paper package is ready at `papers/arxiv_submission/`
 and the Y4 paper figures are in `papers/figures_v2/`. Both
-require an `ARXIV_TOKEN` environment variable to upload.
+require an `ARXIV_TOKEN` environment variable to upload. Upload
+is currently paused per `PUBLICATION_HOLD.md`.
 
 ## Citation
 
-If you use this work, please cite both:
+If you refer to this work, cite the drafts (not yet publicly
+released — see `PUBLICATION_HOLD.md`):
 
 - Liu, Z. (2026). The Failure-Prediction Monitor Does Not
   Transfer: A 6-Pathway Systematic Investigation of MARL
-  Architectures. AAMAS 2027 (under review).
+  Architectures. Manuscript draft; AAMAS 2027 target.
 - Liu, Z. (2026). When Decoupling Does Not Help LLM
   Self-Monitoring Either: A Pre-Registered n=5/20/100
-  Replication. COLM 2026 (under review).
+  Replication. Manuscript draft; COLM 2026 target.
 
 ## License
 
-MIT -- see LICENSE for full attribution requirements.
+The source code is MIT. Data, documentation, and pre-registration
+artifacts are CC-BY-4.0. See `LICENSE` for the full terms.
 
-
-> **Dual license.** Archimedes releases the experiment records, results, and pre-registration documents under
+> **Dual license.** Archimedes releases the experiment records,
+> results, and pre-registration documents under
+> [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/); the
+> code alongside them is MIT.

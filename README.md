@@ -31,10 +31,11 @@ Scope of what is public here:
 
 - **Research artifact** — `papers/`, `projects/*/code/`,
   `experiments_log/`, `thesis_draft_*.{tex,pdf}`, `ROADMAP.md`.
-- **Personal workspace material** — `phd_applications/`,
-  `grant_applications/`, `community/`, `study_materials/`. These are
-  drafts kept for convenience and are not part of the research
-  artifact; treat them as unmaintained notes.
+- **Workspace notes** — `community/`, `study_materials/`; drafts
+  kept for convenience, not part of the research artifact.
+- **Not in this repository** — personal application material
+  (`phd_applications/`, `grant_applications/`) was removed from the
+  tree; it is gitignored and must not be re-added here.
 
 ## Repository layout
 

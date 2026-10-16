@@ -1,4 +1,4 @@
-﻿# Python
+# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -52,4 +52,8 @@ _*.txt
 # Backup files
 *.pre_o1_backup
 *.bak
+
+# Personal application material — must never be published
+phd_applications/
+grant_applications/
 

@@ -80,6 +80,62 @@ agi-research/
 | H10: Decoupled Monitor to LLM self-monitoring | REFUTED at chance level | n=100, F-J d=+0.030, 95% CI [-0.087, +0.117] |
 | v8 dlr_only 3-seed independent replication | direction-consistent | [+0.27, -0.08, +0.30], 2/3 positive |
 
+## What this project proves — and what it does not
+
+**Proved (pre-registered, independently replicated where specified):**
+
+- **H1 / H2 (single-agent RL)** — a failure-prediction Monitor *decoupled* from the
+  policy gradient enables stable self-monitoring, and training-time Monitor beats
+  inference-time. VALIDATED: n=15, t=6.76, p<0.001 on LunarLander-v3; the Y1.3
+  variant (t=6.76, df=14) is the publishable positive result. Evidence:
+  `experiments_log/2026-07-27-phase15-y13-extend.md`,
+  `experiments_log/2026-07-27-phase15-y13-crosenv.md`.
+- **H5 (multi-agent, MARL)** — the decoupling claim is **REFUTED (5/6 pathways)**.
+  The single exception, v8 `dlr_only` (DLR in the critic), is itself a *publishable
+  positive*: +0.06 at n=100 (p<0.05 with Bonferroni), independently replicated
+  direction-consistent on fresh seeds 200–202 (paired diffs +0.27 / −0.08 / +0.30,
+  mean +0.163). Evidence: `experiments_log/_v8_sanity_4seed.json`,
+  `papers/monitor_signal_vs_dlr_6pathway.md`.
+- **H10 (LLM self-monitoring)** — the decoupling claim is **REFUTED at chance level**:
+  n=100, F−J Cohen's d=+0.030, 95% CI [−0.087, +0.117] (bootstrap p=0.787); consistent
+  at n=20 (GSM8K). Evidence: `experiments_log/_h10_n100_bootstrap.json`,
+  `experiments_log/_h10_n20_bootstrap.json`.
+- **All reported numbers are machine-auditable** — `make audit` (or
+  `python3 experiments_log/_data_audit.py`) cross-references every number in the
+  papers, thesis, and README against the JSON data files. It runs clean (exit 0).
+
+**This project does *not* prove:**
+
+- **Any final AGI substrate** — the 5-year program is at Y0 Q3; the Monitor primitive
+  is a necessary-condition result, not a sufficiency claim about AGI.
+- **Any external validity beyond the tested environments** — H1/H2 hold on
+  LunarLander-v3 (one env, one seed set); cross-env and H5/H10 show the transfer is
+  *not* automatic. The README's headline claim is deliberately scoped to "in
+  single-agent RL" and to "one publishable positive result".
+- **Any claim that a refuted hypothesis is a *general* negative** — each refutation
+  is bounded by its environment/sample (e.g. H4 tested in 1 env 1 seed; H5 partial).
+- **Any publication-readiness** — no manuscript is publicly released
+  (`PUBLICATION_HOLD.md`); venue names in `papers/` are *targets*, not submissions.
+
+## Reproduce every reported number
+
+```bash
+# 1. Cross-reference all reported numbers against the JSON data files (exit 0 = clean)
+make audit        # or: python3 experiments_log/_data_audit.py
+
+# 2. Per-result evidence:
+#    H10 n=100:  experiments_log/_h10_n100_bootstrap.json
+#    H10 n=20:   experiments_log/_h10_n20_bootstrap.json
+#    v8 3-seed:  experiments_log/_v8_sanity_4seed.json
+#    H1/H2:      experiments_log/2026-07-27-phase15-y13-extend.md
+```
+
+The JSON files are the authoritative per-seed/per-contrast records; every number in
+the prose above is read from them (no hard-coded constants in the README). Full
+re-running of the RL experiments requires torch + pettingzoo 1.24.3 + gymnasium 1.3.0
+(`pip install -r requirements.txt`) and is intentionally *not* part of the quick
+audit — the audit is the reproducibility gate for the reported statistics.
+
 ## Reproducibility
 
 - Y3: `experiments_log/2026-07-29-y2-final-6-pathway.md` +

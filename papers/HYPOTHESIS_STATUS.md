@@ -1,5 +1,14 @@
 ﻿# Archimedes Project: H1-H10 Hypothesis Status (2026-07-31)
 
+> **Snapshot, not the current ledger.** This table is the 2026-07-31
+> write-up. It still marks H1 and H2 validated with t = 6.76 and
+> p < 0.001. That statistic is not recoverable from
+> `experiments_log/y13_n10_per_arm_summary.json`, and the
+> pre-registered negative control concluded the monitor-versus-random
+> contrast was not supported (Welch t = 0.78). H5 monitor pathways
+> and H10 stay falsified. Read `STATUS.md` for the claim / note /
+> verified split.
+
 This file aggregates the verification status of every hypothesis
 in the Archimedes Project framework as of 2026-07-31 (with H10
 GSM8K 200-token follow-up in flight, see end of file). It

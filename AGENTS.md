@@ -8,7 +8,7 @@ This folder is your AGI research workspace managed by Codex (an AI agent).
   which draft to ship. Your time is spent on review + judgment.
 - Codex has no memory across sessions. Always re-state the current goal at the
   start of a new session by opening this file or pointing Codex at
-  `E:\agi-research\PROGRESS.md`.
+  `PROGRESS.md`.
 
 ## Directory layout (authoritative)
 - `README.md`        : entry point, "what to do today"

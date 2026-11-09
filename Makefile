@@ -13,14 +13,14 @@ help:
 	@echo "Archimedes Project Makefile"
 	@echo ""
 	@echo "Main targets:"
-	@echo "  make pdfs       Build all 5 paper PDFs (Y1, Y3, Y4, Y5, thesis)"
+	@echo "  make pdfs       Attempt Y1, Y3, Y4, Y5, and thesis PDFs (paper jobs are not on push CI)"
 	@echo "  make figures    Regenerate all PNGs in papers/figures_v2/"
-	@echo "  make audit      Run data audit (cross-reference all numbers)"
+	@echo "  make audit      String-search 12 documents (missing strings still exit 0)"
 	@echo "  make reproduce  Print reproduce commands"
 	@echo "  make arxiv-dry-run"
 	@echo "  make arxiv-submit (requires ARXIV_TOKEN env var)"
 	@echo "  make clean      Remove LaTeX aux/log/out/toc files"
-	@echo "  make test       Run audit (alias for now)"
+	@echo "  make test       Front-door honesty checks, then the string audit"
 	@echo "  make help       This message"
 
 # ----- paper PDFs -----
@@ -64,10 +64,13 @@ figures:
 	$(PY) experiments_log/_mk_global_fig.py
 
 # ----- audit -----
-.PHONY: audit
+.PHONY: audit front-door
 audit:
 	$(PY) experiments_log/_data_audit.py
-	@echo "Audit complete."
+	@echo "Audit complete. A missing string does not fail this target."
+
+front-door:
+	$(PY) tests/test_front_door_honesty.py
 
 # ----- reproduce (does NOT actually run the experiments, just prints commands) -----
 .PHONY: reproduce
@@ -103,7 +106,9 @@ clean-all: clean
 	find . -name "*.pdf" ! -path "./thesis_draft_v2.0.pdf" ! -path "./papers/*.pdf" -delete
 	@echo "Removed all generated PDFs (except in papers/ and thesis_draft_v2.0.pdf)."
 
-# ----- test (data audit) -----
-.PHONY: test
-test: audit
-	@echo "All tests pass."
+# ----- test -----
+# `check` is the verification entry point named in the PR template.
+# It runs the 18 front-door checks, then the string audit.
+.PHONY: test check
+test check: front-door audit
+	@echo "Front-door checks passed. The audit above does not fail on a missing string."

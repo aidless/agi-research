@@ -21,7 +21,7 @@ pip install torch numpy gymnasium
 
 ### Step 1: 训练 PPO + 训练 Monitor
 ```bash
-cd E:\agi-research\projects\project_a_self_improvement\code
+cd projects/project_a_self_improvement/code
 python main.py --env CartPole-v1 --total-steps 60000 --eval-episodes 80
 ```
 预期输出（在 CPU 上 3-5 分钟）：

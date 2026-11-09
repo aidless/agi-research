@@ -2,6 +2,8 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)  [![Data](https://img.shields.io/badge/data-CC--BY--4.0-lightgrey.svg)](LICENSE)  [![CI](https://github.com/aidless/agi-research/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/agi-research/actions/workflows/ci.yml)
 
+> 🗂 **仓库族谱**：「自主研究循环」主线仓是 [ai-researcher](https://github.com/aidless/ai-researcher)（工具/证据链）；本仓定位是五年期研究纲领（Archimedes Project），不是工具仓。
+
 A 5-year independent research program toward a self-improving
 AGI substrate. The central architectural claim: decoupling the
 failure-prediction Monitor from the policy gradient enables

@@ -29,7 +29,7 @@ A single Markdown block with:
 - Do not execute commands; plan only.
 - Each sub-task must be independently executable or have clear prerequisites.
 - If you cannot plan, return a WHY-NOT-EXECUTABLE block.
-- Always check E:\agi-research\PROGRESS.md to see what has already been done;
+- Always check `PROGRESS.md` to see what has already been done;
   do not duplicate finished work.
 - For Y0 Q2 deliverable: prefer "R1 Research Report draft" over "fresh experiment"
   if data is not yet available.

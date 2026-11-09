@@ -29,9 +29,9 @@ Per sub-task, return:
 - Do not skip verification; if it did not work, retry before reporting.
 - Use Add-Content line-by-line for non-trivial Python files (PowerShell
   heredoc quotes bite).
-- When in doubt about Python version, use C:\Users\Administrator\AppData\Local\
-  hermes\hermes-agent\venv\Scripts\python.exe for general code, or
-  Python 3.10 at Trae Solo CN for procgen.
+- When in doubt about Python version, use the project virtualenv's
+  `python` for general code, or the environment that has procgen
+  installed for procgen. Do not hard-code a user profile path.
 
 ## Stack / Tools
 
@@ -48,4 +48,4 @@ Per sub-task, return:
 - Skipping verification.
 - Producing empty / partial files.
 - Mixing Python versions mid-script.
-- Writing PowerShell to path-traverse outside E:\agi-research.
+- Writing PowerShell to path-traverse outside this repository.

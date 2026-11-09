@@ -1,5 +1,9 @@
 ﻿# PROGRESS.md - Current Status
 
+> The result ledger is `STATUS.md`. What that page does not prove is
+> `FAILURE_MODES.md`. Sections below are dated session notes. A
+> 2026-07-25 "smoke test passed" line is not the current ledger.
+
 > **Codex has no cross-session memory**. Every new session should start with:
 > 1. Open this file
 > 2. Codex will read it + AGENTS.md + ROADMAP.md
@@ -99,7 +103,7 @@ Decisions (Path 6)
 Copy this into a new conversation:
 
 `
-I am the owner of E:\agi-research\. Continue the AGI research.
+I am the owner of this repository. Continue the research notebook.
 1. Read AGENTS.md and PROGRESS.md and ROADMAP.md.
 2. Top priorities for this session:
    (a) Run full CartPole training (--total-steps 60000)
@@ -136,17 +140,17 @@ I am the owner of E:\agi-research\. Continue the AGI research.
 ### You run tonight (1):
 `
 cd projects\project_a_self_improvement\code
-"C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe" main.py --env CartPole-v1 --total-steps 60000 --eval-episodes 80
+python main.py --env CartPole-v1 --total-steps 60000 --eval-episodes 80
 `
 
 Then evaluate:
 `
-"C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe" evaluate.py --env CartPole-v1 --n-episodes 100 --seed 999
+python evaluate.py --env CartPole-v1 --n-episodes 100 --seed 999
 `
 
 ---
 
-Open new conversation with: "Open E:\agi-research\PROGRESS.md, continue from there."
+Open new conversation with: "Open PROGRESS.md, continue from there."
 
 ## Last session state (2026-07-26)
 
@@ -2056,8 +2060,8 @@ as positive would be, with explicit n=4 limitation acknowledged.*
   Docstring updated to reflect actual behavior.
 
 - [x] **Bug fix in dlr_lunarlander.py**: missing backslash in
-  `PA_CODE = Path(r"E:gi-research\...")` (path was `E:` + BEL +
-  `gi-research`, unresolvable). Fixed to `E:\agi-research\...`.
+  an absolute `PA_CODE` path (drive letter plus a BEL character plus
+  `gi-research`, unresolvable). Fixed to a path under this repository.
   Path now resolves to a real directory.
 
 - [x] **H5 in 9-hypo framework updated**:
@@ -2650,12 +2654,12 @@ copy is preserved for diff. Fixes were mostly mechanical:
   - Several `\texttt{...}` blocks rewritten as proper math
     (lines 381, 386, 391-392, 1273-1276, 1287-1289, 1399,
     2273, 3321-3326, 3862) plus Appendix C heading cleanup
-    (no `F:\TMLR\` in section title).
+    (no private-reference drive path in the section title).
 
 O2 (H10 n=20): completed. The earlier "llm_monitor
 ModuleNotFoundError" was actually a sys.path issue; the launcher
 `experiments_log/_run_h10_n20.ps1` was patched to insert
-`sys.path.insert(0, r"E:\agi-research\projects\project_g_llm_self_monitoring\code")`
+`sys.path.insert(0, "projects/project_g_llm_self_monitoring/code")`
 before `exec` of the pilot. Tokens reduced to 16 via
 `H10_MAX_NEW_TOKENS` for CPU wall-clock. 60 jobs (3 arms x
 20 seeds 100-119) ran to completion in ~1 hour at MAX_PARALLEL=1.

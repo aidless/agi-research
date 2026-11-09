@@ -23,6 +23,9 @@ jobs:
       - name: Run data audit
         run: |
           python experiments_log/_data_audit.py
+      - name: Front-door honesty checks
+        run: |
+          python tests/test_front_door_honesty.py
 
   build-y1:
     name: Build Y1 paper PDF
@@ -181,7 +184,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install scipy numpy
       - name: Remove a document the audit reads and require a non-zero exit
-        # experiments_log/_data_audit.py walks ten documents and prints `MISSING: path`
+        # experiments_log/_data_audit.py walks twelve documents and prints `MISSING: path`
         # for any that are absent, then exits 0 either way — so as written it is not a
         # gate at all. This runs the same scan and treats a missing document as the
         # failure it is meant to report. The audit's own numbers are not touched.
@@ -201,6 +204,8 @@ jobs:
               'papers/cover_letter_aamas2027.md',
               'papers/cover_letter_colm2026.md',
               'README.md',
+              'STATUS.md',
+              'FAILURE_MODES.md',
           ]
           missing = [d for d in docs if not os.path.exists(d)]
           if missing:
@@ -228,6 +233,8 @@ jobs:
               'papers/cover_letter_aamas2027.md',
               'papers/cover_letter_colm2026.md',
               'README.md',
+              'STATUS.md',
+              'FAILURE_MODES.md',
           ]
           missing = [d for d in docs if not os.path.exists(d)]
           if missing:

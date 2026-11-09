@@ -24,6 +24,8 @@ docs = {
     'COVER_AAMAS': 'papers/cover_letter_aamas2027.md',
     'COVER_COLM': 'papers/cover_letter_colm2026.md',
     'README': 'README.md',
+    'STATUS': 'STATUS.md',
+    'FAILURE_MODES': 'FAILURE_MODES.md',
 }
 
 targets = {
@@ -82,7 +84,7 @@ for label, path in docs.items():
             findings[key][needle].append(label)
 
 print("="*60)
-print("DATA AUDIT (v2: 10 sources)")
+print("DATA AUDIT (v2: 12 sources)")
 print("="*60)
 for key in sorted(set(k[0] for k in targets.keys())):
     print(f"\n[{key}]")

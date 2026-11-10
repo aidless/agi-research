@@ -82,6 +82,51 @@ agi-research/
 | H10: Decoupled Monitor to LLM self-monitoring | REFUTED at chance level | n=100, F-J d=+0.030, 95% CI [-0.087, +0.117] |
 | v8 dlr_only 3-seed independent replication | direction-consistent | [+0.27, -0.08, +0.30], 2/3 positive |
 
+## Quickstart (verify the numbers)
+
+Every cross-document number can be re-checked in one command — the audit
+cross-references Y1/Y3/Y4/Y5 papers, thesis, `HYPOTHESIS_STATUS.md`, cover
+letters and this README against each other (57 consistency lines):
+
+```bash
+make audit PY=python3        # Makefile defaults to `python`; pass PY=python3 where no alias exists
+```
+
+Real output head (2026-11-10):
+
+```text
+============================================================
+DATA AUDIT (v2: 10 sources)
+============================================================
+
+[H10 GSM8K n=20]
+  -0.053: Y4_paper, Y5_paper, supplementary
+  STOP-PAPER-REFUTED-REVERSE: Y4_paper, Y5_paper, HYPOTHESIS_STATUS
+[Y1.3]
+  6.76: Y1_paper, Y3_paper, Y4_paper, Y5_paper, thesis, HYPOTHESIS_STATUS, COVER_COLM, README
+[v8 dlr_only n=100]
+  0.0617: Y3_paper, Y5_paper, supplementary, thesis
+  p=0.0433: Y3_paper, Y5_paper
+Audit complete.
+```
+
+Any edit that breaks a number's consistency across documents fails this audit.
+
+## Hypothesis verdict map (from papers/HYPOTHESIS_STATUS.md)
+
+```mermaid
+pie title H1-H10 verdicts (2026-07-31, papers/HYPOTHESIS_STATUS.md)
+    "VALIDATED (H1, H2, H3, H7, H8)" : 5
+    "VALIDATED w/ caveat (H4: 1 env, 1 seed)" : 1
+    "REFUTED (H1.4, H5 5/6, H6, H10)" : 4
+    "OPEN (H9)" : 1
+```
+
+The full per-hypothesis table (statement, n, key result, source) lives in
+[papers/HYPOTHESIS_STATUS.md](papers/HYPOTHESIS_STATUS.md); H5 and H10 both
+carry pre-registration documents written before data collection
+(`papers/supplementary_materials.md` §S11).
+
 ## Reproducibility
 
 - Y3: `experiments_log/2026-07-29-y2-final-6-pathway.md` +

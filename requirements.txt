@@ -1,4 +1,4 @@
-﻿# Archimedes Project: Python dependencies for the H10 and v8 dlr_only
+# Archimedes Project: Python dependencies for the H10 and v8 dlr_only
 # experiments. Tested on Python 3.10.11 and 3.11.
 #
 # To install:
@@ -8,7 +8,7 @@
 # for compatibility with the v8 dlr_only experiments.
 
 # Core
-numpy==1.26.4
+numpy==2.5.4
 torch>=2.0,<2.14
 
 # v8 dlr_only (cooperative MARL)

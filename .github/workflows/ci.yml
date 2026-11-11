@@ -12,8 +12,8 @@ jobs:
     name: Data audit
     runs-on: ubuntu-latest
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
       - name: Install Python dependencies for the audit
@@ -37,8 +37,8 @@ jobs:
     # until they are fixed. The data audit stays on every push.
     if: github.event_name == 'workflow_dispatch'
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
       - name: Install TeX Live and pandoc
@@ -85,7 +85,7 @@ jobs:
     # until they are fixed. The data audit stays on every push.
     if: github.event_name == 'workflow_dispatch'
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Install TeX Live and pandoc
         run: |
           sudo apt-get update
@@ -110,7 +110,7 @@ jobs:
     # until they are fixed. The data audit stays on every push.
     if: github.event_name == 'workflow_dispatch'
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Install TeX Live and pandoc
         run: |
           sudo apt-get update
@@ -138,7 +138,7 @@ jobs:
     # until they are fixed. The data audit stays on every push.
     if: github.event_name == 'workflow_dispatch'
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Install TeX Live and pandoc
         run: |
           sudo apt-get update
@@ -156,7 +156,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: audit
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Install TeX Live and pandoc
         run: |
           sudo apt-get update
@@ -172,8 +172,8 @@ jobs:
     # No `needs`: this has to run whether or not the audit passed.
     if: always()
     steps:
-      - actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -249,7 +249,7 @@ jobs:
     # take effect until the branch is regenerated. Pinned, not latest.
     runs-on: ubuntu-latest
     steps:
-      - actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
       - name: gitleaks (full history)

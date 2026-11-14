@@ -35,10 +35,9 @@ PA_CODE = Path(r"E:\agi-research\projects\project_a_self_improvement\code")
 sys.path.insert(0, str(PA_CODE))
 sys.path.insert(0, str(HERE.parent / "project_c_causal_world" / "code"))
 
-import envs
-from envs import make_env, rollout_one_episode
+from envs import make_env
 from differentiable_logic import (
-    SoftLogic, Predicate, FormulaBuilder, DifferentiableReasoner,
+    SoftLogic,
 )
 
 

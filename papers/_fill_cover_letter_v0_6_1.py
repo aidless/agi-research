@@ -16,7 +16,6 @@ Run from any cwd once aggregator has produced bootstrap JSON:
 
 import json
 import os
-import re
 import glob
 
 PAPERS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +41,7 @@ def main():
     js = find_bootstrap()
     if not js:
         print(f"  No bootstrap JSON at {os.path.join(EXP_DIR, '_h10_n20_gsm8k_bootstrap.json')}")
-        print(f"  Run aggregator first.")
+        print("  Run aggregator first.")
         return 1
     print(f"  Reading {js}")
     with open(js, encoding="utf-8") as f:

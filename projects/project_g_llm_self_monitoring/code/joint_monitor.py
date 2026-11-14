@@ -27,7 +27,6 @@ drift" without requiring a real LM.
 """
 
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 
 from llm_monitor import LLMSlotMonitor

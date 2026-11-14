@@ -156,7 +156,7 @@ def main():
     n_expected = count_expected()
     print(f"[1] Launcher check: {n_done} / {n_expected} jobs DONE")
     if n_done < n_expected:
-        print(f"    Not done yet; run again after jobs complete.")
+        print("    Not done yet; run again after jobs complete.")
         print(f"    Done file: {done_path}")
         return 1
 

@@ -26,7 +26,6 @@ Performance note:
 - For 200 rollouts (full pre-reg): ~5 hours on CPU, much faster on GPU.
 """
 
-import os
 import torch
 
 

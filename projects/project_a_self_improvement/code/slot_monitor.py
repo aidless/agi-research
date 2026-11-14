@@ -27,12 +27,11 @@ sys.path.insert(0, str(PC_CODE))
 
 import envs
 from ppo import PPOAgent, PPOConfig
-from monitor import FailureMonitor, MonitorConfig, _quick_auroc
+from monitor import _quick_auroc
 from envs import rollout_one_episode
 from slot_attention import SlotAttention
 
 # Borrow / import existing pieces
-from env_state_cloner import EnvStateCloner
 
 
 def build_slot_input(transitions, history_len, obs_dim, n_actions):
@@ -227,7 +226,7 @@ def main():
     out.append("")
     out.append("=== A+C Integration Result ===")
     out.append(f"  SlotMonitor (slot-attention -> MLP) AUROC: {auroc:.4f}")
-    out.append(f"  Reference (frozen Monitor, raw history) AUROC: 0.796 (from CHANGELOG v1.8)")
+    out.append("  Reference (frozen Monitor, raw history) AUROC: 0.796 (from CHANGELOG v1.8)")
 
     print(chr(10).join(out))
 

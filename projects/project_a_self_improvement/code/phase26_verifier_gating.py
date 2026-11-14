@@ -14,7 +14,6 @@ Logic per step:
 import argparse
 import json
 import sys
-import io
 sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
@@ -35,7 +34,7 @@ import envs
 from ppo import PPOAgent, PPOConfig
 from envs import rollout_one_episode, Transition
 from slot_attention import SlotAttention
-from ltl_verifier import verify_rule, DEFAULT_RULES, evaluate_ltl
+from ltl_verifier import verify_rule, DEFAULT_RULES
 
 
 class SlotMonitor(nn.Module):

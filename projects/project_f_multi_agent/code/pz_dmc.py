@@ -34,7 +34,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Dict, List, Tuple
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -122,8 +121,7 @@ def make_env(max_cycles=25):
                                 continuous_actions=False)
 
 # Reuse shared PPO from pz_shared_baseline.py
-from pz_shared_baseline import (SharedActorCritic, collect_episode_shared,
-                                  ppo_update_shared, evaluate_shared as evaluate_shared_baseline,
+from pz_shared_baseline import (evaluate_shared as evaluate_shared_baseline,
                                   train_shared_ppo)
 
 
@@ -420,7 +418,7 @@ def main():
     print(f"  Monitor training: {args.n_monitor_episodes} frozen-PPO episodes")
     print(f"  Stage 2: {args.n_shaped_updates} shaped PPO updates")
     print(f"  History len: {args.history_len}, eval episodes: {args.n_eval_episodes}")
-    print(f"  Per-agent: independent PPO + independent Monitor + Y1.3-style shaping")
+    print("  Per-agent: independent PPO + independent Monitor + Y1.3-style shaping")
     print()
 
     torch.manual_seed(args.seed)
@@ -599,7 +597,7 @@ def main():
     print(f"  Delta vs random:         {delta_vs_random:+7.2f}")
     print(f"  Delta vs Stage 1 PPO:    {delta_vs_s1:+7.2f}")
     print()
-    print(f"  Per-agent Monitor AUROC (frozen PPO rollouts):")
+    print("  Per-agent Monitor AUROC (frozen PPO rollouts):")
     for a, v in mon_aurocs.items():
         print(f"    {a}: {v:.3f}")
     print(f"  Joint failure predictor AUROC: {joint_auroc:.3f}")

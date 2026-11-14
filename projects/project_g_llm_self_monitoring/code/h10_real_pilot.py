@@ -37,7 +37,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import time
 import torch
-import numpy as np
 
 from llm_monitor import LLMSlotMonitor
 from joint_monitor import train_frozen_monitor, train_joint_monitor

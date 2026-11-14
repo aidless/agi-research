@@ -30,11 +30,10 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent.parent / "project_c_causal_world" / "code"))
 
-import envs
 from envs import make_env, Transition
 from ppo import PPOConfig, PPOAgent
 from slot_attention import SlotAttention  # noqa: E402
-from calibration import compute_auroc, platt_fit, platt_apply
+from calibration import compute_auroc
 
 
 class SlotMonitor(nn.Module):

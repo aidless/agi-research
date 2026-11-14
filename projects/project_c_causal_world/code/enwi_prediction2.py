@@ -13,7 +13,6 @@ sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 
 HERE = Path(__file__).resolve().parent

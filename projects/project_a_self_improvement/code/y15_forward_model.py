@@ -194,7 +194,7 @@ def main():
     else:
         for p_ in fm.parameters():
             p_.requires_grad = False
-        out.append(f"[Phase 2] Forward model RANDOM (not trained) - control")
+        out.append("[Phase 2] Forward model RANDOM (not trained) - control")
 
     # Phase 3: PPO continued with FM exploration bonus
     fm_agent = FMSPPO(cfg, fm, args.bonus_coeff)

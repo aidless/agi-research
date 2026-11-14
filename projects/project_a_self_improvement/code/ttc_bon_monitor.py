@@ -27,8 +27,8 @@ sys.path.insert(0, str(HERE))
 
 import envs
 from ppo import PPOAgent, PPOConfig
-from monitor import FailureMonitor, MonitorConfig, _quick_auroc
-from envs import rollout_one_episode, EpisodeLog, Transition
+from monitor import FailureMonitor, MonitorConfig
+from envs import rollout_one_episode, Transition
 from env_state_cloner import EnvStateCloner
 
 
@@ -164,9 +164,9 @@ def main():
     n_neg_check = len(train_returns) - n_pos_check
     use_balanced = bool(args.monitor_balanced) and n_pos_check > 0 and n_neg_check > n_pos_check * 2
     if use_balanced:
-        out.append(f"  Using balanced Monitor training (4:1 neg:pos)")
+        out.append("  Using balanced Monitor training (4:1 neg:pos)")
     else:
-        out.append(f"  Using natural Monitor training (no balancing)")
+        out.append("  Using natural Monitor training (no balancing)")
     mcfg = MonitorConfig(history_dim=history_dim, seed=args.seed,
                           epochs=args.monitor_epochs_train, hidden=args.monitor_hidden)
     monitor = FailureMonitor(mcfg)

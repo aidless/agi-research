@@ -30,7 +30,7 @@ sys.path.insert(0, str(HERE))
 
 import envs
 from ppo import PPOAgent, PPOConfig
-from envs import rollout_one_episode, Transition
+from envs import rollout_one_episode
 
 # Reuse slot_attention module
 from slot_attention import SlotAttention, slot_diversity_loss
@@ -212,13 +212,13 @@ def main():
     out.append("=== Slot-WM PoC Result ===")
     out.append(f"  Reconstruction loss: {recon.item():.4f} (lower=better)")
     out.append(f"  Diversity loss: {div.item():.4f} (lower=more diverse)")
-    out.append(f"  Slot specialization: see per-slot top features above")
+    out.append("  Slot specialization: see per-slot top features above")
     if div.item() < 0.15:
-        out.append(f"  STRONG specialization: slots have distinct feature preferences")
+        out.append("  STRONG specialization: slots have distinct feature preferences")
     elif div.item() < 0.30:
-        out.append(f"  MODERATE specialization: some slot differentiation")
+        out.append("  MODERATE specialization: some slot differentiation")
     else:
-        out.append(f"  WEAK specialization: slots are similar to each other")
+        out.append("  WEAK specialization: slots are similar to each other")
 
     print(chr(10).join(out))
 

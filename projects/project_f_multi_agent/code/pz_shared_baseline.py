@@ -29,7 +29,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Dict, List
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -277,7 +276,7 @@ def main():
     print("PPO with Parameter Sharing — PettingZoo Simple Spread v3")
     print("=" * 60)
     print(f"  seed={args.seed}, n_episodes={args.n_episodes}, n_updates={args.n_updates}")
-    print(f"  1 shared actor + 1 shared critic for all 3 agents")
+    print("  1 shared actor + 1 shared critic for all 3 agents")
     print(f"  HONEST: short training ({args.n_episodes * args.n_updates} episodes)")
     print()
 
@@ -313,7 +312,7 @@ def main():
     print("PARAMETER-SHARING PPO SUMMARY")
     print("=" * 60)
     print(f"  Random baseline:    {random_mean:7.2f} +/- {random_std:5.2f}")
-    print(f"  Per-agent PPO:       -100.51    21.70  (from prior run)")
+    print("  Per-agent PPO:       -100.51    21.70  (from prior run)")
     print(f"  Shared PPO (eval):   {eval_mean:7.2f} +/- {eval_std:5.2f}")
     print(f"  Shared vs random:    {delta:+7.2f}")
     print(f"  Shared vs per-agent: {eval_mean - (-100.51):+7.2f}")
@@ -325,8 +324,8 @@ def main():
     print(f"  Verdict: {verdict}")
     print()
     print("Honest interpretation:")
-    print(f"  - Parameter sharing: 1 policy vs 3 policies")
-    print(f"  - Implicit credit assignment through shared representations")
+    print("  - Parameter sharing: 1 policy vs 3 policies")
+    print("  - Implicit credit assignment through shared representations")
     print(f"  - {'Strong improvement over per-agent' if eval_mean > -85 else 'Modest/no improvement'}")
     print(f"  - {'Now we have a real PPO baseline' if eval_mean > random_mean else 'Need to try MADDPG/QMIX'}")
 

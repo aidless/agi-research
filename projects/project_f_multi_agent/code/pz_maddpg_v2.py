@@ -213,7 +213,7 @@ def main():
     print("=" * 60)
     print(f"  seed={args.seed}, n_updates={args.n_updates}, n_episodes/update={args.n_episodes_per_update}")
     print(f"  buffer={args.buffer_size}, batch={args.batch_size}, gamma=0.95, tau=0.01")
-    print(f"  noise decay: 0.5 -> 0.05 over first half of training")
+    print("  noise decay: 0.5 -> 0.05 over first half of training")
     print()
     torch.manual_seed(args.seed); np.random.seed(args.seed)
     print("Phase 1: Random baseline (continuous actions)...")

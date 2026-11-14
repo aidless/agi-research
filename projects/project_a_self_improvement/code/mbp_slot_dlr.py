@@ -53,7 +53,6 @@ from envs import rollout_one_episode
 from slot_attention import SlotAttention
 from differentiable_logic import SoftLogic
 from dlr_attention import (
-    ObsToSlots, AttnSlotPredicateNet,
     collect_dataset, train_jointly,
 )
 

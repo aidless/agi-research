@@ -25,7 +25,7 @@ sys.path.insert(0, str(HERE))
 
 import envs
 from ppo import PPOAgent, PPOConfig
-from envs import rollout_one_episode, Transition
+from envs import rollout_one_episode
 from env_state_cloner import EnvStateCloner
 
 

@@ -15,8 +15,6 @@ Outputs:
 - y1_table1_dlr_summary.tex: DLR table
 - y1_table2_y13_summary.tex: Y1.3 summary table
 """
-import json
-import sys
 from pathlib import Path
 
 import matplotlib

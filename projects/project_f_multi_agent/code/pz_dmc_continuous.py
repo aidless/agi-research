@@ -3,7 +3,7 @@ Continuous action (5-dim sigmoid) per agent. Same Y1.3-style reward shaping.
 Same per-agent Monitor (frozen PPO rollout training).
 Compute: 80 updates x 10 episodes = 800 env episodes, matched to pz_maddpg_v2.py.
 """
-import argparse, json, sys, io, contextlib
+import argparse, json, sys
 sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np, torch
@@ -219,12 +219,9 @@ def _train_shared_ppo_quiet_continuous(n_episodes, n_updates, seed, max_cycles):
     share weights across agents to keep things stable. We then broadcast
     to per-agent actors for Stage 2 (which gets independent PPO updates).
     """
-    from pz_maddpg_v2 import collect_episode_with_next, ReplayBuffer  # not used
     # Fallback: we use the MADDPG v2 actors as Stage 1 (already trained as off-policy).
     # However for matched compute we want fresh Stage 1 + Stage 2. Simpler:
     # we train a single SHARED continuous policy via PPO-style update, then broadcast.
-    from collections import deque
-    from torch.distributions import Normal
     env = make_env(max_cycles); obs_dim = env.observation_space("agent_0").shape[0]
     action_dim = env.action_space("agent_0").shape[0]; env.close()
     torch.manual_seed(seed); np.random.seed(seed)
@@ -355,7 +352,7 @@ def main():
     print(f"  DMC (Stage 2, shaped):    {final_mean:7.2f} +/- {final_std:5.2f}")
     print(f"  Delta vs random:          {final_mean - rnd_mean:+7.2f}")
     print(f"  Delta vs Stage 1 PPO:     {final_mean - s1_mean:+7.2f}")
-    print(f"  Monitor AUROC: " + ", ".join(f"{a}={v:.3f}" for a, v in mon_aurocs.items()))
+    print("  Monitor AUROC: " + ", ".join(f"{a}={v:.3f}" for a, v in mon_aurocs.items()))
     log_path = HERE / "checkpoints" / "pz_dmc_continuous" / f"seed{args.seed}_{args.shaping_mode}" / "phase2_log.json"
     log_path.parent.mkdir(parents=True, exist_ok=True)
     log_path.write_text(json.dumps({

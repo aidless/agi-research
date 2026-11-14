@@ -14,7 +14,6 @@ LunarLander predicates:
   velocity_below(x), angle_below(x), distance_to_pad(d)
 """
 import re
-from typing import List, Dict, Callable, Tuple, Any
 
 
 # LunarLander predicates as Python functions

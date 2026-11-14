@@ -1,5 +1,5 @@
 """Aggregate H12b-3B multi-seed results from log files."""
-import sys, os, re
+import os, re
 import numpy as np
 
 log_dir = r"E:\agi-research\experiments_log"

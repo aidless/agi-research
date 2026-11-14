@@ -15,10 +15,7 @@ which only supports propositional LTL on discrete states.
 """
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from typing import List, Dict, Tuple, Optional, Callable
-from dataclasses import dataclass
-import math
+from typing import Dict, Optional
 
 
 class SoftLogic:

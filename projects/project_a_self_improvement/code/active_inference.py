@@ -12,8 +12,6 @@ Core principle:
 Action selection: pick action minimizing EXPECTED free energy
   (epistemic value: information gain + pragmatic value: goal achievement)
 """
-import argparse
-import json
 import sys
 sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
@@ -27,9 +25,6 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "project_c_causal_world" / "code"))
 
-import envs
-from ppo import PPOAgent, PPOConfig
-from envs import rollout_one_episode, Transition
 
 
 class FreeEnergyComputer(nn.Module):

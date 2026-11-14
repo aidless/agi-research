@@ -1,4 +1,4 @@
-﻿import hashlib, os, sys
+﻿import hashlib, os
 
 PAPERS = os.path.dirname(os.path.abspath(__file__))
 

@@ -13,17 +13,14 @@ sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-import math
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "project_c_causal_world" / "code"))
 
 import envs
-from envs import rollout_one_episode, Transition
-from active_inference import ActiveInferenceEngine, FreeEnergyComputer
+from active_inference import ActiveInferenceEngine
 
 
 def train_aie(env_name, n_episodes, seed, hidden=64, n_epochs=20, batch_size=32):

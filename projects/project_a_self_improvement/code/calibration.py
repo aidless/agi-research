@@ -47,7 +47,6 @@ def platt_fit(scores, labels, max_iter: int = 200, lr: float = 0.1) -> tuple[flo
     Uses a tiny torch-free Newton-style update. Returns (a, b).
     Initial guess: a=1, b=0 (identity).
     """
-    import math
     s = np.asarray(scores, dtype=np.float64)
     y = np.asarray(labels, dtype=np.float64)
     eps = 1e-6

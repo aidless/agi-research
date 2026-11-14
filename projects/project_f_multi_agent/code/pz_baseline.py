@@ -30,7 +30,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Dict, List
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -282,7 +281,7 @@ def main():
     print("=" * 60)
     print(f"  seed={args.seed}, n_episodes={args.n_episodes}, n_updates={args.n_updates}")
     print(f"  max_cycles={args.max_cycles}, N=3 agents, 3 landmarks")
-    print(f"  HONEST: short training (200 episodes), not converged PPO")
+    print("  HONEST: short training (200 episodes), not converged PPO")
     print()
 
     # Phase 1: Random baseline
@@ -318,7 +317,7 @@ def main():
     print(f"  - PPO is {'better' if delta > 0 else 'worse'} than random by {delta:.2f}")
     print(f"  - {'Short training; PPO may not be converged' if args.n_updates < 50 else 'Longer training'}")
     print(f"  - {'No DMC comparison yet' if True else ''}")
-    print(f"  - Real PettingZoo Simple Spread (not hand-coded env)")
+    print("  - Real PettingZoo Simple Spread (not hand-coded env)")
 
     # Save log
     log_path = HERE / "checkpoints" / "pz_baseline" / f"seed{args.seed}" / "phase2_log.json"

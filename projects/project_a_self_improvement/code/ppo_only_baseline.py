@@ -16,7 +16,6 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 from pathlib import Path
 import numpy as np
-import torch
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))

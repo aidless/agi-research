@@ -18,7 +18,6 @@ Usage:
     problems, gts, labels = load_gsm8k_local(n_samples=8, seed=42)
 """
 
-import os
 import re
 import random
 from pathlib import Path

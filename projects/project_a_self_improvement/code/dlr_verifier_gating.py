@@ -24,8 +24,6 @@ sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -43,10 +41,7 @@ from differentiable_logic import SoftLogic
 # Import DLR training functions
 sys.path.insert(0, str(PE_CODE / "code"))
 from dlr_attention import (
-    ObsToSlots, AttnSlotPredicateNet,
-    collect_dataset, train_jointly, evaluate_attn,
-    gt_landed, gt_upright, gt_leg_l_contact, gt_leg_r_contact,
-    gt_in_pad, gt_low_velocity, gt_safe_approach,
+    collect_dataset, train_jointly,
 )
 
 

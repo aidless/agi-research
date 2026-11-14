@@ -25,7 +25,6 @@ import envs
 from ppo import PPOAgent, PPOConfig
 from envs import rollout_one_episode
 from slot_attention import SlotAttention
-from calibration import platt_apply
 
 
 class SlotMonitor(nn.Module):

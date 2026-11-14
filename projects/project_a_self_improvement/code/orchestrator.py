@@ -28,7 +28,6 @@ sys.path.insert(0, str(PC_CODE))
 
 import envs
 from ppo import PPOAgent, PPOConfig
-from monitor import FailureMonitor, MonitorConfig, _quick_auroc
 from envs import rollout_one_episode
 from slot_attention import SlotAttention
 

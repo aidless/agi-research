@@ -32,9 +32,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent.parent / "project_a_self_improvement" / "code"))
 
-import envs
 from envs import make_env
-from differentiable_logic import SoftLogic
 from dlr_attention import ObsToSlots, AttnSlotPredicateNet
 
 
@@ -199,7 +197,7 @@ def main():
     )
 
     # 2. Train
-    print(f"\n[Phase 3] Train DLR (joint obs_proj + predicate nets)...")
+    print("\n[Phase 3] Train DLR (joint obs_proj + predicate nets)...")
     obs_proj, predicate_nets, losses = train_dlr_jointly(
         X_train, Y_train,
         n_epochs=args.n_epochs, lr=1e-3, batch_size=args.batch_size,
@@ -209,7 +207,7 @@ def main():
     print(f"  Final BCE losses: {final_losses}")
 
     # 3. Evaluate
-    print(f"\n[Phase 4] Evaluate on test set...")
+    print("\n[Phase 4] Evaluate on test set...")
     accuracies, briers = evaluate(obs_proj, predicate_nets, X_test, Y_test)
     print(f"  Accuracies: {accuracies}")
     print(f"  Brier scores: {briers}")
@@ -221,7 +219,7 @@ def main():
     print("=" * 60)
     print(f"  Mean accuracy: {np.mean(list(accuracies.values())):.3f}")
     print(f"  Mean Brier:    {np.mean(list(briers.values())):.3f}")
-    print(f"  Per-predicate accuracy:")
+    print("  Per-predicate accuracy:")
     for name, acc in accuracies.items():
         print(f"    {name}: {acc:.3f}")
 

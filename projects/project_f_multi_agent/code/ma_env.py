@@ -19,7 +19,6 @@ The env follows a similar interface to PettingZoo''s AEC API for
 compatibility (agents list, action_spaces, observation_spaces, step/reset).
 """
 import numpy as np
-from typing import Dict, List, Tuple, Optional
 
 
 class CoverageEnv:

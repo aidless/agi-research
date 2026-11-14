@@ -6,7 +6,7 @@ Usage:
     python _obsidian_add.py --title "..." --tags "..." --file path/to/content.md
     python _obsidian_add.py --title "..." --tags "..." --content "..." --folder Results
 """
-import argparse, os, sys
+import argparse
 from datetime import datetime
 from pathlib import Path
 

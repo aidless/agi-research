@@ -48,8 +48,7 @@ import envs
 from ppo import PPOAgent, PPOConfig
 from envs import rollout_one_episode, Transition
 from slot_attention import SlotAttention
-from language_interface import generate_status, generate_plan
-from ltl_verifier import verify_rule, graded_truth, DEFAULT_RULES
+from ltl_verifier import DEFAULT_RULES
 from calibration import compute_auroc
 
 
@@ -214,7 +213,7 @@ def main():
     print_fn("")
 
     # 3. SlotMonitor
-    print_fn(f"[C+D] Training SlotMonitor...")
+    print_fn("[C+D] Training SlotMonitor...")
     slot_attn = SlotAttention(n_slots=args.n_slots, slot_dim=args.slot_dim, n_iters=3, hidden_dim=64, input_dim=feat_dim)
     slot_monitor = SlotMonitor(slot_attn, args.n_slots, args.slot_dim)
     train_slot_monitor(slot_monitor, train_eps, n_epochs=20, lr=1e-3, batch_size=64)
@@ -243,7 +242,7 @@ def main():
         val_preds = slot_monitor(val_X).squeeze(-1).numpy()
     val_auroc = compute_auroc(val_Y, val_preds)
     print_fn(f"  val AUROC = {val_auroc:.3f}")
-    print_fn(f"  (v0.3: NO Platt scaling — raw threshold)")
+    print_fn("  (v0.3: NO Platt scaling — raw threshold)")
     print_fn("")
 
     # 4-6. Other layers (D, E) — language interface and verifier always available

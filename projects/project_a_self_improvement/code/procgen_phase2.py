@@ -18,7 +18,7 @@ sys.path.insert(0, str(HERE))
 import envs
 from encoders import ProcgenEncoder
 from ppo import PPOAgent, PPOConfig
-from monitor import FailureMonitor, MonitorConfig, train_monitor, _quick_auroc
+from monitor import MonitorConfig, train_monitor, _quick_auroc
 from envs import rollout_one_episode
 
 
@@ -117,7 +117,7 @@ def main():
     print(f"  collected {len(train_eps)} train episodes, "
           f"returns mean={np.mean(train_returns):.2f}")
 
-    print(f"\n[Stage 3] Training decoupled FailureMonitor...")
+    print("\n[Stage 3] Training decoupled FailureMonitor...")
     history_dim = args.history_len * (obs_dim + n_actions + 1)
     mcfg = MonitorConfig(history_dim=history_dim, seed=args.seed, epochs=args.monitor_epochs)
     monitor, mmetrics = train_monitor(mcfg, train_eps, history_len=args.history_len, verbose=True)

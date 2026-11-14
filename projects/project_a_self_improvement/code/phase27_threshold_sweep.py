@@ -6,7 +6,6 @@ thresholds to find the optimal gating point.
 import argparse
 import json
 import sys
-import io
 sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
@@ -27,7 +26,6 @@ import envs
 from ppo import PPOAgent, PPOConfig
 from envs import rollout_one_episode, Transition
 from slot_attention import SlotAttention
-from ltl_verifier import verify_rule, DEFAULT_RULES
 
 
 class SlotMonitor(nn.Module):
@@ -263,7 +261,7 @@ def main():
     out.append("=" * 70)
     out.append("THRESHOLD SWEEP SUMMARY")
     out.append("=" * 70)
-    out.append(f"  Ungated PPO baseline: 145.3")
+    out.append("  Ungated PPO baseline: 145.3")
     best = max(sweep_results, key=lambda r: r["mean"])
     out.append(f"  Best threshold: {best['threshold']:.1f} (mean={best['mean']:.1f}, delta={best['delta_vs_ungated']:+.1f})")
     # Also show the highest threshold (less interference)

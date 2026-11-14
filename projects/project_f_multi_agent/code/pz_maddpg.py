@@ -25,7 +25,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Dict, List, Tuple
 from collections import deque
 
 HERE = Path(__file__).resolve().parent
@@ -284,8 +283,8 @@ def main():
     print("MADDPG baseline on PettingZoo Simple Spread v3 (continuous)")
     print("=" * 60)
     print(f"  seed={args.seed}, n_episodes={args.n_episodes}, n_updates={args.n_updates}")
-    print(f"  Centralized critic, decentralized actors")
-    print(f"  continuous_actions=True (5-dim action space)")
+    print("  Centralized critic, decentralized actors")
+    print("  continuous_actions=True (5-dim action space)")
     print(f"  HONEST: short training ({args.n_episodes * args.n_updates} episodes)")
     print()
 
@@ -341,8 +340,8 @@ def main():
     print("MADDPG SUMMARY (4-way comparison)")
     print("=" * 60)
     print(f"  Random baseline:        {random_mean:7.2f} +/- {random_std:5.2f}")
-    print(f"  Per-agent PPO (eval):    -100.51    21.70  (discrete, prior run)")
-    print(f"  Shared PPO (eval):       -95.15    30.64  (discrete, prior run)")
+    print("  Per-agent PPO (eval):    -100.51    21.70  (discrete, prior run)")
+    print("  Shared PPO (eval):       -95.15    30.64  (discrete, prior run)")
     print(f"  MADDPG (eval):           {eval_mean:7.2f} +/- {eval_std:5.2f}  (continuous)")
     print(f"  MADDPG vs random:        {delta:+7.2f}")
     print()
@@ -353,7 +352,7 @@ def main():
     print(f"  Verdict: {verdict}")
     print()
     print("Honest interpretation:")
-    print(f"  - Continuous actions (vs PPO's discrete)")
+    print("  - Continuous actions (vs PPO's discrete)")
     print(f"  - {args.n_episodes * args.n_updates} episodes total (vs PPO's 600)")
     print(f"  - {'Off-policy + replay buffer' if True else ''}")
     print(f"  - {'Centralized critic (global state)' if True else ''}")

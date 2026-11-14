@@ -257,16 +257,16 @@ def main():
     # 6. Eval
     mean_err, std_err = evaluate_world_model(model, eval_eps, obs_dim=obs_dim, n_actions=n_actions)
     out.append(f"  Next-step slot prediction error: {mean_err:.6f} +/- {std_err:.6f}")
-    out.append(f"  (Lower = better world model)")
+    out.append("  (Lower = better world model)")
 
     out.append("")
     out.append("=== Phase 1.2 Result ===")
     if mean_err < 0.1:
-        out.append(f"  STRONG: world model predicts next-step slots well")
+        out.append("  STRONG: world model predicts next-step slots well")
     elif mean_err < 0.5:
-        out.append(f"  MODERATE: world model has signal but noisy")
+        out.append("  MODERATE: world model has signal but noisy")
     else:
-        out.append(f"  WEAK: world model struggles")
+        out.append("  WEAK: world model struggles")
 
     print(chr(10).join(out))
 

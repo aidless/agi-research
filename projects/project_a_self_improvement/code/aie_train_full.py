@@ -18,23 +18,18 @@ Output:
 """
 import argparse
 import json
-import os
 import sys
 sys.stdout.reconfigure(line_buffering=True)
 from pathlib import Path
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-import math
-from collections import deque
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-import envs
-from envs import make_env, rollout_one_episode, Transition
-from active_inference import ActiveInferenceEngine, FreeEnergyComputer
+from envs import make_env
+from active_inference import ActiveInferenceEngine
 
 
 def collect_episodes(env_name, aie, n_episodes, seed, max_steps=500):

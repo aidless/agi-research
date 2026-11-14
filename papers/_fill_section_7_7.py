@@ -20,7 +20,6 @@ Run from any cwd once aggregator has produced bootstrap JSON:
 
 import json
 import os
-import re
 import glob
 
 PAPERS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -356,7 +355,7 @@ def fill_in_paper(report):
             f.write(new_md)
         print(f"  WROTE {MD_PATH}")
     else:
-        print(f"  Already up to date (no changes needed)")
+        print("  Already up to date (no changes needed)")
 
 
 def main():

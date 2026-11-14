@@ -34,14 +34,13 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Dict, List, Tuple
 
 # Add GovBench to path (read-only, not modifying it)
 GB_PATH = Path(r"F:\test\2026-07-28-10-36-48")
 sys.path.insert(0, str(GB_PATH))
 
 # Import GovBench types
-from govbench.types import Agent, Decision, PolicyLabel, Tool, DecisionEvent
+from govbench.types import Agent, Decision, Tool
 
 # Import DLR pieces
 DLR_PATH = Path(r"E:\agi-research\projects\project_e_verification\code")
@@ -218,7 +217,7 @@ def main():
     print("Step 2: Train DLR over 5 seeds, 200 epochs each...")
     accuracies = train_dlr_verifier(n_epochs=200, n_seeds=5)
     mean_accs = {k: np.mean([a[k] for a in accuracies]) for k in accuracies[0].keys()}
-    print(f"  Mean accuracy across 5 seeds:")
+    print("  Mean accuracy across 5 seeds:")
     for k, v in mean_accs.items():
         print(f"    {k}: {v:.3f}")
     print()

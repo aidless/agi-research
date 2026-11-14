@@ -42,7 +42,7 @@ from ppo import PPOAgent, PPOConfig
 from envs import rollout_one_episode
 from slot_attention import SlotAttention
 from language_interface import generate_status, generate_plan
-from ltl_verifier import verify_rule, graded_truth, DEFAULT_RULES
+from ltl_verifier import graded_truth, DEFAULT_RULES
 
 
 class SlotMonitor(nn.Module):

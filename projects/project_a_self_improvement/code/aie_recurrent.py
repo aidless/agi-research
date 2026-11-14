@@ -17,14 +17,11 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import math
-from collections import deque
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-import envs
-from envs import make_env, Transition
+from envs import make_env
 
 
 class RecurrentAIE(nn.Module):

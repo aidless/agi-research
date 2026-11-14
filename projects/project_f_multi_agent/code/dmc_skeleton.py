@@ -26,9 +26,6 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from collections import defaultdict
-from typing import Dict, List
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -160,8 +157,8 @@ def main():
     print("=" * 60)
     print("DMC SKELETON — Phase 2 base")
     print("=" * 60)
-    print(f"Honest framing: this is a SKELETON, not a real training system.")
-    print(f"Policies and Monitors are RANDOM. Architecture only is tested.")
+    print("Honest framing: this is a SKELETON, not a real training system.")
+    print("Policies and Monitors are RANDOM. Architecture only is tested.")
     print()
 
     print("Phase 1: Random baseline (no coordination)...")
@@ -177,9 +174,9 @@ def main():
     print("=" * 60)
     print("DMC SKELETON SUMMARY")
     print("=" * 60)
-    print(f"  Architecture: 3 agents x (policy + monitor) + joint failure predictor")
-    print(f"  Result: DMC skeleton and random baseline are statistically")
-    print(f"  indistinguishable (both ~random, ~ -30 mean return)")
+    print("  Architecture: 3 agents x (policy + monitor) + joint failure predictor")
+    print("  Result: DMC skeleton and random baseline are statistically")
+    print("  indistinguishable (both ~random, ~ -30 mean return)")
     print()
     print("Honest interpretation:")
     print("- Architecture runs end-to-end without errors")

@@ -4,7 +4,7 @@
 Trend #1 (long-horizon autonomy) + #3 (agentic learning).
 Implement the write-side of session management.
 """
-import subprocess, sys
+import subprocess
 from pathlib import Path
 from datetime import datetime
 

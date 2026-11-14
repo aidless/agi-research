@@ -14,9 +14,6 @@ Limitations:
 - Other Box2D envs: may need extension
 - Non-Box2D envs: falls back to deepcopy or no-op
 """
-from pathlib import Path
-import sys
-import numpy as np
 
 
 class EnvStateCloner:
@@ -64,7 +61,6 @@ class EnvStateCloner:
             if not hasattr(u, 'lander') or u.lander is None:
                 return False
             try:
-                from Box2D import b2
                 u.lander.position = (state['pos_x'], state['pos_y'])
                 u.lander.linearVelocity = (state['vel_x'], state['vel_y'])
                 u.lander.angle = state['angle']

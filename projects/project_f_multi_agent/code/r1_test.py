@@ -30,21 +30,17 @@ Full R1 test: 3 arms x 20 seeds x 200 PPO updates per arm, MAX_PARALLEL=6.
 """
 import argparse
 import json
-import os
 import sys
-import time
 from pathlib import Path
 
 import numpy as np
-import torch
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 # Reuse the v8 architecture components
 from pz_maddpg_v8 import (
-    extract_dlr_preds, train_maddpg_v8, run_random_baseline,
-    OBS_DIM, ACTION_DIM, DLR_PRED_DIM,
+    train_maddpg_v8, run_random_baseline,
 )
 
 
@@ -96,7 +92,7 @@ def train_with_periodic_reset(args):
                 )
             except TypeError as e:
                 # Fallback: pz_maddpg_v8 does not support init_actors yet
-                print(f"  R1 (warning) init_actors not supported, using fresh init")
+                print("  R1 (warning) init_actors not supported, using fresh init")
                 actors, trust_heads, history = train_maddpg_v8(
                     seed=args.seed + reset_point + 1,
                     n_updates=args.n_updates - reset_point,

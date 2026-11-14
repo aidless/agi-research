@@ -20,7 +20,6 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent.parent / "project_c_causal_world" / "code"))
 
-import envs
 from envs import make_env, Transition
 from ppo import PPOConfig, PPOAgent
 from slot_attention import SlotAttention
@@ -226,7 +225,7 @@ def main():
         obs_dim, n_actions,
     )
 
-    print(f"\n[Phase 3] Train FROZEN Monitor (slot-attention)...")
+    print("\n[Phase 3] Train FROZEN Monitor (slot-attention)...")
     frozen_auroc, frozen_monitor = train_frozen_monitor_from_episodes(
         frozen_episodes, history_len=20,
         obs_dim=obs_dim, n_actions=n_actions,
@@ -235,13 +234,13 @@ def main():
     print(f"  Frozen Monitor val AUROC: {frozen_auroc:.3f}")
 
     # 3. Collect joint rollouts (same PPO policy, different seed for variety)
-    print(f"\n[Phase 4] Collect JOINT Monitor rollouts (different seed)...")
+    print("\n[Phase 4] Collect JOINT Monitor rollouts (different seed)...")
     joint_episodes = collect_rollouts_with_labels(
         agent, args.env, args.n_train_episodes, args.seed + 50000,
         obs_dim, n_actions,
     )
 
-    print(f"\n[Phase 5] Train JOINT Monitor (same arch, sequential training)...")
+    print("\n[Phase 5] Train JOINT Monitor (same arch, sequential training)...")
     joint_auroc, joint_monitor = train_frozen_monitor_from_episodes(
         joint_episodes, history_len=20,
         obs_dim=obs_dim, n_actions=n_actions,

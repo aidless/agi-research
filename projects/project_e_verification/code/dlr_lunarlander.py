@@ -17,7 +17,6 @@ from pathlib import Path
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -26,9 +25,8 @@ sys.path.insert(0, str(PA_CODE))
 sys.path.insert(0, str(HERE.parent / "project_c_causal_world" / "code"))
 
 import envs
-from envs import rollout_one_episode
 from differentiable_logic import (
-    SoftLogic, Predicate, FormulaBuilder, DifferentiableReasoner
+    Predicate, FormulaBuilder, DifferentiableReasoner
 )
 
 
